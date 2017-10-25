@@ -1,0 +1,10 @@
+.DS_Store
+*.DS_Store
+*.csproj.user
+*.pubxml
+*.pubxml.user
+*.publish.xml
+[Bb]in/
+[Oo]bj/
+.idea/
+.vs/

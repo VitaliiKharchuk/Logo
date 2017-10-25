@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Logo.Web.UI\**" />
+    <Content Remove="Logo.Web.UI\**" />
+    <EmbeddedResource Remove="Logo.Web.UI\**" />
+    <None Remove="Logo.Web.UI\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logo.Contracts\Logo.Contracts.csproj" />
+    <ProjectReference Include="..\Logo.Implementation\Logo.Implementation.csproj" />
+  </ItemGroup>
+</Project>
