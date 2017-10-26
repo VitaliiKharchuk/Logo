@@ -21,6 +21,11 @@ namespace Logo.DatabaseModels
                 .WithMany(e => e.Files)
                 .Map(m => m.ToTable("FilesToTags").MapLeftKey("FileID").MapRightKey("TagID"));
 
+            modelBuilder.Entity<File>()
+                .HasMany(e => e.Users)
+                .WithMany(e => e.Files1)
+                .Map(m => m.ToTable("FilesToUsers").MapLeftKey("FileID").MapRightKey("UserID"));
+
             modelBuilder.Entity<Folder>()
                 .HasMany(e => e.Files)
                 .WithOptional(e => e.Folder)
@@ -33,13 +38,20 @@ namespace Logo.DatabaseModels
 
             modelBuilder.Entity<Folder>()
                 .HasMany(e => e.Users)
-                .WithMany(e => e.Folders)
-                .Map(m => m.ToTable("FilesToUsers").MapLeftKey("FileID").MapRightKey("UserID"));
-
-            modelBuilder.Entity<Folder>()
-                .HasMany(e => e.Users1)
                 .WithMany(e => e.Folders1)
                 .Map(m => m.ToTable("FoldersToUsers").MapLeftKey("FolderID").MapRightKey("UserID"));
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Files)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.OwnerID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Folders)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.OwnerID)
+                .WillCascadeOnDelete(false);
         }
     }
 }

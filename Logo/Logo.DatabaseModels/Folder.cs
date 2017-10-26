@@ -12,12 +12,13 @@ namespace Logo.DatabaseModels
             Files = new HashSet<File>();
             Folders1 = new HashSet<Folder>();
             Users = new HashSet<User>();
-            Users1 = new HashSet<User>();
         }
 
         public Guid FolderID { get; set; }
 
         public Guid? ParentFolderID { get; set; }
+
+        public Guid OwnerID { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -34,6 +35,8 @@ namespace Logo.DatabaseModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
 
+        public virtual User User { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Folder> Folders1 { get; set; }
 
@@ -41,8 +44,5 @@ namespace Logo.DatabaseModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users1 { get; set; }
     }
 }

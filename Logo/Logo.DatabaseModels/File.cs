@@ -10,11 +10,14 @@ namespace Logo.DatabaseModels
         public File()
         {
             Tags = new HashSet<Tag>();
+            Users = new HashSet<User>();
         }
 
         public Guid FileID { get; set; }
 
         public Guid? ParentFolderID { get; set; }
+
+        public Guid OwnerID { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -31,9 +34,14 @@ namespace Logo.DatabaseModels
 
         public bool HasPublicAccess { get; set; }
 
+        public virtual User User { get; set; }
+
         public virtual Folder Folder { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
