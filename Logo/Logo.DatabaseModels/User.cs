@@ -10,6 +10,7 @@ namespace Logo.DatabaseModels
         public User()
         {
             Folders = new HashSet<Folder>();
+            Folders1 = new HashSet<Folder>();
         }
 
         public Guid UserID { get; set; }
@@ -28,5 +29,8 @@ namespace Logo.DatabaseModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Folder> Folders { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Folder> Folders1 { get; set; }
     }
 }

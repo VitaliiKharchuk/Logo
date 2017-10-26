@@ -27,7 +27,9 @@ namespace Logo.DatabaseModels
         public int? Size { get; set; }
 
         [StringLength(100)]
-        public string Url { get; set; }
+        public string UrlToBlob { get; set; }
+
+        public bool HasPublicAccess { get; set; }
 
         public virtual Folder Folder { get; set; }
 

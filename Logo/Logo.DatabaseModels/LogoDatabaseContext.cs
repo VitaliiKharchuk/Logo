@@ -34,6 +34,11 @@ namespace Logo.DatabaseModels
             modelBuilder.Entity<Folder>()
                 .HasMany(e => e.Users)
                 .WithMany(e => e.Folders)
+                .Map(m => m.ToTable("FilesToUsers").MapLeftKey("FileID").MapRightKey("UserID"));
+
+            modelBuilder.Entity<Folder>()
+                .HasMany(e => e.Users1)
+                .WithMany(e => e.Folders1)
                 .Map(m => m.ToTable("FoldersToUsers").MapLeftKey("FolderID").MapRightKey("UserID"));
         }
     }

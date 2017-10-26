@@ -6,5 +6,6 @@
 	[CreationDate] datetime,
 	[UploadDate] datetime,
 	[Size] int,
-	[Url] nvarchar(100)
+	[UrlToBlob] nvarchar(100),
+	[HasPublicAccess] bit DEFAULT 0 NOT NULL
 )
