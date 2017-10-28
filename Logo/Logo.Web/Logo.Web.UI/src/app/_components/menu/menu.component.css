@@ -1,0 +1,28 @@
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+}
+
+.img-color-circle {
+    background-color:#ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.img-circle{
+    padding: 5px;
+}
+
+.text-name{
+    padding: 15px;
+}
+
+.img-border{
+    padding: 5px;
+    padding-right: 25px;
+}
