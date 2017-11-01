@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-fixed-top navcustom">
   <div>
     <div class="navbar-header">
       <span class="navbar-brand">LOGO</span>
@@ -17,13 +17,22 @@
     </form>
     <ul class="nav navbar-nav navbar-right">
 
-        <li class="text-name">{{currentUser.firstName}}</li>
-        <li>
-          <div class="img-border">
-            <div class="img-color-circle"><img src="assets\img\user.svg" class="img-circle" width="40" height="40"></div>
-          </div>
+      <li class="text-name">{{currentUser.firstName}}</li>
+      <li>
+        <div class="img-border">
+          <div class="img-color-circle"><img src="assets\img\user.svg" class="img-circle" width="40" height="40"></div>
+        </div>
+      </li>
+      <li>
 
-        </li>
+        <div class="logout">
+          
+            <a [routerLink]="['/login']" class="link">
+                  <span class="glyphicon glyphicon-log-out"></span>
+                </a>
+          
+        </div>
+      </li>
 
     </ul>
 

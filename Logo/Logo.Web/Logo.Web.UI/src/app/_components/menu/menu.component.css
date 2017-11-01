@@ -24,5 +24,15 @@
 
 .img-border{
     padding: 5px;
+}
+.logout{
+    padding: 15px;
     padding-right: 25px;
 }
+.navcustom{
+    background-color: white;
+}
+
+.link{
+    color: rgba(85, 85, 85, 0.85);
+ }

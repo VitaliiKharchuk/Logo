@@ -79,10 +79,28 @@ BodyComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../src/app/_components/home/home.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".button {\r\n    background-color: transparent !important;/* Green */\r\n    width: 150px;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 2px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n.button:focus {\r\n    outline:0;\r\n}\r\n.button:hover {\r\n    background-color: #30D4CC !important;\r\n    color: white;\r\n    border: 2px solid #30D4CC;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
 /***/ "../../../../../src/app/_components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-menu>\n</app-menu>\n<div class=\"jumbotron\">\n  <div class=\"container\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <div class=\"col-md-6 col-md-offset-3\">\n        <h1>Hi {{currentUser.firstName}}!</h1>\n        <p>You're logged in with Angular 2!!</p>\n        <h3>All registered users:</h3>\n        <ul>\n          <li *ngFor=\"let user of users\">\n            {{user.username}} ({{user.firstName}} {{user.lastName}}) - <a (click)=\"deleteUser(user.id)\">Delete</a>\n          </li>\n        </ul>\n        <p><a [routerLink]=\"['/login']\">Logout</a></p>\n      </div>\n    </div>\n  </div>\n</div>\n<app-body></app-body>"
+module.exports = "<app-menu>\n</app-menu>\n<div class=\"jumbotron\">\n  <div class=\"container\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <div class=\"col-md-6 col-md-offset-3\">\n        \n        <h3>All registered users:</h3>\n        <ul>\n          <li *ngFor=\"let user of users\">\n            {{user.username}} ({{user.firstName}} {{user.lastName}}) - <a (click)=\"deleteUser(user.id)\">Delete</a>\n          </li>\n        </ul>\n        <button class=\"button\">Создать папку</button>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -125,7 +143,9 @@ var HomeComponent = (function () {
 }());
 HomeComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        template: __webpack_require__("../../../../../src/app/_components/home/home.component.html")
+        selector: 'app-home',
+        template: __webpack_require__("../../../../../src/app/_components/home/home.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/_components/home/home.component.css")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* UserService */]) === "function" && _a || Object])
 ], HomeComponent);
@@ -157,10 +177,28 @@ var _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/_components/login/login.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n}\r\n\r\np.logo{\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3em;\r\n     color: rgba(56, 56, 56, 0.8);\r\n } \r\n\r\n p.welcome{\r\n    text-align: center;\r\n    font-size: 1.2em;\r\n    color: rgba(56, 56, 56, 0.8);\r\n }\r\n\r\n .title{\r\n    width: 400px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n p.login{\r\n    text-align: center;\r\n    font-weight: bold;\r\n    font-size: 1.8em;\r\n }\r\n p.register{\r\n    text-align: center;\r\n    font-size: 1em;\r\n }\r\n .textchoose{\r\n    padding-bottom: 40px;\r\n }\r\n .link{\r\n    text-decoration: none;\r\n    color: rgb(176, 40, 108);\r\n    font-size: 1em;\r\n }\r\n .whiteblock{\r\n    background-color: #FFFFFF;\r\n    width: 400px; /* Ширина блока */\r\n    padding-bottom: 50px; /* Поля */\r\n    padding-right: 50px;\r\n    padding-left: 50px;\r\n    padding-top: 40px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 2px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9\r\n }\r\n\r\n .form-control{\r\n     height: 40px !important;\r\n     border: 1px solid rgba(56, 56, 56, 0.8) !important;\r\n     border-radius: 2px !important; \r\n }\r\n .button {\r\n    background-color: #30D4CC !important;/* Green */\r\n    width: 300px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 1px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n\r\n.button:focus {\r\n    outline:0;\r\n}\r\n\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    border: 1px solid rgba(56, 56, 56, 0.8);\r\n}\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n.form-group{\r\n    margin: 0px;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
 /***/ "../../../../../src/app/_components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\r\n    <div class=\"container\">\r\n        <div class=\"col-sm-8 col-sm-offset-2\">\r\n            <div class=\"col-md-6 col-md-offset-3\">\r\n                <h2>Login</h2>\r\n                <form name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"username\">Username</label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"username\" [(ngModel)]=\"model.username\" #username=\"ngModel\" required />\r\n                        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">Username is required</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                        <label for=\"password\">Password</label>\r\n                        <input type=\"password\" class=\"form-control\" name=\"password\" [(ngModel)]=\"model.password\" #password=\"ngModel\" required />\r\n                        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"loading\" class=\"btn btn-primary\">Login</button>\r\n                        <img *ngIf=\"loading\" src=\"data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==\"\r\n                        />\r\n                        <a [routerLink]=\"['/register']\" class=\"btn btn-link\">Register</a>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>"
+module.exports = "<div class=\"container fill vertical-align\">\r\n    <div class=\"col-sm-8 col-sm-offset-2 \">\r\n        <div class=\"col-md-6 col-md-offset-3 \">\r\n            <div class=\"title\">\r\n                <p class=\"logo\">logo</p>\r\n                <p class=\"welcome\">Добро пожаловать!</p>\r\n            </div>\r\n            <div class=\"whiteblock\">\r\n                <div class=\"textchoose\"><p class=\"login\">Войдите в аккаунт</p>\r\n                \r\n                    <p class=\"register\">или <a [routerLink]=\"['/register']\" class=\"link\">Cоздайте аккаунт</a></p>\r\n                </div>\r\n                <form name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"username\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"E-mail\" [(ngModel)]=\"model.username\" #username=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">E-mail необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                        <label for=\"password\"></label>\r\n                        <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"loading\" class=\"button\">Войти</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -214,7 +252,9 @@ var LoginComponent = (function () {
 }());
 LoginComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        template: __webpack_require__("../../../../../src/app/_components/login/login.component.html")
+        selector: 'app-login',
+        template: __webpack_require__("../../../../../src/app/_components/login/login.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/_components/login/login.component.css")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthentificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthentificationService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]) === "function" && _d || Object])
 ], LoginComponent);
@@ -232,7 +272,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".navbar-brand\r\n{\r\n    position: absolute;\r\n    width: 100%;\r\n    left: 0;\r\n    text-align: center;\r\n    margin:0 auto;\r\n}\r\n\r\n.img-color-circle {\r\n    background-color:#ccc;\r\n    border-radius: 50%;\r\n    width: 40px;\r\n    height: 40px;\r\n}\r\n\r\n.img-circle{\r\n    padding: 5px;\r\n}\r\n\r\n.text-name{\r\n    padding: 15px;\r\n}\r\n\r\n.img-border{\r\n    padding: 5px;\r\n    padding-right: 25px;\r\n}", ""]);
+exports.push([module.i, ".navbar-brand\r\n{\r\n    position: absolute;\r\n    width: 100%;\r\n    left: 0;\r\n    text-align: center;\r\n    margin:0 auto;\r\n}\r\n\r\n.img-color-circle {\r\n    background-color:#ccc;\r\n    border-radius: 50%;\r\n    width: 40px;\r\n    height: 40px;\r\n}\r\n\r\n.img-circle{\r\n    padding: 5px;\r\n}\r\n\r\n.text-name{\r\n    padding: 15px;\r\n}\r\n\r\n.img-border{\r\n    padding: 5px;\r\n}\r\n.logout{\r\n    padding: 15px;\r\n    padding-right: 25px;\r\n}\r\n.navcustom{\r\n    background-color: white;\r\n}\r\n\r\n.link{\r\n    color: rgba(85, 85, 85, 0.85);\r\n }", ""]);
 
 // exports
 
@@ -245,7 +285,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/menu/menu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top\">\r\n  <div>\r\n    <div class=\"navbar-header\">\r\n      <span class=\"navbar-brand\">LOGO</span>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n    </ul>\r\n    <form class=\"navbar-form navbar-left\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">\r\n            <i class=\"glyphicon glyphicon-search\"></i>\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n        <li class=\"text-name\">{{currentUser.firstName}}</li>\r\n        <li>\r\n          <div class=\"img-border\">\r\n            <div class=\"img-color-circle\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\" width=\"40\" height=\"40\"></div>\r\n          </div>\r\n\r\n        </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navcustom\">\r\n  <div>\r\n    <div class=\"navbar-header\">\r\n      <span class=\"navbar-brand\">LOGO</span>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n    </ul>\r\n    <form class=\"navbar-form navbar-left\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">\r\n            <i class=\"glyphicon glyphicon-search\"></i>\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n      <li class=\"text-name\">{{currentUser.firstName}}</li>\r\n      <li>\r\n        <div class=\"img-border\">\r\n          <div class=\"img-color-circle\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\" width=\"40\" height=\"40\"></div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n\r\n        <div class=\"logout\">\r\n          \r\n            <a [routerLink]=\"['/login']\" class=\"link\">\r\n                  <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                </a>\r\n          \r\n        </div>\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n</nav>"
 
 /***/ }),
 
@@ -302,10 +342,28 @@ var _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/_components/register/register.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n}\r\n\r\np.logo{\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3em;\r\n     color: rgba(56, 56, 56, 0.8);\r\n } \r\n\r\n p.welcome{\r\n    text-align: center;\r\n    font-size: 1.2em;\r\n    color: rgba(56, 56, 56, 0.8);\r\n }\r\n\r\n .title{\r\n    width: 400px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n p.login{\r\n    text-align: center;\r\n    font-weight: bold;\r\n    font-size: 1.8em;\r\n }\r\n p.register{\r\n    text-align: center;\r\n    font-size: 1em;\r\n }\r\n .textchoose{\r\n    padding-bottom: 40px;\r\n }\r\n .link{\r\n    text-decoration: none;\r\n    color: rgb(176, 40, 108);\r\n    font-size: 1em;\r\n }\r\n .whiteblock{\r\n    background-color: #FFFFFF;\r\n    width: 400px; /* Ширина блока */\r\n    padding-bottom: 50px; /* Поля */\r\n    padding-right: 50px;\r\n    padding-left: 50px;\r\n    padding-top: 40px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 2px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9\r\n }\r\n\r\n .form-control{\r\n     height: 40px !important;\r\n     border: 1px solid rgba(56, 56, 56, 0.8) !important;\r\n     border-radius: 2px !important; \r\n }\r\n .button {\r\n    background-color: #30D4CC !important;/* Green */\r\n    width: 300px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 1px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n.button:focus {\r\n    outline:0;\r\n}\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    border: 1px solid rgba(56, 56, 56, 0.8);\r\n}\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n.form-group{\r\n    margin: 0px;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
 /***/ "../../../../../src/app/_components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-md-6 col-md-offset-3\">\r\n  <h2>Register</h2>\r\n  <form name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\r\n      <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n          <label for=\"firstName\">First Name</label>\r\n          <input type=\"text\" class=\"form-control\" name=\"firstName\" [(ngModel)]=\"model.firstName\" #firstName=\"ngModel\" required />\r\n          <div *ngIf=\"f.submitted && !firstName.valid\" class=\"help-block\">First Name is required</div>\r\n      </div>\r\n      <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n          <label for=\"lastName\">Last Name</label>\r\n          <input type=\"text\" class=\"form-control\" name=\"lastName\" [(ngModel)]=\"model.lastName\" #lastName=\"ngModel\" required />\r\n          <div *ngIf=\"f.submitted && !lastName.valid\" class=\"help-block\">Last Name is required</div>\r\n      </div>\r\n      <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n          <label for=\"username\">Username</label>\r\n          <input type=\"text\" class=\"form-control\" name=\"username\" [(ngModel)]=\"model.username\" #username=\"ngModel\" required />\r\n          <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">Username is required</div>\r\n      </div>\r\n      <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n          <label for=\"password\">Password</label>\r\n          <input type=\"password\" class=\"form-control\" name=\"password\" [(ngModel)]=\"model.password\" #password=\"ngModel\" required />\r\n          <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\r\n      </div>\r\n      <div class=\"form-group\">\r\n          <button [disabled]=\"loading\" class=\"btn btn-primary\">Register</button>\r\n          <img *ngIf=\"loading\" src=\"data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==\" />\r\n          <a [routerLink]=\"['/login']\" class=\"btn btn-link\">Cancel</a>\r\n      </div>\r\n  </form>\r\n</div>"
+module.exports = "<div class=\"container fill vertical-align\">\r\n\r\n    <div class=\"col-sm-8 col-sm-offset-2 \">\r\n        <div class=\"col-md-6 col-md-offset-3 \">\r\n            <div class=\"title\">\r\n                <p class=\"logo\">logo</p>\r\n                <p class=\"welcome\">Добро пожаловать!</p>\r\n            </div>\r\n            <div class=\"whiteblock\">\r\n                <p class=\"login\">Зарегистрируйтесь</p>\r\n                <div>\r\n                    <p class=\"register\">или <a [routerLink]=\"['/login']\" class=\"link\">Войдите в свой аккаунт</a></p>\r\n                </div>\r\n                <form name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"firstName\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"firstName\" placeholder=\"Имя пользователя\" [(ngModel)]=\"model.firstName\" #firstName=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !firstName.valid\" class=\"help-block\">Имя пользователя необходимо</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"lastName\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"lastName\" [(ngModel)]=\"model.lastName\" #lastName=\"ngModel\" required />\r\n                        <div *ngIf=\"f.submitted && !lastName.valid\" class=\"help-block\">Last Name is required</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"username\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"E-mail\" [(ngModel)]=\"model.username\" #username=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">E-mail необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                        <label for=\"password\"></label>\r\n                        <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"loading\" class=\"button\">Зарегистрироваться</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>"
 
 /***/ }),
 
@@ -363,7 +421,9 @@ var RegisterComponent = (function () {
 }());
 RegisterComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        template: __webpack_require__("../../../../../src/app/_components/register/register.component.html")
+        selector: 'app-register',
+        template: __webpack_require__("../../../../../src/app/_components/register/register.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/_components/register/register.component.css")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_index__["c" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_index__["c" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthentificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthentificationService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]) === "function" && _e || Object])
 ], RegisterComponent);
@@ -853,7 +913,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".body-style{\r\n    background-color: #E0DFDF;\r\n    position: absolute;\r\n    bottom: 0; \r\n    top: 50px; \r\n    right: 0; \r\n    left: 0;\r\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -866,7 +926,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n          <app-alert></app-alert>\r\n          <router-outlet></router-outlet>\r\n\r\n<!-- <body class=\"body-style\"></body> -->\r\n<!-- <h1><span style=\"color:#285783\">{{title}}</span></h1>\r\n\r\n<hr />\r\n<table class='table' style=\"background-color:#FFFFFF; border:2px #6D7B8D; padding:5px;width:99%;table-layout:fixed;\" cellpadding=\"2\"\r\n  cellspacing=\"2\" *ngIf=\"apiValues\">\r\n  <tr>\r\n    <td width=\"180\" align=\"center\"><strong>Names</strong></td>\r\n  </tr>\r\n  <tbody *ngFor=\"let value of apiValues\">\r\n    <tr>\r\n      <td align=\"center\" style=\"border: solid 1px #659EC7; padding: 5px;table-layout:fixed;\">\r\n        <span style=\"color:#9F000F\">{{value}}</span>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n</table> -->"
+module.exports = "<app-alert></app-alert>\r\n          <router-outlet></router-outlet>\r\n          \r\n\r\n<!-- <body class=\"body-style\"></body> -->\r\n<!-- <h1><span style=\"color:#285783\">{{title}}</span></h1>\r\n\r\n<hr />\r\n<table class='table' style=\"background-color:#FFFFFF; border:2px #6D7B8D; padding:5px;width:99%;table-layout:fixed;\" cellpadding=\"2\"\r\n  cellspacing=\"2\" *ngIf=\"apiValues\">\r\n  <tr>\r\n    <td width=\"180\" align=\"center\"><strong>Names</strong></td>\r\n  </tr>\r\n  <tbody *ngFor=\"let value of apiValues\">\r\n    <tr>\r\n      <td align=\"center\" style=\"border: solid 1px #659EC7; padding: 5px;table-layout:fixed;\">\r\n        <span style=\"color:#9F000F\">{{value}}</span>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n</table> -->"
 
 /***/ }),
 

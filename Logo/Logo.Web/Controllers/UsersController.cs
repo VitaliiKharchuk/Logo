@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Logo.Web.Controllers
             _usersService = usersService;
         }
 
-        [HttpPost("/jwt-token")]
+        [HttpPost]
         public string GetAuthorizationToken([FromBody]string email, [FromBody]string password)
         {
             var user = _usersService.GetUser(email, password);
@@ -42,6 +43,12 @@ namespace Logo.Web.Controllers
             });
 
             return handler.WriteToken(securityToken);
+        }
+
+        [HttpGet("test")]
+        public string Test()
+        {
+            return _usersService.GetUser("anntytova@gmail.com", "qwerty").Name;
         }
     }
 }
