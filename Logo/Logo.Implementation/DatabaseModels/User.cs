@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class Users
+    public class User
     {
-        public Users()
+        public User()
         {
-            Files = new HashSet<Files>();
+            Files = new HashSet<File>();
             FilesToUsers = new HashSet<FilesToUsers>();
-            Folders = new HashSet<Folders>();
+            Folders = new HashSet<Folder>();
             FoldersToUsers = new HashSet<FoldersToUsers>();
         }
 
@@ -18,9 +18,9 @@ namespace Logo.Implementation.DatabaseModels
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Files> Files { get; set; }
+        public ICollection<File> Files { get; set; }
         public ICollection<FilesToUsers> FilesToUsers { get; set; }
-        public ICollection<Folders> Folders { get; set; }
+        public ICollection<Folder> Folders { get; set; }
         public ICollection<FoldersToUsers> FoldersToUsers { get; set; }
     }
 }

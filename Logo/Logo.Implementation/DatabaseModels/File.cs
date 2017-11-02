@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class Files
+    public class File
     {
-        public Files()
+        public File()
         {
             FilesToTags = new HashSet<FilesToTags>();
             FilesToUsers = new HashSet<FilesToUsers>();
@@ -21,8 +21,8 @@ namespace Logo.Implementation.DatabaseModels
         public int Type { get; set; }
         public bool? HasPublicAccess { get; set; }
 
-        public Users Owner { get; set; }
-        public Folders ParentFolder { get; set; }
+        public User Owner { get; set; }
+        public Folder ParentFolder { get; set; }
         public ICollection<FilesToTags> FilesToTags { get; set; }
         public ICollection<FilesToUsers> FilesToUsers { get; set; }
     }

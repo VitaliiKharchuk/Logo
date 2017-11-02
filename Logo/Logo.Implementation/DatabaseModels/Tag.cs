@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class Tags
+    public class Tag
     {
-        public Tags()
+        public Tag()
         {
             FilesToTags = new HashSet<FilesToTags>();
         }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class Folders
+    public class Folder
     {
-        public Folders()
+        public Folder()
         {
-            Files = new HashSet<Files>();
+            Files = new HashSet<File>();
             FoldersToUsers = new HashSet<FoldersToUsers>();
-            InverseParentFolder = new HashSet<Folders>();
+            ChildFolders = new HashSet<Folder>();
         }
 
         public Guid FolderId { get; set; }
@@ -21,10 +21,10 @@ namespace Logo.Implementation.DatabaseModels
         public int Level { get; set; }
         public bool? HasPublicAccess { get; set; }
 
-        public Users Owner { get; set; }
-        public Folders ParentFolder { get; set; }
-        public ICollection<Files> Files { get; set; }
+        public User Owner { get; set; }
+        public Folder ParentFolder { get; set; }
+        public ICollection<File> Files { get; set; }
         public ICollection<FoldersToUsers> FoldersToUsers { get; set; }
-        public ICollection<Folders> InverseParentFolder { get; set; }
+        public ICollection<Folder> ChildFolders { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Logo.Contracts.Services;
@@ -43,12 +41,6 @@ namespace Logo.Web.Controllers
             });
 
             return handler.WriteToken(securityToken);
-        }
-
-        [HttpGet("test")]
-        public string Test()
-        {
-            return _usersService.GetUser("anntytova@gmail.com", "qwerty").Name;
         }
     }
 }

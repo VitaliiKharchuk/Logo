@@ -1,26 +1,44 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class LogoDbContext : DbContext
+    public class LogoDbContext : DbContext
     {
-        public virtual DbSet<Files> Files { get; set; }
+        private readonly string _connectionString;
+
+        public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FilesToTags> FilesToTags { get; set; }
         public virtual DbSet<FilesToUsers> FilesToUsers { get; set; }
-        public virtual DbSet<Folders> Folders { get; set; }
+        public virtual DbSet<Folder> Folders { get; set; }
         public virtual DbSet<FoldersToUsers> FoldersToUsers { get; set; }
-        public virtual DbSet<Tags> Tags { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+
+        public LogoDbContext()
+        {
+        }
+
+        public LogoDbContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public LogoDbContext(DbContextOptions<LogoDbContext> options)
+            : base(options)
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (_connectionString != null)
+            {
+                optionsBuilder.UseSqlServer(_connectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Files>(entity =>
+            modelBuilder.Entity<File>(entity =>
             {
                 entity.HasKey(e => e.FileId);
 
@@ -96,7 +114,7 @@ namespace Logo.Implementation.DatabaseModels
                     .HasConstraintName("FK__FilesToUs__UserI__5EBF139D");
             });
 
-            modelBuilder.Entity<Folders>(entity =>
+            modelBuilder.Entity<Folder>(entity =>
             {
                 entity.HasKey(e => e.FolderId);
 
@@ -125,7 +143,7 @@ namespace Logo.Implementation.DatabaseModels
                     .HasConstraintName("FK__Folders__OwnerID__60A75C0F");
 
                 entity.HasOne(d => d.ParentFolder)
-                    .WithMany(p => p.InverseParentFolder)
+                    .WithMany(p => p.ChildFolders)
                     .HasForeignKey(d => d.ParentFolderId)
                     .HasConstraintName("FK__Folders__ParentF__5FB337D6");
             });
@@ -151,7 +169,7 @@ namespace Logo.Implementation.DatabaseModels
                     .HasConstraintName("FK__FoldersTo__UserI__628FA481");
             });
 
-            modelBuilder.Entity<Tags>(entity =>
+            modelBuilder.Entity<Tag>(entity =>
             {
                 entity.HasKey(e => e.TagId);
 
@@ -162,7 +180,7 @@ namespace Logo.Implementation.DatabaseModels
                 entity.Property(e => e.Name).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<Users>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserId);
 

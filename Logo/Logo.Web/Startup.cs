@@ -2,9 +2,15 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
+using System.Text;
 using Logo.Contracts.Services;
 using Logo.Implementation;
+using Logo.Implementation.DatabaseModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Logo.Web
 {
@@ -12,27 +18,30 @@ namespace Logo.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            ////services.AddAuthorization(auth =>
-            ////{
-            ////    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            ////        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            ////        .RequireAuthenticatedUser().Build());
-            ////});
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
 
-            ////services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            ////    .AddJwtBearer(options =>
-            ////    {
-            ////        options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("9%&NvuFeT#.bc~+[#CX6C5U3+(3$H"));
-            ////        options.TokenValidationParameters.ValidAudience = "http://logo-service.azurewebsites.net/";
-            ////        options.TokenValidationParameters.ValidIssuer = "Logo";
-            ////        options.TokenValidationParameters.ValidateIssuerSigningKey = true;
-            ////    });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("9%&NvuFeT#.bc~+[#CX6C5U3+(3$H"));
+                    options.TokenValidationParameters.ValidAudience = "http://logo-service.azurewebsites.net/";
+                    options.TokenValidationParameters.ValidIssuer = "Logo";
+                    options.TokenValidationParameters.ValidateIssuerSigningKey = true;
+                });
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
+            // TODO: use Configuration.GetConnectionString("DefaultConnection")
+            var connectionString = "";
+            services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString)); 
             services.AddTransient<IUsersService, UsersService>();
         }
 
@@ -58,7 +67,7 @@ namespace Logo.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            ////app.UseAuthentication();
+            app.UseAuthentication();
         }
     }
 }
