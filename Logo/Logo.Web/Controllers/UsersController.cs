@@ -4,6 +4,7 @@ using System.Text;
 using Logo.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace Logo.Web.Controllers
 {
@@ -41,6 +42,17 @@ namespace Logo.Web.Controllers
             });
 
             return handler.WriteToken(securityToken);
+        }
+
+
+        [HttpPost]
+        public void AddUser([FromBody]string email, [FromBody]string password, [FromBody] string login)
+        {
+            if (_usersService.ValidateUserCredentials(email, password, login))
+            {
+                _usersService.AddUser(id: Guid.NewGuid(), email: email, password: password, name: login);
+            }
+
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Linq;
 using Logo.Contracts;
 using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
+using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace Logo.Implementation
 {
@@ -21,7 +23,8 @@ namespace Logo.Implementation
 
             if (userFromDatabase == null)
             {
-                throw new InvalidOperationException("User not found.");
+                //throw new InvalidOperationException("User not found.");
+                return null;
             }
 
             return new UserInfo
@@ -30,6 +33,32 @@ namespace Logo.Implementation
                 Email = userFromDatabase.Email,
                 Name = userFromDatabase.Name
             };
+        }
+
+        public async Task AddUser(Guid id, string email, string password, string name)
+        {
+            _dbContext.Add(new User { UserId = id, Email = email, Password = password, Name = name });
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public bool ValidateUserCredentials(string email, string password, string name)
+        {
+            return (IsValidEmail(email) && !String.IsNullOrEmpty(password) && password.Length <= 32 && !String.IsNullOrEmpty(name) && name.Length <= 50 && GetUser(email, password) == null ? true : false);
+        }
+
+        public bool IsValidEmail(string emailaddress)
+        {
+            if (String.IsNullOrEmpty(emailaddress) || emailaddress.Length > 255)
+                return false;
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
