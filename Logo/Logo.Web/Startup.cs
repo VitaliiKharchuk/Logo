@@ -53,7 +53,7 @@ namespace Logo.Web
                     !Path.HasExtension(context.Request.Path.Value) &&
                     !context.Request.Path.Value.StartsWith("/api/"))
                 {
-                    context.Request.Path = "./src/index.html";
+                    context.Request.Path = "";
                     await next();
                 }
             });

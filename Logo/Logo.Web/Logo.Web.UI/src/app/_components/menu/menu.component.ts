@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../_models/index';
-import { UserService } from '../../_services/index';
+import { UserInfoWithToken, UserInfo } from '../../_models/index';
 
 @Component({
   selector: 'app-menu',
@@ -10,12 +9,16 @@ import { UserService } from '../../_services/index';
 })
 export class MenuComponent implements OnInit {
 
-  currentUser: User;
-  users: User[] = [];
+  currentUser: UserInfo;
 
   constructor(
-    private userService: UserService,
-  ) { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
+  ) {
+    let userInfoWithToken: UserInfoWithToken = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = userInfoWithToken.userInfo;
+    console.log(userInfoWithToken);
+    console.log(userInfoWithToken.userInfo);
+    console.log(this.currentUser);
+  }
 
   ngOnInit() {
 

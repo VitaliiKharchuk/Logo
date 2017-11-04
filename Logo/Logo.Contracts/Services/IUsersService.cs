@@ -2,6 +2,6 @@
 {
     public interface IUsersService
     {
-        UserInfo GetUser(string email, string password);
+        UserInfo GetUser(UserCredentials userCredentials);
     }
 }
