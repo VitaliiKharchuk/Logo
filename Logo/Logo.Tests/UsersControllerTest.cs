@@ -30,7 +30,7 @@ namespace Logo.Tests
 
                 var token = usersController.GetAuthorizationToken(model);
 
-                Assert.IsFalse(string.IsNullOrEmpty(token));
+                Assert.IsFalse(string.IsNullOrEmpty(token.ToString()));
             }
         }
     }

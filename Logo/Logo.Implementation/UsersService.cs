@@ -6,6 +6,8 @@ using Logo.Implementation.DatabaseModels;
 using System.Threading.Tasks;
 using System.Net.Mail;
 
+using Logo.Contracts;
+
 namespace Logo.Implementation
 {
     public class UsersService : IUsersService
@@ -35,15 +37,15 @@ namespace Logo.Implementation
             };
         }
 
-        public async Task AddUser(Guid id, string email, string password, string name)
+        public void AddUser(Guid id, string email, string password, string name)
         {
             _dbContext.Add(new User { UserId = id, Email = email, Password = password, Name = name });
-            await _dbContext.SaveChangesAsync();
+             _dbContext.SaveChanges();
         }
 
         public bool ValidateUserCredentials(string email, string password, string name)
         {
-            return (IsValidEmail(email) && !String.IsNullOrEmpty(password) && password.Length <= 32 && !String.IsNullOrEmpty(name) && name.Length <= 50 && GetUser(email, password) == null ? true : false);
+            return (IsValidEmail(email) && !String.IsNullOrEmpty(password) && password.Length <= 32 && !String.IsNullOrEmpty(name) && name.Length <= 50 && GetUser(new UserCredentials { Email = email, Password = password }) == null ? true : false);
         }
 
         public bool IsValidEmail(string emailaddress)

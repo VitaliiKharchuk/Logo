@@ -63,7 +63,7 @@ namespace Logo.Web.Controllers
         {
             if (_usersService.ValidateUserCredentials(email, password, login))
             {
-                _usersService.AddUser(id: Guid.NewGuid(), email: email, password: password, name: login);
+                _usersService.AddUser(Id: Guid.NewGuid(), email: email, password: password, name: login);
             }
 
         }
