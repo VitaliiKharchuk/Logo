@@ -17,9 +17,9 @@ namespace Logo.Implementation
             _dbContext = dbContext;
         }
 
-        public UserInfo GetUser(string email, string password)
+        public UserInfo GetUser(UserCredentials userCredentials)
         {
-            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email && x.Password == userCredentials.Password);
 
             if (userFromDatabase == null)
             {

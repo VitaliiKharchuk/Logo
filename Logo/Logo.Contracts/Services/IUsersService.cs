@@ -8,5 +8,6 @@ namespace Logo.Contracts.Services
         UserInfo GetUser(string email, string password);
         bool ValidateUserCredentials(string email, string password, string login);
         void AddUser(Guid id, string email, string password, string name);
+
     }
 }

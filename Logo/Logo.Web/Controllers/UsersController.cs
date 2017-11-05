@@ -1,7 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Logo.Contracts;
 using Logo.Contracts.Services;
+using Logo.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -18,10 +20,10 @@ namespace Logo.Web.Controllers
             _usersService = usersService;
         }
 
-        [HttpPost]
-        public string GetAuthorizationToken([FromBody]string email, [FromBody]string password)
+        [HttpPost("auth-token")]
+        public UserInfoWithToken GetAuthorizationToken([FromBody]UserCredentials userCredentials)
         {
-            var user = _usersService.GetUser(email, password);
+            var user = _usersService.GetUser(userCredentials);
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -41,7 +43,18 @@ namespace Logo.Web.Controllers
                 Subject = identity
             });
 
-            return handler.WriteToken(securityToken);
+            var userInfoWithToken = new UserInfoWithToken
+            {
+                Token = handler.WriteToken(securityToken),
+                UserInfo = new UserInfo
+                {
+                    Name = user.Name,
+                    Email = user.Email,
+                    Id = user.Id
+                }
+            };
+
+            return userInfoWithToken;
         }
 
 

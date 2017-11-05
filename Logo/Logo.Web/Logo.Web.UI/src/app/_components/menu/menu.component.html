@@ -17,14 +17,13 @@
     </form>
     <ul class="nav navbar-nav navbar-right">
 
-      <li class="text-name">{{currentUser.firstName}}</li>
+      <li *ngIf="currentUser" class="text-name">{{currentUser.name}}</li>
       <li>
         <div class="img-border">
           <div class="img-color-circle"><img src="assets\img\user.svg" class="img-circle" width="40" height="40"></div>
         </div>
       </li>
       <li>
-
         <div class="logout">
           
             <a [routerLink]="['/login']" class="link">

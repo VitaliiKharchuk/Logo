@@ -1,7 +1,15 @@
-export class User {
-    id: number;
-    username: string;
+export class UserCredentials {
+    email: string;
     password: string;
-    firstName: string;
-    lastName: string;
+}
+
+export class UserInfo {
+    id: string;
+    name: string;
+    email: string; 
+}
+
+export class UserInfoWithToken {
+    token: string;
+    userInfo: UserInfo;
 }

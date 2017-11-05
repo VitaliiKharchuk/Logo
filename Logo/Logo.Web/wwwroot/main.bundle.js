@@ -100,7 +100,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-menu>\n</app-menu>\n<div class=\"jumbotron\">\n  <div class=\"container\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <div class=\"col-md-6 col-md-offset-3\">\n        \n        <h3>All registered users:</h3>\n        <ul>\n          <li *ngFor=\"let user of users\">\n            {{user.username}} ({{user.firstName}} {{user.lastName}}) - <a (click)=\"deleteUser(user.id)\">Delete</a>\n          </li>\n        </ul>\n        <button class=\"button\">Создать папку</button>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<app-menu>\n</app-menu>\n<div class=\"jumbotron\">\n  <div class=\"container\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <div class=\"col-md-6 col-md-offset-3\">\n        <button class=\"button\">Создать папку</button>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -125,19 +125,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomeComponent = (function () {
     function HomeComponent(userService) {
         this.userService = userService;
-        this.users = [];
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.loadAllUsers();
-    };
-    HomeComponent.prototype.deleteUser = function (id) {
-        var _this = this;
-        this.userService.delete(id).subscribe(function () { _this.loadAllUsers(); });
-    };
-    HomeComponent.prototype.loadAllUsers = function () {
-        var _this = this;
-        this.userService.getAll().subscribe(function (users) { _this.users = users; });
     };
     return HomeComponent;
 }());
@@ -185,7 +175,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n}\r\n\r\np.logo{\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3em;\r\n     color: rgba(56, 56, 56, 0.8);\r\n } \r\n\r\n p.welcome{\r\n    text-align: center;\r\n    font-size: 1.2em;\r\n    color: rgba(56, 56, 56, 0.8);\r\n }\r\n\r\n .title{\r\n    width: 400px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n p.login{\r\n    text-align: center;\r\n    font-weight: bold;\r\n    font-size: 1.8em;\r\n }\r\n p.register{\r\n    text-align: center;\r\n    font-size: 1em;\r\n }\r\n .textchoose{\r\n    padding-bottom: 40px;\r\n }\r\n .link{\r\n    text-decoration: none;\r\n    color: rgb(176, 40, 108);\r\n    font-size: 1em;\r\n }\r\n .whiteblock{\r\n    background-color: #FFFFFF;\r\n    width: 400px; /* Ширина блока */\r\n    padding-bottom: 50px; /* Поля */\r\n    padding-right: 50px;\r\n    padding-left: 50px;\r\n    padding-top: 40px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 2px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9\r\n }\r\n\r\n .form-control{\r\n     height: 40px !important;\r\n     border: 1px solid rgba(56, 56, 56, 0.8) !important;\r\n     border-radius: 2px !important; \r\n }\r\n .button {\r\n    background-color: #30D4CC !important;/* Green */\r\n    width: 300px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 1px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n\r\n.button:focus {\r\n    outline:0;\r\n}\r\n\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    border: 1px solid rgba(56, 56, 56, 0.8);\r\n}\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n.form-group{\r\n    margin: 0px;\r\n}", ""]);
+exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center\r\n}\r\n\r\np.logo {\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3.5em;\r\n     letter-spacing: 10px;\r\n     color: #676767;\r\n     font-family: Raleway-Black;\r\n}\r\n\r\np.welcome {\r\n    text-align: center;\r\n    font-size: 1.6em;\r\n    color: #999999;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 3px;\r\n}\r\n\r\n.title {\r\n    width: 550px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n\r\np.login {\r\n    text-align: center;\r\n    font-weight: bold;\r\n    color: #333333;\r\n    font-size: 2.4em;\r\n    font-family: Raleway-Black;\r\n    letter-spacing: 2px;\r\n}\r\n\r\n.textchoose {\r\n    padding-bottom: 40px;\r\n    color: #7a7a7a;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 2px;\r\n}\r\n\r\np.register {\r\n    text-align: center;\r\n    font-size: 1.4em;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 2px;\r\n}\r\n\r\n.link {\r\n    text-decoration: none;\r\n    color: #d3346c;\r\n    font-size: 1em;\r\n}\r\n\r\n.whiteblock {\r\n    background-color: #FFFFFF;\r\n    width: 550px; /* Ширина блока */\r\n    height: 700px;\r\n    padding-bottom: 100px; /* Поля */\r\n    padding-right: 95px;\r\n    padding-left: 95px;\r\n    padding-top: 100px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 5px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9;\r\n}\r\n\r\n.form-control {\r\n     height: 60px !important;\r\n     border: 2px solid #999999 !important;\r\n     border-radius: 4px !important; \r\n     padding-left: 20px !important; \r\n     color: #7a7a7a;\r\n     font-family: Raleway-SemiBold;\r\n     letter-spacing: 1px;\r\n     font-size: 1.2em;\r\n }\r\n\r\n.button {\r\n    background-color: #34d3bb !important;/* Green */\r\n    width: 360px;\r\n    height: 60px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 30px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 2px solid #34d3bb;\r\n    margin-top: 60px;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.4em;\r\n}\r\n\r\n.button:focus {\r\n    outline:0;\r\n}\r\n\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: #616161;\r\n    border: 2px solid #999999;\r\n}\r\n\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n\r\n.form-group{\r\n    margin: 0px;\r\n}\r\n\r\n.alerts {\r\n    padding: 0px;\r\n    margin:  0px;\r\n    color: #b13748;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1em;\r\n    max-height: 15px;\r\n    position: relative;\r\n    bottom: 20px;\r\n}", ""]);
 
 // exports
 
@@ -198,7 +188,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container fill vertical-align\">\r\n    <div class=\"col-sm-8 col-sm-offset-2 \">\r\n        <div class=\"col-md-6 col-md-offset-3 \">\r\n            <div class=\"title\">\r\n                <p class=\"logo\">logo</p>\r\n                <p class=\"welcome\">Добро пожаловать!</p>\r\n            </div>\r\n            <div class=\"whiteblock\">\r\n                <div class=\"textchoose\"><p class=\"login\">Войдите в аккаунт</p>\r\n                \r\n                    <p class=\"register\">или <a [routerLink]=\"['/register']\" class=\"link\">Cоздайте аккаунт</a></p>\r\n                </div>\r\n                <form name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"username\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"E-mail\" [(ngModel)]=\"model.username\" #username=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">E-mail необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                        <label for=\"password\"></label>\r\n                        <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"loading\" class=\"button\">Войти</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"container fill vertical-align\">\r\n    <div>\r\n        <div class=\"title\">\r\n            <p class=\"logo\">logo</p>\r\n            <p class=\"welcome\">Добро пожаловать!</p>\r\n        </div>\r\n        <div class=\"whiteblock\">\r\n            <div class=\"textchoose\">\r\n                <p class=\"login\">Войдите в аккаунт</p>\r\n\r\n                <p class=\"register\">или <a [routerLink]=\"['/register']\" class=\"link\">Cоздайте аккаунт</a></p>\r\n            </div>\r\n            <form name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !email.valid }\">\r\n                    <label for=\"email\"></label>\r\n                    <input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"E-mail\" [(ngModel)]=\"model.email\" #email=\"ngModel\" required\r\n                        email />\r\n\r\n                    <div *ngIf=\"email.errors && (email.dirty && email.touched)\" class=\"alerts\"><br>\r\n                        <div [hidden]=\"!email.errors.required\">\r\n                            Email необходим.\r\n                        </div>\r\n                        <div [hidden]=\"!email.errors.email\">\r\n                            Введите корректный email.\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                    <!-- <div *ngIf=\"f.submitted && !email.valid\" class=\"help-block\">E-mail необходим</div> -->\r\n                </div>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                    <label for=\"password\"></label>\r\n                    <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                        required minlength=\"6\" maxlength=\"50\" />\r\n\r\n                    <div *ngIf=\"password.errors && (password.dirty && password.touched)\" class=\"alerts\"><br>\r\n                        <div [hidden]=\"!password.errors.required\">\r\n                            Пароль необходим.\r\n                        </div>\r\n                        <div [hidden]=\"!password.errors.minlength\">\r\n                            Минимальная длинна пароля 6 символов.\r\n                        </div>\r\n                        <div [hidden]=\"!password.errors.maxlength\">\r\n                            Максимальная длинна пароля 50 символов.\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div> -->\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <button [disabled]=\"loading\" class=\"button\">Войти</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -240,7 +230,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.loading = true;
-        this.authentificationService.login(this.model.username, this.model.password)
+        this.authentificationService.login(this.model.email, this.model.password)
             .subscribe(function (data) {
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
@@ -285,7 +275,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/menu/menu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navcustom\">\r\n  <div>\r\n    <div class=\"navbar-header\">\r\n      <span class=\"navbar-brand\">LOGO</span>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n    </ul>\r\n    <form class=\"navbar-form navbar-left\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">\r\n            <i class=\"glyphicon glyphicon-search\"></i>\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n      <li class=\"text-name\">{{currentUser.firstName}}</li>\r\n      <li>\r\n        <div class=\"img-border\">\r\n          <div class=\"img-color-circle\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\" width=\"40\" height=\"40\"></div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n\r\n        <div class=\"logout\">\r\n          \r\n            <a [routerLink]=\"['/login']\" class=\"link\">\r\n                  <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                </a>\r\n          \r\n        </div>\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n</nav>"
+module.exports = "<nav class=\"navbar navbar-fixed-top navcustom\">\r\n  <div>\r\n    <div class=\"navbar-header\">\r\n      <span class=\"navbar-brand\">LOGO</span>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n    </ul>\r\n    <form class=\"navbar-form navbar-left\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">\r\n            <i class=\"glyphicon glyphicon-search\"></i>\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n      <li *ngIf=\"currentUser\" class=\"text-name\">{{currentUser.name}}</li>\r\n      <li>\r\n        <div class=\"img-border\">\r\n          <div class=\"img-color-circle\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\" width=\"40\" height=\"40\"></div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div class=\"logout\">\r\n          \r\n            <a [routerLink]=\"['/login']\" class=\"link\">\r\n                  <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                </a>\r\n          \r\n        </div>\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n</nav>"
 
 /***/ }),
 
@@ -295,7 +285,6 @@ module.exports = "<nav class=\"navbar navbar-fixed-top navcustom\">\r\n  <div>\r
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__("../../../../../src/app/_services/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -306,12 +295,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
 var MenuComponent = (function () {
-    function MenuComponent(userService) {
-        this.userService = userService;
-        this.users = [];
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    function MenuComponent() {
+        var userInfoWithToken = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentUser = userInfoWithToken.userInfo;
+        console.log(userInfoWithToken);
+        console.log(userInfoWithToken.userInfo);
+        console.log(this.currentUser);
     }
     MenuComponent.prototype.ngOnInit = function () {
     };
@@ -323,10 +313,9 @@ MenuComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/_components/menu/menu.component.html"),
         styles: [__webpack_require__("../../../../../src/app/_components/menu/menu.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* UserService */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [])
 ], MenuComponent);
 
-var _a;
 //# sourceMappingURL=menu.component.js.map
 
 /***/ }),
@@ -350,7 +339,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n}\r\n\r\np.logo{\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3em;\r\n     color: rgba(56, 56, 56, 0.8);\r\n } \r\n\r\n p.welcome{\r\n    text-align: center;\r\n    font-size: 1.2em;\r\n    color: rgba(56, 56, 56, 0.8);\r\n }\r\n\r\n .title{\r\n    width: 400px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n p.login{\r\n    text-align: center;\r\n    font-weight: bold;\r\n    font-size: 1.8em;\r\n }\r\n p.register{\r\n    text-align: center;\r\n    font-size: 1em;\r\n }\r\n .textchoose{\r\n    padding-bottom: 40px;\r\n }\r\n .link{\r\n    text-decoration: none;\r\n    color: rgb(176, 40, 108);\r\n    font-size: 1em;\r\n }\r\n .whiteblock{\r\n    background-color: #FFFFFF;\r\n    width: 400px; /* Ширина блока */\r\n    padding-bottom: 50px; /* Поля */\r\n    padding-right: 50px;\r\n    padding-left: 50px;\r\n    padding-top: 40px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 2px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9\r\n }\r\n\r\n .form-control{\r\n     height: 40px !important;\r\n     border: 1px solid rgba(56, 56, 56, 0.8) !important;\r\n     border-radius: 2px !important; \r\n }\r\n .button {\r\n    background-color: #30D4CC !important;/* Green */\r\n    width: 300px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 1px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n.button:focus {\r\n    outline:0;\r\n}\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    border: 1px solid rgba(56, 56, 56, 0.8);\r\n}\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n.form-group{\r\n    margin: 0px;\r\n}", ""]);
+exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center\r\n}\r\n\r\np.logo {\r\n     text-align: center;\r\n     text-transform: uppercase;\r\n     font-weight: bold;\r\n     font-size: 3.5em;\r\n     letter-spacing: 10px;\r\n     color: #676767;\r\n     font-family: Raleway-Black;\r\n}\r\n\r\np.welcome {\r\n    text-align: center;\r\n    font-size: 1.6em;\r\n    color: #999999;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 3px;\r\n}\r\n\r\n.title {\r\n    width: 550px; /* Ширина блока */ /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    padding-bottom: 20px;\r\n}\r\n\r\np.login {\r\n    text-align: center;\r\n    font-weight: bold;\r\n    color: #333333;\r\n    font-size: 2.4em;\r\n    font-family: Raleway-Black;\r\n    letter-spacing: 2px;\r\n}\r\n\r\n.textchoose {\r\n    padding-bottom: 40px;\r\n    color: #7a7a7a;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 2px;\r\n}\r\n\r\np.register {\r\n    text-align: center;\r\n    font-size: 1.4em;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 2px;\r\n}\r\n\r\n.link {\r\n    text-decoration: none;\r\n    color: #d3346c;\r\n    font-size: 1em;\r\n}\r\n\r\n.whiteblock {\r\n    background-color: #FFFFFF;\r\n    width: 550px; /* Ширина блока */\r\n    height: 700px;\r\n    padding-bottom: 100px; /* Поля */\r\n    padding-right: 95px;\r\n    padding-left: 95px;\r\n    padding-top: 100px;\r\n    margin-top: 10px; /* Отступ сверху */\r\n    border-radius: 5px; /* Для Firefox */  \r\n    box-sizing: border-box; /* Ширина блока с полями */\r\n    box-shadow: 0px 3px 4px 0px #b9b9b9;\r\n}\r\n\r\n.form-control {\r\n     height: 60px !important;\r\n     border: 2px solid #999999 !important;\r\n     border-radius: 4px !important; \r\n     padding-left: 20px !important; \r\n     color: #7a7a7a;\r\n     font-family: Raleway-SemiBold;\r\n     letter-spacing: 1px;\r\n     font-size: 1.2em;\r\n }\r\n\r\n .button {\r\n    background-color: #34d3bb !important;/* Green */\r\n    width: 360px;\r\n    height: 60px;\r\n    color: white;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 30px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 2px solid #34d3bb;\r\n    margin-top: 60px;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.4em;\r\n}\r\n\r\n.button:focus {\r\n    outline:0;\r\n}\r\n\r\n.button:hover {\r\n    background-color: #FFFFFF !important;\r\n    color: #616161;\r\n    border: 2px solid #999999;\r\n}\r\n\r\n.vertical-align {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n}\r\n\r\n.form-group{\r\n    margin: 0px;\r\n}\r\n\r\n.alerts {\r\n    padding: 0px;\r\n    margin:  0px;\r\n    color: #b13748;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1em;\r\n    max-height: 15px;\r\n    position: relative;\r\n    bottom: 20px;\r\n}", ""]);
 
 // exports
 
@@ -363,7 +352,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container fill vertical-align\">\r\n\r\n    <div class=\"col-sm-8 col-sm-offset-2 \">\r\n        <div class=\"col-md-6 col-md-offset-3 \">\r\n            <div class=\"title\">\r\n                <p class=\"logo\">logo</p>\r\n                <p class=\"welcome\">Добро пожаловать!</p>\r\n            </div>\r\n            <div class=\"whiteblock\">\r\n                <p class=\"login\">Зарегистрируйтесь</p>\r\n                <div>\r\n                    <p class=\"register\">или <a [routerLink]=\"['/login']\" class=\"link\">Войдите в свой аккаунт</a></p>\r\n                </div>\r\n                <form name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"firstName\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"firstName\" placeholder=\"Имя пользователя\" [(ngModel)]=\"model.firstName\" #firstName=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !firstName.valid\" class=\"help-block\">Имя пользователя необходимо</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"lastName\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"lastName\" [(ngModel)]=\"model.lastName\" #lastName=\"ngModel\" required />\r\n                        <div *ngIf=\"f.submitted && !lastName.valid\" class=\"help-block\">Last Name is required</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\">\r\n                        <label for=\"username\"></label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"E-mail\" [(ngModel)]=\"model.username\" #username=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">E-mail необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                        <label for=\"password\"></label>\r\n                        <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                            required />\r\n                        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"loading\" class=\"button\">Зарегистрироваться</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>"
+module.exports = "<div class=\"container fill vertical-align\">\r\n\r\n    <div>\r\n        <div class=\"title\">\r\n            <p class=\"logo\">logo</p>\r\n            <p class=\"welcome\">Добро пожаловать!</p>\r\n        </div>\r\n        <div class=\"whiteblock\">\r\n            <div class=\"textchoose\">\r\n                <p class=\"login\">Зарегистрируйтесь</p>\r\n                <div>\r\n                    <p class=\"register\">или <a [routerLink]=\"['/login']\" class=\"link\">Войдите в свой аккаунт</a></p>\r\n                </div>\r\n            </div>\r\n            <form name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !name.valid }\">\r\n                    <label for=\"name\"></label>\r\n                    <input type=\"text\" class=\"form-control\" name=\"name\" placeholder=\"Имя пользователя\" [(ngModel)]=\"model.name\" #name=\"ngModel\"\r\n                        required maxlength=\"50\" />\r\n                    <div *ngIf=\"name.errors && (name.dirty && name.touched)\" class=\"alerts\"><br>\r\n                        <div [hidden]=\"!name.errors.required\">\r\n                            Имя пользователя необходимо.\r\n                        </div>\r\n                        <div [hidden]=\"!password.errors.maxlength\">\r\n                            Максимальная длинна имени 50 символов.\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div *ngIf=\"f.submitted && !name.valid\" class=\"help-block\">Имя пользователя необходимо</div> -->\r\n                </div>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !email.valid }\">\r\n                    <label for=\"email\"></label>\r\n                    <input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"E-mail\" [(ngModel)]=\"model.email\" #email=\"ngModel\" required\r\n                        email />\r\n                    <div *ngIf=\"email.errors && (email.dirty && email.touched)\" class=\"alerts\"><br>\r\n                        <div [hidden]=\"!email.errors.required\">\r\n                            Email необходим.\r\n                        </div>\r\n                        <div [hidden]=\"!email.errors.email\">\r\n                            Введите корректный email.\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div *ngIf=\"f.submitted && !email.valid\" class=\"help-block\">E-mail необходим</div> -->\r\n                </div>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\">\r\n                    <label for=\"password\"></label>\r\n                    <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Пароль\" [(ngModel)]=\"model.password\" #password=\"ngModel\"\r\n                        required minlength=\"6\" maxlength=\"50\"/>\r\n                    <div *ngIf=\"password.errors && (password.dirty && password.touched)\" class=\"alerts\"><br>\r\n                        <div [hidden]=\"!password.errors.required\">\r\n                            Пароль необходим.\r\n                        </div>\r\n                        <div [hidden]=\"!password.errors.minlength\">\r\n                            Минимальная длинна пароля 6 символов.\r\n                        </div>\r\n                        <div [hidden]=\"!password.errors.maxlength\">\r\n                            Максимальная длинна пароля 50 символов.\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Пароль необходим</div> -->\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <button [disabled]=\"loading\" class=\"button\">Зарегистрироваться</button>\r\n                </div>\r\n            </form>\r\n\r\n        </div>\r\n    </div>"
 
 /***/ }),
 
@@ -554,165 +543,6 @@ var _a;
 
 /***/ }),
 
-/***/ "../../../../../src/app/_helpers/fake-backend.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export fakeBackendFactory */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fakeBackendProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http_testing__ = __webpack_require__("../../../http/@angular/http/testing.es5.js");
-
-
-function fakeBackendFactory(backend, options, realBackend) {
-    // array in local storage for registered users
-    var users = JSON.parse(localStorage.getItem('users')) || [];
-    // configure fake backend
-    backend.connections.subscribe(function (connection) {
-        // wrap in timeout to simulate server api call
-        setTimeout(function () {
-            // authenticate
-            if (connection.request.url.endsWith('/api/authenticate') && connection.request.method === __WEBPACK_IMPORTED_MODULE_0__angular_http__["g" /* RequestMethod */].Post) {
-                // get parameters from post request
-                var params_1 = JSON.parse(connection.request.getBody());
-                // find if any user matches login credentials
-                var filteredUsers = users.filter(function (user) {
-                    return user.username === params_1.username && user.password === params_1.password;
-                });
-                if (filteredUsers.length) {
-                    // if login details are valid return 200 OK with user details and fake jwt token
-                    var user = filteredUsers[0];
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({
-                        status: 200,
-                        body: {
-                            id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            token: 'fake-jwt-token'
-                        }
-                    })));
-                }
-                else {
-                    // else return 400 bad request
-                    connection.mockError(new Error('Username or password is incorrect'));
-                }
-                return;
-            }
-            // get users
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === __WEBPACK_IMPORTED_MODULE_0__angular_http__["g" /* RequestMethod */].Get) {
-                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 200, body: users })));
-                }
-                else {
-                    // return 401 not authorised if token is null or invalid
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 401 })));
-                }
-                return;
-            }
-            // get user by id
-            if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === __WEBPACK_IMPORTED_MODULE_0__angular_http__["g" /* RequestMethod */].Get) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    // find user by id in users array
-                    var urlParts = connection.request.url.split('/');
-                    var id_1 = parseInt(urlParts[urlParts.length - 1]);
-                    var matchedUsers = users.filter(function (user) { return user.id === id_1; });
-                    var user = matchedUsers.length ? matchedUsers[0] : null;
-                    // respond 200 OK with user
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 200, body: user })));
-                }
-                else {
-                    // return 401 not authorised if token is null or invalid
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 401 })));
-                }
-                return;
-            }
-            // create user
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === __WEBPACK_IMPORTED_MODULE_0__angular_http__["g" /* RequestMethod */].Post) {
-                // get new user object from post body
-                var newUser_1 = JSON.parse(connection.request.getBody());
-                // validation
-                var duplicateUser = users.filter(function (user) { return user.username === newUser_1.username; }).length;
-                if (duplicateUser) {
-                    return connection.mockError(new Error('Username "' + newUser_1.username + '" is already taken'));
-                }
-                // save new user
-                newUser_1.id = users.length + 1;
-                users.push(newUser_1);
-                localStorage.setItem('users', JSON.stringify(users));
-                // respond 200 OK
-                connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 200 })));
-                return;
-            }
-            // delete user
-            if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === __WEBPACK_IMPORTED_MODULE_0__angular_http__["g" /* RequestMethod */].Delete) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    // find user by id in users array
-                    var urlParts = connection.request.url.split('/');
-                    var id = parseInt(urlParts[urlParts.length - 1]);
-                    for (var i = 0; i < users.length; i++) {
-                        var user = users[i];
-                        if (user.id === id) {
-                            // delete user
-                            users.splice(i, 1);
-                            localStorage.setItem('users', JSON.stringify(users));
-                            break;
-                        }
-                    }
-                    // respond 200 OK
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 200 })));
-                }
-                else {
-                    // return 401 not authorised if token is null or invalid
-                    connection.mockRespond(new __WEBPACK_IMPORTED_MODULE_0__angular_http__["i" /* Response */](new __WEBPACK_IMPORTED_MODULE_0__angular_http__["j" /* ResponseOptions */]({ status: 401 })));
-                }
-                return;
-            }
-            // pass through any requests not handled above
-            var realHttp = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Http */](realBackend, options);
-            var requestOptions = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["h" /* RequestOptions */]({
-                method: connection.request.method,
-                headers: connection.request.headers,
-                body: connection.request.getBody(),
-                url: connection.request.url,
-                withCredentials: connection.request.withCredentials,
-                responseType: connection.request.responseType
-            });
-            realHttp.request(connection.request.url, requestOptions)
-                .subscribe(function (response) {
-                connection.mockRespond(response);
-            }, function (error) {
-                connection.mockError(error);
-            });
-        }, 500);
-    });
-    return new __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Http */](backend, options);
-}
-;
-var fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Http */],
-    useFactory: fakeBackendFactory,
-    deps: [__WEBPACK_IMPORTED_MODULE_1__angular_http_testing__["a" /* MockBackend */], __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* BaseRequestOptions */], __WEBPACK_IMPORTED_MODULE_0__angular_http__["k" /* XHRBackend */]]
-};
-//# sourceMappingURL=fake-backend.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/_helpers/index.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fake_backend__ = __webpack_require__("../../../../../src/app/_helpers/fake-backend.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__fake_backend__["a"]; });
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/_services/alert.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -802,16 +632,20 @@ var AuthentificationService = (function () {
     function AuthentificationService(http) {
         this.http = http;
     }
-    AuthentificationService.prototype.login = function (username, password) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+    AuthentificationService.prototype.login = function (email, password) {
+        var userCredentials = {
+            email: email,
+            password: password
+        };
+        return this.http.post('/api/users/auth-token', userCredentials)
             .map(function (response) {
             // login successful if there's a jwt token in the response
-            var user = response.json();
-            if (user && user.token) {
+            var userInfoWithToken = response.json();
+            if (userInfoWithToken && userInfoWithToken.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('currentUser', JSON.stringify(userInfoWithToken));
             }
-            return user;
+            return userInfoWithToken;
         });
     };
     AuthentificationService.prototype.logout = function () {
@@ -822,7 +656,7 @@ var AuthentificationService = (function () {
 }());
 AuthentificationService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AuthentificationService);
 
 var _a;
@@ -879,25 +713,37 @@ var UserService = (function () {
         return this.http.post('/api/users', user, this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.put('/api/users/' + user.email, user, this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
         return this.http.delete('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });
+    };
+    UserService.prototype.get = function (url, options) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser && !currentUser.token) {
+            // log error
+        }
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Authorization': 'Bearer ' + currentUser.token });
+        if (!options) {
+            options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]();
+        }
+        options.headers = headers;
+        return this.http.get(url, options);
     };
     // private helper methods
     UserService.prototype.jwt = function () {
         // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["h" /* RequestOptions */]({ headers: headers });
+            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Authorization': 'Bearer ' + currentUser.token });
+            return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         }
     };
     return UserService;
 }());
 UserService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], UserService);
 
 var _a;
@@ -967,7 +813,7 @@ AppComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AppComponent);
 
 var _a;
@@ -984,18 +830,16 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_index__ = __webpack_require__("../../../../../src/app/_helpers/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http_testing__ = __webpack_require__("../../../http/@angular/http/testing.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_routing__ = __webpack_require__("../../../../../src/app/app.routing.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_menu_menu_component__ = __webpack_require__("../../../../../src/app/_components/menu/menu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__guards_index__ = __webpack_require__("../../../../../src/app/_guards/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_alert_alert_component__ = __webpack_require__("../../../../../src/app/_directives/alert/alert.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_home_home_component__ = __webpack_require__("../../../../../src/app/_components/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_login_login_component__ = __webpack_require__("../../../../../src/app/_components/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_register_register_component__ = __webpack_require__("../../../../../src/app/_components/register/register.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_index__ = __webpack_require__("../../../../../src/app/_services/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_body_body_component__ = __webpack_require__("../../../../../src/app/_components/body/body.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_routing__ = __webpack_require__("../../../../../src/app/app.routing.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_menu_menu_component__ = __webpack_require__("../../../../../src/app/_components/menu/menu.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__guards_index__ = __webpack_require__("../../../../../src/app/_guards/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__directives_alert_alert_component__ = __webpack_require__("../../../../../src/app/_directives/alert/alert.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__ = __webpack_require__("../../../../../src/app/_components/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_login_login_component__ = __webpack_require__("../../../../../src/app/_components/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__ = __webpack_require__("../../../../../src/app/_components/register/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_index__ = __webpack_require__("../../../../../src/app/_services/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_body_body_component__ = __webpack_require__("../../../../../src/app/_components/body/body.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1003,10 +847,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-
-
-
-// used to create fake backend
 
 
 
@@ -1028,25 +868,25 @@ var AppModule = (function () {
 AppModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_8__components_menu_menu_component__["a" /* MenuComponent */], __WEBPACK_IMPORTED_MODULE_10__directives_alert_alert_component__["a" /* AlertComponent */], __WEBPACK_IMPORTED_MODULE_11__components_home_home_component__["a" /* HomeComponent */], __WEBPACK_IMPORTED_MODULE_12__components_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_13__components_register_register_component__["a" /* RegisterComponent */], __WEBPACK_IMPORTED_MODULE_15__components_body_body_component__["a" /* BodyComponent */]
+            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_6__components_menu_menu_component__["a" /* MenuComponent */], __WEBPACK_IMPORTED_MODULE_8__directives_alert_alert_component__["a" /* AlertComponent */], __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__["a" /* HomeComponent */], __WEBPACK_IMPORTED_MODULE_10__components_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__["a" /* RegisterComponent */], __WEBPACK_IMPORTED_MODULE_13__components_body_body_component__["a" /* BodyComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["d" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_6__app_routing__["a" /* routing */]
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_4__app_routing__["a" /* routing */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_9__guards_index__["a" /* AuthentificationGuard */],
-            __WEBPACK_IMPORTED_MODULE_14__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_14__services_index__["b" /* AuthentificationService */],
-            __WEBPACK_IMPORTED_MODULE_14__services_index__["c" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_7__guards_index__["a" /* AuthentificationGuard */],
+            __WEBPACK_IMPORTED_MODULE_12__services_index__["a" /* AlertService */],
+            __WEBPACK_IMPORTED_MODULE_12__services_index__["b" /* AuthentificationService */],
+            __WEBPACK_IMPORTED_MODULE_12__services_index__["c" /* UserService */]
             // providers used to create fake backend
-            __WEBPACK_IMPORTED_MODULE_4__helpers_index__["a" /* fakeBackendProvider */],
-            __WEBPACK_IMPORTED_MODULE_5__angular_http_testing__["a" /* MockBackend */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* BaseRequestOptions */]
+            //fakeBackendProvider,
+            //MockBackend,
+            //BaseRequestOptions
         ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
 
