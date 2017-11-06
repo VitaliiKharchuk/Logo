@@ -6,11 +6,13 @@ using Logo.Implementation.DatabaseModels;
 using System.Threading.Tasks;
 using System.Net.Mail;
 
+
+using System.Security.Cryptography;
 using Logo.Contracts;
 
 namespace Logo.Implementation
 {
-    public class UsersService : IUsersService
+    public class UsersService : IUsersService 
     {
         private readonly LogoDbContext _dbContext;
 
@@ -62,5 +64,37 @@ namespace Logo.Implementation
                 return false;
             }
         }
+
+
+         public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKeyInfo, bool DoOAEPPadding)
+        {
+            try
+            {
+                //Create a new instance of RSACryptoServiceProvider.
+                RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
+
+                //Import the RSA Key information. This only needs
+                //toinclude the public key information.
+                RSAalg.ImportParameters(RSAKeyInfo);
+
+                //Encrypt the passed byte array and specify OAEP padding.  
+                //OAEP padding is only available on Microsoft Windows XP or
+                //later.  
+                return RSAalg.Encrypt(DataToEncrypt, DoOAEPPadding);
+            }
+            //Catch and display a CryptographicException  
+            //to the console.
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return null;
+            }
+
+        }
+
+
+
+
     }
 }

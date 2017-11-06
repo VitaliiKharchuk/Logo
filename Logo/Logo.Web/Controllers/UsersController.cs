@@ -8,21 +8,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
+using System.Security.Cryptography;
+
 namespace Logo.Web.Controllers
 {
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
         private readonly IUsersService _usersService;
-
-        public UsersController(IUsersService usersService)
+        private readonly ICryptographyService _cryptographyService;
+        
+        public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
         {
             _usersService = usersService;
+            _cryptographyService = cryptographyService;
         }
 
         [HttpPost("auth-token")]
         public UserInfoWithToken GetAuthorizationToken([FromBody]UserCredentials userCredentials)
         {
+            
             var user = _usersService.GetUser(userCredentials);
 
             var handler = new JwtSecurityTokenHandler();
@@ -61,9 +66,12 @@ namespace Logo.Web.Controllers
         [HttpPost]
         public void AddUser([FromBody]string email, [FromBody]string password, [FromBody] string login)
         {
-            if (_usersService.ValidateUserCredentials(email, password, login))
+
+            string encryptedPassword = _cryptographyService.RSAEncryptData(password);
+
+            if (_usersService.ValidateUserCredentials(email, encryptedPassword, login))
             {
-                _usersService.AddUser(Id: Guid.NewGuid(), email: email, password: password, name: login);
+                _usersService.AddUser(Id: Guid.NewGuid(), email: email, password: encryptedPassword, name: login);
             }
 
         }
