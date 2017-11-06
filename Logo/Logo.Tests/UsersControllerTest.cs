@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using Logo.Contracts;
 using Logo.Implementation;
 using Logo.Implementation.DatabaseModels;
 using Logo.Web.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace Logo.Tests
 {
@@ -28,9 +25,9 @@ namespace Logo.Tests
                     Password = "qwerty"
                 };
 
-                var token = usersController.GetAuthorizationToken(model);
+                var userInfoWithToken = usersController.GetUserInfoWithToken(model);
 
-                Assert.IsFalse(string.IsNullOrEmpty(token));
+                Assert.IsFalse(string.IsNullOrEmpty(userInfoWithToken.Token));
             }
         }
     }
