@@ -17,68 +17,6 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 
 /***/ }),
 
-/***/ "../../../../../src/app/_components/body/body.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/_components/body/body.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<div>BODYMODY</div>\r\n<div class=\"col-md-6 col-md-offset-3\">\r\n    <h1>Home</h1>\r\n    <p>{{bodyText}}</p>\r\n    <button (click)=\"openModal('custom-modal-1')\">Open Modal 1</button>\r\n    <button (click)=\"openModal('custom-modal-2')\">Open Modal 2</button>\r\n</div>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/_components/body/body.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BodyComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var BodyComponent = (function () {
-    function BodyComponent() {
-    }
-    BodyComponent.prototype.ngOnInit = function () {
-        this.bodyText = 'This text can be updated in modal 1';
-    };
-    return BodyComponent;
-}());
-BodyComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        selector: 'app-body',
-        template: __webpack_require__("../../../../../src/app/_components/body/body.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/_components/body/body.component.css")]
-    }),
-    __metadata("design:paramtypes", [])
-], BodyComponent);
-
-//# sourceMappingURL=body.component.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/_components/home/home.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".button {\r\n    background-color: transparent !important;/* Green */\r\n    width: 150px;\r\n    color: rgba(56, 56, 56, 0.8);\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 20px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 2px solid #30D4CC;\r\n    margin-top: 50px;\r\n}\r\n.button:focus {\r\n    outline:0;\r\n}\r\n.button:hover {\r\n    background-color: #30D4CC !important;\r\n    color: white;\r\n    border: 2px solid #30D4CC;\r\n}", ""]);
+exports.push([module.i, ".fill { \r\n    min-height: 100vh;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center\r\n}\r\n.button {\r\n    background-color: transparent !important;\r\n    width: 360px;\r\n    height: 60px;\r\n    color: #7a7a7a;\r\n    padding: 9px 0px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    margin: 0px 0px;\r\n    cursor: pointer;\r\n    border-radius: 30px; /* Safari */\r\n    transition-duration: 0.4s;\r\n    border: 2px solid #34d3bb;\r\n    margin-top: 60px;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.4em;\r\n}\r\n\r\n.button:focus {\r\n    outline:0;\r\n}\r\n\r\n.button:hover {\r\n    background-color: #34d3bb !important;\r\n    color: white;\r\n    border: 2px solid #34d3bb;\r\n}\r\n\r\n.success{\r\n    font-size: 3.1em;\r\n    letter-spacing: 7px;\r\n    color: #333333;\r\n    font-family: Raleway-Black;\r\n    border-bottom: 2px solid #f0f1f7;\r\n    text-align: center;\r\n}\r\n\r\n.text{\r\n    padding: 15px;\r\n    color:  #7a7a7a !important;\r\n    height: 60px !important;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.2em;\r\n    text-align: center;\r\n}\r\n\r\n.placefornav{\r\n    height: 340px;\r\n}", ""]);
 
 // exports
 
@@ -100,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-menu>\n</app-menu>\n<div class=\"jumbotron\">\n  <div class=\"container\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <div class=\"col-md-6 col-md-offset-3\">\n        <button class=\"button\">Создать папку</button>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<app-menu>\r\n</app-menu>\r\n<div class=\"placefornav\">\r\n\r\n</div>\r\n<div class=\"container vertical-align\">\r\n  <div>\r\n    <div class=\"success\">Вы успешно зарегистрированы!</div>\r\n    <div class=\"row\">\r\n      \r\n        <div class=\"text\">Теперь вы можете начать использовать LOGO! <br>Загружайте свои файлы и делитесь ими <br>с остальными пользователями!</div>\r\n\r\n    </div>\r\n\r\n\r\n\r\n    <div class=\"col-sm-8 col-sm-offset-2\">\r\n      <div class=\"col-md-6 col-md-offset-3\">\r\n        <button class=\"button\" data-toggle=\"modal\" data-target=\"#createFolderModal\">Создать папку</button>\r\n      </div>\r\n      <!-- Modal -->\r\n      <div class=\"modal fade\" id=\"createFolderModal\" role=\"dialog\">\r\n        <div class=\"modal-dialog\">\r\n\r\n          <!-- Modal content-->\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n              <h4 class=\"modal-title\">Создание папки</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n              <form name=\"form\" (ngSubmit)=\"f.form.valid && createfolder()\" #f=\"ngForm\" novalidate>\r\n                <div class=\"form-group\" [ngClass]=\"{ 'has-error': f.submitted && !foldername.valid }\">\r\n                  <label for=\"foldername\"></label>\r\n                  <input type=\"text\" class=\"form-control\" name=\"foldername\" placeholder=\"Имя пользователя\" [(ngModel)]=\"model.foldername\" #foldername=\"ngModel\"\r\n                    required maxlength=\"50\" />\r\n                  <div *ngIf=\"foldername.errors && (foldername.dirty && foldername.touched)\" class=\"alerts\"><br>\r\n                    <div [hidden]=\"!foldername.errors.required\">\r\n                      Имя папки необходимо.\r\n                    </div>\r\n                    <div [hidden]=\"!foldername.errors.maxlength\">\r\n                      Максимальная длинна папки 50 символов.\r\n                    </div>\r\n                  </div>\r\n                  <!-- <div *ngIf=\"f.submitted && !name.valid\" class=\"help-block\">Имя пользователя необходимо</div> -->\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <button [disabled]=\"loading\" class=\"button\">Готово</button>\r\n                  <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n                </div>\r\n              </form>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -125,9 +63,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomeComponent = (function () {
     function HomeComponent(userService) {
         this.userService = userService;
+        this.model = {};
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
     HomeComponent.prototype.ngOnInit = function () {
+    };
+    HomeComponent.prototype.createfolder = function () {
+        this.model.foldername = '5';
     };
     return HomeComponent;
 }());
@@ -262,7 +204,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".navbar-brand\r\n{\r\n    position: absolute;\r\n    width: 100%;\r\n    left: 0;\r\n    text-align: center;\r\n    margin:0 auto;\r\n}\r\n\r\n.img-color-circle {\r\n    background-color:#ccc;\r\n    border-radius: 50%;\r\n    width: 40px;\r\n    height: 40px;\r\n}\r\n\r\n.img-circle{\r\n    padding: 5px;\r\n}\r\n\r\n.text-name{\r\n    padding: 15px;\r\n}\r\n\r\n.img-border{\r\n    padding: 5px;\r\n}\r\n.logout{\r\n    padding: 15px;\r\n    padding-right: 25px;\r\n}\r\n.navcustom{\r\n    background-color: white;\r\n}\r\n\r\n.link{\r\n    color: rgba(85, 85, 85, 0.85);\r\n }", ""]);
+exports.push([module.i, ".navbar-brand\r\n{\r\n    position: absolute;\r\n    width: 100%;\r\n    left: 0;\r\n    text-align: center;\r\n    margin-top: -10px;\r\n    padding: 43px;\r\n    text-align: center;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    font-size: 3.5em;\r\n    letter-spacing: 10px;\r\n    color: #676767;\r\n    font-family: Raleway-Black;\r\n    border-bottom: 2px solid #f0f1f7;\r\n}\r\n\r\n.img-color-circle {\r\n    background-color:#f0f1f7;\r\n    border-radius: 50%;\r\n    width: 60px;\r\n    height: 60px;\r\n}\r\n\r\n.img-circle{\r\n    padding: 15px;\r\n    width: 60px;\r\n    height: 60px;\r\n}\r\n\r\n.link{\r\n    margin-right: 100px;\r\n}\r\n\r\n.text-name{\r\n    padding: 15px;\r\n    color:  #7a7a7a !important;\r\n    height: 60px !important;\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.2em;\r\n}\r\n\r\n.logout{\r\n    padding: 15px;\r\n    padding-right: 25px;\r\n}\r\n\r\n.right-block{\r\n    margin-bottom: 8px;\r\n    margin-top: 8px;\r\n}\r\n\r\n.navcustom{\r\n    background-color: white;\r\n    box-shadow: 0px 3px 10px 0px #999999;\r\n}\r\n\r\n.top-navbar{\r\n    border-left: 2px solid #999999;\r\n}\r\n\r\n.search-holder{\r\n    border-radius: 0px;\r\n    color:  #949495 !important;\r\n    background-color: #f0f1f7;\r\n    height: 60px !important;\r\n    padding-left: 20px !important; \r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.2em;\r\n    border: none;\r\n    width: 100%  !important;\r\n    box-shadow: none;\r\n}\r\n\r\n.search-group{\r\n    width: 500px;\r\n    margin-left: 100px;\r\n}\r\n\r\n.search-buttons{\r\n    background-color: #f0f1f7 !important;\r\n    border-radius: 7px;\r\n    height: 60px;\r\n    width: 100%;\r\n}\r\n\r\n.search-buttons:active {\r\n    box-shadow: 0 0px #666;\r\n    -webkit-transform: none;\r\n            transform: none;\r\n}\r\n\r\n.search-buttons:focus {\r\n    outline:0;\r\n}\r\n\r\n.rotateimg90 {\r\n    -webkit-transform:rotate(90deg);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n.dropdown-menu{\r\n    background-color: #f0f1f7;\r\n    padding: 5px;\r\n    font-size: 16px;\r\n    border: none;\r\n    cursor: pointer;\r\n}\r\n\r\n.droplist-el{\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1em;\r\n    padding: 10px;\r\n    color:  #949495 !important;\r\n}\r\n\r\n.droplist-el:hover{\r\n    background-color: #f0f1f7;\r\n}\r\n\r\n.dropdown-menu:hover{\r\n    background-color: #f0f1f7;\r\n}\r\n\r\n.bottom-navbar{\r\n    margin-top: 76px; \r\n}\r\n\r\n.bottom-navbar-container{\r\n    padding-left: 30px;\r\n    padding-right: 30px;\r\n    padding-top: 10px;\r\n    padding-bottom: 10px; \r\n}\r\n\r\n.text-myfiles{\r\n    font-family: Raleway-Bold;\r\n    letter-spacing: 1px;\r\n    font-size: 1.2em;\r\n    padding: 20px;\r\n    color:  #333333;\r\n    margin-left: 100px;\r\n}\r\n\r\n.sort-button{\r\n    background-color: transparent;\r\n    border-radius: 7px;\r\n    height: 43px;\r\n    width: 43px;\r\n}\r\n\r\n.sort-button:active {\r\n    box-shadow: 0 0px #666;\r\n    -webkit-transform: none;\r\n            transform: none;\r\n}\r\n\r\n.sort-button:focus {\r\n    outline:0;\r\n}\r\n\r\n.text-right{\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1em;\r\n    padding: 10px;\r\n    color:  #949495 !important;\r\n    vertical-align: middle; \r\n}\r\n\r\n.icons{\r\n    padding: 5px;\r\n}\r\n\r\n.divicons{\r\n    margin-top: 20px;\r\n    margin-right: 125px;\r\n}\r\n\r\n.access-params{\r\n    font-family: Raleway-SemiBold;\r\n    letter-spacing: 1px;\r\n    font-size: 1em;\r\n    padding: 10px;\r\n    color:  #949495 !important;\r\n    vertical-align: middle; \r\n    background-color: transparent;\r\n    border: none;\r\n    padding-top: 20px;\r\n}\r\n\r\n.access-params:focus {\r\n    outline:0;\r\n}\r\n", ""]);
 
 // exports
 
@@ -275,7 +217,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/_components/menu/menu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navcustom\">\r\n  <div>\r\n    <div class=\"navbar-header\">\r\n      <span class=\"navbar-brand\">LOGO</span>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n    </ul>\r\n    <form class=\"navbar-form navbar-left\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">\r\n            <i class=\"glyphicon glyphicon-search\"></i>\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n      <li *ngIf=\"currentUser\" class=\"text-name\">{{currentUser.name}}</li>\r\n      <li>\r\n        <div class=\"img-border\">\r\n          <div class=\"img-color-circle\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\" width=\"40\" height=\"40\"></div>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div class=\"logout\">\r\n          \r\n            <a [routerLink]=\"['/login']\" class=\"link\">\r\n                  <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                </a>\r\n          \r\n        </div>\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n</nav>"
+module.exports = "<nav class=\"navbar-fixed-top navcustom\">\r\n\r\n  <div>\r\n    <span class=\"navbar-brand\">LOGO</span>\r\n  </div>\r\n  <div class=\"navbar-left\">\r\n    <form class=\"navbar-form\" role=\"search\">\r\n      <div class=\"input-group search-group\">\r\n        <div class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn search-buttons\">  \r\n              <img src=\"assets\\icons\\search.svg\" width=\"20\" height=\"20\">\r\n          </button>\r\n        </div>\r\n        <input type=\"text\" class=\"form-control search-holder\" placeholder=\"Поиск файлов\">\r\n        <div class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn search-buttons dropdown-toggle\" data-toggle=\"dropdown\">\r\n              <span><img src=\"assets\\icons\\next.svg\" width=\"15\" height=\"15\" class=\"rotateimg90\"></span>\r\n          </button>\r\n          <ul class=\"dropdown-menu\" role=\"menu\">\r\n            <li>\r\n              <a class=\"droplist-el\" href=\"#\">\r\n                  <span class=\"droplist-el\">Поиск по файлам</span>\r\n              </a>\r\n            </li>\r\n            <li>\r\n              <a class=\"droplist-el\" href=\"#\">\r\n                <span class=\"droplist-el\">Поиск по тегам</span>\r\n                </a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <ul class=\"nav navbar-nav navbar-right\">\r\n\r\n    <li *ngIf=\"currentUser\" class=\"text-name right-block\">{{currentUser.name}}</li>\r\n    <li>\r\n      <div>\r\n        <div class=\"img-color-circle right-block\"><img src=\"assets\\img\\user.svg\" class=\"img-circle\"></div>\r\n      </div>\r\n    </li>\r\n    <li>\r\n      <div class=\"logout right-block\">\r\n\r\n        <a [routerLink]=\"['/login']\" class=\"link\">\r\n          <span><img src=\"assets\\icons\\next.svg\" width=\"30\" height=\"30\"></span>\r\n        </a>\r\n\r\n      </div>\r\n    </li>\r\n\r\n  </ul>\r\n  <div class=\"bottom-navbar\">\r\n    <div>\r\n      <div class=\"navbar-left\">\r\n        <div class=\"text-myfiles\">Мои файлы\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n      <li><button class=\"access-params\">Настройки доступа</button></li>\r\n      <li class=\"text-right\">Сортировка\r\n        <button type=\"button\" class=\"btn sort-button dropdown-toggle\" data-toggle=\"dropdown\">\r\n          <span><img src=\"assets\\icons\\next.svg\" width=\"15\" height=\"15\" class=\"rotateimg90\"></span>\r\n      </button>\r\n        <div class=\"dropdown-menu\">\r\n          <li>\r\n            <a class=\"droplist-el\" href=\"#\">\r\n                <span class=\"droplist-el\">По дате создания</span>\r\n                </a>\r\n          </li>\r\n          <li>\r\n            <a class=\"droplist-el\" href=\"#\">\r\n              <span class=\"droplist-el\">По дате добавления</span>\r\n              </a>\r\n          </li>\r\n          <li>\r\n              <a class=\"droplist-el\" href=\"#\">\r\n              <span class=\"droplist-el\">По размеру</span>\r\n              </a>\r\n            </li>\r\n        </div>\r\n      </li>\r\n      <li>\r\n        <div class=\"divicons\">\r\n          <span class=\"icons\"><img src=\"assets\\icons\\list.svg\" width=\"30\" height=\"30\"></span>\r\n          <span class=\"icons\"><img src=\"assets\\icons\\tile.svg\" width=\"30\" height=\"30\"></span>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>"
 
 /***/ }),
 
@@ -839,14 +781,12 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_login_login_component__ = __webpack_require__("../../../../../src/app/_components/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__ = __webpack_require__("../../../../../src/app/_components/register/register.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_index__ = __webpack_require__("../../../../../src/app/_services/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_body_body_component__ = __webpack_require__("../../../../../src/app/_components/body/body.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -868,7 +808,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_6__components_menu_menu_component__["a" /* MenuComponent */], __WEBPACK_IMPORTED_MODULE_8__directives_alert_alert_component__["a" /* AlertComponent */], __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__["a" /* HomeComponent */], __WEBPACK_IMPORTED_MODULE_10__components_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__["a" /* RegisterComponent */], __WEBPACK_IMPORTED_MODULE_13__components_body_body_component__["a" /* BodyComponent */]
+            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_6__components_menu_menu_component__["a" /* MenuComponent */], __WEBPACK_IMPORTED_MODULE_8__directives_alert_alert_component__["a" /* AlertComponent */], __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__["a" /* HomeComponent */], __WEBPACK_IMPORTED_MODULE_10__components_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_11__components_register_register_component__["a" /* RegisterComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
