@@ -25,7 +25,7 @@ namespace Logo.Web.Controllers
         }
 
         [HttpPost("auth-token")]
-        public UserInfoWithToken GetAuthorizationToken([FromBody]UserCredentials userCredentials)
+        public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
         {
             
             var user = _usersService.GetUser(userCredentials);
