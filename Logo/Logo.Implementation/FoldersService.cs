@@ -44,7 +44,6 @@ namespace Logo.Implementation
                 //return null;
             }
 
-
             return new FolderInfo
             {
                 FolderId = folder.FolderId,

@@ -40,6 +40,8 @@ namespace Logo.Web
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
+           // connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
             var connectionString = "";
             services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString)); 
