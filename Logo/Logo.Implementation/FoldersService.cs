@@ -4,7 +4,6 @@ using Logo.Contracts;
 using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 
-
 namespace Logo.Implementation
 {
     public class FoldersService : IFoldersService
@@ -78,7 +77,15 @@ namespace Logo.Implementation
         public void DeleteFolder(Guid folderId)
         {
             var folder = GetFolder(folderId);
+
+
+            if  (folder  ==  null)
+            {
+                throw new InvalidOperationException("Folder  doesn't exist");
+            }
+
             _dbContext.Remove(folder);
+            
             _dbContext.SaveChanges();
         }
     }
