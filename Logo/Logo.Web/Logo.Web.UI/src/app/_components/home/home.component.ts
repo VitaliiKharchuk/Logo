@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserInfoWithToken } from '../../_models/index';
-import { UserService } from '../../_services/index';
+import { Folder } from '../../_models/folder';
+import { File } from '../../_models/file';
+import { UserInfoWithToken } from '../../_models/user';
+import { AuthentificationService } from '../../_services/index';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-home',
@@ -10,17 +13,42 @@ import { UserService } from '../../_services/index';
 })
 
 export class HomeComponent implements OnInit {
-   currentUser: UserInfoWithToken;
-   model: any = {};
+    currentUser: UserInfoWithToken;
+    folders: Folder[] = [];
+    files: File[] = [];
 
-   constructor(private userService: UserService) {
-       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-   }
+    constructor(private authentificationService: AuthentificationService) {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+    }
 
-   ngOnInit() {
-   }
+    ngOnInit() { 
+        this.loadRootFolders();
+    }
 
-   createfolder(){
-        this.model.foldername = '5';
-   }
+    private loadRootFolders() {
+        this.authentificationService.post('api/folder/get-root-folders').subscribe(
+            data => {
+                this.folders = data.json() as Folder[];
+                console.log('Loading root folders successfull');
+            },
+            error => {
+                //show info about error
+                console.log('Loading root folders unsuccessfull');
+            });
+
+    }
+
+    private loadAllFolders(folderId) {
+        this.authentificationService.post('api/folder/get-folder', folderId).subscribe(
+            data => {
+                this.folders = data.json() as Folder[];
+                console.log('Loading folders successfull');
+            },
+            error => {
+                //show info about error
+                console.log('Loading folders unsuccessfull');
+            });
+
+    }
 }
