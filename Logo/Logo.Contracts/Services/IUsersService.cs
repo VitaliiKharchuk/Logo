@@ -1,8 +1,6 @@
 ﻿
 using System;
 
-
-
 namespace Logo.Contracts.Services
 {
     public interface IUsersService

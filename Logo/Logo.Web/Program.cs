@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
+using Logo.Implementation.DatabaseModels;
+using Logo.Implementation;
+using Logo.Contracts;
+using System;
 
 namespace Logo.Web
 {
@@ -8,6 +12,8 @@ namespace Logo.Web
     {
         public static void Main(string[] args)
         {
+
+         
 
             BuildWebHost(args).Run();
         }
