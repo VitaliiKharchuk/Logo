@@ -27,6 +27,9 @@ namespace Logo.Tests
                 };
 
                 var userInfoWithToken = usersController.GetUserInfoWithToken(model);
+                
+                Assert.IsFalse(string.IsNullOrEmpty(userInfoWithToken.Token));
+
 
             }
         }

@@ -67,11 +67,19 @@ namespace Logo.Web.Controllers
         public void AddUser([FromBody]string email, [FromBody]string password, [FromBody] string login)
         {
 
-            string encryptedPassword = _cryptographyService.RSAEncryptData(password);
+            // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
 
-            if (_usersService.ValidateUserCredentials(email, encryptedPassword, login))
+            UserFullInformation userFullInformation = new UserFullInformation
             {
-                _usersService.AddUser(Id: Guid.NewGuid(), email: email, password: encryptedPassword, name: login);
+                UserId = Guid.NewGuid(),
+                Email = email,
+                Password = password,
+                Name = login
+            };
+
+            if (_usersService.ValidateUserCredentials(userFullInformation))
+            {
+                _usersService.AddUser(userFullInformation);
             }
 
         }

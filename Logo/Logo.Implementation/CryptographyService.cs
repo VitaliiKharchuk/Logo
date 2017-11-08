@@ -21,7 +21,7 @@ namespace Logo.Implementation
 
                 encryptedData = RSAEncrypt(dataToEncrypt, RSA.ExportParameters(false), false);
             }
-
+            byte[] encryptedData1 = ByteConverter.GetBytes(ByteConverter.GetString(encryptedData));
             return ByteConverter.GetString(encryptedData);
 
         }

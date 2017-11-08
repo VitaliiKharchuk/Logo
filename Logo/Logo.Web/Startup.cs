@@ -40,10 +40,12 @@ namespace Logo.Web
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
+
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
             var connectionString = "";
             services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString)); 
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IFoldersService, FoldersService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

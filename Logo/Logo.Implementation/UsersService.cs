@@ -27,8 +27,8 @@ namespace Logo.Implementation
 
             if (userFromDatabase == null)
             {
-                //throw new InvalidOperationException("User not found.");
-                return null;
+                throw new InvalidOperationException("User not found.");
+                //return null;
             }
 
             return new UserInfo

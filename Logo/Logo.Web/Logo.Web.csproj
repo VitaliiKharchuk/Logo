@@ -18,4 +18,9 @@
     <ProjectReference Include="..\Logo.Contracts\Logo.Contracts.csproj" />
     <ProjectReference Include="..\Logo.Implementation\Logo.Implementation.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controllers\UsersController.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
 </Project>
