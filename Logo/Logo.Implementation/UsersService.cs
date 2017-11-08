@@ -13,13 +13,13 @@ namespace Logo.Implementation
     public class UsersService : IUsersService 
     {
         private readonly LogoDbContext _dbContext;
-        private readonly FoldersService _folderService;
+        private readonly IFoldersService _folderService;
 
 
-        public UsersService(LogoDbContext dbContext)
+        public UsersService(LogoDbContext dbContext, IFoldersService foldersService)
         {
             _dbContext = dbContext;
-            _folderService = new FoldersService(_dbContext);
+            _folderService = foldersService;
         }
 
         public UserInfo GetUser(UserCredentials userCredentials)

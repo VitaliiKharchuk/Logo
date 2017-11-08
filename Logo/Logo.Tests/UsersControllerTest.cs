@@ -13,9 +13,9 @@ namespace Logo.Tests
         public void GetTokenTest()
         {
             var connectionString = "";
-            using (var logoDb = new LogoDbContext(connectionString))
+            using (var logoDb = new LogoDbContext(connectionString) )
             {
-                var usersService = new UsersService(logoDb);
+                var usersService = new UsersService(logoDb,  new FoldersService(logoDb));
                 var cryptographyService = new CryptographyService();
 
                 var usersController = new UsersController(usersService, cryptographyService);

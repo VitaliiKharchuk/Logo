@@ -3,6 +3,7 @@ using System.Linq;
 using Logo.Contracts;
 using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
+using System.Collections.Generic;
 
 namespace Logo.Implementation
 {
@@ -10,7 +11,7 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
 
-        public FoldersService(LogoDbContext dbContext)
+        public FoldersService(LogoDbContext dbContext )
         {
             _dbContext = dbContext;
         }
@@ -88,6 +89,16 @@ namespace Logo.Implementation
             
             _dbContext.SaveChanges();
         }
+
+
+        public  List<Folder> GetFoldersInFolder(Guid FolderId)
+        {
+              return  _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).ToList();            
+        }
+
+
+
+
     }
 }
 
