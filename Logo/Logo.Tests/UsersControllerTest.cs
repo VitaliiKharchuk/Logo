@@ -15,7 +15,7 @@ namespace Logo.Tests
             var connectionString = "";
             using (var logoDb = new LogoDbContext(connectionString))
             {
-                var usersService = new UsersService(logoDb);
+                var usersService = new UsersService(logoDb, new FoldersService(logoDb) );
                 var cryptographyService = new CryptographyService();
 
                 var usersController = new UsersController(usersService, cryptographyService);

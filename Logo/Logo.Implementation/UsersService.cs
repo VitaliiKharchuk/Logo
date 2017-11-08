@@ -15,10 +15,13 @@ namespace Logo.Implementation
     public class UsersService : IUsersService 
     {
         private readonly LogoDbContext _dbContext;
+        private readonly IFoldersService _folderService;
 
-        public UsersService(LogoDbContext dbContext)
+
+        public UsersService(LogoDbContext dbContext,  IFoldersService foldersService)
         {
             _dbContext = dbContext;
+            _folderService = foldersService;
         }
 
         public UserInfo GetUser(UserCredentials userCredentials)
@@ -39,15 +42,32 @@ namespace Logo.Implementation
             };
         }
 
-        public void AddUser(Guid id, string email, string password, string name)
+        public void AddUser(UserFullInformation userFullInformation)
         {
-            _dbContext.Add(new User { UserId = id, Email = email, Password = password, Name = name });
-             _dbContext.SaveChanges();
+
+            _dbContext.Add(new User
+            {
+                UserId = userFullInformation.UserId,
+                Email = userFullInformation.Email,
+                Password = userFullInformation.Password,
+                Name = userFullInformation.Name
+            });
+
+            FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
+            _folderService.AddFolder(rootUserFolder);
+
+            _dbContext.SaveChanges();
         }
 
-        public bool ValidateUserCredentials(string email, string password, string name)
+        public bool ValidateUserCredentials(UserFullInformation userFullInformation)
         {
-            return (IsValidEmail(email) && !String.IsNullOrEmpty(password) && password.Length <= 32 && !String.IsNullOrEmpty(name) && name.Length <= 50 && GetUser(new UserCredentials { Email = email, Password = password }) == null ? true : false);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userFullInformation.Email && x.Password == userFullInformation.Password);
+
+            return (user == null &&
+                IsValidEmail(userFullInformation.Email) && userFullInformation.Email.Length <= 254 &&
+                !String.IsNullOrEmpty(userFullInformation.Password) && userFullInformation.Password.Length <= 32 &&
+                !String.IsNullOrEmpty(userFullInformation.Name) && userFullInformation.Name.Length <= 50
+                ) ? true : false;
         }
 
         public bool IsValidEmail(string emailaddress)
@@ -66,32 +86,7 @@ namespace Logo.Implementation
         }
 
 
-         public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKeyInfo, bool DoOAEPPadding)
-        {
-            try
-            {
-                //Create a new instance of RSACryptoServiceProvider.
-                RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
 
-                //Import the RSA Key information. This only needs
-                //toinclude the public key information.
-                RSAalg.ImportParameters(RSAKeyInfo);
-
-                //Encrypt the passed byte array and specify OAEP padding.  
-                //OAEP padding is only available on Microsoft Windows XP or
-                //later.  
-                return RSAalg.Encrypt(DataToEncrypt, DoOAEPPadding);
-            }
-            //Catch and display a CryptographicException  
-            //to the console.
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e.Message);
-
-                return null;
-            }
-
-        }
 
 
 
