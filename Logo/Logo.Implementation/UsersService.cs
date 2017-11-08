@@ -6,9 +6,7 @@ using Logo.Implementation.DatabaseModels;
 using System.Threading.Tasks;
 using System.Net.Mail;
 
-
 using System.Security.Cryptography;
-using Logo.Contracts;
 
 namespace Logo.Implementation
 {
@@ -31,7 +29,7 @@ namespace Logo.Implementation
             if (userFromDatabase == null)
             {
                 throw new InvalidOperationException("User not found.");
-                //return null;
+               
             }
 
             return new UserInfo
@@ -84,12 +82,6 @@ namespace Logo.Implementation
                 return false;
             }
         }
-
-
-
-
-
-
 
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Logo.Implementation
 {
-    public class ApiExceptionFilter : ExceptionFilterAttribute      
+    public class ApiExceptionFilter : ExceptionFilterAttribute
     {
         private ILogger<ApiExceptionFilter> _Logger;
 
@@ -17,13 +17,11 @@ namespace Logo.Implementation
             _Logger = logger;
         }
 
-
-        public void OnException(ExceptionContext context)
+        public override void OnException(ExceptionContext context)
         {
             ApiError apiError = null;
             if (context.Exception is ApiException)
             {
-                // handle explicit 'known' API errors
                 var ex = context.Exception as ApiException;
                 context.Exception = null;
                 apiError = new ApiError(ex.Message);
@@ -31,6 +29,7 @@ namespace Logo.Implementation
 
                 context.HttpContext.Response.StatusCode = ex.StatusCode;
             }
+
             else if (context.Exception is UnauthorizedAccessException)
             {
                 apiError = new ApiError("Unauthorized Access");
