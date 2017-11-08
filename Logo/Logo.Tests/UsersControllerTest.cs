@@ -15,7 +15,7 @@ namespace Logo.Tests
             var connectionString = "";
             using (var logoDb = new LogoDbContext(connectionString) )
             {
-                var usersService = new UsersService(logoDb,  new FoldersService(logoDb));
+                var usersService = new UsersService(logoDb, new FoldersService(logoDb) );
                 var cryptographyService = new CryptographyService();
 
                 var usersController = new UsersController(usersService, cryptographyService);
@@ -29,6 +29,7 @@ namespace Logo.Tests
                 var userInfoWithToken = usersController.GetUserInfoWithToken(model);
                 
                 Assert.IsFalse(string.IsNullOrEmpty(userInfoWithToken.Token));
+
 
             }
         }

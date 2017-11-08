@@ -16,7 +16,8 @@ namespace Logo.Implementation
         private readonly IFoldersService _folderService;
 
 
-        public UsersService(LogoDbContext dbContext, IFoldersService foldersService)
+        public UsersService(LogoDbContext dbContext,  IFoldersService foldersService)
+
         {
             _dbContext = dbContext;
             _folderService = foldersService;
@@ -29,9 +30,9 @@ namespace Logo.Implementation
             if (userFromDatabase == null)
             {
                 throw new InvalidOperationException("User not found.");
-                //return null;
+               
             }
-           
+
             return new UserInfo
             {
                 Id = userFromDatabase.UserId,
@@ -46,25 +47,25 @@ namespace Logo.Implementation
             _dbContext.Add(new User
             {
                 UserId = userFullInformation.UserId,
-                Email =  userFullInformation.Email,
+                Email = userFullInformation.Email,
                 Password = userFullInformation.Password,
                 Name = userFullInformation.Name
-            });  
+            });
 
-            FolderInfo rootUserFolder = _folderService.CreateFolder("Root" , userFullInformation.UserId, null);   //  create  root  folder  for  user
+            FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
             _folderService.AddFolder(rootUserFolder);
 
-             _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public bool ValidateUserCredentials(UserFullInformation userFullInformation)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Email == userFullInformation.Email && x.Password == userFullInformation.Password);
 
-            return (  user == null  && 
+            return (user == null &&
                 IsValidEmail(userFullInformation.Email) && userFullInformation.Email.Length <= 254 &&
-                !String.IsNullOrEmpty(userFullInformation.Password)  &&  userFullInformation.Password.Length <= 32 && 
-                !String.IsNullOrEmpty(userFullInformation.Name) &&  userFullInformation.Name.Length <= 50 
+                !String.IsNullOrEmpty(userFullInformation.Password) && userFullInformation.Password.Length <= 32 &&
+                !String.IsNullOrEmpty(userFullInformation.Name) && userFullInformation.Name.Length <= 50
                 ) ? true : false;
         }
 
@@ -81,6 +82,7 @@ namespace Logo.Implementation
             {
                 return false;
             }
-        } 
+        }
+
     }
 }

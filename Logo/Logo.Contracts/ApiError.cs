@@ -2,12 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+<<<<<<< HEAD
 
 using System.Workflow.ComponentModel.Compiler;
 
 namespace Logo.Contracts
 {
     class ApiError
+=======
+using System.Linq;
+using Microsoft.AnalysisServices;
+
+
+namespace Logo.Contracts
+{
+    public class ApiError
     {
         public string message { get; set; }
         public bool isError { get; set; }
