@@ -6,22 +6,37 @@ using Logo.Contracts.Services;
 using Logo.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
+
+using Logo.Implementation;
 
 namespace Logo.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(ApiExceptionFilter))]
     public class UsersController : Controller
     {
         private readonly IUsersService _usersService;
+        private readonly ICryptographyService _cryptographyService;
 
-        public UsersController(IUsersService usersService)
+        [HttpGet]
+        public object Throw()
+        {
+            throw new InvalidOperationException("This is an unhandled exception");
+        }
+
+        public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
         {
             _usersService = usersService;
+            _cryptographyService = cryptographyService;
+
+            throw new InvalidOperationException("This is an unhandled exception");
         }
 
         [HttpPost("auth-token")]
         public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
         {
+            
             var user = _usersService.GetUser(userCredentials);
 
             var handler = new JwtSecurityTokenHandler();
@@ -54,6 +69,27 @@ namespace Logo.Web.Controllers
             };
 
             return userInfoWithToken;
+        }
+
+
+        [HttpPost]
+        public void AddUser([FromBody]string email, [FromBody]string password, [FromBody] string login)
+        {
+
+            // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
+
+            UserFullInformation userFullInformation = new UserFullInformation
+            {
+                UserId = Guid.NewGuid(),
+                Email = email,
+                Password = password,
+                Name = login
+            };
+
+            if (_usersService.ValidateUserCredentials(userFullInformation))
+            {
+                _usersService.AddUser(userFullInformation);
+            }
         }
     }
 }
