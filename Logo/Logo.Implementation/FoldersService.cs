@@ -11,7 +11,7 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
 
-        public FoldersService(LogoDbContext dbContext )
+        public FoldersService(LogoDbContext dbContext  )
         {
             _dbContext = dbContext;
         }
@@ -41,7 +41,7 @@ namespace Logo.Implementation
             if (folder == null)
             {
                 throw new InvalidOperationException("Folder not found.");
-                //return null;
+               
             }
 
             return new FolderInfo
@@ -97,6 +97,10 @@ namespace Logo.Implementation
         }
 
 
+        public List<File> GetFileInFolder(Guid FolderId)
+        {
+            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).ToList();
+        }
 
 
     }

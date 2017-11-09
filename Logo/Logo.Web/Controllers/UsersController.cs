@@ -8,20 +8,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
-using System.Security.Cryptography;
+using Logo.Implementation;
 
 namespace Logo.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(ApiExceptionFilter))]
     public class UsersController : Controller
     {
         private readonly IUsersService _usersService;
         private readonly ICryptographyService _cryptographyService;
-        
+
+        [HttpGet]
+        public object Throw()
+        {
+            throw new InvalidOperationException("This is an unhandled exception");
+        }
+
         public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
         {
             _usersService = usersService;
             _cryptographyService = cryptographyService;
+
+            throw new InvalidOperationException("This is an unhandled exception");
         }
 
         [HttpPost("auth-token")]
@@ -81,7 +90,6 @@ namespace Logo.Web.Controllers
             {
                 _usersService.AddUser(userFullInformation);
             }
-
         }
     }
 }

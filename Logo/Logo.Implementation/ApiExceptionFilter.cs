@@ -1,7 +1,4 @@
-
-namespace Logo.Implementation
-{
-   
+ 
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,15 +7,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Logo.Implementation
 {
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
-        private ILogger<ApiExceptionFilter> _Logger;
+        private ILogger<ApiExceptionFilter> _logger;
 
         public ApiExceptionFilter(ILogger<ApiExceptionFilter> logger)
         {
-            _Logger = logger;
+            _logger = logger;
         }
 
         public override void OnException(ExceptionContext context)
@@ -32,13 +30,15 @@ namespace Logo.Implementation
                 apiError.errors = ex.Errors;
 
                 context.HttpContext.Response.StatusCode = ex.StatusCode;
+                
+                _logger.LogWarning($"Application thrown error: {ex.Message}", ex);
             }
 
             else if (context.Exception is UnauthorizedAccessException)
             {
                 apiError = new ApiError("Unauthorized Access");
                 context.HttpContext.Response.StatusCode = 401;
-
+                _logger.LogWarning("Unauthorized Access in Controller Filter.");
                 // handle logging here
             }
             else
@@ -57,7 +57,8 @@ namespace Logo.Implementation
 
                 context.HttpContext.Response.StatusCode = 500;
 
-                // handle logging here
+                _logger.LogError(new EventId(0), context.Exception, msg);
+               
             }
 
             // always return a JSON result

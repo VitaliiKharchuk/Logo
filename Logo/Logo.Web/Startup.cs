@@ -12,11 +12,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Microsoft.Extensions.Logging;
+using Serilog.Events;
 
 namespace Logo.Web
 {
     public class Startup
     {
+        /*
+        public  Startup(IHostingEnvironment env)
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "log-{Date}.txt"))
+                .CreateLogger();
+        }
+        */
+
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthorization(auth =>
@@ -38,18 +52,32 @@ namespace Logo.Web
             services.AddMvc(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
+              //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
+
             });
 
+            services.AddScoped<ApiExceptionFilter>();
 
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
-            var connectionString = "";
+            var connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString)); 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
+
+
+            
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel
+               .Information()
+               .WriteTo.File("log-history.txt")  //  LogEventLevel.Information
+               .CreateLogger();
+              
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog();
+   
             app.Use(async (context, next) => {
                 await next();
                 if (context.Response.StatusCode == 404 &&
@@ -75,7 +103,7 @@ namespace Logo.Web
             var options = new RewriteOptions()
                 .AddRedirectToHttps();
 
-            app.UseRewriter(options);
+            app.UseRewriter(options);           
         }
     }
 }
