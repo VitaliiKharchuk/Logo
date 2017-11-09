@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-import { UserCredentials, UserInfoWithToken, UserCredentialsWithName } from '../_models/user';
+import { UserCredentials, UserInfoWithToken, UserCredentialsWithName } from './user';
 
 @Injectable()
 export class AuthentificationService {

@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
-import { UserCredentials } from '../_components/login/user';
-import { Observable } from 'rxjs/Observable';
+import { Folder } from './folder';
 
 @Injectable()
-export class UserService {
+export class HomeService {
+
   constructor(private http: Http) { }
 
+  createfolder(folder: Folder) {
+    return this.http.post('/api/folders/create-folder', folder, this.jwt()).map((response: Response) => response.json());
+  }
   
-  // private helper methods
+  loadRootFolders() {
+    return this.http.post('api/folder/get-root-folders', this.jwt()).map((response: Response) => response.json());
+  }
+  
+  
 
   private jwt() {
     // create authorization header with jwt token
