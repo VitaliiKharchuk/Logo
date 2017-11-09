@@ -1,6 +1,7 @@
 {
     "/api": {
-        "target": "https://localhost:44365/",
-        "secure": false
+        "target": "http://logo-service.azurewebsites.net",
+        "secure": false,
+        "changeOrigin": true
     }
 }

@@ -52,7 +52,7 @@ namespace Logo.Web
             services.AddMvc(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
-              //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
+                //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
 
             });
 
@@ -60,24 +60,24 @@ namespace Logo.Web
 
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
             var connectionString = "";
-            services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString)); 
+            services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
 
 
-            
+
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel
                .Information()
                .WriteTo.File("log-history.txt")  //  LogEventLevel.Information
                .CreateLogger();
-              
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddSerilog();
-   
+
             app.Use(async (context, next) => {
                 await next();
                 if (context.Response.StatusCode == 404 &&
@@ -103,7 +103,7 @@ namespace Logo.Web
             var options = new RewriteOptions()
                 .AddRedirectToHttps();
 
-            app.UseRewriter(options);           
+            app.UseRewriter(options);
         }
     }
 }

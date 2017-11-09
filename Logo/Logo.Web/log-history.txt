@@ -4,3 +4,16 @@
 2017-11-09 19:07:10.425 +02:00 [INF] Request finished in 22.9923ms 404 
 2017-11-09 19:07:17.011 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/Throw  
 2017-11-09 19:07:17.025 +02:00 [INF] Request finished in 21.1829ms 404 
+2017-11-09 21:31:18.826 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:31:20.555 +02:00 [INF] Request finished in 2001.7872ms 404 
+2017-11-09 21:31:21.083 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-09 21:31:21.099 +02:00 [INF] Request finished in 17.4529ms 404 
+2017-11-09 21:33:30.799 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:33:32.588 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:33:32.989 +02:00 [INF] Request finished in 2411.3491ms 302 
+2017-11-09 21:35:14.375 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:35:14.942 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:35:14.977 +02:00 [INF] Request finished in 646.7477ms 302 
+2017-11-09 21:50:47.478 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:50:48.704 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:50:48.756 +02:00 [INF] Request finished in 1330.3549ms 302 

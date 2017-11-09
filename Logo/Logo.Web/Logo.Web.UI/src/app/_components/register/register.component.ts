@@ -21,27 +21,31 @@ export class RegisterComponent {
     private authentificationService: AuthentificationService,
     private alertService: AlertService) { }
 
- 
+
 
   register() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.loading = true;
-    this.userService.create(this.model)
+    this.authentificationService.addUser(this.model.name, this.model.email, this.model.password)
       .subscribe(
       data => {
         // set success message and pass true paramater to persist the message after redirecting to the login page
         //this.alertService.success('Registration successful', true);
+        console.log('AddingUser succesfull');
         this.authentificationService.login(this.model.username, this.model.password)
           .subscribe(
           data => {
-             this.router.navigate([this.returnUrl]);
+            console.log('Login succesfull');
+            this.router.navigate([this.returnUrl]);
           },
           error => {
+            console.log('Login unsuccesfull');
             this.alertService.error(error);
             this.loading = false;
           });
       },
       error => {
+        console.log('AddingUser unsuccesfull');
         this.alertService.error(error);
         this.loading = false;
       });
