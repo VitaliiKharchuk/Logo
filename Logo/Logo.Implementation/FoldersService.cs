@@ -91,18 +91,37 @@ namespace Logo.Implementation
         }
 
 
-        public  List<Folder> GetFoldersInFolder(Guid FolderId)
+        public  List<FolderInfo> GetFoldersInFolder(Guid FolderId)
         {
-              return  _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).ToList();            
+            return _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).Select(y => new FolderInfo()
+            {
+                 FolderId  =  y.FolderId,
+                 ParentFolderId = y.ParentFolderId,
+                 OwnerId  = y.OwnerId,
+                 Name = y.Name,
+                 CreationDate = y.CreationDate,
+                 UploadDate = y.UploadDate,
+                 Level = y.Level,
+                 HasPublicAccess = y.HasPublicAccess       
+            }).ToList(); 
+              
         }
 
-
-        public List<File> GetFileInFolder(Guid FolderId)
+        public List<FileInfo> GetFilesInFolder(Guid FolderId)
         {
-            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).ToList();
+            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).Select( y => new FileInfo()
+            {
+                FileId = y.FileId,
+                ParentFolderId = y.ParentFolderId,
+                OwnerId = y.OwnerId,
+                Name = y.Name,
+                CreationDate = y.CreationDate,
+                UploadDate = y.UploadDate,    
+                Size = y.Size,
+                Type =  y.Type,
+                HasPublicAccess = y.HasPublicAccess               
+            }).ToList();
         }
-
-
     }
 }
 

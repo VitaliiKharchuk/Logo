@@ -56,8 +56,8 @@ namespace Logo.Implementation
                 Name = userFullInformation.Name
             });
 
-            FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
-            _folderService.AddFolder(rootUserFolder);
+            //FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
+            //_folderService.AddFolder(rootUserFolder);
 
             _dbContext.SaveChanges();
         }
