@@ -49,21 +49,22 @@ namespace Logo.Web
                     options.TokenValidationParameters.ValidateIssuerSigningKey = true;
                 });
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-                //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
+            services.AddMvc();
+            ////options =>
+            ////{
+            ////    options.Filters.Add(new RequireHttpsAttribute());
+            ////    //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
 
-            });
+            ////});
 
             services.AddScoped<ApiExceptionFilter>();
 
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
-            var connectionString = "";
+            var connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
-
+            services.AddTransient<ICryptographyService, CryptographyService>();
 
 
             Log.Logger = new LoggerConfiguration()
@@ -100,10 +101,17 @@ namespace Logo.Web
 
             app.UseAuthentication();
 
+<<<<<<< HEAD
             //var options = new RewriteOptions()
              //   .AddRedirectToHttps();
 
             //app.UseRewriter(options);
+=======
+            ////var options = new RewriteOptions()
+            ////    .AddRedirectToHttps();
+
+            ////app.UseRewriter(options);
+>>>>>>> c0fa8573aef4be37534fab628e31a476ef60804d
         }
     }
 }

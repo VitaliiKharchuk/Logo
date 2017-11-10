@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertService, UserService, AuthentificationService } from '../../_services/index';
+import { AlertService, UserService } from '../../_services/index';
+import { AuthentificationService } from '../login/authentification.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,7 @@ export class RegisterComponent {
         // set success message and pass true paramater to persist the message after redirecting to the login page
         //this.alertService.success('Registration successful', true);
         console.log('AddingUser succesfull');
-        this.authentificationService.login(this.model.username, this.model.password)
+        this.authentificationService.login(this.model.email, this.model.password)
           .subscribe(
           data => {
             console.log('Login succesfull');

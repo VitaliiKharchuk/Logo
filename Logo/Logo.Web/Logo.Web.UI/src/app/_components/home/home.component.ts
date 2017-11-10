@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Folder } from '../../_models/folder';
-import { File } from '../../_models/file';
-import { UserInfoWithToken } from '../../_models/user';
-import { AuthentificationService } from '../../_services/index';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ViewChild, ElementRef } from '@angular/core';
+import { Folder } from './folder';
+import { File } from './file';
+import { UserInfoWithToken } from '../login/user';
+import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -13,21 +14,44 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class HomeComponent implements OnInit {
+    @ViewChild('closeBtn') closeBtn: ElementRef;
+    model: any = {};
+    loading = false;
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
     files: File[] = [];
+    uploadFiles: any[];
 
-    constructor(private authentificationService: AuthentificationService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
+    constructor(private homeService: HomeService,
+        private router: Router, ) {
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.loadRootFolders();
     }
 
+    onChange(files: any[]) {
+        this.uploadFiles = files;
+    }
+
+    checkIfImage(name: string){
+        var fileExtension = "";
+        if (name.lastIndexOf(".") > 0) {
+            fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
+        }
+        if (fileExtension.toLowerCase() == "jpg") {
+            return true;
+        }
+        if (fileExtension.toLowerCase() == "png") {
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
     private loadRootFolders() {
-        this.authentificationService.post('api/folder/get-root-folders').subscribe(
+        this.homeService.loadRootFolders().subscribe(
             data => {
                 this.folders = data.json() as Folder[];
                 console.log('Loading root folders successfull');
@@ -39,16 +63,27 @@ export class HomeComponent implements OnInit {
 
     }
 
-    private loadAllFolders(folderId) {
-        this.authentificationService.post('api/folder/get-folder', folderId).subscribe(
+    createfolder() {
+        this.loading = true;
+        this.homeService.createfolder(this.model.foldername, null)
+            .subscribe(
             data => {
-                this.folders = data.json() as Folder[];
-                console.log('Loading folders successfull');
+                console.log('Creating folder successfull');
+                this.closeModal();
+                this.loadRootFolders();
             },
             error => {
-                //show info about error
-                console.log('Loading folders unsuccessfull');
+                console.log('Cant create folder');
+                this.loading = false;
             });
 
+    }
+
+    private closeModal(): void {
+        this.closeBtn.nativeElement.click();
+    }
+
+    moveToSelectedFolder(folderId) {
+        this.router.navigate(['', folderId])
     }
 }
