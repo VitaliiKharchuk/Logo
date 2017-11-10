@@ -78,9 +78,9 @@ namespace Logo.Web.Controllers
                 Name = userCredentialsWithName.Name
             };
 
-            if (_usersService.ValidateUserCredentials(userFullInformation))
+            if (_usersService.ValidateUserCredentials(userCredentialsWithName))
             {
-                _usersService.AddUser(userData);
+                _usersService.AddUser(userCredentialsWithName);
             }
         }
     }

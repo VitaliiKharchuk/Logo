@@ -45,7 +45,7 @@ namespace Logo.Implementation
             };
         }
 
-        public void AddUser(UserData userData)
+        public void AddUser(UserCredentialsWithName userData)
         {
 
             _dbContext.Add(new User
@@ -62,7 +62,7 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
-        public bool ValidateUserCredentials(UserData userData)
+        public bool ValidateUserCredentials(UserCredentialsWithName userData)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email && x.Password == userData.Password);
 
