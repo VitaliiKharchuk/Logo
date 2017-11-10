@@ -20,3 +20,7 @@
 2017-11-09 22:14:42.397 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
 2017-11-09 22:14:42.958 +02:00 [INF] Request redirected to HTTPS
 2017-11-09 22:14:43.000 +02:00 [INF] Request finished in 644.3897ms 302 
+2017-11-10 02:14:37.777 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 02:14:41.568 +02:00 [INF] Request finished in 3781.0657ms 404 
+2017-11-10 02:14:41.916 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-10 02:14:41.942 +02:00 [INF] Request finished in 16.5506ms 404 
