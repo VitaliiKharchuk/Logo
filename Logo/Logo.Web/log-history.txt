@@ -17,3 +17,6 @@
 2017-11-09 21:50:47.478 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
 2017-11-09 21:50:48.704 +02:00 [INF] Request redirected to HTTPS
 2017-11-09 21:50:48.756 +02:00 [INF] Request finished in 1330.3549ms 302 
+2017-11-09 22:14:42.397 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 22:14:42.958 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 22:14:43.000 +02:00 [INF] Request finished in 644.3897ms 302 

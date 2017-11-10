@@ -24,7 +24,7 @@ namespace Logo.Implementation
             _folderService = foldersService;
             _logger = logger;
 
-            this._logger.LogError("some  error");
+            //this._logger.LogError("some  error");
         }
 
         public UserInfo GetUser(UserCredentials userCredentials)
@@ -45,15 +45,15 @@ namespace Logo.Implementation
             };
         }
 
-        public void AddUser(UserFullInformation userFullInformation)
+        public void AddUser(UserData userData)
         {
 
             _dbContext.Add(new User
             {
-                UserId = userFullInformation.UserId,
-                Email = userFullInformation.Email,
-                Password = userFullInformation.Password,
-                Name = userFullInformation.Name
+                UserId = Guid.NewGuid(),
+                Email = userData.Email,
+                Password = userData.Password,
+                Name = userData.Name
             });
 
             //FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
@@ -62,14 +62,14 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
-        public bool ValidateUserCredentials(UserFullInformation userFullInformation)
+        public bool ValidateUserCredentials(UserData userData)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userFullInformation.Email && x.Password == userFullInformation.Password);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email && x.Password == userData.Password);
 
             return (user == null &&
-                IsValidEmail(userFullInformation.Email) && userFullInformation.Email.Length <= 254 &&
-                !String.IsNullOrEmpty(userFullInformation.Password) && userFullInformation.Password.Length <= 32 &&
-                !String.IsNullOrEmpty(userFullInformation.Name) && userFullInformation.Name.Length <= 50
+                IsValidEmail(userData.Email) && userData.Email.Length <= 254 &&
+                !String.IsNullOrEmpty(userData.Password) && userData.Password.Length <= 32 &&
+                !String.IsNullOrEmpty(userData.Name) && userData.Name.Length <= 50
                 ) ? true : false;
         }
 
