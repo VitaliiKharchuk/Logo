@@ -19,18 +19,12 @@ namespace Logo.Web.Controllers
         private readonly IUsersService _usersService;
         private readonly ICryptographyService _cryptographyService;
 
-        [HttpGet]
-        public object Throw()
-        {
-            throw new InvalidOperationException("This is an unhandled exception");
-        }
-
         public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
         {
             _usersService = usersService;
             _cryptographyService = cryptographyService;
 
-            throw new InvalidOperationException("This is an unhandled exception");
+            //throw new InvalidOperationException("This is an unhandled exception");
         }
 
         [HttpPost("auth-token")]
@@ -72,8 +66,8 @@ namespace Logo.Web.Controllers
         }
 
 
-        [HttpPost]
-        public void AddUser([FromBody]string email, [FromBody]string password, [FromBody] string login)
+        [HttpPost("add-user")]
+        public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
 
             // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
@@ -81,9 +75,9 @@ namespace Logo.Web.Controllers
             UserFullInformation userFullInformation = new UserFullInformation
             {
                 UserId = Guid.NewGuid(),
-                Email = email,
-                Password = password,
-                Name = login
+                Email = userCredentialsWithName.Email,
+                Password = userCredentialsWithName.Password,
+                Name = userCredentialsWithName.Name
             };
 
             if (_usersService.ValidateUserCredentials(userFullInformation))

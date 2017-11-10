@@ -41,14 +41,14 @@ export class AuthentificationService {
 
         return this.http.post('/api/users/add-user', userCredentialsWithName)
             .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let userInfoWithToken = response.json();
-                if (userInfoWithToken && userInfoWithToken.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(userInfoWithToken));
-                }
+                // // login successful if there's a jwt token in the response
+                // let userInfoWithToken = response.json();
+                // if (userInfoWithToken && userInfoWithToken.token) {
+                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                //     localStorage.setItem('currentUser', JSON.stringify(userInfoWithToken));
+                // }
 
-                return userInfoWithToken;
+                //return userInfoWithToken;
             });
     }
 

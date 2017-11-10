@@ -99,7 +99,16 @@
     border: 2px solid #34d3bb;
 }
 
-.form-control {
+.form-control-on-upload-file {
+    
+    border: none !important;
+    color: #333333;
+    font-family: Raleway-SemiBold;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+}
+
+.form-control-on-add-folder {
     height: 60px !important;
     border: 2px solid #999999 !important;
     border-radius: 4px !important; 
@@ -109,7 +118,9 @@
     letter-spacing: 1px;
     font-size: 1.2em;
 }
-
+.form-control-on-add-folder:focus {
+    outline:0;
+}
 .success{
     font-size: 3.1em;
     letter-spacing: 7px;
@@ -138,7 +149,8 @@
     overflow: hidden;
     font-size: 1em;        /* example */
     height: 2em;           /* example */
-    line-height: 2em       /* the same as height */
+    line-height: 2em;
+    margin-bottom: 5px;       /* the same as height */
 }
 .file_upload > button{
     float: right;
@@ -169,3 +181,46 @@
     opacity: 0;
     cursor: pointer
 }
+
+.custom-header{
+    background-color: #f0f1f7 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.custom-modal{
+    border-radius: 10px;
+}
+
+.modal-title{
+    color: #333333;
+    font-family: Raleway-Bold;
+    font-size: 1.4em;
+    padding: 5px;
+}
+
+.modal {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) { 
+    .modal:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+  }
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .name-file-in-table{
+    color:  #7a7a7a !important;
+    font-family: Raleway-SemiBold;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+  }

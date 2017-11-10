@@ -21,21 +21,34 @@ export class HomeComponent implements OnInit {
     folders: Folder[] = [];
     files: File[] = [];
     uploadFiles: any[];
-    
 
     constructor(private homeService: HomeService,
-        private router: Router,) {
+        private router: Router, ) {
     }
 
     ngOnInit() {
         this.loadRootFolders();
     }
 
-    
-    
-      onChange(files: any[]) {
+    onChange(files: any[]) {
         this.uploadFiles = files;
-      }
+    }
+
+    checkIfImage(name: string){
+        var fileExtension = "";
+        if (name.lastIndexOf(".") > 0) {
+            fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
+        }
+        if (fileExtension.toLowerCase() == "jpg") {
+            return true;
+        }
+        if (fileExtension.toLowerCase() == "png") {
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
 
     private loadRootFolders() {
         this.homeService.loadRootFolders().subscribe(
@@ -52,7 +65,7 @@ export class HomeComponent implements OnInit {
 
     createfolder() {
         this.loading = true;
-        this.homeService.createfolder(this.model.foldername)
+        this.homeService.createfolder(this.model.foldername, null)
             .subscribe(
             data => {
                 console.log('Creating folder successfull');
@@ -70,7 +83,7 @@ export class HomeComponent implements OnInit {
         this.closeBtn.nativeElement.click();
     }
 
-    moveToSelectedFolder(folderId){
-            this.router.navigate(['', folderId])
+    moveToSelectedFolder(folderId) {
+        this.router.navigate(['', folderId])
     }
 }

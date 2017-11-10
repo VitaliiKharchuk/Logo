@@ -21,15 +21,15 @@
         <div class="modal-dialog">
 
           <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content custom-modal">
+            <div class="modal-header custom-header">
               <h4 class="modal-title">Создание папки</h4>
             </div>
             <div class="modal-body">
               <form name="form" (ngSubmit)="f.form.valid && createfolder()" #f="ngForm" novalidate>
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !foldername.valid }">
                   <label for="foldername"></label>
-                  <input type="text" class="form-control" name="foldername" placeholder="Имя пользователя" [(ngModel)]="model.foldername" #foldername="ngModel"
+                  <input type="text" class="form-control form-control-on-add-folder" name="foldername" placeholder="Имя пользователя" [(ngModel)]="model.foldername" #foldername="ngModel"
                     required maxlength="50" />
                   <div *ngIf="f.submitted && foldername.errors && (foldername.dirty || foldername.touched)" class="alerts"><br>
                     <div [hidden]="!foldername.errors.required">
@@ -42,8 +42,8 @@
                   <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
                 </div>
                 <div class="form-group">
+                  <button class="button-transparent" data-dismiss="modal" #closeBtn>Отмена</button>
                   <button class="button-color">Готово</button>
-                  <button class="button-transparent" data-dismiss="modal" #closeBtn>Close</button>
                 </div>
               </form>
             </div>
@@ -58,9 +58,9 @@
         <div class="modal-dialog">
 
           <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Загрузка файла</h4>
+          <div class="modal-content custom-modal">
+            <div class="modal-header custom-header">
+              <h4 class="modal-title">Загрузка файлов</h4>
             </div>
             <div class="modal-body">
               <div class="file_upload">
@@ -72,12 +72,13 @@
                 <tbody>
                   <tr *ngFor="let f of uploadFiles; let i = index">
                     <td><img src="assets\icons\success.svg" width="20" height="20"></td>
-                    <td><img src="assets\icons\picture.svg" width="20" height="20"></td>
-                    <td>{{f.name}}</td>
+                    <td><img src="assets\icons\picture.svg" width="20" height="20" *ngIf="checkIfImage(f.name)">
+                      <img src="assets\icons\video-player.svg" width="20" height="20" *ngIf="!checkIfImage(f.name)"></td>
+                    <td class="name-file-in-table">{{f.name}}</td>
                     <td>
                       <form name="form" (ngSubmit)="frm.form.valid" #frm="ngForm" novalidate>
                         <div [ngClass]="{ 'has-error': frm.submitted && !hashtag.valid }">
-                          <input type="text" class="form-control" name="f.name-{{i}}" placeholder="+Добавить тег" [(ngModel)]="f.hashtag" #hashtag="ngModel"
+                          <input type="text" class="form-control-on-upload-file" name="f.name-{{i}}" placeholder="+Добавить тег" [(ngModel)]="f.hashtag" #hashtag="ngModel"
                           />
                           <div *ngIf="hashtag.errors && (hashtag.dirty && hashtag.touched)" class="alerts"><br>
                             <div [hidden]="!hashtag.errors">
@@ -91,8 +92,8 @@
                   </tr>
                 </tbody>
               </table>
+              <button class="button-transparent" data-dismiss="modal" #closeBtn>Отмена</button>
               <button class="button-color">Готово</button>
-              <button class="button-transparent" data-dismiss="modal" #closeBtn>Close</button>
             </div>
           </div>
         </div>
