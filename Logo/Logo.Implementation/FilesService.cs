@@ -16,6 +16,15 @@ namespace Logo.Implementation
     public  class FilesService
     {
 
+        public static void SimpleUpload(byte[] file, string fileName)
+        {
+            CloudBlobContainer container = GetContainerReference();
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+
+            blockBlob.UploadFromByteArray(file, 0, file.Length);
+        }
+
+
         public static void UploadFileInBlocks(byte[] file, string fileName)
         {
             CloudBlobContainer cloudBlobContainer = GetContainerReference();

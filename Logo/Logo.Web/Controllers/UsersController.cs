@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 
 using Logo.Implementation;
+using System.Collections.Generic;
+using Logo.Web.Models;
 
 namespace Logo.Web.Controllers
 {
@@ -62,7 +64,6 @@ namespace Logo.Web.Controllers
             return userInfoWithToken;
         }
 
-
         [HttpPost("add-user")]
         public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
@@ -83,5 +84,41 @@ namespace Logo.Web.Controllers
                 _usersService.AddUser(userCredentialsWithName);
             }
         }
+
+
+        [HttpGet("{id}", Name = "GetUser")]
+        public IActionResult GetById(string id)
+        {
+            if (id == "0")
+            {
+                return NotFound("User  not  found ");
+            }
+
+            UserInfoWithToken userInfoWithToken = new UserInfoWithToken
+            {
+                Token = "secret   tokeb",
+                UserInfo = new UserInfo
+                {
+                    Email = "user1@gmail.com",
+                    Name = "User1"
+                }
+            };
+
+            return new ObjectResult(userInfoWithToken);
+        }
+
+
+        /*
+        [HttpGet]
+        public IEnumerable<UserInfoWithToken> GetAll()
+        {
+            
+
+        }
+
+         */
+
+
+
     }
 }

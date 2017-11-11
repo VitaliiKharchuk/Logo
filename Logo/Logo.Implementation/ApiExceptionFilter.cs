@@ -44,14 +44,16 @@ namespace Logo.Implementation
             else
             {
                 // Unhandled errors
-           #if !DEBUG
+           
+                
+                #if !DEBUG
                 var msg = "An unhandled error occurred.";                
                 string stack = null;
            #else
                 var msg = context.Exception.GetBaseException().Message;
                 string stack = context.Exception.StackTrace;
            #endif
-
+                
                 apiError = new ApiError(msg);
                 apiError.detail = stack;
 

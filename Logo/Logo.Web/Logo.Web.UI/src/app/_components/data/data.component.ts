@@ -60,7 +60,7 @@ export class DataComponent implements OnInit {
 
   createfolder() {
     this.loading = true;
-    this.homeService.createfolder(this.model.foldername)
+    this.homeService.createfolder(this.model.foldername, null)
       .subscribe(
       data => {
         console.log('Creating folder successfull');

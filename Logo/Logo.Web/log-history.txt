@@ -1,0 +1,377 @@
+2017-11-10 13:02:30.557 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 13:02:31.977 +02:00 [INF] Request finished in 1427.5321ms 404 
+2017-11-10 13:02:32.300 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-10 13:02:32.314 +02:00 [INF] Request finished in 32.6224ms 404 
+2017-11-10 15:06:43.604 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 15:06:44.886 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-10 15:06:45.220 +02:00 [INF] Request finished in 1603.3969ms 200 text/html
+2017-11-10 15:06:45.236 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 15:06:45.253 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 15:06:45.256 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 15:06:45.279 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 15:06:45.301 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-10 15:06:45.305 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-10 15:06:45.318 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 15:06:45.336 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-10 15:06:45.524 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-10 15:06:45.529 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-10 15:06:45.640 +02:00 [INF] Request finished in 397.8384ms 200 application/javascript
+2017-11-10 15:06:45.659 +02:00 [INF] Request finished in 428.0084ms 200 application/javascript
+2017-11-10 15:06:45.686 +02:00 [INF] Request finished in 363.4789ms 200 application/javascript
+2017-11-10 15:06:45.746 +02:00 [INF] Request finished in 476.742ms 200 application/javascript
+2017-11-10 15:06:46.083 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 15:06:46.105 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-10 15:06:46.195 +02:00 [INF] Request finished in 113.1145ms 200 application/javascript
+2017-11-10 15:06:46.467 +02:00 [INF] Request finished in 1184.7821ms 200 application/javascript
+2017-11-10 15:06:49.052 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 15:06:49.070 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 15:06:49.072 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-10 15:06:49.084 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-10 15:06:49.158 +02:00 [INF] Request finished in 102.2106ms 200 application/x-font-ttf
+2017-11-10 15:06:49.330 +02:00 [INF] Request finished in 270.833ms 200 application/x-font-ttf
+2017-11-10 15:06:49.458 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-10 15:06:49.477 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\favicon.ico'
+2017-11-10 15:06:49.531 +02:00 [INF] Request finished in 73.5218ms 200 image/x-icon
+2017-11-10 15:08:36.485 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 79
+2017-11-10 15:08:37.663 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 15:08:38.585 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 15:08:39.874 +02:00 [INF] Executed DbCommand (206ms) [Parameters=[@__userData_Email_0='?' (Size = 254), @__userData_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userData_Email_0) AND ([x].[Password] = @__userData_Password_1)
+2017-11-10 15:08:40.249 +02:00 [INF] Executed DbCommand (45ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 15:08:40.328 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 3582.9634ms
+2017-11-10 15:08:40.347 +02:00 [INF] Request finished in 3856.7365ms 200 
+2017-11-10 15:08:40.361 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 58
+2017-11-10 15:08:40.386 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 15:08:40.484 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 15:08:40.586 +02:00 [INF] Executed DbCommand (48ms) [Parameters=[@__userCredentials_Email_0='?' (Size = 254), @__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userCredentials_Email_0) AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 15:08:40.775 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-10 15:08:40.795 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 420.83070000000004ms
+2017-11-10 15:08:40.816 +02:00 [INF] Request finished in 443.166ms 200 application/json; charset=utf-8
+2017-11-10 15:08:40.880 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-10 15:08:40.914 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-10 15:08:40.931 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-10 15:08:40.944 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-10 15:08:40.954 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-10 15:08:40.969 +02:00 [INF] Sending file. Request path: '/assets/icons/next.svg'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\icons\next.svg'
+2017-11-10 15:08:40.972 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-10 15:08:40.986 +02:00 [INF] Sending file. Request path: '/assets/icons/list.svg'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\icons\list.svg'
+2017-11-10 15:08:40.988 +02:00 [INF] Sending file. Request path: '/assets/icons/tile.svg'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\icons\tile.svg'
+2017-11-10 15:08:41.005 +02:00 [INF] Sending file. Request path: '/assets/img/user.svg'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\img\user.svg'
+2017-11-10 15:08:41.011 +02:00 [INF] Sending file. Request path: '/assets/icons/search.svg'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\icons\search.svg'
+2017-11-10 15:08:41.020 +02:00 [INF] Request finished in 83.3203ms 200 image/svg+xml
+2017-11-10 15:08:41.034 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-10 15:08:41.043 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Bold.ttf'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Bold.ttf'
+2017-11-10 15:08:41.215 +02:00 [INF] Request finished in 135.0615ms 200 image/svg+xml
+2017-11-10 15:08:41.230 +02:00 [INF] Request finished in 304.0154ms 200 image/svg+xml
+2017-11-10 15:08:41.282 +02:00 [INF] Request finished in 327.3905ms 200 image/svg+xml
+2017-11-10 15:08:41.313 +02:00 [INF] Request finished in 362.3494ms 200 image/svg+xml
+2017-11-10 15:08:41.376 +02:00 [INF] Request finished in 278.8027ms 200 application/x-font-ttf
+2017-11-10 15:08:41.504 +02:00 [INF] Request finished in 566.4251ms 404 
+2017-11-11 17:03:38.014 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-11 17:03:38.826 +02:00 [INF] The file /index.html was not modified
+2017-11-11 17:03:38.859 +02:00 [INF] Request finished in 873.9649ms 304 text/html
+2017-11-11 17:03:38.953 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-11 17:03:38.987 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-11 17:03:38.993 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-11 17:03:39.027 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-11 17:03:39.036 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-11 17:03:39.045 +02:00 [INF] Request finished in 93.4326ms 304 application/javascript
+2017-11-11 17:03:39.077 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-11 17:03:39.106 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-11 17:03:39.121 +02:00 [INF] Request finished in 109.3639ms 304 application/javascript
+2017-11-11 17:03:39.143 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-11 17:03:39.169 +02:00 [INF] Request finished in 204.0963ms 304 application/javascript
+2017-11-11 17:03:39.219 +02:00 [INF] Request finished in 137.5852ms 304 application/javascript
+2017-11-11 17:03:39.256 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-11 17:03:39.275 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-11 17:03:39.317 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-11 17:03:39.346 +02:00 [INF] Request finished in 107.723ms 304 application/javascript
+2017-11-11 17:03:39.355 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-11 17:03:39.406 +02:00 [INF] Request finished in 146.562ms 304 application/javascript
+2017-11-11 17:03:42.079 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 17:03:42.250 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-11 17:03:42.932 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-11 17:03:42.969 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-11 17:03:42.977 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-11 17:03:42.997 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-11 17:03:43.006 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-11 17:03:43.272 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-11 17:03:43.291 +02:00 [INF] Request finished in 1035.7979ms 304 image/svg+xml
+2017-11-11 17:03:43.655 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-11 17:03:43.680 +02:00 [INF] Request finished in 1416.5818ms 304 image/svg+xml
+2017-11-11 17:03:43.683 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-11 17:03:43.706 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-11 17:03:43.710 +02:00 [INF] Request finished in 765.542ms 304 image/svg+xml
+2017-11-11 17:03:43.737 +02:00 [INF] Request finished in 715.533ms 304 image/svg+xml
+2017-11-11 17:03:43.755 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-11 17:03:43.786 +02:00 [INF] Request finished in 1462.5471ms 304 image/svg+xml
+2017-11-11 17:03:43.794 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-11 17:03:43.812 +02:00 [INF] Request finished in 69.4073ms 304 application/x-font-ttf
+2017-11-11 17:03:43.840 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-11 17:03:44.512 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-11 17:03:44.814 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-11 17:03:45.098 +02:00 [INF] Request finished in 1002.3811ms 304 application/x-font-ttf
+2017-11-11 17:03:45.665 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-11 17:03:45.682 +02:00 [INF] Request finished in 1907.2838ms 304 application/x-font-ttf
+2017-11-11 17:03:48.722 +02:00 [INF] Request finished in 6640.0382ms 404 
+2017-11-11 17:18:38.974 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 17:18:39.046 +02:00 [INF] Request finished in 21.4345ms 404 
+2017-11-11 17:18:51.912 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/files  
+2017-11-11 17:18:52.514 +02:00 [INF] Executing action method Logo.Web.Controllers.FilesController.Get (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-11 17:18:52.565 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 17:18:53.097 +02:00 [INF] Executed action Logo.Web.Controllers.FilesController.Get (Logo.Web) in 590.9461ms
+2017-11-11 17:18:53.125 +02:00 [INF] Request finished in 1212.4375ms 200 application/json; charset=utf-8
+2017-11-11 17:32:52.702 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 17:32:53.887 +02:00 [INF] Request finished in 1238.2235ms 404 
+2017-11-11 17:33:04.845 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/users/get  
+2017-11-11 17:33:04.953 +02:00 [INF] Request finished in 21.8152ms 301 
+2017-11-11 17:33:07.286 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 17:33:07.306 +02:00 [INF] Request finished in 15.2045ms 404 
+2017-11-11 17:33:22.196 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/get  
+2017-11-11 17:33:22.207 +02:00 [INF] Request finished in 6.7197ms 404 
+2017-11-11 17:33:42.760 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/files/get  
+2017-11-11 17:33:42.794 +02:00 [INF] Request finished in 42.3113ms 404 
+2017-11-11 17:34:14.527 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/files  
+2017-11-11 17:34:14.721 +02:00 [INF] Executing action method Logo.Web.Controllers.FilesController.Get (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-11 17:34:14.744 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 17:34:15.013 +02:00 [INF] Executed action Logo.Web.Controllers.FilesController.Get (Logo.Web) in 287.4139ms
+2017-11-11 17:34:15.024 +02:00 [INF] Request finished in 497.3553ms 200 application/json; charset=utf-8
+2017-11-11 17:34:18.436 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users  
+2017-11-11 17:34:22.677 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.Get (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-11 17:34:22.684 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 17:34:22.694 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.Get (Logo.Web) in 4242.6334000000006ms
+2017-11-11 17:34:22.739 +02:00 [INF] Request finished in 4292.996ms 200 application/json; charset=utf-8
+2017-11-11 19:21:41.155 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 19:21:43.496 +02:00 [INF] Request finished in 2356.6325ms 404 
+2017-11-11 19:21:50.645 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/GetFolder/1  
+2017-11-11 19:21:50.728 +02:00 [INF] Request finished in 37.4895ms 404 
+2017-11-11 19:22:37.966 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/files  
+2017-11-11 19:22:38.408 +02:00 [INF] Executing action method Logo.Web.Controllers.FilesController.Get (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-11 19:22:38.455 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 19:22:38.734 +02:00 [INF] Executed action Logo.Web.Controllers.FilesController.Get (Logo.Web) in 377.1243ms
+2017-11-11 19:22:38.751 +02:00 [INF] Request finished in 785.7675ms 200 application/json; charset=utf-8
+2017-11-11 19:22:52.581 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders  
+2017-11-11 19:22:52.594 +02:00 [INF] Request finished in 6.3703ms 404 
+2017-11-11 19:23:20.527 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/getbyid(1)  
+2017-11-11 19:23:21.881 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetById (Logo.Web) with arguments (["getbyid(1)"]) - ModelState is "Valid"
+2017-11-11 19:23:21.889 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 19:23:21.975 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetById (Logo.Web) in 1210.2778ms
+2017-11-11 19:23:21.998 +02:00 [INF] Request finished in 1454.6273ms 200 application/json; charset=utf-8
+2017-11-11 19:24:05.712 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/getfolder/2  
+2017-11-11 19:24:05.723 +02:00 [INF] Request finished in 7.3423ms 404 
+2017-11-11 19:24:17.615 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/getfolder/2  
+2017-11-11 19:24:17.667 +02:00 [INF] Request finished in 14.3201ms 404 
+2017-11-11 19:24:19.328 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/getfolder/2  
+2017-11-11 19:24:19.351 +02:00 [INF] Request finished in 8.1398ms 404 
+2017-11-11 19:24:19.373 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-11 19:24:19.389 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\favicon.ico'
+2017-11-11 19:24:19.457 +02:00 [INF] Request finished in 64.754ms 200 image/x-icon
+2017-11-11 19:24:20.214 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/getfolder/2  
+2017-11-11 19:24:20.236 +02:00 [INF] Request finished in 6.8406ms 404 
+2017-11-11 19:24:20.261 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-11 19:24:20.276 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'J:\LogoProject\Logo\Logo\Logo.Web\wwwroot\favicon.ico'
+2017-11-11 19:24:20.294 +02:00 [INF] Request finished in 27.0484ms 200 image/x-icon
+2017-11-11 19:24:40.991 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/getbyid(0)  
+2017-11-11 19:24:41.066 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetById (Logo.Web) with arguments (["getbyid(0)"]) - ModelState is "Valid"
+2017-11-11 19:24:41.073 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 19:24:41.084 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetById (Logo.Web) in 80.513100000000009ms
+2017-11-11 19:24:41.102 +02:00 [INF] Request finished in 101.8964ms 200 application/json; charset=utf-8
+2017-11-11 19:24:59.882 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/getbyid(2)  
+2017-11-11 19:24:59.889 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetById (Logo.Web) with arguments (["getbyid(2)"]) - ModelState is "Valid"
+2017-11-11 19:24:59.895 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-11 19:24:59.928 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetById (Logo.Web) in 13.706700000000001ms
+2017-11-11 19:24:59.943 +02:00 [INF] Request finished in 53.8459ms 200 application/json; charset=utf-8
+2017-11-11 19:34:23.469 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-11 19:34:24.292 +02:00 [INF] Request finished in 910.28ms 404 
+2017-11-11 19:34:38.329 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/2  
+2017-11-11 19:34:38.358 +02:00 [ERR] Request matched multiple actions resulting in ambiguity. Matching actions: Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+2017-11-11 19:34:39.504 +02:00 [ERR] Connection id "0HL9959P8AQ94", Request id "0HL9959P8AQ94:00000002": An unhandled exception was thrown by the application.
+Microsoft.AspNetCore.Mvc.Internal.AmbiguousActionException: Multiple actions matched. The following actions matched route data and had all constraints satisfied:
+
+Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionSelector.SelectBestCandidate(RouteContext context, IReadOnlyList`1 candidates)
+   at Microsoft.AspNetCore.Mvc.Internal.MvcAttributeRouteHandler.RouteAsync(RouteContext context)
+   at Microsoft.AspNetCore.Routing.Tree.TreeRouter.<RouteAsync>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Logo.Web.Startup.<>c.<<Configure>b__1_0>d.MoveNext() in J:\LogoProject\Logo\Logo\Logo.Web\Startup.cs:line 83
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2017-11-11 19:34:39.526 +02:00 [INF] Request finished in 1205.1903ms 500 
+2017-11-11 19:35:06.574 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/getbyid(2)  
+2017-11-11 19:35:06.581 +02:00 [ERR] Request matched multiple actions resulting in ambiguity. Matching actions: Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+2017-11-11 19:35:06.666 +02:00 [ERR] Connection id "0HL9959P8AQ94", Request id "0HL9959P8AQ94:00000003": An unhandled exception was thrown by the application.
+Microsoft.AspNetCore.Mvc.Internal.AmbiguousActionException: Multiple actions matched. The following actions matched route data and had all constraints satisfied:
+
+Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionSelector.SelectBestCandidate(RouteContext context, IReadOnlyList`1 candidates)
+   at Microsoft.AspNetCore.Mvc.Internal.MvcAttributeRouteHandler.RouteAsync(RouteContext context)
+   at Microsoft.AspNetCore.Routing.Tree.TreeRouter.<RouteAsync>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Logo.Web.Startup.<>c.<<Configure>b__1_0>d.MoveNext() in J:\LogoProject\Logo\Logo\Logo.Web\Startup.cs:line 83
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2017-11-11 19:35:06.694 +02:00 [INF] Request finished in 120.5319ms 500 
+2017-11-11 19:36:06.840 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/2  
+2017-11-11 19:36:06.846 +02:00 [ERR] Request matched multiple actions resulting in ambiguity. Matching actions: Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+2017-11-11 19:36:06.929 +02:00 [ERR] Connection id "0HL9959P8AQ96", Request id "0HL9959P8AQ96:00000001": An unhandled exception was thrown by the application.
+Microsoft.AspNetCore.Mvc.Internal.AmbiguousActionException: Multiple actions matched. The following actions matched route data and had all constraints satisfied:
+
+Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionSelector.SelectBestCandidate(RouteContext context, IReadOnlyList`1 candidates)
+   at Microsoft.AspNetCore.Mvc.Internal.MvcAttributeRouteHandler.RouteAsync(RouteContext context)
+   at Microsoft.AspNetCore.Routing.Tree.TreeRouter.<RouteAsync>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Logo.Web.Startup.<>c.<<Configure>b__1_0>d.MoveNext() in J:\LogoProject\Logo\Logo\Logo.Web\Startup.cs:line 83
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2017-11-11 19:36:06.957 +02:00 [INF] Request finished in 108.621ms 500 
+2017-11-11 19:36:19.740 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/GetFolderContent/2  
+2017-11-11 19:36:19.785 +02:00 [INF] Request finished in 29.1629ms 404 
+2017-11-11 19:36:22.930 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/GetFolderContent/3  
+2017-11-11 19:36:22.944 +02:00 [INF] Request finished in 6.6797ms 404 
+2017-11-11 19:36:33.710 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/Folders/3  
+2017-11-11 19:36:33.716 +02:00 [ERR] Request matched multiple actions resulting in ambiguity. Matching actions: Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+2017-11-11 19:36:33.813 +02:00 [ERR] Connection id "0HL9959P8AQ96", Request id "0HL9959P8AQ96:00000004": An unhandled exception was thrown by the application.
+Microsoft.AspNetCore.Mvc.Internal.AmbiguousActionException: Multiple actions matched. The following actions matched route data and had all constraints satisfied:
+
+Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionSelector.SelectBestCandidate(RouteContext context, IReadOnlyList`1 candidates)
+   at Microsoft.AspNetCore.Mvc.Internal.MvcAttributeRouteHandler.RouteAsync(RouteContext context)
+   at Microsoft.AspNetCore.Routing.Tree.TreeRouter.<RouteAsync>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Logo.Web.Startup.<>c.<<Configure>b__1_0>d.MoveNext() in J:\LogoProject\Logo\Logo\Logo.Web\Startup.cs:line 83
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2017-11-11 19:36:33.858 +02:00 [INF] Request finished in 124.7743ms 500 
+2017-11-11 19:36:37.050 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/Folders/5  
+2017-11-11 19:36:37.056 +02:00 [ERR] Request matched multiple actions resulting in ambiguity. Matching actions: Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+2017-11-11 19:36:37.135 +02:00 [ERR] Connection id "0HL9959P8AQ96", Request id "0HL9959P8AQ96:00000005": An unhandled exception was thrown by the application.
+Microsoft.AspNetCore.Mvc.Internal.AmbiguousActionException: Multiple actions matched. The following actions matched route data and had all constraints satisfied:
+
+Logo.Web.Controllers.FoldersController.GetById (Logo.Web)
+Logo.Web.Controllers.FoldersController.GetFolderContent (Logo.Web)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionSelector.SelectBestCandidate(RouteContext context, IReadOnlyList`1 candidates)
+   at Microsoft.AspNetCore.Mvc.Internal.MvcAttributeRouteHandler.RouteAsync(RouteContext context)
+   at Microsoft.AspNetCore.Routing.Tree.TreeRouter.<RouteAsync>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Logo.Web.Startup.<>c.<<Configure>b__1_0>d.MoveNext() in J:\LogoProject\Logo\Logo\Logo.Web\Startup.cs:line 83
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2017-11-11 19:36:37.171 +02:00 [INF] Request finished in 107.8084ms 500 
