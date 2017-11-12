@@ -6,7 +6,7 @@ namespace Logo.Contracts.Services
     public interface IUsersService
     {
         UserInfo GetUser(UserCredentials userCredentials);
-        bool ValidateUserCredentials(UserFullInformation userFullInformation);
-        void AddUser( UserFullInformation userFullInformation  );
+        bool ValidateUserCredentials(UserCredentialsWithName userFullInformation);
+        void AddUser(UserCredentialsWithName userFullInformation);
     }
 }

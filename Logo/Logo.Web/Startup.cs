@@ -101,10 +101,10 @@ namespace Logo.Web
 
             app.UseAuthentication();
 
-            ////var options = new RewriteOptions()
-            ////    .AddRedirectToHttps();
+            //var options = new RewriteOptions()
+             //   .AddRedirectToHttps();
 
-            ////app.UseRewriter(options);
+            //app.UseRewriter(options);
         }
     }
 }

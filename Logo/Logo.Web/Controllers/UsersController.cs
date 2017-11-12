@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 
 using Logo.Implementation;
+using System.Collections.Generic;
+using Logo.Web.Models;
 
 namespace Logo.Web.Controllers
 {
@@ -23,14 +25,11 @@ namespace Logo.Web.Controllers
         {
             _usersService = usersService;
             _cryptographyService = cryptographyService;
-
-            //throw new InvalidOperationException("This is an unhandled exception");
         }
 
         [HttpPost("auth-token")]
         public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
-        {
-            
+        {            
             var user = _usersService.GetUser(userCredentials);
 
             var handler = new JwtSecurityTokenHandler();
@@ -65,12 +64,12 @@ namespace Logo.Web.Controllers
             return userInfoWithToken;
         }
 
-
         [HttpPost("add-user")]
         public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
-
             // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
+            
+            //if (_usersService.ValidateUserCredentials(userData))
 
             UserFullInformation userFullInformation = new UserFullInformation
             {
@@ -80,10 +79,46 @@ namespace Logo.Web.Controllers
                 Name = userCredentialsWithName.Name
             };
 
-            if (_usersService.ValidateUserCredentials(userFullInformation))
+            if (_usersService.ValidateUserCredentials(userCredentialsWithName))
             {
-                _usersService.AddUser(userFullInformation);
+                _usersService.AddUser(userCredentialsWithName);
             }
         }
+
+
+        [HttpGet("{id}", Name = "GetUser")]
+        public IActionResult GetById(string id)
+        {
+            if (id == "0")
+            {
+                return NotFound("User  not  found ");
+            }
+
+            UserInfoWithToken userInfoWithToken = new UserInfoWithToken
+            {
+                Token = "secret   tokeb",
+                UserInfo = new UserInfo
+                {
+                    Email = "user1@gmail.com",
+                    Name = "User1"
+                }
+            };
+
+            return new ObjectResult(userInfoWithToken);
+        }
+
+
+        /*
+        [HttpGet]
+        public IEnumerable<UserInfoWithToken> GetAll()
+        {
+            
+
+        }
+
+         */
+
+
+
     }
 }
