@@ -106,19 +106,12 @@ namespace Logo.Web.Controllers
 
             return new ObjectResult(userInfoWithToken);
         }
-
-
-        /*
-        [HttpGet]
-        public IEnumerable<UserInfoWithToken> GetAll()
+        
+        [HttpGet("GetAllUser")]
+        public IEnumerable<UserFullInformation> GetAllUsers()  //only  for   testing
         {
-            
-
+            return _usersService.GetAllUsers();    
         }
-
-         */
-
-
-
+        
     }
 }

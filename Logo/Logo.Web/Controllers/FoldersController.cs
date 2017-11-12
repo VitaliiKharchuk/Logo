@@ -13,74 +13,41 @@ namespace Logo.Web.Controllers
     [Route("api/[controller]")]
     [ServiceFilter(typeof(ApiExceptionFilter))]
 
-    public class FoldersController  :  Controller
+    public class FoldersController : Controller
     {
         private readonly IFoldersService _foldersService;
-        
+
         public FoldersController(IFoldersService foldersService)
         {
-            _foldersService = foldersService;          
+            _foldersService = foldersService;
         }
 
-
-        [HttpGet("{id}", Name = "GetFolder")]
-        public FolderInfo GetById(string id)
+        [HttpPost("add-folder")]
+        public void  CreateFolder([FromBody]  FolderCredentials folderCredentials)
         {
-            //var item = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-
-            
-            FolderInfo folder = new FolderInfo
-            {
-                FolderId = Guid.NewGuid(),
-                ParentFolderId = Guid.NewGuid(),
-                OwnerId = Guid.NewGuid(),
-                Name = "Hardcoded Folder",
-                CreationDate = DateTime.Now,
-                Level = 0,
-                HasPublicAccess = false
-             };
-
-
-            return folder;
+            FolderInfo folderInfo =   _foldersService.CreateFolder(folderCredentials.Name, folderCredentials.OwnerId, folderCredentials.ParentFolderId);
+            _foldersService.AddFolder(folderInfo);
         }
+
         
-        [HttpGet("{id}", Name = "GetFolders")]
-        public IEnumerable<FolderInfo> GetFoldersContent(string  FolderId)
+
+        [HttpGet("{id}", Name = "GetFoldersInFolder")]
+        public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
         {
-           
-            FolderInfo folder1 = new FolderInfo
-            {
-                FolderId = Guid.NewGuid(),
-                ParentFolderId = Guid.NewGuid(),
-                OwnerId = Guid.NewGuid(),
-                Name = "Hardcoded Folder1",
-                CreationDate = DateTime.Now,
-                Level = 1,
-                HasPublicAccess = false
-            };
-
-
-            FolderInfo folder2 = new FolderInfo
-            {
-                FolderId = Guid.NewGuid(),
-                ParentFolderId = Guid.NewGuid(),
-                OwnerId = Guid.NewGuid(),
-                Name = "Hardcoded Folder2",
-                CreationDate = DateTime.Now,
-                Level = 1,
-                HasPublicAccess = false
-            };
-
-
-            return new[] { folder1, folder2 };
-            
+            return  _foldersService.GetFoldersInFolder(id);
         }
 
 
-        [HttpGet("{id}", Name = "GetFolders")]
-        public IEnumerable<FileInfo> GetFilesContent(string FolderId)
+        [HttpGet("GetAllFolders")]   //only for   testing
+        public IEnumerable<FolderInfo> GetAllFolders()
         {
+            return _foldersService.GetAllFolders();
+        }
 
+        /*
+        [HttpGet("{id}", Name = "GetFilesInFolder")]
+        public IEnumerable<FileInfo> GetFilesContent(string id)
+        {
             FileInfo file1 = new FileInfo
             {
                 FileId = Guid.NewGuid(),
@@ -88,7 +55,7 @@ namespace Logo.Web.Controllers
                 OwnerId = Guid.NewGuid(),
                 Name = "Hardcoded File1",
                 CreationDate = DateTime.Now,
-                HasPublicAccess = false                
+                HasPublicAccess = false
             };
 
             FileInfo file2 = new FileInfo
@@ -101,14 +68,8 @@ namespace Logo.Web.Controllers
                 HasPublicAccess = false
             };
 
-
             return new[] { file1, file2 };
-
-        }
-
-
-
-
-
+        }        
+        */
     }
 }

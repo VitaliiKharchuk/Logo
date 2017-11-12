@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace Logo.Contracts.Services
 {
@@ -8,5 +9,6 @@ namespace Logo.Contracts.Services
         UserInfo GetUser(UserCredentials userCredentials);
         bool ValidateUserCredentials(UserCredentialsWithName userFullInformation);
         void AddUser(UserCredentialsWithName userFullInformation);
+        IEnumerable <UserFullInformation> GetAllUsers();  //only  for   testing
     }
 }

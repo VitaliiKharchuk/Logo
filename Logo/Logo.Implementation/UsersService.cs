@@ -8,6 +8,7 @@ using System.Net.Mail;
 
 using System.Security.Cryptography;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Logo.Implementation
 {
@@ -31,11 +32,13 @@ namespace Logo.Implementation
         {
             var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email && x.Password == userCredentials.Password);
 
+            /*
             if (userFromDatabase == null)
             {
                 throw new InvalidOperationException("User not found.");
-               
+        
             }
+            */
 
             return new UserInfo
             {
@@ -86,6 +89,20 @@ namespace Logo.Implementation
             {
                 return false;
             }
+        }
+
+
+
+        public IEnumerable<UserFullInformation> GetAllUsers()
+        {
+           return  _dbContext.Set<User>().Select(
+                 y => new UserFullInformation()
+                 {
+                     Email = y.Email,
+                     UserId = y.UserId,
+                     Name = y.Password,
+                     Password = y.Password
+                 });
         }
 
 
