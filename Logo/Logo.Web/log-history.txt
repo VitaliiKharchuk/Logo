@@ -74,3 +74,662 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2017-11-13 02:11:31.957 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
 2017-11-13 02:11:31.964 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetByEmail (Logo.Web) in 21.759ms
 2017-11-13 02:11:31.972 +02:00 [INF] Request finished in 37.6586ms 200 application/json; charset=utf-8
+2017-11-13 11:40:46.188 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 11:40:46.380 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-13 11:40:46.406 +02:00 [INF] Request finished in 240.7933ms 200 text/html
+2017-11-13 11:40:46.475 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 11:40:46.519 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 11:40:46.555 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-13 11:40:46.577 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 11:40:46.586 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-13 11:40:46.626 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 11:40:46.657 +02:00 [INF] Request finished in 188.0997ms 200 application/javascript
+2017-11-13 11:40:46.669 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-13 11:40:46.699 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 11:40:46.723 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-13 11:40:46.754 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 11:40:46.774 +02:00 [INF] Request finished in 123.6648ms 200 application/javascript
+2017-11-13 11:40:46.803 +02:00 [INF] Request finished in 287.4619ms 200 application/javascript
+2017-11-13 11:40:46.820 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-13 11:40:46.840 +02:00 [INF] Request finished in 341.1002ms 200 application/javascript
+2017-11-13 11:40:46.857 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-13 11:40:46.879 +02:00 [INF] Request finished in 125.8793ms 200 application/javascript
+2017-11-13 11:40:46.956 +02:00 [INF] Request finished in 408.5354ms 200 application/javascript
+2017-11-13 11:40:47.812 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 11:40:47.818 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-13 11:40:47.821 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 11:40:47.871 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-13 11:40:47.943 +02:00 [INF] Request finished in 85.2399ms 200 application/x-font-ttf
+2017-11-13 11:40:48.016 +02:00 [INF] Request finished in 101.5933ms 200 application/x-font-ttf
+2017-11-13 11:40:48.018 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-13 11:40:48.044 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\favicon.ico'
+2017-11-13 11:40:48.051 +02:00 [INF] Request finished in 73.2989ms 200 image/x-icon
+2017-11-13 11:41:34.298 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 84
+2017-11-13 11:41:34.612 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 11:41:34.848 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:41:35.062 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 11:41:35.094 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 684.11790000000008ms
+2017-11-13 11:41:35.108 +02:00 [INF] Request finished in 803.0143ms 200 
+2017-11-13 11:41:35.114 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 63
+2017-11-13 11:41:35.134 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 11:41:35.182 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:41:35.251 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 11:41:35.281 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 133.3365ms
+2017-11-13 11:41:35.288 +02:00 [INF] Request finished in 170.9715ms 200 application/json; charset=utf-8
+2017-11-13 11:41:35.353 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 11:41:35.361 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 11:41:35.385 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 11:41:35.398 +02:00 [INF] Sending file. Request path: '/assets/icons/search.svg'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\icons\search.svg'
+2017-11-13 11:41:35.402 +02:00 [INF] Sending file. Request path: '/assets/icons/list.svg'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\icons\list.svg'
+2017-11-13 11:41:35.440 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 11:41:35.446 +02:00 [INF] Sending file. Request path: '/assets/icons/tile.svg'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\icons\tile.svg'
+2017-11-13 11:41:35.463 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 11:41:35.478 +02:00 [INF] Request finished in 115.3837ms 200 image/svg+xml
+2017-11-13 11:41:35.488 +02:00 [INF] Request finished in 150.0901ms 404 
+2017-11-13 11:41:35.514 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 11:41:35.523 +02:00 [INF] Sending file. Request path: '/assets/img/user.svg'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\img\user.svg'
+2017-11-13 11:41:35.544 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 11:41:35.559 +02:00 [INF] Request finished in 118.8389ms 200 image/svg+xml
+2017-11-13 11:41:35.584 +02:00 [INF] Request finished in 174.3312ms 200 image/svg+xml
+2017-11-13 11:41:35.611 +02:00 [INF] Request finished in 253.204ms 200 image/svg+xml
+2017-11-13 11:41:35.636 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Bold.ttf'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Bold.ttf'
+2017-11-13 11:41:35.651 +02:00 [INF] Sending file. Request path: '/assets/icons/next.svg'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\assets\icons\next.svg'
+2017-11-13 11:41:35.658 +02:00 [INF] Request finished in 145.5176ms 200 application/x-font-ttf
+2017-11-13 11:41:35.691 +02:00 [INF] Request finished in 312.0265ms 200 image/svg+xml
+2017-11-13 11:41:42.165 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/create-folder application/json 45
+2017-11-13 11:41:42.180 +02:00 [INF] Successfully validated the token.
+2017-11-13 11:41:42.202 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-13 11:41:42.207 +02:00 [INF] Request finished in 60.9853ms 404 
+2017-11-13 11:41:43.093 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/create-folder application/json 45
+2017-11-13 11:41:43.116 +02:00 [INF] Successfully validated the token.
+2017-11-13 11:41:43.140 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-13 11:41:43.157 +02:00 [INF] Request finished in 50.7808ms 404 
+2017-11-13 11:41:45.081 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/create-folder application/json 45
+2017-11-13 11:41:45.087 +02:00 [INF] Successfully validated the token.
+2017-11-13 11:41:45.090 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-13 11:41:45.097 +02:00 [INF] Request finished in 32.0093ms 404 
+2017-11-13 11:45:39.758 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 83
+2017-11-13 11:45:39.783 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 11:45:39.806 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:45:39.834 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 11:45:39.856 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 75.0588ms
+2017-11-13 11:45:39.882 +02:00 [INF] Request finished in 101.7428ms 200 
+2017-11-13 11:45:48.456 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/GetAllUser application/json 83
+2017-11-13 11:45:48.461 +02:00 [INF] Request finished in 5.2729ms 404 
+2017-11-13 11:45:53.479 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/GetAllUser application/json 0
+2017-11-13 11:45:53.486 +02:00 [INF] Request finished in 3.6266ms 404 
+2017-11-13 11:46:28.998 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser application/json 
+2017-11-13 11:46:29.006 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 11:46:29.030 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:46:29.054 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 11:46:29.096 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 71.5201ms
+2017-11-13 11:46:29.100 +02:00 [INF] Request finished in 104.3908ms 200 application/json; charset=utf-8
+2017-11-13 11:52:15.537 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 106
+2017-11-13 11:52:15.553 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 11:52:15.558 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:52:15.561 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 11:52:15.585 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 22.005300000000002ms
+2017-11-13 11:52:15.590 +02:00 [INF] Request finished in 51.0923ms 200 
+2017-11-13 11:52:39.473 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 11:52:39.477 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 11:52:39.485 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:52:39.508 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 11:52:39.527 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 49.255300000000005ms
+2017-11-13 11:52:39.549 +02:00 [INF] Request finished in 77.0128ms 200 application/json; charset=utf-8
+2017-11-13 11:53:14.008 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 106
+2017-11-13 11:53:14.013 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 11:53:14.017 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:53:14.020 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 11:53:14.024 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 11.7219ms
+2017-11-13 11:53:14.030 +02:00 [INF] Request finished in 20.4935ms 200 
+2017-11-13 11:53:16.902 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 11:53:16.906 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 11:53:16.910 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 11:53:16.933 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 11:53:16.937 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 32.0297ms
+2017-11-13 11:53:16.944 +02:00 [INF] Request finished in 41.4058ms 200 application/json; charset=utf-8
+2017-11-13 12:30:08.859 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 12:30:09.081 +02:00 [INF] The file /index.html was not modified
+2017-11-13 12:30:09.228 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 12:30:09.234 +02:00 [INF] Request finished in 268.9272ms 304 text/html
+2017-11-13 12:30:09.256 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 12:30:09.301 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 12:30:09.337 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 12:30:09.394 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 12:30:09.422 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 12:30:09.442 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 12:30:09.450 +02:00 [INF] Request finished in 88.1771ms 304 application/javascript
+2017-11-13 12:30:09.481 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 12:30:09.508 +02:00 [INF] Request finished in 286.8563ms 304 application/javascript
+2017-11-13 12:30:09.522 +02:00 [INF] Request finished in 292.916ms 304 application/javascript
+2017-11-13 12:30:09.534 +02:00 [INF] Request finished in 273.0345ms 304 application/javascript
+2017-11-13 12:30:09.601 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 12:30:09.622 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 12:30:09.629 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 12:30:09.653 +02:00 [INF] Request finished in 62.764ms 304 application/javascript
+2017-11-13 12:30:09.665 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 12:30:09.684 +02:00 [INF] Request finished in 99.1345ms 304 application/javascript
+2017-11-13 12:30:10.976 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 12:30:11.090 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 12:30:11.208 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 12:30:11.228 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 12:30:11.259 +02:00 [INF] Request finished in 211.7819ms 304 image/svg+xml
+2017-11-13 12:30:11.312 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 12:30:11.362 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 12:30:11.410 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 12:30:11.446 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 12:30:11.488 +02:00 [INF] Request finished in 415.7204ms 304 image/svg+xml
+2017-11-13 12:30:11.555 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 12:30:11.660 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 12:30:11.786 +02:00 [INF] Request finished in 345.8343ms 304 image/svg+xml
+2017-11-13 12:30:11.939 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 12:30:12.073 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 12:30:12.090 +02:00 [INF] Request finished in 389.0858ms 304 application/x-font-ttf
+2017-11-13 12:30:12.107 +02:00 [INF] Request finished in 921.8717ms 404 
+2017-11-13 12:30:12.173 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 12:30:12.191 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 12:30:12.213 +02:00 [INF] Request finished in 907.5188ms 304 image/svg+xml
+2017-11-13 12:30:12.266 +02:00 [INF] Request finished in 131.0404ms 304 application/x-font-ttf
+2017-11-13 12:30:12.278 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 12:30:12.295 +02:00 [INF] Request finished in 120.2888ms 304 image/svg+xml
+2017-11-13 12:30:12.333 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 12:30:12.349 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 12:30:12.407 +02:00 [INF] Request finished in 190.4524ms 304 application/x-font-ttf
+2017-11-13 12:30:19.899 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:30:20.109 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:30:20.384 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:30:20.401 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:30:20.584 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 613.2464ms
+2017-11-13 12:30:20.613 +02:00 [INF] Request finished in 698.9583ms 200 application/json; charset=utf-8
+2017-11-13 12:30:35.723 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser  
+2017-11-13 12:30:35.735 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:30:35.744 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:30:35.752 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:30:35.772 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 41.9163ms
+2017-11-13 12:30:35.784 +02:00 [INF] Request finished in 54.3523ms 200 application/json; charset=utf-8
+2017-11-13 12:30:42.677 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 63
+2017-11-13 12:30:42.766 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 12:30:42.793 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:30:49.975 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUserByEmail(String email) in C:\Project3\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in C:\Project3\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 32
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 12:30:50.008 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 12:30:50.040 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 7338.8676000000005ms
+2017-11-13 12:30:50.114 +02:00 [INF] Request finished in 7367.1295ms 500 application/json; charset=utf-8
+2017-11-13 12:31:02.697 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 84
+2017-11-13 12:31:02.714 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 12:31:02.742 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:31:02.945 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 12:31:02.972 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 248.18820000000002ms
+2017-11-13 12:31:02.981 +02:00 [INF] Request finished in 278.8976ms 200 
+2017-11-13 12:31:02.985 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 63
+2017-11-13 12:31:02.995 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 12:31:03.000 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:31:03.054 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:31:03.081 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 77.5577ms
+2017-11-13 12:31:03.112 +02:00 [INF] Request finished in 100.6426ms 200 application/json; charset=utf-8
+2017-11-13 12:31:03.140 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 12:31:03.156 +02:00 [INF] Request finished in 26.9128ms 404 
+2017-11-13 12:31:09.140 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser  
+2017-11-13 12:31:09.163 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:31:09.187 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:31:09.190 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:31:09.220 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 57.2853ms
+2017-11-13 12:31:09.224 +02:00 [INF] Request finished in 85.6458ms 200 application/json; charset=utf-8
+2017-11-13 12:31:23.877 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:31:23.882 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:31:23.886 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:31:23.890 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:31:23.908 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 27.5426ms
+2017-11-13 12:31:23.914 +02:00 [INF] Request finished in 36.6177ms 200 application/json; charset=utf-8
+2017-11-13 12:32:08.898 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 103
+2017-11-13 12:32:08.910 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 12:32:08.919 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:32:08.970 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 12:32:08.993 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 70.5086ms
+2017-11-13 12:32:09.017 +02:00 [INF] Request finished in 99.244ms 200 
+2017-11-13 12:32:13.658 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:32:13.681 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:32:13.684 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:32:13.707 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:32:13.730 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 49.292ms
+2017-11-13 12:32:13.734 +02:00 [INF] Request finished in 96.4631ms 200 application/json; charset=utf-8
+2017-11-13 12:39:33.181 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 12:39:33.420 +02:00 [INF] The file /index.html was not modified
+2017-11-13 12:39:33.464 +02:00 [INF] Request finished in 292.2111ms 304 text/html
+2017-11-13 12:39:33.539 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 12:39:33.542 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 12:39:33.554 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 12:39:33.563 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 12:39:33.586 +02:00 [INF] Request finished in 55.6157ms 304 application/javascript
+2017-11-13 12:39:33.593 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 12:39:33.604 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 12:39:33.615 +02:00 [INF] Request finished in 61.831ms 304 application/javascript
+2017-11-13 12:39:33.672 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 12:39:33.685 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 12:39:33.694 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 12:39:33.712 +02:00 [INF] Request finished in 185.238ms 304 application/javascript
+2017-11-13 12:39:33.732 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 12:39:33.740 +02:00 [INF] Request finished in 64.0678ms 304 application/javascript
+2017-11-13 12:39:33.754 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 12:39:33.759 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 12:39:33.767 +02:00 [INF] Request finished in 166.0448ms 304 application/javascript
+2017-11-13 12:39:33.775 +02:00 [INF] Request finished in 127.2484ms 304 application/javascript
+2017-11-13 12:39:34.830 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 12:39:34.872 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 12:39:34.886 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 12:39:34.933 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 12:39:34.992 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 12:39:35.005 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 12:39:35.023 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 12:39:35.036 +02:00 [INF] Request finished in 92.9278ms 304 image/svg+xml
+2017-11-13 12:39:35.047 +02:00 [INF] Request finished in 172.4512ms 304 image/svg+xml
+2017-11-13 12:39:35.101 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 12:39:35.121 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 12:39:35.136 +02:00 [INF] Request finished in 276.088ms 304 image/svg+xml
+2017-11-13 12:39:35.162 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 12:39:35.163 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 12:39:35.201 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 12:39:35.210 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 12:39:35.216 +02:00 [INF] Request finished in 122.7661ms 304 application/x-font-ttf
+2017-11-13 12:39:35.245 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 12:39:35.266 +02:00 [INF] Request finished in 316.3529ms 304 image/svg+xml
+2017-11-13 12:39:35.292 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 12:39:35.311 +02:00 [INF] Request finished in 201.8712ms 304 application/x-font-ttf
+2017-11-13 12:39:35.337 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 12:39:35.346 +02:00 [INF] Request finished in 104.0219ms 304 image/svg+xml
+2017-11-13 12:39:35.354 +02:00 [INF] Request finished in 425.1157ms 404 
+2017-11-13 12:39:35.357 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 12:39:35.419 +02:00 [INF] Request finished in 181.168ms 304 application/x-font-ttf
+2017-11-13 12:39:44.109 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 84
+2017-11-13 12:39:44.449 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 12:39:44.687 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:39:45.009 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 12:39:45.041 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 804.426ms
+2017-11-13 12:39:45.049 +02:00 [INF] Request finished in 939.7849ms 200 
+2017-11-13 12:39:45.058 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 63
+2017-11-13 12:39:45.091 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 12:39:45.099 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:39:45.159 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:39:45.181 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 114.04360000000001ms
+2017-11-13 12:39:45.191 +02:00 [INF] Request finished in 130.4537ms 200 application/json; charset=utf-8
+2017-11-13 12:39:45.238 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 12:39:45.250 +02:00 [INF] Request finished in 21.9385ms 404 
+2017-11-13 12:40:16.876 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser  
+2017-11-13 12:40:16.905 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:40:16.930 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:40:16.955 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:40:16.996 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 94.4804ms
+2017-11-13 12:40:17.021 +02:00 [INF] Request finished in 123.0255ms 200 application/json; charset=utf-8
+2017-11-13 12:40:37.499 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:40:37.528 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:40:37.561 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:40:37.592 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:40:37.631 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 104.83370000000001ms
+2017-11-13 12:40:37.637 +02:00 [INF] Request finished in 136.4863ms 200 application/json; charset=utf-8
+2017-11-13 12:41:00.206 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 103
+2017-11-13 12:41:00.227 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 12:41:00.250 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:41:06.701 +02:00 [ERR] Folder with   this  name  already  exists.
+System.InvalidOperationException: Folder with   this  name  already  exists.
+   at Logo.Implementation.FoldersService.CreateFolder(FolderCredentials folderCredentials) in C:\Project3\Logo\Logo\Logo.Implementation\FoldersService.cs:line 52
+   at Logo.Web.Controllers.FoldersController.CreateFolder(FolderCredentials folderCredentials) in C:\Project3\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 72
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.<>c__DisplayClass33_0.<WrapVoidMethod>b__0(Object target, Object[] parameters)
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 12:41:06.735 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 12:41:06.753 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 6541.4551ms
+2017-11-13 12:41:06.758 +02:00 [INF] Request finished in 6570.3124ms 500 application/json; charset=utf-8
+2017-11-13 12:41:13.641 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:41:13.664 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:41:13.691 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:41:13.721 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:41:13.745 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 80.2037ms
+2017-11-13 12:41:13.749 +02:00 [INF] Request finished in 126.2965ms 200 application/json; charset=utf-8
+2017-11-13 12:41:52.978 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 140
+2017-11-13 12:41:52.983 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 12:41:53.007 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:41:53.045 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 12:41:53.067 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 66.615000000000009ms
+2017-11-13 12:41:53.070 +02:00 [INF] Request finished in 93.4659ms 200 
+2017-11-13 12:41:56.145 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:41:56.168 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:41:56.191 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:41:56.214 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:41:56.238 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 69.2256ms
+2017-11-13 12:41:56.241 +02:00 [INF] Request finished in 115.3844ms 200 application/json; charset=utf-8
+2017-11-13 12:42:07.573 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 140
+2017-11-13 12:42:07.578 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 12:42:07.583 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:42:15.047 +02:00 [ERR] Folder with   this  name  already  exists.
+System.InvalidOperationException: Folder with   this  name  already  exists.
+   at Logo.Implementation.FoldersService.CreateFolder(FolderCredentials folderCredentials) in C:\Project3\Logo\Logo\Logo.Implementation\FoldersService.cs:line 52
+   at Logo.Web.Controllers.FoldersController.CreateFolder(FolderCredentials folderCredentials) in C:\Project3\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 72
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.<>c__DisplayClass33_0.<WrapVoidMethod>b__0(Object target, Object[] parameters)
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 12:42:15.085 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 12:42:15.116 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 7511.7531000000008ms
+2017-11-13 12:42:15.139 +02:00 [INF] Request finished in 7548.8481ms 500 application/json; charset=utf-8
+2017-11-13 12:42:20.145 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders  
+2017-11-13 12:42:20.169 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:42:20.174 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 12:42:20.202 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 12:42:20.233 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 57.477900000000005ms
+2017-11-13 12:42:20.237 +02:00 [INF] Request finished in 92.5378ms 200 application/json; charset=utf-8
+2017-11-13 12:55:52.515 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 12:55:52.752 +02:00 [INF] The file /index.html was not modified
+2017-11-13 12:55:52.800 +02:00 [INF] Request finished in 304.356ms 304 text/html
+2017-11-13 12:55:52.865 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 12:55:52.885 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 12:55:52.904 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 12:55:52.928 +02:00 [INF] Request finished in 75.902ms 304 application/javascript
+2017-11-13 12:55:52.939 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 12:55:52.949 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 12:55:52.970 +02:00 [INF] Request finished in 24.1889ms 304 application/javascript
+2017-11-13 12:55:52.982 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 12:55:53.010 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 12:55:53.035 +02:00 [INF] Request finished in 185.9055ms 304 application/javascript
+2017-11-13 12:55:53.102 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 12:55:53.111 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 12:55:53.127 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 12:55:53.180 +02:00 [INF] Request finished in 275.0123ms 304 application/javascript
+2017-11-13 12:55:53.216 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 12:55:53.225 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 12:55:53.246 +02:00 [INF] Request finished in 19.0327ms 304 application/javascript
+2017-11-13 12:55:53.290 +02:00 [INF] Request finished in 22.0216ms 304 application/javascript
+2017-11-13 12:55:54.099 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 12:55:54.336 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 12:55:54.358 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 12:55:54.380 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 12:55:54.401 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 12:55:54.426 +02:00 [INF] Request finished in 160.4189ms 304 image/svg+xml
+2017-11-13 12:55:54.443 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 12:55:54.460 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 12:55:54.472 +02:00 [INF] Request finished in 162.9551ms 304 image/svg+xml
+2017-11-13 12:55:54.491 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 12:55:54.519 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 12:55:54.527 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 12:55:54.540 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 12:55:54.559 +02:00 [INF] Request finished in 35.4808ms 304 application/x-font-ttf
+2017-11-13 12:55:54.605 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 12:55:54.620 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 12:55:54.642 +02:00 [INF] Request finished in 137.3411ms 304 application/x-font-ttf
+2017-11-13 12:55:54.694 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 12:55:54.706 +02:00 [INF] Request finished in 291.926ms 304 image/svg+xml
+2017-11-13 12:55:54.724 +02:00 [INF] Request finished in 548.3573ms 404 
+2017-11-13 12:55:54.736 +02:00 [INF] Request finished in 321.3388ms 304 image/svg+xml
+2017-11-13 12:55:54.743 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 12:55:54.750 +02:00 [INF] Request finished in 57.1219ms 304 image/svg+xml
+2017-11-13 12:55:54.757 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 12:55:54.781 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 12:55:54.788 +02:00 [INF] Request finished in 62.5624ms 304 application/x-font-ttf
+2017-11-13 12:59:12.129 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/throw  
+2017-11-13 12:59:12.326 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.Throw (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 12:59:31.859 +02:00 [ERR] This is an unhandled exception
+System.InvalidOperationException: This is an unhandled exception
+   at Logo.Web.Controllers.FoldersController.Throw() in C:\Project3\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 80
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 12:59:31.893 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 12:59:31.972 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.Throw (Logo.Web) in 19769.6735ms
+2017-11-13 12:59:31.979 +02:00 [INF] Request finished in 19847.7904ms 500 application/json; charset=utf-8
+2017-11-13 13:14:42.790 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 13:14:43.082 +02:00 [INF] The file /index.html was not modified
+2017-11-13 13:14:43.123 +02:00 [INF] Request finished in 477.0134ms 304 text/html
+2017-11-13 13:14:43.356 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 13:14:43.382 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 13:14:43.406 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 13:14:43.432 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 13:14:43.464 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 13:14:43.523 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 13:14:43.583 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 13:14:43.639 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 13:14:43.661 +02:00 [INF] Request finished in 133.517ms 304 application/javascript
+2017-11-13 13:14:43.703 +02:00 [INF] Request finished in 177.0343ms 304 application/javascript
+2017-11-13 13:14:43.778 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 13:14:43.786 +02:00 [INF] Request finished in 248.7399ms 304 application/javascript
+2017-11-13 13:14:43.807 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 13:14:43.842 +02:00 [INF] Request finished in 380.38ms 304 application/javascript
+2017-11-13 13:14:43.849 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 13:14:43.870 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 13:14:43.886 +02:00 [INF] Request finished in 160.8614ms 304 application/javascript
+2017-11-13 13:14:43.914 +02:00 [INF] Request finished in 58.4207ms 304 application/javascript
+2017-11-13 13:14:44.767 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 13:14:44.818 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 13:14:44.888 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 13:14:44.919 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 13:14:44.951 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 13:14:44.983 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 13:14:44.999 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 13:14:45.033 +02:00 [INF] Request finished in 131.0419ms 304 image/svg+xml
+2017-11-13 13:14:45.038 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 13:14:45.090 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 13:14:45.102 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 13:14:45.131 +02:00 [INF] Request finished in 205.1214ms 304 image/svg+xml
+2017-11-13 13:14:45.170 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 13:14:45.203 +02:00 [INF] Request finished in 382.3237ms 304 image/svg+xml
+2017-11-13 13:14:45.249 +02:00 [INF] Request finished in 253.3229ms 304 image/svg+xml
+2017-11-13 13:14:45.266 +02:00 [INF] Request finished in 48.1728ms 304 application/x-font-ttf
+2017-11-13 13:14:45.295 +02:00 [INF] Request finished in 504.6504ms 404 
+2017-11-13 13:14:45.306 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 13:14:45.318 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 13:14:45.341 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 13:14:45.428 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 13:14:45.442 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 13:14:45.485 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 13:14:45.500 +02:00 [INF] Request finished in 128.2996ms 304 application/x-font-ttf
+2017-11-13 13:14:45.516 +02:00 [INF] Request finished in 201.0073ms 304 image/svg+xml
+2017-11-13 13:14:45.531 +02:00 [INF] Request finished in 195.4644ms 304 application/x-font-ttf
+2017-11-13 13:15:14.254 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-13 13:15:14.258 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-13 13:15:14.263 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-13 13:15:14.294 +02:00 [INF] Sending file. Request path: '/inline.bundle.js.map'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js.map'
+2017-11-13 13:15:14.384 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-13 13:15:14.404 +02:00 [INF] Sending file. Request path: '/main.bundle.js.map'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\main.bundle.js.map'
+2017-11-13 13:15:14.415 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-13 13:15:14.452 +02:00 [INF] Sending file. Request path: '/styles.bundle.js.map'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js.map'
+2017-11-13 13:15:14.500 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js.map'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js.map'
+2017-11-13 13:15:14.538 +02:00 [INF] Request finished in 152.0898ms 200 text/plain
+2017-11-13 13:15:14.657 +02:00 [INF] Request finished in 234.4216ms 200 text/plain
+2017-11-13 13:15:14.698 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js.map'. Physical path: 'C:\Project3\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js.map'
+2017-11-13 13:15:14.754 +02:00 [INF] Request finished in 497.7282ms 200 text/plain
+2017-11-13 13:15:14.811 +02:00 [INF] Request finished in 267.2704ms 200 text/plain
+2017-11-13 13:15:14.973 +02:00 [INF] Request finished in 723.9708ms 200 text/plain
+2017-11-13 13:17:10.822 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 13:17:11.001 +02:00 [INF] Request finished in 194.7742ms 404 
+2017-11-13 13:17:38.523 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 13:17:38.537 +02:00 [INF] Request finished in 14.6085ms 404 
+2017-11-13 14:22:50.944 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 14:22:51.220 +02:00 [INF] The file /index.html was not modified
+2017-11-13 14:22:51.258 +02:00 [INF] Request finished in 337.7666ms 304 text/html
+2017-11-13 14:22:51.335 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 14:22:51.340 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 14:22:51.363 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 14:22:51.371 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 14:22:51.398 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 14:22:51.421 +02:00 [INF] Request finished in 95.495ms 304 application/javascript
+2017-11-13 14:22:51.433 +02:00 [INF] Request finished in 68.8831ms 304 application/javascript
+2017-11-13 14:22:51.436 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 14:22:51.440 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 14:22:51.459 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 14:22:51.477 +02:00 [INF] Request finished in 140.7424ms 304 application/javascript
+2017-11-13 14:22:51.499 +02:00 [INF] Request finished in 121.3581ms 304 application/javascript
+2017-11-13 14:22:51.557 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 14:22:51.589 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 14:22:51.609 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 14:22:51.622 +02:00 [INF] Request finished in 103.4367ms 304 application/javascript
+2017-11-13 14:22:51.645 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 14:22:51.652 +02:00 [INF] Request finished in 62.0701ms 304 application/javascript
+2017-11-13 14:22:52.332 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 14:22:52.390 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 14:22:52.441 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 14:22:52.507 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 14:22:52.563 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 14:22:52.572 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 14:22:52.600 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 14:22:52.609 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 14:22:52.624 +02:00 [INF] Request finished in 242.5238ms 304 image/svg+xml
+2017-11-13 14:22:52.634 +02:00 [INF] Request finished in 77.3213ms 304 image/svg+xml
+2017-11-13 14:22:52.648 +02:00 [INF] Request finished in 232.7901ms 304 image/svg+xml
+2017-11-13 14:22:52.666 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 14:22:52.678 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 14:22:52.689 +02:00 [INF] Request finished in 309.2302ms 304 image/svg+xml
+2017-11-13 14:22:52.713 +02:00 [INF] Request finished in 374.376ms 404 
+2017-11-13 14:22:52.723 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 14:22:52.725 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 14:22:52.749 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 14:22:52.775 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 14:22:52.790 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 14:22:52.812 +02:00 [INF] Request finished in 130.9891ms 304 application/x-font-ttf
+2017-11-13 14:22:52.853 +02:00 [INF] Request finished in 69.3509ms 304 application/x-font-ttf
+2017-11-13 14:22:52.882 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 14:22:52.889 +02:00 [INF] Request finished in 110.9652ms 304 application/x-font-ttf
+2017-11-13 14:22:52.917 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 14:22:52.923 +02:00 [INF] Request finished in 221.2293ms 304 image/svg+xml
+2017-11-13 14:35:09.545 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/throw  
+2017-11-13 14:35:09.781 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.Throw (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 14:35:19.588 +02:00 [ERR] This is an unhandled exception
+System.InvalidOperationException: This is an unhandled exception
+   at Logo.Web.Controllers.FoldersController.Throw() in C:\Project3\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 83
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 14:35:19.624 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 14:35:19.728 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.Throw (Logo.Web) in 10105.4518ms
+2017-11-13 14:35:19.751 +02:00 [INF] Request finished in 10191.7158ms 500 application/json; charset=utf-8
+2017-11-13 14:36:29.833 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/throw  
+2017-11-13 14:36:29.847 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.Throw (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 14:46:23.149 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 14:46:23.559 +02:00 [INF] The file /index.html was not modified
+2017-11-13 14:46:23.630 +02:00 [INF] Request finished in 488.9117ms 304 text/html
+2017-11-13 14:46:23.925 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 14:46:23.943 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 14:46:24.007 +02:00 [INF] Request finished in 94.8988ms 304 application/javascript
+2017-11-13 14:46:24.016 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 14:46:24.054 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 14:46:24.092 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 14:46:24.113 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 14:46:24.170 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 14:46:24.189 +02:00 [INF] Request finished in 66.7785ms 304 application/javascript
+2017-11-13 14:46:24.205 +02:00 [INF] Request finished in 137.3747ms 304 application/javascript
+2017-11-13 14:46:24.218 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 14:46:24.220 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 14:46:24.229 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 14:46:24.248 +02:00 [INF] Request finished in 181.5562ms 304 application/javascript
+2017-11-13 14:46:24.265 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 14:46:24.272 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 14:46:24.285 +02:00 [INF] Request finished in 130.69ms 304 application/javascript
+2017-11-13 14:46:24.289 +02:00 [INF] Request finished in 41.3288ms 304 application/javascript
+2017-11-13 14:46:25.185 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 14:46:25.205 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 14:46:25.225 +02:00 [INF] Request finished in 113.8809ms 304 application/x-font-ttf
+2017-11-13 14:46:25.258 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 14:46:25.285 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 14:46:25.294 +02:00 [INF] Request finished in 188.8012ms 304 application/x-font-ttf
+2017-11-13 14:46:48.960 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 92
+2017-11-13 14:46:49.378 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 14:46:49.645 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 14:46:50.023 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 14:46:50.040 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 904.8107ms
+2017-11-13 14:46:50.057 +02:00 [INF] Request finished in 1089.8241ms 200 
+2017-11-13 14:46:50.091 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 63
+2017-11-13 14:46:50.109 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 14:46:50.168 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 14:46:50.222 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 14:46:50.236 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 131.9772ms
+2017-11-13 14:46:50.250 +02:00 [INF] Request finished in 175.9597ms 200 application/json; charset=utf-8
+2017-11-13 14:46:50.281 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 14:46:50.336 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 14:46:50.349 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 14:46:50.358 +02:00 [INF] Request finished in 41.8672ms 304 image/svg+xml
+2017-11-13 14:46:50.373 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 14:46:50.385 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 14:46:50.398 +02:00 [INF] Request finished in 48.1169ms 304 image/svg+xml
+2017-11-13 14:46:50.431 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 14:46:50.439 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 14:46:50.462 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 14:46:50.473 +02:00 [INF] Request finished in 85.5469ms 404 
+2017-11-13 14:46:50.493 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 14:46:50.542 +02:00 [INF] Request finished in 68.6316ms 304 application/x-font-ttf
+2017-11-13 14:46:50.570 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 14:46:50.594 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 14:46:50.599 +02:00 [INF] Request finished in 134.9541ms 304 image/svg+xml
+2017-11-13 14:46:50.621 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 14:46:50.667 +02:00 [INF] Request finished in 138.7756ms 304 image/svg+xml
+2017-11-13 14:46:50.676 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 14:46:50.687 +02:00 [INF] Request finished in 188.5573ms 304 image/svg+xml
+2017-11-13 14:47:01.993 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser  
+2017-11-13 14:47:02.000 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 14:47:02.010 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 14:47:02.035 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 14:47:02.066 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 59.6486ms
+2017-11-13 14:47:02.071 +02:00 [INF] Request finished in 76.1421ms 200 application/json; charset=utf-8

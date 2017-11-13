@@ -12,7 +12,6 @@ namespace Logo.Web.Controllers
 {
     [Route("api/[controller]")]
     [ServiceFilter(typeof(ApiExceptionFilter))]
-
     public class FoldersController : Controller
     {
         private readonly IFoldersService _foldersService;
@@ -65,10 +64,26 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("add-folder")]
-        public void CreateFolder([FromBody]  FolderCredentials folderCredentials)
+        public IActionResult  CreateFolder([FromBody]  FolderCredentials folderCredentials)
         {
-            FolderInfo folderInfo = _foldersService.CreateFolder(folderCredentials.Name, folderCredentials.OwnerId, folderCredentials.ParentFolderId);
-            _foldersService.AddFolder(folderInfo);
+            FolderInfo folderInfo = null;
+            
+            folderInfo = _foldersService.CreateFolder(folderCredentials);
+             _foldersService.AddFolder(folderInfo);
+
+
+
+            return Ok();
         }
+
+        [HttpGet]
+        [Route("throw")]
+        public object Throw()
+        {
+            throw new InvalidOperationException("This is an unhandled exception");
+        }
+
+
+
     }
 }

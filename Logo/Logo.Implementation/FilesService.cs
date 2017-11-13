@@ -4,36 +4,39 @@ using System.Text;
 
 using System.Collections.Concurrent;
 using System.Threading;
-using Sandboxable.Microsoft.WindowsAzure.Storage.Blob;
+
 using System.Threading.Tasks;
 using System.IO;
-using Sandboxable.Microsoft.WindowsAzure.Storage.RetryPolicies;
+
 using System.Linq;
-using Sandboxable.Microsoft.WindowsAzure.Storage;
+
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 
 namespace Logo.Implementation
 {
     public  class FilesService
     {
 
-        public static void SimpleUpload(byte[] file, string fileName)
+        public static async Task SimpleUpload(byte[] file, string fileName)
         {
-            CloudBlobContainer container = GetContainerReference();
+            CloudBlobContainer container = await GetContainerReference();
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
 
-            blockBlob.UploadFromByteArray(file, 0, file.Length);
+            await blockBlob.UploadFromByteArrayAsync(file, 0, file.Length);
         }
 
 
-        public static void UploadFileInBlocks(byte[] file, string fileName)
+        public static async Task UploadFileInBlocks(byte[] file, string fileName)
         {
-            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            CloudBlobContainer cloudBlobContainer = await GetContainerReference();
             CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(fileName);
 
             // This is important to understand, that if the same file was already uploaded in ANY other way (e.g. like a single blob or by blocks but with other IDs
             // the upload will most definitely fail. This will happen because the block IDs that you associate with a blob must all be the same length.
             // So, if you have previously uploaded file as a one blob, Azure will assign is its own block IDs which will not be the same as yours and the upload will fail.
-            blob.DeleteIfExists();
+            await blob.DeleteIfExistsAsync();
 
             List<string> blockIDs = new List<string>();
 
@@ -67,25 +70,26 @@ namespace Logo.Implementation
                 blockIds.Add(encoded);
                 using (MemoryStream memoryStream = new MemoryStream(blockById.Value, 0, blockById.Value.Length))
                 {
-                    blob.PutBlock(encoded, memoryStream, null, null, new BlobRequestOptions
+                     blob.PutBlockAsync(encoded, memoryStream, null, null, 
+                         new BlobRequestOptions
                     {
                         RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(2), 1)
-                    });
+                    }, null);//todo!
                 }
             });
 
-            blob.PutBlockList(blockIds);
+            await blob.PutBlockListAsync(blockIds);
         }
 
 
-        public static byte[] DownloadFileInBlocks(string fileName)
+        public static async Task< byte[]> DownloadFileInBlocks(string fileName)
         {
-            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            CloudBlobContainer cloudBlobContainer = await GetContainerReference();
             CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
 
             int blockSize = 1024 * 1024; // 1 MB block size
 
-            blob.FetchAttributes();
+            await blob.FetchAttributesAsync();
             long fileSize = blob.Properties.Length;
 
             var blobContents = new byte[fileSize];
@@ -95,13 +99,13 @@ namespace Logo.Implementation
             IEnumerable<int> parts = Enumerable.Range(0, fullSizeCount);
             int currentPart = -1;
 
-            Parallel.ForEach(parts, part =>
+            Parallel.ForEach(parts, async part =>
             {
-                blob.DownloadRangeToByteArray(blobContents, Interlocked.Add(ref currentPart, blockSize), currentPart, blockSize);
+                await blob.DownloadRangeToByteArrayAsync(blobContents, Interlocked.Add(ref currentPart, blockSize), currentPart, blockSize);
             });
 
             int finalIndexAndOffset = fullSizeCount + restSize;
-            blob.DownloadRangeToByteArray(blobContents, finalIndexAndOffset, finalIndexAndOffset, restSize);
+            await blob.DownloadRangeToByteArrayAsync(blobContents, finalIndexAndOffset, finalIndexAndOffset, restSize);
 
             return blobContents;
         }
@@ -113,14 +117,14 @@ namespace Logo.Implementation
             return Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}", blockId.ToString("0000000"))));
         }
 
-        public static CloudBlobContainer GetContainerReference()
+        public static async Task<CloudBlobContainer> GetContainerReference()
         {
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=vitalii;AccountKey=MlMH+2fNABUjeJBj6XDimg6x10YLeMeT/pHB+moaZtcSmrOVgjN+bQt6Mw1ycjwoOup6eneixZR1Vh9iVJIeYQ==;EndpointSuffix=core.windows.net";
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("container");
 
-            container.CreateIfNotExists();
+            await container.CreateIfNotExistsAsync();
 
             return container;
         }

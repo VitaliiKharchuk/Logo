@@ -55,6 +55,10 @@ namespace Logo.Web
             //var connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
 
+            var connectionStringLocal = "";
+            //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionStringLocal));
+
+
             services.AddDbContext<LogoDbContext>(options => options.UseInMemoryDatabase("TestBase"));
 
             services.AddTransient<IUsersService, UsersService>();

@@ -16,11 +16,9 @@ namespace Logo.Implementation
             _dbContext = dbContext;
         }
 
-
         public FolderInfo GetFolder(Guid folderId)
         {
             var folder = _dbContext.Folders.FirstOrDefault(x => x.FolderId.Equals(folderId));
-
 
             if (folder == null)
             {
@@ -40,22 +38,28 @@ namespace Logo.Implementation
             };
         }
 
-
-        public FolderInfo CreateFolder(string folderName, Guid ownerId, Guid? parentFolderId)
+        public   bool ContainseFolder(FolderCredentials folderCredentials)
         {
-            
+            return  _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderCredentials.ParentFolderId) && x.OwnerId.Equals(folderCredentials.OwnerId)).Any(s => s.Name.Equals(folderCredentials.Name));           
+        }
+
+        public FolderInfo CreateFolder(FolderCredentials folderCredentials)
+        {            
+
+            if (ContainseFolder(folderCredentials))
+                throw new InvalidOperationException("Folder with   this  name  already  exists.");
+
             FolderInfo folder = new FolderInfo
             {
                 FolderId = Guid.NewGuid(),
-                OwnerId = ownerId,
-                ParentFolderId = parentFolderId,
-                Name = folderName,
+                OwnerId =   folderCredentials.OwnerId,
+                ParentFolderId = folderCredentials.ParentFolderId,
+                Name = folderCredentials.Name,
                 CreationDate = DateTime.Now,
                 UploadDate = null,
-                Level = parentFolderId == null ? 0 : GetFolder((Guid)parentFolderId).Level + 1,
+                Level = folderCredentials.ParentFolderId == null ? 0 : GetFolder((Guid)folderCredentials.ParentFolderId).Level + 1,
                 HasPublicAccess = false
             };
-
             return folder;
         }
 
