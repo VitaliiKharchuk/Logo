@@ -10,7 +10,6 @@ using System;
 
 using Logo.Implementation;
 using System.Collections.Generic;
-using Logo.Web.Models;
 
 namespace Logo.Web.Controllers
 {
@@ -30,7 +29,7 @@ namespace Logo.Web.Controllers
         [HttpPost("auth-token")]
         public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
         {            
-            var user = _usersService.GetUser(userCredentials);
+            var user = _usersService.GetUserByEmail(userCredentials.Email);
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -85,40 +84,26 @@ namespace Logo.Web.Controllers
             }
         }
 
-
-        [HttpGet("{id}", Name = "GetUser")]
-        public IActionResult GetById(string id)
+        [HttpGet]
+        [Route("[action]/{email?}")]                  //for   testing
+        public IActionResult GetByEmail(string email)
         {
-            if (id == "0")
-            {
-                return NotFound("User  not  found ");
-            }
+            UserInfo userInfo = _usersService.GetUserByEmail(email);
 
             UserInfoWithToken userInfoWithToken = new UserInfoWithToken
             {
                 Token = "secret   tokeb",
-                UserInfo = new UserInfo
-                {
-                    Email = "user1@gmail.com",
-                    Name = "User1"
-                }
+                UserInfo = userInfo
             };
 
             return new ObjectResult(userInfoWithToken);
         }
-
-
-        /*
-        [HttpGet]
-        public IEnumerable<UserInfoWithToken> GetAll()
+        
+        [HttpGet("GetAllUser")]
+        public IEnumerable<UserFullInformation> GetAllUsers()  //only  for   testing
         {
-            
-
+            return _usersService.GetAllUsers();    
         }
-
-         */
-
-
-
+        
     }
 }

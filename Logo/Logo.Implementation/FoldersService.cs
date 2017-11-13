@@ -16,32 +16,13 @@ namespace Logo.Implementation
             _dbContext = dbContext;
         }
 
-        public FolderInfo CreateFolder(string folderName, Guid ownerId, Guid ? parentFolderId)
-        {
-            FolderInfo folder = new FolderInfo
-            {
-                FolderId = Guid.NewGuid(),
-                OwnerId = ownerId,
-                ParentFolderId = parentFolderId,
-                Name = folderName,
-                CreationDate = DateTime.Now,
-                UploadDate = null,
-                Level =  parentFolderId == null ? 0 : GetFolder(ownerId).Level + 1,
-                HasPublicAccess = false
-            };
-
-            return folder;
-        }
-
         public FolderInfo GetFolder(Guid folderId)
         {
             var folder = _dbContext.Folders.FirstOrDefault(x => x.FolderId.Equals(folderId));
 
-
             if (folder == null)
             {
-                throw new InvalidOperationException("Folder not found.");
-               
+                throw new InvalidOperationException("Folder not found.");       
             }
 
             return new FolderInfo
@@ -55,6 +36,31 @@ namespace Logo.Implementation
                 Level = folder.Level,
                 HasPublicAccess = folder.HasPublicAccess
             };
+        }
+
+        public   bool ContainseFolder(FolderCredentials folderCredentials)
+        {
+            return  _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderCredentials.ParentFolderId) && x.OwnerId.Equals(folderCredentials.OwnerId)).Any(s => s.Name.Equals(folderCredentials.Name));           
+        }
+
+        public FolderInfo CreateFolder(FolderCredentials folderCredentials)
+        {            
+
+            if (ContainseFolder(folderCredentials))
+                throw new InvalidOperationException("Folder with   this  name  already  exists.");
+
+            FolderInfo folder = new FolderInfo
+            {
+                FolderId = Guid.NewGuid(),
+                OwnerId =   folderCredentials.OwnerId,
+                ParentFolderId = folderCredentials.ParentFolderId,
+                Name = folderCredentials.Name,
+                CreationDate = DateTime.Now,
+                UploadDate = null,
+                Level = folderCredentials.ParentFolderId == null ? 0 : GetFolder((Guid)folderCredentials.ParentFolderId).Level + 1,
+                HasPublicAccess = false
+            };
+            return folder;
         }
 
         public void AddFolder(FolderInfo folder)
@@ -91,7 +97,25 @@ namespace Logo.Implementation
         }
 
 
-        public  List<FolderInfo> GetFoldersInFolder(Guid FolderId)
+
+        public  IEnumerable<FolderInfo> GetAllFolders()   //only  for  testing
+        {
+            return _dbContext.Set<Folder>().Select(
+               y => new FolderInfo()
+               {
+                   FolderId = y.FolderId,
+                   ParentFolderId = y.ParentFolderId,
+                   OwnerId = y.OwnerId,
+                   Name = y.Name,
+                   CreationDate = y.CreationDate,
+                   UploadDate = y.UploadDate,
+                   Level = y.Level,
+                   HasPublicAccess = y.HasPublicAccess
+               });
+        }
+
+
+        public  IEnumerable<FolderInfo> GetFoldersInFolder(Guid FolderId)
         {
             return _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).Select(y => new FolderInfo()
             {
@@ -107,7 +131,7 @@ namespace Logo.Implementation
               
         }
 
-        public List<FileInfo> GetFilesInFolder(Guid FolderId)
+        public IEnumerable<FileInfo> GetFilesInFolder(Guid FolderId)
         {
             return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).Select( y => new FileInfo()
             {

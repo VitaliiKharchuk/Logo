@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
+using System.Linq;
+
 using Logo.Implementation;
 
 namespace Logo.Web.Controllers
@@ -10,11 +12,9 @@ namespace Logo.Web.Controllers
     public class FilesController : Controller
     {
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string>  Get()
         {
-            return new[] { "file1", "file2" };
-
-            //UsersService usersService = new UsersService();
+            return new[] { "file1", "file2" };            
         }
 
 

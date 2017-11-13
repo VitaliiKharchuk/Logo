@@ -27,7 +27,7 @@ namespace Logo.Implementation
                 var ex = context.Exception as ApiException;
                 context.Exception = null;
                 apiError = new ApiError(ex.Message);
-                apiError.errors = ex.Errors;
+                //apiError.errors = ex.Errors;
 
                 context.HttpContext.Response.StatusCode = ex.StatusCode;
                 

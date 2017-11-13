@@ -20,17 +20,6 @@ namespace Logo.Web
 {
     public class Startup
     {
-        /*
-        public  Startup(IHostingEnvironment env)
-        {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "log-{Date}.txt"))
-                .CreateLogger();
-        }
-        */
-
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthorization(auth =>
@@ -50,6 +39,7 @@ namespace Logo.Web
                 });
 
             services.AddMvc();
+
             ////options =>
             ////{
             ////    options.Filters.Add(new RequireHttpsAttribute());
@@ -57,11 +47,20 @@ namespace Logo.Web
 
             ////});
 
+
+
             services.AddScoped<ApiExceptionFilter>();
 
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
-            var connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
+            //var connectionString = "Server=tcp:logo-server.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
+
+            var connectionStringLocal = "";
+            //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionStringLocal));
+
+
+            services.AddDbContext<LogoDbContext>(options => options.UseInMemoryDatabase("TestBase"));
+
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
@@ -91,6 +90,7 @@ namespace Logo.Web
             });
 
             app.UseMvcWithDefaultRoute();
+            //app.UseMvc(routes => )
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

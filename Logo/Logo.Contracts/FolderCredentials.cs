@@ -7,7 +7,9 @@ namespace Logo.Contracts
     public class FolderCredentials
     {
         public Guid? ParentFolderId { get; set; }
-        public string Name { get; set; }
 
+        public Guid OwnerId { get; set; }
+
+        public string Name { get; set; }
     }
 }

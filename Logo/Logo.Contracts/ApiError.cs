@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AnalysisServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using System.Linq;
 
 namespace Logo.Contracts
@@ -12,7 +9,7 @@ namespace Logo.Contracts
         public string message { get; set; }
         public bool isError { get; set; }
         public string detail { get; set; }
-        public ValidationErrorCollection errors { get; set; }
+        //public ValidationDictionary errors { get; set; } //todo
 
         public ApiError(string message)
         {
