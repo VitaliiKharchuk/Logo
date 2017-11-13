@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserInfoWithToken, UserInfo } from '../../_models/index';
+import { UserInfoWithToken, UserInfo } from '../login/user';
 
 @Component({
   selector: 'app-menu',

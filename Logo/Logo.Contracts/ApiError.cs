@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AnalysisServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using Microsoft.AnalysisServices;
-
 
 namespace Logo.Contracts
 {
@@ -32,6 +31,6 @@ namespace Logo.Contracts
                 //errors = modelState.SelectMany(m => m.Value.Errors.Select(me => new ModelError { FieldName = m.Key, ErrorMessage = me.ErrorMessage }));
             }
         }
-
     }
 }
+

@@ -1,0 +1,844 @@
+2017-11-09 19:07:08.369 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/throw  
+2017-11-09 19:07:09.288 +02:00 [INF] Request finished in 910.6094ms 404 
+2017-11-09 19:07:10.401 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/throw  
+2017-11-09 19:07:10.425 +02:00 [INF] Request finished in 22.9923ms 404 
+2017-11-09 19:07:17.011 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/Throw  
+2017-11-09 19:07:17.025 +02:00 [INF] Request finished in 21.1829ms 404 
+2017-11-09 21:31:18.826 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:31:20.555 +02:00 [INF] Request finished in 2001.7872ms 404 
+2017-11-09 21:31:21.083 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/favicon.ico  
+2017-11-09 21:31:21.099 +02:00 [INF] Request finished in 17.4529ms 404 
+2017-11-09 21:33:30.799 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:33:32.588 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:33:32.989 +02:00 [INF] Request finished in 2411.3491ms 302 
+2017-11-09 21:35:14.375 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:35:14.942 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:35:14.977 +02:00 [INF] Request finished in 646.7477ms 302 
+2017-11-09 21:50:47.478 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-09 21:50:48.704 +02:00 [INF] Request redirected to HTTPS
+2017-11-09 21:50:48.756 +02:00 [INF] Request finished in 1330.3549ms 302 
+2017-11-10 00:51:59.502 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 00:52:00.492 +02:00 [INF] Request redirected to HTTPS
+2017-11-10 00:52:00.558 +02:00 [INF] Request finished in 1281.6608ms 302 
+2017-11-10 00:55:32.814 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 00:55:33.045 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-10 00:55:33.103 +02:00 [INF] Request finished in 355.9522ms 200 text/html
+2017-11-10 00:55:33.203 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 00:55:33.215 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 00:55:33.263 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 00:55:33.276 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 00:55:33.285 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-10 00:55:33.289 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 00:55:33.302 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-10 00:55:33.313 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-10 00:55:33.320 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-10 00:55:33.328 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-10 00:55:33.444 +02:00 [INF] Request finished in 198.7891ms 200 application/javascript
+2017-11-10 00:55:33.453 +02:00 [INF] Request finished in 150.761ms 200 application/javascript
+2017-11-10 00:55:33.468 +02:00 [INF] Request finished in 220.3896ms 200 application/javascript
+2017-11-10 00:55:33.476 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 00:55:33.525 +02:00 [INF] Request finished in 329.51ms 200 application/javascript
+2017-11-10 00:55:33.542 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-10 00:55:33.544 +02:00 [INF] Request finished in 253.6048ms 200 application/javascript
+2017-11-10 00:55:33.859 +02:00 [INF] Request finished in 460.0938ms 200 application/javascript
+2017-11-10 00:55:34.847 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 00:55:34.850 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 00:55:34.863 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-10 00:55:34.877 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-10 00:55:34.900 +02:00 [INF] Request finished in 53.6195ms 200 application/x-font-ttf
+2017-11-10 00:55:34.971 +02:00 [INF] Request finished in 121.1938ms 200 application/x-font-ttf
+2017-11-10 00:57:17.045 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 00:57:17.471 +02:00 [INF] Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.RequireHttpsAttribute'.
+2017-11-10 00:57:17.483 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 403
+2017-11-10 00:57:17.498 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 28.515700000000002ms
+2017-11-10 00:57:17.538 +02:00 [INF] Request finished in 489.8941ms 403 
+2017-11-10 00:57:35.044 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/login?returnUrl=%2F  
+2017-11-10 00:57:35.128 +02:00 [INF] Request redirected to HTTPS
+2017-11-10 00:57:35.141 +02:00 [INF] Request finished in 94.6689ms 302 
+2017-11-10 00:59:23.774 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 00:59:23.959 +02:00 [INF] The file /index.html was not modified
+2017-11-10 00:59:24.021 +02:00 [INF] Request finished in 284.4363ms 304 text/html
+2017-11-10 00:59:24.062 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 00:59:24.075 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 00:59:24.080 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 00:59:24.106 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-10 00:59:24.112 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 00:59:24.132 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-10 00:59:24.161 +02:00 [INF] Request finished in 56.8399ms 304 application/javascript
+2017-11-10 00:59:24.172 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-10 00:59:24.183 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 00:59:24.187 +02:00 [INF] Request finished in 97.4736ms 304 application/javascript
+2017-11-10 00:59:24.225 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-10 00:59:24.255 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 00:59:24.269 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-10 00:59:24.293 +02:00 [INF] Request finished in 134.9546ms 304 application/javascript
+2017-11-10 00:59:24.329 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-10 00:59:24.352 +02:00 [INF] Request finished in 138.309ms 304 application/javascript
+2017-11-10 00:59:24.361 +02:00 [INF] Request finished in 171.4707ms 304 application/javascript
+2017-11-10 00:59:24.373 +02:00 [INF] Request finished in 168.7991ms 304 application/javascript
+2017-11-10 00:59:25.419 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 00:59:25.427 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 00:59:25.454 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-10 00:59:25.526 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-10 00:59:25.545 +02:00 [INF] Request finished in 125.4423ms 304 application/x-font-ttf
+2017-11-10 00:59:25.553 +02:00 [INF] Request finished in 65.1887ms 304 application/x-font-ttf
+2017-11-10 00:59:32.564 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 00:59:32.668 +02:00 [INF] Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.RequireHttpsAttribute'.
+2017-11-10 00:59:32.680 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 403
+2017-11-10 00:59:32.695 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 31.3179ms
+2017-11-10 00:59:32.710 +02:00 [INF] Request finished in 144.7293ms 403 
+2017-11-10 00:59:36.308 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-10 00:59:36.329 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-10 00:59:36.335 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-10 00:59:36.342 +02:00 [INF] Sending file. Request path: '/inline.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js.map'
+2017-11-10 00:59:36.346 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-10 00:59:36.350 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-10 00:59:36.364 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js.map'
+2017-11-10 00:59:36.379 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js.map'
+2017-11-10 00:59:36.389 +02:00 [INF] Sending file. Request path: '/styles.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js.map'
+2017-11-10 00:59:36.395 +02:00 [INF] Sending file. Request path: '/main.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js.map'
+2017-11-10 00:59:36.459 +02:00 [INF] Request finished in 112.5909ms 200 text/plain
+2017-11-10 00:59:36.520 +02:00 [INF] Request finished in 160.1572ms 200 text/plain
+2017-11-10 00:59:36.560 +02:00 [INF] Request finished in 138.5023ms 200 text/plain
+2017-11-10 00:59:36.666 +02:00 [INF] Request finished in 293.9899ms 200 text/plain
+2017-11-10 00:59:36.880 +02:00 [INF] Request finished in 559.962ms 200 text/plain
+2017-11-10 01:00:43.178 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:00:43.234 +02:00 [INF] Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.RequireHttpsAttribute'.
+2017-11-10 01:00:43.244 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 403
+2017-11-10 01:00:43.252 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 40.1259ms
+2017-11-10 01:00:43.304 +02:00 [INF] Request finished in 83.3769ms 403 
+2017-11-10 01:02:07.428 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 01:02:07.444 +02:00 [INF] Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.RequireHttpsAttribute'.
+2017-11-10 01:02:07.451 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 403
+2017-11-10 01:02:07.462 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 17.8457ms
+2017-11-10 01:02:07.524 +02:00 [INF] Request finished in 45.0073ms 403 
+2017-11-10 01:04:44.802 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:04:45.210 +02:00 [INF] Request finished in 493.3375ms 404 
+2017-11-10 01:06:34.269 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:06:34.659 +02:00 [INF] Request finished in 445.023ms 404 
+2017-11-10 01:11:42.061 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:11:42.163 +02:00 [INF] Request finished in 69.1655ms 404 
+2017-11-10 01:12:10.073 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:12:10.103 +02:00 [INF] Request finished in 12.1115ms 404 
+2017-11-10 01:12:57.294 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:12:57.322 +02:00 [INF] Request finished in 7.5549ms 404 
+2017-11-10 01:17:27.765 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:17:27.992 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-10 01:17:28.106 +02:00 [INF] Request finished in 329.421ms 200 text/html
+2017-11-10 01:17:28.149 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 01:17:28.178 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 01:17:28.195 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 01:17:28.223 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-10 01:17:28.267 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 01:17:28.283 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-10 01:17:28.294 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-10 01:17:28.296 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 01:17:28.305 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-10 01:17:28.349 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-10 01:17:28.374 +02:00 [INF] Request finished in 241.1025ms 200 application/javascript
+2017-11-10 01:17:28.496 +02:00 [INF] Request finished in 149.8491ms 200 application/javascript
+2017-11-10 01:17:28.531 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 01:17:28.582 +02:00 [INF] Request finished in 261.4173ms 200 application/javascript
+2017-11-10 01:17:28.636 +02:00 [INF] Request finished in 526.871ms 200 application/javascript
+2017-11-10 01:17:28.654 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-10 01:17:28.755 +02:00 [INF] Request finished in 386.4123ms 200 application/javascript
+2017-11-10 01:17:28.845 +02:00 [INF] Request finished in 707.2922ms 200 application/javascript
+2017-11-10 01:17:29.770 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 01:17:29.800 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 01:17:29.823 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-10 01:17:29.889 +02:00 [INF] Request finished in 122.1048ms 200 application/x-font-ttf
+2017-11-10 01:17:29.957 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-10 01:17:29.996 +02:00 [INF] Request finished in 243.1572ms 200 application/x-font-ttf
+2017-11-10 01:17:44.195 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:17:44.206 +02:00 [INF] The file /index.html was not modified
+2017-11-10 01:17:44.221 +02:00 [INF] Request finished in 24.0407ms 304 text/html
+2017-11-10 01:17:49.804 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 01:17:50.397 +02:00 [ERR] some  error
+2017-11-10 01:17:50.810 +02:00 [ERR] Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+System.InvalidOperationException: Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 01:17:50.842 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 01:17:51.122 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 1214.0366000000001ms
+2017-11-10 01:17:51.184 +02:00 [INF] Request finished in 1361.6445ms 500 application/json; charset=utf-8
+2017-11-10 01:17:58.878 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-10 01:17:58.901 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-10 01:17:58.909 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-10 01:17:58.941 +02:00 [INF] Sending file. Request path: '/inline.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js.map'
+2017-11-10 01:17:58.944 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-10 01:17:58.946 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-10 01:17:58.965 +02:00 [INF] Sending file. Request path: '/main.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js.map'
+2017-11-10 01:17:58.996 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js.map'
+2017-11-10 01:17:59.027 +02:00 [INF] Request finished in 110.0905ms 200 text/plain
+2017-11-10 01:17:59.041 +02:00 [INF] Sending file. Request path: '/styles.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js.map'
+2017-11-10 01:17:59.048 +02:00 [INF] Request finished in 128.2934ms 200 text/plain
+2017-11-10 01:17:59.098 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js.map'
+2017-11-10 01:17:59.151 +02:00 [INF] Request finished in 232.2542ms 200 text/plain
+2017-11-10 01:17:59.162 +02:00 [INF] Request finished in 216.8611ms 200 text/plain
+2017-11-10 01:17:59.439 +02:00 [INF] Request finished in 554.3552ms 200 text/plain
+2017-11-10 01:18:07.650 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 01:18:07.676 +02:00 [ERR] some  error
+2017-11-10 01:18:07.707 +02:00 [ERR] Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+System.InvalidOperationException: Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 01:18:07.718 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 01:18:07.730 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 68.0056ms
+2017-11-10 01:18:07.757 +02:00 [INF] Request finished in 99.6729ms 500 application/json; charset=utf-8
+2017-11-10 01:26:07.519 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:26:07.546 +02:00 [ERR] some  error
+2017-11-10 01:26:07.574 +02:00 [ERR] Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+System.InvalidOperationException: Unable to resolve service for type 'Logo.Contracts.Services.ICryptographyService' while attempting to activate 'Logo.Web.Controllers.UsersController'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 01:26:07.584 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 01:26:07.595 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 53.869400000000006ms
+2017-11-10 01:26:07.638 +02:00 [INF] Request finished in 88.2039ms 500 application/json; charset=utf-8
+2017-11-10 01:29:47.485 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:29:47.677 +02:00 [INF] The file /index.html was not modified
+2017-11-10 01:29:47.745 +02:00 [INF] Request finished in 290.7232ms 304 text/html
+2017-11-10 01:29:47.783 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 01:29:47.797 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 01:29:47.805 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 01:29:47.816 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 01:29:47.831 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-10 01:29:47.846 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-10 01:29:47.865 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-10 01:29:47.885 +02:00 [INF] Request finished in 47.332ms 304 application/javascript
+2017-11-10 01:29:47.900 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 01:29:47.920 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-10 01:29:47.964 +02:00 [INF] Request finished in 106.6605ms 304 application/javascript
+2017-11-10 01:29:47.973 +02:00 [INF] Request finished in 87.4814ms 304 application/javascript
+2017-11-10 01:29:47.981 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 01:29:48.001 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-10 01:29:48.021 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-10 01:29:48.066 +02:00 [INF] Request finished in 159.4999ms 304 application/javascript
+2017-11-10 01:29:48.096 +02:00 [INF] Request finished in 63.4963ms 304 application/javascript
+2017-11-10 01:29:48.124 +02:00 [INF] Request finished in 201.0284ms 304 application/javascript
+2017-11-10 01:29:49.298 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 01:29:49.299 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 01:29:49.313 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-10 01:29:49.315 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-10 01:29:49.335 +02:00 [INF] Request finished in 31.5601ms 304 application/x-font-ttf
+2017-11-10 01:29:49.365 +02:00 [INF] Request finished in 31.5614ms 304 application/x-font-ttf
+2017-11-10 01:29:55.731 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 01:29:55.978 +02:00 [ERR] some  error
+2017-11-10 01:33:35.347 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:33:35.543 +02:00 [INF] The file /index.html was not modified
+2017-11-10 01:33:35.576 +02:00 [INF] Request finished in 287.8858ms 304 text/html
+2017-11-10 01:33:35.648 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 01:33:35.668 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 01:33:35.693 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 01:33:35.701 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-10 01:33:35.707 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 01:33:35.721 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 01:33:35.728 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-10 01:33:35.744 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-10 01:33:35.788 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-10 01:33:35.801 +02:00 [INF] Request finished in 78.5021ms 304 application/javascript
+2017-11-10 01:33:35.806 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-10 01:33:35.821 +02:00 [INF] Request finished in 103.419ms 304 application/javascript
+2017-11-10 01:33:35.824 +02:00 [INF] Request finished in 101.1071ms 304 application/javascript
+2017-11-10 01:33:35.876 +02:00 [INF] Request finished in 181.5852ms 304 application/javascript
+2017-11-10 01:33:35.890 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 01:33:35.893 +02:00 [INF] Request finished in 133.8372ms 304 application/javascript
+2017-11-10 01:33:35.908 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-10 01:33:35.929 +02:00 [INF] Request finished in 76.7204ms 304 application/javascript
+2017-11-10 01:33:36.935 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 01:33:36.952 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 01:33:36.967 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-10 01:33:36.972 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-10 01:33:37.026 +02:00 [INF] Request finished in 93.0725ms 304 application/x-font-ttf
+2017-11-10 01:33:37.058 +02:00 [INF] Request finished in 96.3278ms 304 application/x-font-ttf
+2017-11-10 01:34:17.340 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 60
+2017-11-10 01:34:17.575 +02:00 [ERR] some  error
+2017-11-10 01:34:17.784 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 01:34:19.254 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:34:20.338 +02:00 [INF] Executed DbCommand (106ms) [Parameters=[@__userCredentials_Email_0='?' (Size = 254), @__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userCredentials_Email_0) AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 01:34:20.585 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-10 01:34:20.614 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 3166.4962ms
+2017-11-10 01:34:20.651 +02:00 [INF] Request finished in 3288.7645ms 200 application/json; charset=utf-8
+2017-11-10 01:34:20.700 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-10 01:34:20.724 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-10 01:34:20.733 +02:00 [INF] Sending file. Request path: '/assets/icons/next.svg'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\icons\next.svg'
+2017-11-10 01:34:20.740 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-10 01:34:20.748 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-10 01:34:20.782 +02:00 [INF] Sending file. Request path: '/assets/icons/search.svg'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\icons\search.svg'
+2017-11-10 01:34:20.790 +02:00 [INF] Sending file. Request path: '/assets/img/user.svg'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\img\user.svg'
+2017-11-10 01:34:20.853 +02:00 [INF] Request finished in 116.4231ms 200 image/svg+xml
+2017-11-10 01:34:20.862 +02:00 [INF] Request finished in 183.5711ms 404 
+2017-11-10 01:34:20.950 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-10 01:34:20.956 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-10 01:34:20.959 +02:00 [INF] Request finished in 125.1757ms 200 image/svg+xml
+2017-11-10 01:34:20.983 +02:00 [INF] Sending file. Request path: '/assets/icons/list.svg'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\icons\list.svg'
+2017-11-10 01:34:21.003 +02:00 [INF] Sending file. Request path: '/assets/icons/tile.svg'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\icons\tile.svg'
+2017-11-10 01:34:21.015 +02:00 [INF] Request finished in 126.3869ms 200 image/svg+xml
+2017-11-10 01:34:21.031 +02:00 [INF] Request finished in 125.1773ms 200 image/svg+xml
+2017-11-10 01:34:21.071 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-10 01:34:21.074 +02:00 [INF] Request finished in 90.2896ms 200 image/svg+xml
+2017-11-10 01:34:21.086 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Bold.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Bold.ttf'
+2017-11-10 01:34:21.117 +02:00 [INF] Request finished in 132.0852ms 200 application/x-font-ttf
+2017-11-10 01:34:55.409 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:34:55.437 +02:00 [ERR] some  error
+2017-11-10 01:34:55.525 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["","",""]) - ModelState is "Invalid"
+2017-11-10 01:34:55.539 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:34:55.611 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND [x].[Password] IS NULL
+2017-11-10 01:34:55.649 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 213.1172ms
+2017-11-10 01:34:55.660 +02:00 [INF] Request finished in 250.2436ms 200 
+2017-11-10 01:35:01.817 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-10 01:35:01.830 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-10 01:35:01.855 +02:00 [INF] The file /polyfills.bundle.js.map was not modified
+2017-11-10 01:35:01.885 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-10 01:35:01.894 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-10 01:35:01.913 +02:00 [INF] The file /inline.bundle.js.map was not modified
+2017-11-10 01:35:01.940 +02:00 [INF] The file /styles.bundle.js.map was not modified
+2017-11-10 01:35:01.966 +02:00 [INF] The file /main.bundle.js.map was not modified
+2017-11-10 01:35:01.984 +02:00 [INF] Request finished in 98.1507ms 304 text/plain
+2017-11-10 01:35:01.998 +02:00 [INF] Request finished in 117.0438ms 304 text/plain
+2017-11-10 01:35:02.000 +02:00 [INF] Request finished in 53.1488ms 304 text/plain
+2017-11-10 01:35:02.007 +02:00 [INF] Request finished in 126.2969ms 304 text/plain
+2017-11-10 01:35:02.015 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-10 01:35:02.041 +02:00 [INF] The file /vendor.bundle.js.map was not modified
+2017-11-10 01:35:02.105 +02:00 [INF] Request finished in 34.0372ms 304 text/plain
+2017-11-10 01:35:46.212 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:35:46.232 +02:00 [ERR] some  error
+2017-11-10 01:35:46.244 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["","",""]) - ModelState is "Invalid"
+2017-11-10 01:35:46.253 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:35:46.308 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND [x].[Password] IS NULL
+2017-11-10 01:35:46.320 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 96.29ms
+2017-11-10 01:35:46.343 +02:00 [INF] Request finished in 122.7915ms 200 
+2017-11-10 01:41:24.829 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 73
+2017-11-10 01:41:24.840 +02:00 [ERR] some  error
+2017-11-10 01:41:24.855 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["","",""]) - ModelState is "Invalid"
+2017-11-10 01:41:24.865 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:41:25.152 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND [x].[Password] IS NULL
+2017-11-10 01:41:25.160 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 323.5041ms
+2017-11-10 01:41:25.214 +02:00 [INF] Request finished in 340.0126ms 200 
+2017-11-10 01:50:19.046 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:50:19.424 +02:00 [INF] Request finished in 409.4137ms 404 
+2017-11-10 01:56:28.239 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 01:56:28.461 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-10 01:56:28.548 +02:00 [INF] Request finished in 355.3679ms 200 text/html
+2017-11-10 01:56:28.570 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 01:56:28.587 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 01:56:28.622 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 01:56:28.645 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-10 01:56:28.663 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-10 01:56:28.679 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 01:56:28.720 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-10 01:56:28.731 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 01:56:28.739 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 01:56:28.773 +02:00 [INF] Request finished in 185.7358ms 200 application/javascript
+2017-11-10 01:56:28.792 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-10 01:56:28.804 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-10 01:56:28.812 +02:00 [INF] Request finished in 192.7791ms 200 application/javascript
+2017-11-10 01:56:28.823 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-10 01:56:28.847 +02:00 [INF] Request finished in 153.2637ms 200 application/javascript
+2017-11-10 01:56:28.990 +02:00 [INF] Request finished in 271.6089ms 200 application/javascript
+2017-11-10 01:56:29.044 +02:00 [INF] Request finished in 286.3083ms 200 application/javascript
+2017-11-10 01:56:29.135 +02:00 [INF] Request finished in 575.7915ms 200 application/javascript
+2017-11-10 01:56:30.050 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 01:56:30.063 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 01:56:30.065 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-10 01:56:30.132 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-10 01:56:30.167 +02:00 [INF] Request finished in 60.7066ms 200 application/x-font-ttf
+2017-11-10 01:56:30.191 +02:00 [INF] Request finished in 118.1305ms 200 application/x-font-ttf
+2017-11-10 01:57:28.788 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:57:29.061 +02:00 [ERR] some  error
+2017-11-10 01:57:29.207 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 01:57:29.572 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:57:30.186 +02:00 [INF] Executed DbCommand (92ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 01:57:30.617 +02:00 [INF] Executed DbCommand (51ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 01:57:30.692 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 1787.7492ms
+2017-11-10 01:57:30.750 +02:00 [INF] Request finished in 1920.1039ms 200 
+2017-11-10 01:57:43.622 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-10 01:57:43.643 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-10 01:57:43.647 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-10 01:57:43.663 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-10 01:57:43.672 +02:00 [INF] Sending file. Request path: '/inline.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js.map'
+2017-11-10 01:57:43.721 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js.map'
+2017-11-10 01:57:43.738 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js.map'
+2017-11-10 01:57:43.769 +02:00 [INF] Request finished in 98.3405ms 200 text/plain
+2017-11-10 01:57:43.843 +02:00 [INF] Sending file. Request path: '/main.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js.map'
+2017-11-10 01:57:43.920 +02:00 [INF] Request finished in 207.4762ms 200 text/plain
+2017-11-10 01:57:43.928 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-10 01:57:43.933 +02:00 [INF] Request finished in 248.5099ms 200 text/plain
+2017-11-10 01:57:43.964 +02:00 [INF] Sending file. Request path: '/styles.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js.map'
+2017-11-10 01:57:44.127 +02:00 [INF] Request finished in 432.9844ms 200 text/plain
+2017-11-10 01:57:44.167 +02:00 [INF] Request finished in 525.5027ms 200 text/plain
+2017-11-10 01:57:51.485 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 01:57:51.502 +02:00 [ERR] some  error
+2017-11-10 01:57:51.515 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 01:57:51.532 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 01:57:51.583 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 01:57:51.600 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 104.0241ms
+2017-11-10 01:57:51.614 +02:00 [INF] Request finished in 127.6691ms 200 
+2017-11-10 02:00:05.624 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 02:00:05.644 +02:00 [ERR] some  error
+2017-11-10 02:00:05.659 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:00:05.674 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:00:05.741 +02:00 [INF] Executed DbCommand (59ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:00:05.748 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 115.2852ms
+2017-11-10 02:00:05.777 +02:00 [INF] Request finished in 150.833ms 200 
+2017-11-10 02:00:05.792 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:00:05.804 +02:00 [ERR] some  error
+2017-11-10 02:00:05.816 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:00:05.849 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:00:05.904 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:01:59.572 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 02:01:59.630 +02:00 [ERR] some  error
+2017-11-10 02:01:59.648 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:01:59.656 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:01:59.726 +02:00 [INF] Executed DbCommand (51ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:01:59.734 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 152.74720000000002ms
+2017-11-10 02:01:59.765 +02:00 [INF] Request finished in 249.1809ms 200 
+2017-11-10 02:01:59.816 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:01:59.837 +02:00 [ERR] some  error
+2017-11-10 02:01:59.853 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:01:59.868 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:01:59.924 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:02:01.620 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:02:01.640 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:02:01.653 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:02:01.675 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:02:01.699 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 115880.9155ms
+2017-11-10 02:02:01.728 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 1860.9303ms
+2017-11-10 02:02:01.735 +02:00 [INF] Request finished in 115917.5213ms 500 application/json; charset=utf-8
+2017-11-10 02:02:01.796 +02:00 [INF] Request finished in 1928.8418ms 500 application/json; charset=utf-8
+2017-11-10 02:04:00.786 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 02:04:00.797 +02:00 [ERR] some  error
+2017-11-10 02:04:00.806 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:04:00.817 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:04:00.867 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:04:00.877 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 81.22590000000001ms
+2017-11-10 02:04:00.915 +02:00 [INF] Request finished in 106.6365ms 200 
+2017-11-10 02:04:00.980 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:04:00.988 +02:00 [ERR] some  error
+2017-11-10 02:04:01.003 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:04:01.014 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:04:01.061 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:04:13.409 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UserID], [u].[Email], [u].[Name], [u].[Password]
+FROM [Users] AS [u]
+2017-11-10 02:04:13.569 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UserID], [u].[Email], [u].[Name], [u].[Password]
+FROM [Users] AS [u]
+2017-11-10 02:04:31.080 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UserID], [u].[Email], [u].[Name], [u].[Password]
+FROM [Users] AS [u]
+2017-11-10 02:04:31.159 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UserID], [u].[Email], [u].[Name], [u].[Password]
+FROM [Users] AS [u]
+2017-11-10 02:04:45.570 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:04:45.581 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:04:45.591 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 44601.3497ms
+2017-11-10 02:04:45.626 +02:00 [INF] Request finished in 44625.8445ms 500 application/json; charset=utf-8
+2017-11-10 02:05:06.416 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 02:05:06.424 +02:00 [ERR] some  error
+2017-11-10 02:05:06.432 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:05:12.233 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:05:12.295 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:05:57.864 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 51427.3327ms
+2017-11-10 02:05:57.884 +02:00 [INF] Request finished in 51455.2614ms 200 
+2017-11-10 02:05:58.197 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:05:58.204 +02:00 [ERR] some  error
+2017-11-10 02:05:58.210 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:05:58.217 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:05:58.264 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:05:59.925 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:05:59.935 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:05:59.946 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 1737.7237ms
+2017-11-10 02:05:59.972 +02:00 [INF] Request finished in 1756.1279ms 500 application/json; charset=utf-8
+2017-11-10 02:06:03.865 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 74
+2017-11-10 02:06:03.874 +02:00 [ERR] some  error
+2017-11-10 02:06:03.882 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:06:10.287 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:06:10.335 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:06:37.414 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 33525.087100000004ms
+2017-11-10 02:06:37.426 +02:00 [INF] Request finished in 33555.742ms 200 
+2017-11-10 02:06:37.790 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:06:37.799 +02:00 [ERR] some  error
+2017-11-10 02:06:37.808 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:06:37.816 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:06:37.864 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:06:39.197 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:06:39.207 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:06:39.216 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 1416.88ms
+2017-11-10 02:06:39.256 +02:00 [INF] Request finished in 1434.8173ms 500 application/json; charset=utf-8
+2017-11-10 02:07:00.580 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 77
+2017-11-10 02:07:00.595 +02:00 [ERR] some  error
+2017-11-10 02:07:00.614 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:07:08.004 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:07:08.145 +02:00 [INF] Executed DbCommand (131ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:07:16.595 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 02:07:20.580 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 19987.2017ms
+2017-11-10 02:07:20.590 +02:00 [INF] Request finished in 20018.0342ms 200 
+2017-11-10 02:07:20.967 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:07:20.974 +02:00 [ERR] some  error
+2017-11-10 02:07:20.980 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:07:20.987 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:07:21.034 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:09:47.469 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 02:09:47.779 +02:00 [INF] Request finished in 369.6961ms 404 
+2017-11-10 02:13:41.630 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-10 02:13:41.838 +02:00 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\index.html'
+2017-11-10 02:13:41.913 +02:00 [INF] Request finished in 313.4452ms 200 text/html
+2017-11-10 02:13:41.950 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-10 02:13:41.970 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-10 02:13:41.988 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-10 02:13:42.003 +02:00 [INF] Sending file. Request path: '/styles.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js'
+2017-11-10 02:13:42.006 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-10 02:13:42.010 +02:00 [INF] Sending file. Request path: '/inline.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js'
+2017-11-10 02:13:42.015 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js'
+2017-11-10 02:13:42.055 +02:00 [INF] Sending file. Request path: '/scripts.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\scripts.bundle.js'
+2017-11-10 02:13:42.066 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-10 02:13:42.151 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js'
+2017-11-10 02:13:42.209 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-10 02:13:42.219 +02:00 [INF] Request finished in 182.7551ms 200 application/javascript
+2017-11-10 02:13:42.230 +02:00 [INF] Request finished in 250.0967ms 200 application/javascript
+2017-11-10 02:13:42.263 +02:00 [INF] Sending file. Request path: '/main.bundle.js'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js'
+2017-11-10 02:13:42.267 +02:00 [INF] Request finished in 139.6018ms 200 application/javascript
+2017-11-10 02:13:42.336 +02:00 [INF] Request finished in 171.4464ms 200 application/javascript
+2017-11-10 02:13:42.442 +02:00 [INF] Request finished in 343.3207ms 200 application/javascript
+2017-11-10 02:13:42.507 +02:00 [INF] Request finished in 517.5728ms 200 application/javascript
+2017-11-10 02:13:43.480 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-10 02:13:43.484 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-10 02:13:43.493 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-Black.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-Black.ttf'
+2017-11-10 02:13:43.507 +02:00 [INF] Sending file. Request path: '/assets/Raleway/Raleway-SemiBold.ttf'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\assets\Raleway\Raleway-SemiBold.ttf'
+2017-11-10 02:13:43.599 +02:00 [INF] Request finished in 73.9772ms 200 application/x-font-ttf
+2017-11-10 02:13:43.618 +02:00 [INF] Request finished in 102.2367ms 200 application/x-font-ttf
+2017-11-10 02:14:31.180 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js.map  
+2017-11-10 02:14:31.188 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js.map  
+2017-11-10 02:14:31.210 +02:00 [INF] Sending file. Request path: '/styles.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\styles.bundle.js.map'
+2017-11-10 02:14:31.213 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js.map  
+2017-11-10 02:14:31.239 +02:00 [INF] Sending file. Request path: '/inline.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\inline.bundle.js.map'
+2017-11-10 02:14:31.239 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js.map  
+2017-11-10 02:14:31.258 +02:00 [INF] Sending file. Request path: '/vendor.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\vendor.bundle.js.map'
+2017-11-10 02:14:31.298 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js.map  
+2017-11-10 02:14:31.318 +02:00 [INF] Request finished in 119.3663ms 200 text/plain
+2017-11-10 02:14:31.321 +02:00 [INF] Sending file. Request path: '/main.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\main.bundle.js.map'
+2017-11-10 02:14:31.392 +02:00 [INF] Request finished in 152.5946ms 200 text/plain
+2017-11-10 02:14:31.449 +02:00 [INF] Request finished in 110.4793ms 200 text/plain
+2017-11-10 02:14:31.479 +02:00 [INF] Sending file. Request path: '/polyfills.bundle.js.map'. Physical path: 'D:\repositories\Logo\Logo\Logo.Web\wwwroot\polyfills.bundle.js.map'
+2017-11-10 02:14:31.638 +02:00 [INF] Request finished in 425.9168ms 200 text/plain
+2017-11-10 02:14:31.724 +02:00 [INF] Request finished in 517.1209ms 200 text/plain
+2017-11-10 02:14:41.503 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 76
+2017-11-10 02:14:41.798 +02:00 [ERR] some  error
+2017-11-10 02:14:41.922 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:15:24.731 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:15:47.365 +02:00 [INF] Executed DbCommand (92ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:17:37.860 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 02:17:57.704 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 196078.80490000002ms
+2017-11-10 02:18:19.206 +02:00 [INF] Request finished in 217710.1462ms 0 
+2017-11-10 02:19:00.518 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 77
+2017-11-10 02:19:00.546 +02:00 [ERR] some  error
+2017-11-10 02:19:00.560 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:19:10.563 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:19:10.616 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:19:13.957 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 02:19:15.803 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 15275.7602ms
+2017-11-10 02:19:18.068 +02:00 [INF] Request finished in 17513.3646ms 200 
+2017-11-10 02:19:18.098 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:19:19.191 +02:00 [ERR] some  error
+2017-11-10 02:19:19.202 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:19:56.303 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:19:56.418 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:25:16.914 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:25:16.929 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:25:16.957 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 357766.1288ms
+2017-11-10 02:25:16.964 +02:00 [INF] Request finished in 358879.5213ms 500 application/json; charset=utf-8
+2017-11-10 02:27:24.926 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 75
+2017-11-10 02:27:24.954 +02:00 [ERR] some  error
+2017-11-10 02:27:24.975 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:27:24.984 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:27:25.266 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:27:25.354 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 02:27:25.412 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 472.0185ms
+2017-11-10 02:27:25.429 +02:00 [INF] Request finished in 499.4707ms 200 
+2017-11-10 02:27:25.446 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 28
+2017-11-10 02:27:25.463 +02:00 [ERR] some  error
+2017-11-10 02:27:25.473 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:27:25.500 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:27:25.547 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE [x].[Email] IS NULL AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:29:53.131 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 79
+2017-11-10 02:29:56.452 +02:00 [ERR] some  error
+2017-11-10 02:29:56.462 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:29:56.470 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:29:56.497 +02:00 [ERR] User not found.
+System.InvalidOperationException: User not found.
+   at Logo.Implementation.UsersService.GetUser(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Implementation\UsersService.cs:line 40
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in D:\repositories\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 34
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-10 02:29:56.507 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-10 02:29:56.520 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 151060.80550000002ms
+2017-11-10 02:29:56.531 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:29:56.532 +02:00 [INF] Request finished in 151087.1802ms 500 application/json; charset=utf-8
+2017-11-10 02:29:56.548 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 119.57010000000001ms
+2017-11-10 02:29:56.557 +02:00 [INF] Request finished in 3431.9371ms 200 
+2017-11-10 02:31:05.674 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 69
+2017-11-10 02:31:05.704 +02:00 [ERR] some  error
+2017-11-10 02:31:05.716 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-10 02:31:19.764 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:31:19.848 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__userFullInformation_Email_0='?' (Size = 254), @__userFullInformation_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userFullInformation_Email_0) AND ([x].[Password] = @__userFullInformation_Password_1)
+2017-11-10 02:31:40.347 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@p0='?', @p1='?' (Size = 254), @p2='?' (Size = 50), @p3='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([UserID], [Email], [Name], [Password])
+VALUES (@p0, @p1, @p2, @p3);
+2017-11-10 02:31:43.892 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 38204.0782ms
+2017-11-10 02:31:46.168 +02:00 [INF] Request finished in 40495.3339ms 200 
+2017-11-10 02:31:46.554 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 49
+2017-11-10 02:31:46.561 +02:00 [ERR] some  error
+2017-11-10 02:31:46.571 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-10 02:32:01.946 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-10 02:32:02.032 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__userCredentials_Email_0='?' (Size = 254), @__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userCredentials_Email_0) AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-10 02:32:28.746 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-10 02:32:28.832 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 42270.9277ms
+2017-11-10 02:32:31.076 +02:00 [INF] Request finished in 44497.9139ms 200 application/json; charset=utf-8
+2017-11-10 02:32:31.525 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-10 02:32:39.974 +02:00 [INF] Request finished in 8470.122ms 404 

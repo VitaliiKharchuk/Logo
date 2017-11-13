@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
-import { UserCredentials } from '../_components/login/user';
-import { Observable } from 'rxjs/Observable';
+import { Folder } from '../home/folder';
 
 @Injectable()
-export class UserService {
+export class DataService {
+
   constructor(private http: Http) { }
 
+  loadAllFolders(folderId: string) {
+    return this.http.post('api/folder/get-folder', folderId, this.jwt()).map((response: Response) => response.json());
+  }
   
-  // private helper methods
-
   private jwt() {
     // create authorization header with jwt token
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -20,3 +20,4 @@ export class UserService {
     }
   }
 }
+

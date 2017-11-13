@@ -10,5 +10,10 @@ namespace Logo.Contracts.Services
         FolderInfo GetFolder(Guid folderId);
         void AddFolder(FolderInfo folder);
         void DeleteFolder(Guid folderId);
+        
+        List<FolderInfo> GetFoldersInFolder(Guid FolderId);
+        List<FileInfo> GetFilesInFolder(Guid FolderId);
+
+
     }
 }

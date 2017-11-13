@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 
 using System.Security.Cryptography;
+using Microsoft.Extensions.Logging;
 
 namespace Logo.Implementation
 {
@@ -14,12 +15,16 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
         private readonly IFoldersService _folderService;
+        private ILogger<ApiExceptionFilter> _logger;
 
 
-        public UsersService(LogoDbContext dbContext,  IFoldersService foldersService)
+        public UsersService(LogoDbContext dbContext,  IFoldersService foldersService, ILogger<ApiExceptionFilter> logger)
         {
             _dbContext = dbContext;
             _folderService = foldersService;
+            _logger = logger;
+
+            this._logger.LogError("some  error");
         }
 
         public UserInfo GetUser(UserCredentials userCredentials)
@@ -51,8 +56,8 @@ namespace Logo.Implementation
                 Name = userFullInformation.Name
             });
 
-            FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
-            _folderService.AddFolder(rootUserFolder);
+            //FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
+            //_folderService.AddFolder(rootUserFolder);
 
             _dbContext.SaveChanges();
         }
@@ -82,6 +87,7 @@ namespace Logo.Implementation
                 return false;
             }
         }
+
 
     }
 }

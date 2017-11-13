@@ -3,6 +3,7 @@ using System.Linq;
 using Logo.Contracts;
 using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
+using System.Collections.Generic;
 
 namespace Logo.Implementation
 {
@@ -10,7 +11,7 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
 
-        public FoldersService(LogoDbContext dbContext)
+        public FoldersService(LogoDbContext dbContext  )
         {
             _dbContext = dbContext;
         }
@@ -40,7 +41,7 @@ namespace Logo.Implementation
             if (folder == null)
             {
                 throw new InvalidOperationException("Folder not found.");
-                //return null;
+               
             }
 
             return new FolderInfo
@@ -87,6 +88,39 @@ namespace Logo.Implementation
             _dbContext.Remove(folder);
             
             _dbContext.SaveChanges();
+        }
+
+
+        public  List<FolderInfo> GetFoldersInFolder(Guid FolderId)
+        {
+            return _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).Select(y => new FolderInfo()
+            {
+                 FolderId  =  y.FolderId,
+                 ParentFolderId = y.ParentFolderId,
+                 OwnerId  = y.OwnerId,
+                 Name = y.Name,
+                 CreationDate = y.CreationDate,
+                 UploadDate = y.UploadDate,
+                 Level = y.Level,
+                 HasPublicAccess = y.HasPublicAccess       
+            }).ToList(); 
+              
+        }
+
+        public List<FileInfo> GetFilesInFolder(Guid FolderId)
+        {
+            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).Select( y => new FileInfo()
+            {
+                FileId = y.FileId,
+                ParentFolderId = y.ParentFolderId,
+                OwnerId = y.OwnerId,
+                Name = y.Name,
+                CreationDate = y.CreationDate,
+                UploadDate = y.UploadDate,    
+                Size = y.Size,
+                Type =  y.Type,
+                HasPublicAccess = y.HasPublicAccess               
+            }).ToList();
         }
     }
 }

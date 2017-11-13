@@ -11,11 +11,15 @@ import { AlertComponent } from './_directives/alert/alert.component';
 import { HomeComponent } from './_components/home/home.component';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
-import { AlertService, AuthentificationService, UserService } from './_services/index';
+import { AlertService, UserService } from './_services/index';
+import { AuthentificationService } from './_components/login/authentification.service';
+import { HomeService } from './_components/home/home.service';
+import { DataComponent } from './_components/data/data.component';
+
 
 @NgModule({
     declarations: [
-        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent
+        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent
     ],
     imports: [
         BrowserModule,
@@ -27,7 +31,8 @@ import { AlertService, AuthentificationService, UserService } from './_services/
         AuthentificationGuard,
         AlertService,
         AuthentificationService,
-        UserService
+        UserService,
+        HomeService
  
         // providers used to create fake backend
         //fakeBackendProvider,
