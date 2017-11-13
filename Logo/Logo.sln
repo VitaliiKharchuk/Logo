@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Web", "Logo.Web\Logo.Web.csproj", "{36BA7EA8-79F3-4AFF-A061-44C115E3DAA6}"
 EndProject
@@ -9,9 +9,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Logo.Database", "Logo.Datab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Tests", "Logo.Tests\Logo.Tests.csproj", "{CFE5BC47-C3AF-4C4D-B6DC-6BC05D01386C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logo.Contracts", "Logo.Contracts\Logo.Contracts.csproj", "{BE8193E2-B91D-4A42-95B2-422E61873E6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Contracts", "Logo.Contracts\Logo.Contracts.csproj", "{BE8193E2-B91D-4A42-95B2-422E61873E6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logo.Implementation", "Logo.Implementation\Logo.Implementation.csproj", "{4489B84B-AB76-411A-890E-ECCB11ED2BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Implementation", "Logo.Implementation\Logo.Implementation.csproj", "{4489B84B-AB76-411A-890E-ECCB11ED2BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

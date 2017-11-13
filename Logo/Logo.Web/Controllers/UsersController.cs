@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 
 using Logo.Implementation;
+using System.Collections.Generic;
 
 namespace Logo.Web.Controllers
 {
@@ -23,15 +24,12 @@ namespace Logo.Web.Controllers
         {
             _usersService = usersService;
             _cryptographyService = cryptographyService;
-
-            //throw new InvalidOperationException("This is an unhandled exception");
         }
 
         [HttpPost("auth-token")]
         public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
-        {
-            
-            var user = _usersService.GetUser(userCredentials);
+        {            
+            var user = _usersService.GetUserByEmail(userCredentials.Email);
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -65,12 +63,12 @@ namespace Logo.Web.Controllers
             return userInfoWithToken;
         }
 
-
         [HttpPost("add-user")]
         public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
-
             // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
+            
+            //if (_usersService.ValidateUserCredentials(userData))
 
             UserFullInformation userFullInformation = new UserFullInformation
             {
@@ -80,10 +78,32 @@ namespace Logo.Web.Controllers
                 Name = userCredentialsWithName.Name
             };
 
-            if (_usersService.ValidateUserCredentials(userFullInformation))
+            if (_usersService.ValidateUserCredentials(userCredentialsWithName))
             {
-                _usersService.AddUser(userFullInformation);
+                _usersService.AddUser(userCredentialsWithName);
             }
         }
+
+        [HttpGet]
+        [Route("[action]/{email?}")]                  //for   testing
+        public IActionResult GetByEmail(string email)
+        {
+            UserInfo userInfo = _usersService.GetUserByEmail(email);
+
+            UserInfoWithToken userInfoWithToken = new UserInfoWithToken
+            {
+                Token = "secret   tokeb",
+                UserInfo = userInfo
+            };
+
+            return new ObjectResult(userInfoWithToken);
+        }
+        
+        [HttpGet("GetAllUser")]
+        public IEnumerable<UserFullInformation> GetAllUsers()  //only  for   testing
+        {
+            return _usersService.GetAllUsers();    
+        }
+        
     }
 }
