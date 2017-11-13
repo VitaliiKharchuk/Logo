@@ -28,17 +28,31 @@ namespace Logo.Implementation
             //this._logger.LogError("some  error");
         }
 
-        public UserInfo GetUser(UserCredentials userCredentials)
+        public UserInfo GetUserByEmail(string  email)
         {
-            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email && x.Password == userCredentials.Password);
+            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == email);
+            
+            if (userFromDatabase == null)
+            {
+                throw new InvalidOperationException("User not found."); 
+            }
+            
+            return new UserInfo
+            {
+                Id = userFromDatabase.UserId,
+                Email = userFromDatabase.Email,
+                Name = userFromDatabase.Name
+            };
+        }
 
-            /*
+        public UserInfo GetUserById(Guid userId)
+        {
+            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.UserId == userId);
+
             if (userFromDatabase == null)
             {
                 throw new InvalidOperationException("User not found.");
-        
             }
-            */
 
             return new UserInfo
             {
@@ -50,17 +64,19 @@ namespace Logo.Implementation
 
         public void AddUser(UserCredentialsWithName userData)
         {
-
-            _dbContext.Add(new User
+            User user = new User
             {
                 UserId = Guid.NewGuid(),
                 Email = userData.Email,
                 Password = userData.Password,
                 Name = userData.Name
-            });
 
-            //FolderInfo rootUserFolder = _folderService.CreateFolder("Root", userFullInformation.UserId, null);   //  create  root  folder  for  user
-            //_folderService.AddFolder(rootUserFolder);
+            };
+
+            _dbContext.Add(user);
+
+            FolderInfo rootUserFolder = _folderService.CreateFolder("Root", user.UserId, null);   //  create  root  folder  for  user
+            _folderService.AddFolder(rootUserFolder);
 
             _dbContext.SaveChanges();
         }

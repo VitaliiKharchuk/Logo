@@ -22,30 +22,22 @@ namespace Logo.Web.Controllers
             _foldersService = foldersService;
         }
 
-        [HttpPost("add-folder")]
-        public void  CreateFolder([FromBody]  FolderCredentials folderCredentials)
-        {
-            FolderInfo folderInfo =   _foldersService.CreateFolder(folderCredentials.Name, folderCredentials.OwnerId, folderCredentials.ParentFolderId);
-            _foldersService.AddFolder(folderInfo);
-        }
-
-        
-
-        [HttpGet("{id}", Name = "GetFoldersInFolder")]
-        public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
-        {
-            return  _foldersService.GetFoldersInFolder(id);
-        }
-
-
-        [HttpGet("GetAllFolders")]   //only for   testing
+        [HttpGet]   //only for   testing
+        [Route("[action]")]
         public IEnumerable<FolderInfo> GetAllFolders()
         {
             return _foldersService.GetAllFolders();
         }
 
-        /*
-        [HttpGet("{id}", Name = "GetFilesInFolder")]
+        [HttpGet]
+        [Route("GetFolders/{id?}")]
+        public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
+        {
+            return  _foldersService.GetFoldersInFolder(id);
+        }
+
+        [HttpGet]
+        [Route("GetFiles/{id?}")]
         public IEnumerable<FileInfo> GetFilesContent(string id)
         {
             FileInfo file1 = new FileInfo
@@ -69,7 +61,14 @@ namespace Logo.Web.Controllers
             };
 
             return new[] { file1, file2 };
-        }        
-        */
+        }
+
+        [HttpPost]
+        [Route("add-folder")]
+        public void CreateFolder([FromBody]  FolderCredentials folderCredentials)
+        {
+            FolderInfo folderInfo = _foldersService.CreateFolder(folderCredentials.Name, folderCredentials.OwnerId, folderCredentials.ParentFolderId);
+            _foldersService.AddFolder(folderInfo);
+        }
     }
 }

@@ -20,17 +20,6 @@ namespace Logo.Web
 {
     public class Startup
     {
-        /*
-        public  Startup(IHostingEnvironment env)
-        {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "log-{Date}.txt"))
-                .CreateLogger();
-        }
-        */
-
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthorization(auth =>
@@ -50,12 +39,15 @@ namespace Logo.Web
                 });
 
             services.AddMvc();
+
             ////options =>
             ////{
             ////    options.Filters.Add(new RequireHttpsAttribute());
             ////    //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
 
             ////});
+
+
 
             services.AddScoped<ApiExceptionFilter>();
 
@@ -94,6 +86,7 @@ namespace Logo.Web
             });
 
             app.UseMvcWithDefaultRoute();
+            //app.UseMvc(routes => )
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
