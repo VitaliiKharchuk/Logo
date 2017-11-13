@@ -75,9 +75,8 @@ namespace Logo.Implementation
 
             _dbContext.Add(user);
 
-            FolderInfo rootUserFolder = _folderService.CreateFolder( new FolderCredentials {Name = "Root", OwnerId = user.UserId, ParentFolderId =  null });   //  create  root  folder  for  user
-            _folderService.AddFolder(rootUserFolder);
-
+           _folderService.CreateFolder( new FolderCredentials {Name = "Root", OwnerId = user.UserId, ParentFolderId =  null });   //  create  root  folder  for  user
+           
             _dbContext.SaveChanges();
         }
 

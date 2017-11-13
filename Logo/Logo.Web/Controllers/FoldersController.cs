@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Logo.Contracts.Services;
 using Logo.Implementation;
 using Logo.Contracts;
-
+using Logo.Web.Models;
 
 namespace Logo.Web.Controllers
 {
@@ -65,22 +65,38 @@ namespace Logo.Web.Controllers
         [HttpPost]
         [Route("add-folder")]
         public IActionResult  CreateFolder([FromBody]  FolderCredentials folderCredentials)
-        {
-            FolderInfo folderInfo = null;
+        {           
+             _foldersService.CreateFolder(folderCredentials);
             
-            folderInfo = _foldersService.CreateFolder(folderCredentials);
-             _foldersService.AddFolder(folderInfo);
-
-
-
             return Ok();
         }
 
-        [HttpGet]
+
+
+
+        [HttpPost]
+        [Route("UpdateFolder")]
+        public IActionResult EditPost([FromBody] UpdatedFolder  updatedFolder)
+        {
+
+             _foldersService.RenameFolder( updatedFolder.folderId, updatedFolder.updatedName);
+             return  Ok();
+        }
+
+            
+        [HttpGet]   //only for   testing
         [Route("throw")]
         public object Throw()
         {
-            throw new InvalidOperationException("This is an unhandled exception");
+            try
+            {
+                throw new InvalidOperationException("This is an unhandled exception");
+            }
+
+            catch(Exception ex)
+            {
+                return ex;
+            }
         }
 
 

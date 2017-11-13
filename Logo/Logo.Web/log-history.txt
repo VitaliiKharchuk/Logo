@@ -733,3 +733,253 @@ System.InvalidOperationException: This is an unhandled exception
 2017-11-13 14:47:02.035 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
 2017-11-13 14:47:02.066 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 59.6486ms
 2017-11-13 14:47:02.071 +02:00 [INF] Request finished in 76.1421ms 200 application/json; charset=utf-8
+2017-11-13 16:52:37.860 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-13 16:52:40.576 +02:00 [INF] The file /index.html was not modified
+2017-11-13 16:52:40.660 +02:00 [INF] Request finished in 3116.0092ms 304 text/html
+2017-11-13 16:52:40.839 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-13 16:52:40.839 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-13 16:52:40.841 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-13 16:52:40.865 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-13 16:52:40.868 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-13 16:52:40.877 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-13 16:52:40.916 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-13 16:52:41.008 +02:00 [INF] Request finished in 78.8976ms 304 application/javascript
+2017-11-13 16:52:41.044 +02:00 [INF] Request finished in 118.7376ms 304 application/javascript
+2017-11-13 16:52:41.054 +02:00 [INF] Request finished in 87.1719ms 304 application/javascript
+2017-11-13 16:52:41.100 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-13 16:52:41.107 +02:00 [INF] Request finished in 294.163ms 304 application/javascript
+2017-11-13 16:52:41.697 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-13 16:52:41.712 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-13 16:52:41.718 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-13 16:52:41.756 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-13 16:52:41.764 +02:00 [INF] Request finished in 77.7075ms 304 application/javascript
+2017-11-13 16:52:41.806 +02:00 [INF] Request finished in 34.3697ms 304 application/javascript
+2017-11-13 16:52:48.901 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 16:52:49.232 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-13 16:52:49.401 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-13 16:52:49.722 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-13 16:52:49.732 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-13 16:52:49.734 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-13 16:52:49.756 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-13 16:52:49.798 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-13 16:52:49.851 +02:00 [INF] Request finished in 528.5374ms 304 image/svg+xml
+2017-11-13 16:52:49.861 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-13 16:52:49.880 +02:00 [INF] Request finished in 510.0466ms 304 application/x-font-ttf
+2017-11-13 16:52:49.895 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-13 16:52:49.916 +02:00 [INF] Request finished in 680.6507ms 304 image/svg+xml
+2017-11-13 16:52:49.972 +02:00 [INF] Request finished in 587.4659ms 304 image/svg+xml
+2017-11-13 16:52:49.999 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-13 16:52:50.017 +02:00 [INF] Request finished in 781.484ms 304 application/x-font-ttf
+2017-11-13 16:52:50.424 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-13 16:52:50.426 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-13 16:52:50.432 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-13 16:52:50.440 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-13 16:52:50.455 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-13 16:52:50.462 +02:00 [INF] Request finished in 434.1344ms 304 image/svg+xml
+2017-11-13 16:52:50.481 +02:00 [INF] Request finished in 420.4892ms 304 image/svg+xml
+2017-11-13 16:52:50.787 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-13 16:52:50.794 +02:00 [INF] Request finished in 744.7741ms 304 application/x-font-ttf
+2017-11-13 16:52:53.894 +02:00 [INF] Request finished in 4974.033ms 404 
+2017-11-13 22:20:23.490 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 22:20:25.118 +02:00 [INF] Request finished in 1622.8496ms 404 
+2017-11-13 22:21:44.858 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 79
+2017-11-13 22:21:46.628 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 22:21:47.638 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 22:21:48.731 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 22:21:48.780 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 3107.5616ms
+2017-11-13 22:21:48.813 +02:00 [INF] Request finished in 3951.4926ms 200 
+2017-11-13 22:21:48.847 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 58
+2017-11-13 22:21:48.877 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 22:21:48.895 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 22:21:49.439 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 22:21:49.498 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 610.70170000000007ms
+2017-11-13 22:21:49.541 +02:00 [INF] Request finished in 663.5736ms 200 application/json; charset=utf-8
+2017-11-13 22:21:49.585 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 22:21:49.617 +02:00 [INF] Request finished in 36.0716ms 404 
+2017-11-13 22:22:01.569 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/GetAllUser application/json 91
+2017-11-13 22:22:01.580 +02:00 [INF] Request finished in 11.454ms 404 
+2017-11-13 22:22:39.919 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser application/json 
+2017-11-13 22:22:39.936 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 22:22:39.952 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 22:22:39.969 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 22:22:40.038 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 109.0276ms
+2017-11-13 22:22:40.056 +02:00 [INF] Request finished in 130.5648ms 200 application/json; charset=utf-8
+2017-11-13 22:23:04.661 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 22:23:04.671 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 22:23:04.682 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 22:23:04.690 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 22:23:04.739 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 69.22760000000001ms
+2017-11-13 22:23:04.746 +02:00 [INF] Request finished in 91.4937ms 200 application/json; charset=utf-8
+2017-11-13 22:26:15.970 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 111
+2017-11-13 22:26:16.035 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 22:26:16.041 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 22:27:06.803 +02:00 [ERR] Folder with   this  name  already  exists.
+System.InvalidOperationException: Folder with   this  name  already  exists.
+   at Logo.Implementation.FoldersService.CreateFolder(FolderCredentials folderCredentials) in J:\LogoProject\Logo\Logo\Logo.Implementation\FoldersService.cs:line 49
+   at Logo.Web.Controllers.FoldersController.CreateFolder(FolderCredentials folderCredentials) in J:\LogoProject\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 69
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 22:27:06.824 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 22:27:06.836 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 50854.7716ms
+2017-11-13 22:27:06.847 +02:00 [INF] Request finished in 50874.5215ms 500 application/json; charset=utf-8
+2017-11-13 23:00:14.385 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:00:14.385 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 79
+2017-11-13 23:00:16.360 +02:00 [INF] Request finished in 2019.2612ms 404 
+2017-11-13 23:00:17.878 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 23:00:19.237 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:00:20.123 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 23:00:20.166 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 3673.5703000000003ms
+2017-11-13 23:00:20.191 +02:00 [INF] Request finished in 5842.0697ms 200 
+2017-11-13 23:00:20.218 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 58
+2017-11-13 23:00:20.239 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 23:00:20.270 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:00:20.440 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:00:20.465 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 234.64860000000002ms
+2017-11-13 23:00:20.481 +02:00 [INF] Request finished in 253.9693ms 200 application/json; charset=utf-8
+2017-11-13 23:00:20.562 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:00:20.585 +02:00 [INF] Request finished in 17.0998ms 404 
+2017-11-13 23:00:42.324 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:00:42.336 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:00:42.350 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:00:42.376 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:00:42.522 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 164.9399ms
+2017-11-13 23:00:42.541 +02:00 [INF] Request finished in 219.7205ms 200 application/json; charset=utf-8
+2017-11-13 23:02:33.921 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/UpdateFolder text/plain 96
+2017-11-13 23:02:33.980 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 415
+2017-11-13 23:02:33.986 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) in 35.0306ms
+2017-11-13 23:02:33.999 +02:00 [INF] Request finished in 75.3091ms 415 
+2017-11-13 23:02:39.876 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:02:39.885 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:02:39.894 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:02:39.905 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:02:39.935 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 49.654700000000005ms
+2017-11-13 23:02:39.949 +02:00 [INF] Request finished in 73.8118ms 200 application/json; charset=utf-8
+2017-11-13 23:03:22.612 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/throw text/plain 96
+2017-11-13 23:03:22.622 +02:00 [INF] Request finished in 15.6446ms 404 
+2017-11-13 23:03:27.947 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/throw text/plain 
+2017-11-13 23:03:27.961 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.Throw (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:13:27.753 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:13:28.604 +02:00 [INF] Request finished in 918.1212ms 404 
+2017-11-13 23:13:35.553 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 83
+2017-11-13 23:13:36.001 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 23:13:36.793 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:13:37.156 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 23:13:37.175 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 1473.2066ms
+2017-11-13 23:13:37.186 +02:00 [INF] Request finished in 1636.848ms 200 
+2017-11-13 23:13:37.206 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 58
+2017-11-13 23:13:37.224 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 23:13:38.372 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:13:38.440 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:13:38.462 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 1244.0401000000002ms
+2017-11-13 23:13:38.468 +02:00 [INF] Request finished in 1262.83ms 200 application/json; charset=utf-8
+2017-11-13 23:13:38.549 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:13:38.582 +02:00 [INF] Request finished in 27.2104ms 404 
+2017-11-13 23:13:50.964 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/throw text/plain 
+2017-11-13 23:13:50.973 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.Throw (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:13:51.122 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:13:51.428 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.Throw (Logo.Web) in 454.55060000000003ms
+2017-11-13 23:13:51.436 +02:00 [INF] Request finished in 470.8464ms 200 application/json; charset=utf-8
+2017-11-13 23:14:28.354 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:14:28.372 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:14:28.387 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:14:28.398 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:14:28.462 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 98.52770000000001ms
+2017-11-13 23:14:28.471 +02:00 [INF] Request finished in 119.7004ms 200 application/json; charset=utf-8
+2017-11-13 23:16:20.924 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:16:20.930 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:16:20.935 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:16:20.941 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:16:20.951 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 19.5258ms
+2017-11-13 23:16:20.961 +02:00 [INF] Request finished in 35.7196ms 200 application/json; charset=utf-8
+2017-11-13 23:17:08.128 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/UpdateFolder application/json 105
+2017-11-13 23:17:08.159 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) with arguments (["Logo.Web.Models.UpdatedFolder"]) - ModelState is "Valid"
+2017-11-13 23:17:08.170 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:23:47.625 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:23:48.349 +02:00 [INF] Request finished in 752.0732ms 404 
+2017-11-13 23:23:58.831 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/add-user application/json 84
+2017-11-13 23:23:59.354 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.AddUser (Logo.Web) with arguments (["Logo.Contracts.UserCredentialsWithName"]) - ModelState is "Valid"
+2017-11-13 23:23:59.724 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:24:00.144 +02:00 [INF] Saved 2 entities to in-memory store.
+2017-11-13 23:24:00.163 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.AddUser (Logo.Web) in 1155.7375ms
+2017-11-13 23:24:00.192 +02:00 [INF] Request finished in 1346.1995ms 200 
+2017-11-13 23:24:00.206 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 58
+2017-11-13 23:24:00.232 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-13 23:24:00.256 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:24:00.329 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:24:00.352 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 132.6053ms
+2017-11-13 23:24:00.362 +02:00 [INF] Request finished in 156.3158ms 200 application/json; charset=utf-8
+2017-11-13 23:24:00.414 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-13 23:24:00.442 +02:00 [INF] Request finished in 12.495ms 404 
+2017-11-13 23:24:13.858 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:24:13.867 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:24:13.877 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:24:13.889 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:24:13.963 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 96.3133ms
+2017-11-13 23:24:13.971 +02:00 [INF] Request finished in 113.3635ms 200 application/json; charset=utf-8
+2017-11-13 23:24:48.671 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/UpdateFolder application/json 105
+2017-11-13 23:24:48.686 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) with arguments (["Logo.Web.Models.UpdatedFolder"]) - ModelState is "Valid"
+2017-11-13 23:24:48.695 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:24:48.748 +02:00 [WRN] Query: '(from Folder <generated>_1 in DbSet<Folder> select [<generated>_1]).FirstOrDefault()' uses First/FirstOrDefault operation without OrderBy and filter which may lead to unpredictable results.
+2017-11-13 23:24:48.791 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 23:24:48.798 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2017-11-13 23:24:48.803 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) in 123.0994ms
+2017-11-13 23:24:48.811 +02:00 [INF] Request finished in 139.4913ms 200 
+2017-11-13 23:24:53.997 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:24:54.007 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:24:54.014 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:24:54.021 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:24:54.030 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 23.4815ms
+2017-11-13 23:24:54.041 +02:00 [INF] Request finished in 44.4803ms 200 application/json; charset=utf-8
+2017-11-13 23:26:17.864 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 116
+2017-11-13 23:26:17.920 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.FolderCredentials"]) - ModelState is "Valid"
+2017-11-13 23:26:17.928 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:26:17.936 +02:00 [INF] Saved 1 entities to in-memory store.
+2017-11-13 23:26:17.942 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2017-11-13 23:26:17.948 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 75.24860000000001ms
+2017-11-13 23:26:17.958 +02:00 [INF] Request finished in 98.3532ms 200 
+2017-11-13 23:26:21.723 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/GetAllFolders application/json 
+2017-11-13 23:26:21.730 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-13 23:26:21.736 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:26:21.742 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-13 23:26:21.749 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetAllFolders (Logo.Web) in 19.505300000000002ms
+2017-11-13 23:26:21.758 +02:00 [INF] Request finished in 33.5398ms 200 application/json; charset=utf-8
+2017-11-13 23:26:50.082 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/UpdateFolder application/json 105
+2017-11-13 23:26:50.089 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) with arguments (["Logo.Web.Models.UpdatedFolder"]) - ModelState is "Valid"
+2017-11-13 23:26:50.095 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.InMemory' with options: StoreName=TestBase 
+2017-11-13 23:26:58.148 +02:00 [ERR] Folder with   this  name  already  exists.
+System.InvalidOperationException: Folder with   this  name  already  exists.
+   at Logo.Implementation.FoldersService.RenameFolder(Guid folderId, String updatedFolderName) in J:\LogoProject\Logo\Logo\Logo.Implementation\FoldersService.cs:line 94
+   at Logo.Web.Controllers.FoldersController.EditPost(UpdatedFolder updatedFolder) in J:\LogoProject\Logo\Logo\Logo.Web\Controllers\FoldersController.cs:line 82
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+2017-11-13 23:26:58.194 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-13 23:26:58.218 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.EditPost (Logo.Web) in 8116.0843ms
+2017-11-13 23:26:58.260 +02:00 [INF] Request finished in 8158.2089ms 500 application/json; charset=utf-8
