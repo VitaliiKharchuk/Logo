@@ -13,7 +13,6 @@ namespace Logo.Implementation
         private readonly LogoDbContext _dbContext;
         private readonly int maxRootLevel = 9;   //[0..9]
 
-
         public FoldersService(LogoDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -95,9 +94,7 @@ namespace Logo.Implementation
 
             _dbContext.SaveChanges();
         }
-
-
-
+ 
         public void DeleteFolder(Guid folderId)  //  need    recursive  deleting   
         {
             var folder = GetFolder(folderId);
@@ -107,10 +104,27 @@ namespace Logo.Implementation
                 throw new InvalidOperationException("Folder  doesn't exist");
             }
 
-            _dbContext.Remove(folder);
+            List<FolderInfo> folders = GetFoldersInFolder(folderId).ToList();
+            List<FileInfo> files = GetFilesInFolder(folderId).ToList();
+
+
+            foreach (var fileInfo in files)       // delete all  files in  current  dirictory
+            {
+                var file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileInfo.FileId);
+                _dbContext.Files.Remove(file);
+            }
+
+            foreach (var folderinfo in folders)   //deep   recursive to   sub -  directives   and   delete   them
+            {
+                DeleteFolder(folderinfo.FolderId);
+            }
+
+            var folderRoot = _dbContext.Folders.FirstOrDefault(x => x.FolderId == folderId);         // delete  root  directory   
+            _dbContext.Folders.Remove(folderRoot);
 
             _dbContext.SaveChanges();
         }
+
 
         public bool IsParentContainseFolder(FolderCredentials folderCredentials)
         {
