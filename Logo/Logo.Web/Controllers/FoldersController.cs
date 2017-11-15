@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Logo.Web.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize (Policy = "Bearer")]
+    [Authorize(Policy = "Bearer")]
     [ServiceFilter(typeof(ApiExceptionFilter))]
 
     public class FoldersController : Controller
@@ -21,7 +21,7 @@ namespace Logo.Web.Controllers
 
         public FoldersController(IFoldersService foldersService)
         {
-        
+
             _foldersService = foldersService;
         }
 
@@ -33,15 +33,15 @@ namespace Logo.Web.Controllers
         }
 
         [HttpGet]
-        [Route("GetFolders/{id?}")]
+        [Route("get-folders/{id?}")]
         public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
         {
             return _foldersService.GetFoldersInFolder(id);
-      
+
         }
 
         [HttpGet]
-        [Route("GetFiles/{id?}")]
+        [Route("get-files/{id?}")]
         public IEnumerable<FileInfo> GetFilesContent(string id)
         {
             FileInfo file1 = new FileInfo
@@ -69,7 +69,7 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("add-folder")]
-        public IActionResult  CreateFolder([FromBody]  FolderCredentials folderCredentials)
+        public IActionResult CreateFolder([FromBody]  FolderCredentials folderCredentials)
         {
             try
             {
@@ -94,9 +94,8 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("Rename")]
-        public IActionResult RenameFolder([FromBody] UpdatedFolder  updatedFolder)
+        public IActionResult RenameFolder([FromBody] UpdatedFolder updatedFolder)
         {
-
             try
             {
                 _foldersService.RenameFolder(updatedFolder);
@@ -106,7 +105,6 @@ namespace Logo.Web.Controllers
             {
                 return Ok(ex);    // 
             }
-
 
             return Ok();
         }
@@ -121,7 +119,7 @@ namespace Logo.Web.Controllers
                 _foldersService.DeleteFolder(id);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Ok(ex);    // 
             }
@@ -130,30 +128,15 @@ namespace Logo.Web.Controllers
         }
 
 
-        [HttpGet]   //only for   testing
-        [Route("throw")]
-        public object Throw()
-        {
-            try
-            {
-                throw new InvalidOperationException("This is an unhandled exception");
-            }
-
-            catch(Exception ex)
-            {
-                return ex;
-            }
-        }
-
-
-
-
         [HttpGet]  //only  for   testing
         [Route("getInfo")]
         public IActionResult GetInfo()
         {
-            
-            var id =  HttpContext.User.Claims.ToList().Where(item => item.Type == "UserId").Select(item => item.Value).First();
+            var id = HttpContext.User.Claims.ToList()
+                .Where(item => item.Type == "UserId")
+                .Select(item => item.Value)
+                .First();
+
             return Ok(id);
         }
 

@@ -26,7 +26,10 @@ namespace Logo.Web.Controllers
             _cryptographyService = cryptographyService;
         }
 
-        [HttpPost("auth-token")]    
+        //[HttpPost("auth-token")]
+        
+        [HttpPost]
+        [Route("auth-token")]
         public IActionResult GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
         {
 
@@ -64,8 +67,7 @@ namespace Logo.Web.Controllers
             });
 
 
-            
-            
+           
             var userInfoWithToken = new UserInfoWithToken
             {
                 Token = handler.WriteToken(securityToken),
@@ -81,8 +83,11 @@ namespace Logo.Web.Controllers
         }
 
 
-        [HttpPost("add-user")]
-        public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
+        //[HttpPost("add-user")]
+
+        [HttpPost]
+        [Route("add-user")]
+        public IActionResult AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
             // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
             
@@ -96,11 +101,25 @@ namespace Logo.Web.Controllers
                 Name = userCredentialsWithName.Name
             };
 
-            if (_usersService.ValidateUserCredentials(userCredentialsWithName))
+            try
             {
-                _usersService.AddUser(userCredentialsWithName);
+                if (_usersService.ValidateUserCredentials(userCredentialsWithName))
+                {
+                    _usersService.AddUser(userCredentialsWithName);
+                }
+
+                else
+                {
+                    throw new InvalidOperationException("Not  correct  credentials");
+                }
             }
 
+            catch (Exception ex)
+            {
+               return Ok(ex);
+            }
+
+            return Ok();
            
         }
 
@@ -119,7 +138,9 @@ namespace Logo.Web.Controllers
             return new ObjectResult(userInfoWithToken);
         }
         
-        [HttpGet("GetAllUser")]
+        [HttpGet]
+        [Route("GetAllUsers")]                  //for   testing
+
         public IEnumerable<UserFullInformation> GetAllUsers()  //only  for   testing
         {
             return _usersService.GetAllUsers();    

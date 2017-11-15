@@ -110,7 +110,7 @@ namespace Logo.Implementation
 
         public bool ValidateUserCredentials(UserCredentialsWithName userData)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email && x.Password == userData.Password);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email);  // unique  email   for  registration
 
             return (user == null &&
                 IsValidEmail(userData.Email) && userData.Email.Length <= 254 &&
