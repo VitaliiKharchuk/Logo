@@ -16,14 +16,5 @@ namespace Logo.Web.Controllers
             return new[] { "file1", "file2" };            
         }
 
-        [Authorize]
-        [Route("getlogin")]
-        public IActionResult GetLogin()
-        {
-            return Ok($"Ваш логин: {User.Identity.Name}");
-        }
-
-
-
     }
 }
