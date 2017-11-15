@@ -26,10 +26,24 @@ namespace Logo.Web.Controllers
             _cryptographyService = cryptographyService;
         }
 
-        [HttpPost("auth-token")]
-        public UserInfoWithToken GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
-        {            
-            var user = _usersService.GetUserByEmail(userCredentials.Email);
+        [HttpPost("auth-token")]    
+        public IActionResult GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
+        {
+
+            UserInfo user = null;
+            try
+            {
+                 user = _usersService.GetUserByCredentials(new UserCredentials
+                {
+                    Email = userCredentials.Email,
+                    Password = userCredentials.Password
+                });
+            }
+
+            catch(InvalidOperationException ex)
+            {
+                return Unauthorized();
+            }
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -49,6 +63,9 @@ namespace Logo.Web.Controllers
                 Subject = identity
             });
 
+
+            
+            
             var userInfoWithToken = new UserInfoWithToken
             {
                 Token = handler.WriteToken(securityToken),
@@ -60,8 +77,9 @@ namespace Logo.Web.Controllers
                 }
             };
 
-            return userInfoWithToken;
+            return  Ok(userInfoWithToken);
         }
+
 
         [HttpPost("add-user")]
         public void AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
@@ -82,6 +100,8 @@ namespace Logo.Web.Controllers
             {
                 _usersService.AddUser(userCredentialsWithName);
             }
+
+           
         }
 
         [HttpGet]

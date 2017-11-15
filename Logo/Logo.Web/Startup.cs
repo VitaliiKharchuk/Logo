@@ -24,9 +24,13 @@ namespace Logo.Web
         {
             services.AddAuthorization(auth =>
             {
+                
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
+                
+
+                //auth.AddPolicy("User", policy => policy.RequireClaim("UserId"));
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -36,6 +40,10 @@ namespace Logo.Web
                     options.TokenValidationParameters.ValidAudience = "http://logo-service.azurewebsites.net/";
                     options.TokenValidationParameters.ValidIssuer = "Logo";
                     options.TokenValidationParameters.ValidateIssuerSigningKey = true;
+
+                    options.TokenValidationParameters.ValidateIssuer = true;
+                    options.TokenValidationParameters.ValidateAudience = true;
+
                 });
 
             services.AddMvc();
@@ -90,7 +98,6 @@ namespace Logo.Web
             });
 
             app.UseMvcWithDefaultRoute();
-            //app.UseMvc(routes => )
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

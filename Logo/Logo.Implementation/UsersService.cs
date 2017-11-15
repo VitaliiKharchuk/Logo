@@ -62,6 +62,26 @@ namespace Logo.Implementation
             };
         }
 
+
+        public UserInfo GetUserByCredentials(UserCredentials userCredentials)
+        {
+            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email  && x.Password ==  userCredentials.Password);
+
+            if (userFromDatabase == null)
+            {
+                throw new InvalidOperationException("Incorrect  password  or  email.");
+            }
+
+            return new UserInfo
+            {
+                Id = userFromDatabase.UserId,
+                Email = userFromDatabase.Email,
+                Name = userFromDatabase.Name
+            };
+        }
+
+
+
         public void AddUser(UserCredentialsWithName userData)
         {
             User user = new User
@@ -75,7 +95,15 @@ namespace Logo.Implementation
 
             _dbContext.Add(user);
 
-           _folderService.CreateFolder( new FolderCredentials {Name = "Root", OwnerId = user.UserId, ParentFolderId =  null });   //  create  root  folder  for  user
+           _folderService.CreateFolder( new FolderCredentialsWithOwner
+           {
+               ownerId = user.UserId,
+               folderCredentials = new FolderCredentials
+               {
+                   ParentFolderId = null,
+                   Name = "Root"
+               }
+           });   //  create  root  folder  for  user
            
             _dbContext.SaveChanges();
         }

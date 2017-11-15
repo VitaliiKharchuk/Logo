@@ -8,7 +8,7 @@ namespace Logo.Contracts
     {
         public Guid? ParentFolderId { get; set; }
 
-        public Guid OwnerId { get; set; }
+        //public Guid OwnerId { get; set; }
 
         public string Name { get; set; }
     }

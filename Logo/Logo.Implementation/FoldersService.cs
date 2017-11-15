@@ -12,6 +12,8 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
         private readonly int maxRootLevel = 9;   //[0..9]
+        private readonly int maxNameLong = 50;   //[0..9]
+
 
         public FoldersService(LogoDbContext dbContext)
         {
@@ -40,15 +42,19 @@ namespace Logo.Implementation
             };
         }
 
-        public void CreateFolder(FolderCredentials folderCredentials)
+        public void CreateFolder(FolderCredentialsWithOwner folderCredentialsWithOwner)
         {
-            if (IsParentContainseFolder(folderCredentials))
+            if  (folderCredentialsWithOwner.folderCredentials.Name.Length > maxNameLong)
+                throw new InvalidOperationException("Long  name");
+
+
+            if (IsParentContainseFolder(folderCredentialsWithOwner))
                 throw new InvalidOperationException("Folder with   this  name  already  exists.");
 
             FolderInfo rootFolder = null;
-            if (folderCredentials.ParentFolderId != null)
+            if (folderCredentialsWithOwner.folderCredentials.ParentFolderId != null)
             {
-                rootFolder = GetFolder((Guid)folderCredentials.ParentFolderId);
+                rootFolder = GetFolder((Guid)folderCredentialsWithOwner.folderCredentials.ParentFolderId);   //   get   parent  of  curent folder
 
                 if (rootFolder.Level == maxRootLevel)
                     throw new InvalidOperationException("Attachment  level  is  maximum");
@@ -58,12 +64,12 @@ namespace Logo.Implementation
                 (new Folder
                 {
                     FolderId = Guid.NewGuid(),
-                    OwnerId = folderCredentials.OwnerId,
-                    ParentFolderId = folderCredentials.ParentFolderId,
-                    Name = folderCredentials.Name,
+                    OwnerId = folderCredentialsWithOwner.ownerId,
+                    ParentFolderId = folderCredentialsWithOwner.folderCredentials.ParentFolderId,
+                    Name = folderCredentialsWithOwner.folderCredentials.Name,
                     CreationDate = DateTime.Now,
                     UploadDate = null,
-                    Level = folderCredentials.ParentFolderId == null ? 0 : rootFolder.Level + 1,
+                    Level = folderCredentialsWithOwner.folderCredentials.ParentFolderId == null ? 0 : rootFolder.Level + 1,
                     HasPublicAccess = false
 
                 });
@@ -71,26 +77,39 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
-        public void RenameFolder(Guid folderId, string updatedFolderName)
+        public void RenameFolder(UpdatedFolder updatedFolder)
         {
-            FolderInfo folder = GetFolder(folderId);
+
+            if (updatedFolder.updatedName.Length > maxNameLong)
+                throw new InvalidOperationException("Long  name");
+
+
+            FolderInfo folder = GetFolder( updatedFolder.folderId);
 
             if (folder == null)
             {
                 throw new InvalidOperationException("Folder not found.");
             }
 
-            if (IsParentContainseFolder(new FolderCredentials
+            if (IsParentContainseFolder(new FolderCredentialsWithOwner
             {
-                Name = updatedFolderName,
-                OwnerId = folder.OwnerId,
-                ParentFolderId = folder.ParentFolderId
+ 
+                folderCredentials = new FolderCredentials
+                {
+                    ParentFolderId = folder.ParentFolderId,
+                    Name = updatedFolder.updatedName,
+                  
+                },
+
+                ownerId = folder.OwnerId,
+
+
             }))
             {
                 throw new InvalidOperationException("Folder with   this  name  already  exists.");
             }
 
-            _dbContext.Folders.FirstOrDefault().Name = updatedFolderName;
+            _dbContext.Folders.Where( f => f.FolderId == updatedFolder.folderId).FirstOrDefault().Name =   updatedFolder.updatedName;
 
             _dbContext.SaveChanges();
         }
@@ -126,9 +145,12 @@ namespace Logo.Implementation
         }
 
 
-        public bool IsParentContainseFolder(FolderCredentials folderCredentials)
+        public bool IsParentContainseFolder(FolderCredentialsWithOwner folderCredentialsWithOwner)
         {
-            return _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderCredentials.ParentFolderId) && x.OwnerId.Equals(folderCredentials.OwnerId)).Any(s => s.Name.Equals(folderCredentials.Name));
+            return _dbContext.Folders
+                   .Where(x => x.ParentFolderId.Equals(folderCredentialsWithOwner.folderCredentials.ParentFolderId)
+                   && x.OwnerId.Equals(folderCredentialsWithOwner.ownerId))
+                   .Any(s => s.Name.Equals(folderCredentialsWithOwner.folderCredentials.Name));
         }
 
         public IEnumerable<FolderInfo> GetAllFolders()   //only  for  testing
