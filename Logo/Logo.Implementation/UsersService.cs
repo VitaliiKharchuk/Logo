@@ -18,7 +18,6 @@ namespace Logo.Implementation
         private readonly IFoldersService _folderService;
         private ILogger<ApiExceptionFilter> _logger;
 
-
         public UsersService(LogoDbContext dbContext,  IFoldersService foldersService, ILogger<ApiExceptionFilter> logger)
         {
             _dbContext = dbContext;
@@ -62,6 +61,23 @@ namespace Logo.Implementation
             };
         }
 
+        public UserInfo GetUserByCredentials(UserCredentials userCredentials)
+        {
+            var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email  && x.Password ==  userCredentials.Password);
+
+            if (userFromDatabase == null)
+            {
+                throw new InvalidOperationException("Incorrect  password  or  email.");
+            }
+
+            return new UserInfo
+            {
+                Id = userFromDatabase.UserId,
+                Email = userFromDatabase.Email,
+                Name = userFromDatabase.Name
+            };
+        }
+
         public void AddUser(UserCredentialsWithName userData)
         {
             User user = new User
@@ -75,15 +91,23 @@ namespace Logo.Implementation
 
             _dbContext.Add(user);
 
-            FolderInfo rootUserFolder = _folderService.CreateFolder( new FolderCredentials {Name = "Root", OwnerId = user.UserId, ParentFolderId =  null });   //  create  root  folder  for  user
-            _folderService.AddFolder(rootUserFolder);
-
+            /*
+           _folderService.CreateFolder( new FolderCredentialsWithOwner
+           {
+               ownerId = user.UserId,
+               folderCredentials = new FolderCredentials
+               {
+                   ParentFolderId = null,
+                   Name = "Root"
+               }
+           });   //  create  root  folder  for  user
+           */
             _dbContext.SaveChanges();
         }
 
         public bool ValidateUserCredentials(UserCredentialsWithName userData)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email && x.Password == userData.Password);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email);  // unique  email   for  registration
 
             return (user == null &&
                 IsValidEmail(userData.Email) && userData.Email.Length <= 254 &&
@@ -107,8 +131,6 @@ namespace Logo.Implementation
             }
         }
 
-
-
         public IEnumerable<UserFullInformation> GetAllUsers()
         {
            return  _dbContext.Set<User>().Select(
@@ -120,7 +142,5 @@ namespace Logo.Implementation
                      Password = y.Password
                  });
         }
-
-
     }
 }

@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace Logo.Contracts.Services
 {
     public interface IFoldersService
     {
-        FolderInfo CreateFolder(FolderCredentials folderCredentials);
         FolderInfo GetFolder(Guid folderId);
-        void AddFolder(FolderInfo folder);
+        void CreateFolder(ObjectCredentialsWithOwner folderCredentials);
+        void RenameFolder(UpdatedObject updatedFolder);
         void DeleteFolder(Guid folderId);
-        bool ContainseFolder(FolderCredentials folderCredentials);
 
+        FileInfo GetFile(Guid folderId);
+        void CreateFile(ObjectCredentialsWithOwner folderCredentials);
+        void RenameFile(UpdatedObject updatedFolder);
+        void DeleteFile(Guid folderId);
+
+        IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId);
+        IEnumerable<FileInfo> GetFilesInFolder(Guid folderId);
 
         IEnumerable<FolderInfo> GetAllFolders();  //only  for   testing
-        IEnumerable<FolderInfo> GetFoldersInFolder(Guid FolderId);
-        IEnumerable<FileInfo> GetFilesInFolder(Guid FolderId);
-
-
+        IEnumerable<FileInfo> GetAllFiles();  //only  for   testing
     }
+
 }
