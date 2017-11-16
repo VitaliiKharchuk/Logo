@@ -230,8 +230,7 @@ namespace Logo.Implementation
 
             foreach (var fileInfo in files)       // delete all  files in  current  dirictory
             {
-                var file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileInfo.FileId);
-                _dbContext.Files.Remove(file);
+                DeleteFile(fileInfo.FileId);
             }
 
             foreach (var folderinfo in folders)   //deep   recursive to   sub -  directives   and   delete   them
@@ -247,7 +246,9 @@ namespace Logo.Implementation
 
         public void DeleteFile(Guid fileId)  
         {
-            _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
+            var  file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
+            _dbContext.Files.Remove(file);
+
             _dbContext.SaveChanges();
         }
 
