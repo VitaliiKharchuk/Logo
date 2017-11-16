@@ -12,7 +12,7 @@ namespace Logo.Implementation.DatabaseModels
         }
 
         public Guid FileId { get; set; }
-        public Guid? ParentFolderId { get; set; }
+        public Guid? ParentFolderId { get; set; }    
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public DateTime? CreationDate { get; set; }

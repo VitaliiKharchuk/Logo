@@ -18,7 +18,6 @@ namespace Logo.Implementation
         private readonly IFoldersService _folderService;
         private ILogger<ApiExceptionFilter> _logger;
 
-
         public UsersService(LogoDbContext dbContext,  IFoldersService foldersService, ILogger<ApiExceptionFilter> logger)
         {
             _dbContext = dbContext;
@@ -62,7 +61,6 @@ namespace Logo.Implementation
             };
         }
 
-
         public UserInfo GetUserByCredentials(UserCredentials userCredentials)
         {
             var userFromDatabase = _dbContext.Users.FirstOrDefault(x => x.Email == userCredentials.Email  && x.Password ==  userCredentials.Password);
@@ -80,8 +78,6 @@ namespace Logo.Implementation
             };
         }
 
-
-
         public void AddUser(UserCredentialsWithName userData)
         {
             User user = new User
@@ -95,6 +91,7 @@ namespace Logo.Implementation
 
             _dbContext.Add(user);
 
+            /*
            _folderService.CreateFolder( new FolderCredentialsWithOwner
            {
                ownerId = user.UserId,
@@ -104,7 +101,7 @@ namespace Logo.Implementation
                    Name = "Root"
                }
            });   //  create  root  folder  for  user
-           
+           */
             _dbContext.SaveChanges();
         }
 
@@ -134,8 +131,6 @@ namespace Logo.Implementation
             }
         }
 
-
-
         public IEnumerable<UserFullInformation> GetAllUsers()
         {
            return  _dbContext.Set<User>().Select(
@@ -147,7 +142,5 @@ namespace Logo.Implementation
                      Password = y.Password
                  });
         }
-
-
     }
 }

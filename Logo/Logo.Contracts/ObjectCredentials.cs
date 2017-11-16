@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Logo.Contracts
 {
-    public class FolderCredentials
+    public class ObjectCredentials
     {
-        public Guid? ParentFolderId { get; set; }
+        public Guid? ParentObjectId { get; set; }
 
         //public Guid OwnerId { get; set; }
 

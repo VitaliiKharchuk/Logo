@@ -32,6 +32,14 @@ namespace Logo.Web.Controllers
             return _foldersService.GetAllFolders();
         }
 
+        [HttpGet]   //only for   testing
+        [Route("[action]")]
+        public IEnumerable<FileInfo> GetAllFiles()
+        {
+            return _foldersService.GetAllFiles();
+        }
+
+
         [HttpGet]
         [Route("get-folders/{id?}")]
         public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
@@ -42,45 +50,55 @@ namespace Logo.Web.Controllers
 
         [HttpGet]
         [Route("get-files/{id?}")]
-        public IEnumerable<FileInfo> GetFilesContent(string id)
+        public IEnumerable<FileInfo> GetFilesContent(Guid id)
         {
-            FileInfo file1 = new FileInfo
-            {
-                FileId = Guid.NewGuid(),
-                ParentFolderId = Guid.NewGuid(),
-                OwnerId = Guid.NewGuid(),
-                Name = "Hardcoded File1",
-                CreationDate = DateTime.Now,
-                HasPublicAccess = false
-            };
-
-            FileInfo file2 = new FileInfo
-            {
-                FileId = Guid.NewGuid(),
-                ParentFolderId = Guid.NewGuid(),
-                OwnerId = Guid.NewGuid(),
-                Name = "Hardcoded File1",
-                CreationDate = DateTime.Now,
-                HasPublicAccess = false
-            };
-
-            return new[] { file1, file2 };
+            return _foldersService.GetFilesInFolder(id);
         }
+
+
 
         [HttpPost]
         [Route("add-folder")]
-        public IActionResult CreateFolder([FromBody]  FolderCredentials folderCredentials)
+        public IActionResult CreateFolder([FromBody]  ObjectCredentials folderCredentials)
         {
             try
             {
-                Guid ownerId = new Guid(HttpContext.User.Claims.ToList().Where(item => item.Type == "UserId").Select(item => item.Value).FirstOrDefault());
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                   .Where(item => item.Type == "UserId")
+                                   .Select(item => item.Value)
+                                   .FirstOrDefault());
 
-                _foldersService.CreateFolder(new FolderCredentialsWithOwner
+                _foldersService.CreateFolder(new ObjectCredentialsWithOwner
                 {
-                    folderCredentials = folderCredentials,
-                    ownerId = ownerId
+                    ObjectCredentials = folderCredentials,
+                    OwnerId = ownerId
                 });
+            }
 
+            catch (Exception ex)
+            {
+                return Ok(ex);    // 
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("add-file")]
+        public IActionResult CreateFile([FromBody]  ObjectCredentials folderCredentials)
+        {
+            try
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                   .Where(item => item.Type == "UserId")
+                                   .Select(item => item.Value)
+                                   .FirstOrDefault());
+
+                _foldersService.CreateFile(new ObjectCredentialsWithOwner
+                {
+                    ObjectCredentials = folderCredentials,
+                    OwnerId = ownerId
+                });
             }
 
             catch (Exception ex)
@@ -92,9 +110,10 @@ namespace Logo.Web.Controllers
         }
 
 
+
         [HttpPost]
-        [Route("Rename")]
-        public IActionResult RenameFolder([FromBody] UpdatedFolder updatedFolder)
+        [Route("rename-folder")]
+        public IActionResult RenameFolder([FromBody] UpdatedObject updatedFolder)
         {
             try
             {
@@ -110,8 +129,27 @@ namespace Logo.Web.Controllers
         }
 
 
+
+        [HttpPost]
+        [Route("rename-file")]
+        public IActionResult RenameFile([FromBody] UpdatedObject updatedFolder)
+        {
+            try
+            {
+                _foldersService.RenameFile(updatedFolder);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(ex);    // 
+            }
+
+            return Ok();
+        }
+
+
         [HttpGet]
-        [Route("Delete/{id?}")]
+        [Route("delete-folder/{id?}")]
         public IActionResult DeleteFolder(Guid id)
         {
             try
@@ -127,17 +165,21 @@ namespace Logo.Web.Controllers
             return Ok();
         }
 
-
-        [HttpGet]  //only  for   testing
-        [Route("getInfo")]
-        public IActionResult GetInfo()
+        [HttpGet]
+        [Route("delete-file/{id?}")]
+        public IActionResult DeleteFile(Guid id)
         {
-            var id = HttpContext.User.Claims.ToList()
-                .Where(item => item.Type == "UserId")
-                .Select(item => item.Value)
-                .First();
+            try
+            {
+                _foldersService.DeleteFile(id);
+            }
 
-            return Ok(id);
+            catch (Exception ex)
+            {
+                return Ok(ex);    // 
+            }
+
+            return Ok();
         }
 
     }
