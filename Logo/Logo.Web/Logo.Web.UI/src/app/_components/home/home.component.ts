@@ -6,6 +6,7 @@ import { File } from './file';
 import { UserInfoWithToken } from '../login/user';
 import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
+import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
     selector: 'app-home',
@@ -15,12 +16,16 @@ import { Observable } from 'rxjs/Observable';
 
 export class HomeComponent implements OnInit {
     @ViewChild('closeBtn') closeBtn: ElementRef;
+    @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
     model: any = {};
-    loading = false;
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
     files: File[] = [];
     uploadFiles: any[];
+    selectedFolderId: string;
+    tags: string;
+    grid: true;
+    folderrenamem: any = {};
 
     constructor(private homeService: HomeService,
         private router: Router, ) {
@@ -28,13 +33,15 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loadRootFolders();
+        this.loadRootFiles();
+        this.grid = true;
     }
 
     onChange(files: any[]) {
         this.uploadFiles = files;
     }
 
-    checkIfImage(name: string){
+    checkIfImage(name: string) {
         var fileExtension = "";
         if (name.lastIndexOf(".") > 0) {
             fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
@@ -51,9 +58,10 @@ export class HomeComponent implements OnInit {
     }
 
     private loadRootFolders() {
-        this.homeService.loadRootFolders().subscribe(
+        this.homeService.loadRootFolders(null).subscribe(
             data => {
-                this.folders = data.json() as Folder[];
+                this.folders = data as Folder[];
+                localStorage.setItem('folders', JSON.stringify(data))
                 console.log('Loading root folders successfull');
             },
             error => {
@@ -63,8 +71,22 @@ export class HomeComponent implements OnInit {
 
     }
 
+    private loadRootFiles() {
+        this.homeService.loadRootFiles(null).subscribe(
+            data => {
+                this.files = data as File[];
+                localStorage.setItem('files', JSON.stringify(data))
+                console.log('Loading root files successfull');
+            },
+            error => {
+                //show info about error
+                console.log('Loading root files unsuccessfull');
+            });
+
+    }
+
     createfolder() {
-        this.loading = true;
+        console.log('create folder', this.model.foldername);
         this.homeService.createfolder(this.model.foldername, null)
             .subscribe(
             data => {
@@ -73,10 +95,59 @@ export class HomeComponent implements OnInit {
                 this.loadRootFolders();
             },
             error => {
+                this.loadRootFolders();
                 console.log('Cant create folder');
-                this.loading = false;
+                this.closeModal();
             });
 
+    }
+
+    renamefolder() {
+        let folderId = this.selectedFolderId;
+        console.log(this.folderrenamem.name, folderId);
+        this.homeService.renameFolder(this.folderrenamem.name, folderId)
+            .subscribe(
+            data => {
+                console.log('Renaming folder successfull for ', folderId);
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                this.loadRootFolders();
+                this.closeModal();
+                console.log('Cant rename folderfor ', folderId);
+            });
+        this.closeModal();
+    }
+
+    deleteFolder() {
+        let folderId = this.selectedFolderId;
+        this.homeService.deleteFolder(folderId)
+            .subscribe(
+            data => {
+                console.log('Delete folder successfull');
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                this.closeModal();
+                console.log('Cant delete folder');
+                this.loadRootFolders();
+            });
+    }
+
+    addTags() {
+        let folderId = this.selectedFolderId;
+        this.homeService.addTags(folderId, this.model.tags)
+            .subscribe(
+            data => {
+                console.log('Add tags successfull');
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                console.log('Cant add tags');
+            });
     }
 
     private closeModal(): void {
@@ -85,5 +156,31 @@ export class HomeComponent implements OnInit {
 
     moveToSelectedFolder(folderId) {
         this.router.navigate(['', folderId])
+    }
+
+    openRenameFolderModal(folderId: string) {
+        document.getElementById("openRenameFolderModalButton").click();
+        console.log('modal for rename open ', folderId);
+        this.selectedFolderId = folderId;
+    }
+
+    openAddTagFolderModal(folderId: string) {
+        document.getElementById("openAddTagFolderModalButton").click();
+        console.log('modal for add tag open ', folderId);
+        this.selectedFolderId = folderId;
+    }
+
+    callDownloadZIP(folderId: string) {
+
+    }
+
+    openDeleteFolderModal(folderId: string) {
+        document.getElementById("openDeleteFolderModalButton").click();
+        console.log('modal for deleting open ', folderId);
+        this.selectedFolderId = folderId;
+    }
+
+    toggleGrid(res) {
+        this.grid = res;
     }
 }

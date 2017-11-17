@@ -83,6 +83,697 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "../../../../ngx-contextmenu/lib/contextMenu.attach.directive.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuAttachDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_service__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.service.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+
+
+var ContextMenuAttachDirective = /** @class */ (function () {
+    function ContextMenuAttachDirective(contextMenuService) {
+        this.contextMenuService = contextMenuService;
+    }
+    ContextMenuAttachDirective.prototype.onContextMenu = function (event) {
+        this.contextMenuService.show.next({
+            contextMenu: this.contextMenu,
+            event: event,
+            item: this.contextMenuSubject,
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    ContextMenuAttachDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* Directive */], args: [{
+                    selector: '[contextMenu]',
+                },] },
+    ];
+    /** @nocollapse */
+    ContextMenuAttachDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__contextMenu_service__["a" /* ContextMenuService */], },
+    ]; };
+    ContextMenuAttachDirective.propDecorators = {
+        'contextMenuSubject': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */] },],
+        'contextMenu': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */] },],
+        'onContextMenu': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */], args: ['contextmenu', ['$event'],] },],
+    };
+    return ContextMenuAttachDirective;
+}());
+
+//# sourceMappingURL=contextMenu.attach.directive.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/contextMenu.component.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_item_directive__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.item.directive.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_service__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.service.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contextMenu_tokens__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.tokens.js");
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+
+
+
+var ContextMenuComponent = /** @class */ (function () {
+    function ContextMenuComponent(_contextMenuService, changeDetector, elementRef, options) {
+        var _this = this;
+        this._contextMenuService = _contextMenuService;
+        this.changeDetector = changeDetector;
+        this.elementRef = elementRef;
+        this.options = options;
+        this.autoFocus = false;
+        this.useBootstrap4 = false;
+        this.disabled = false;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.open = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.visibleMenuItems = [];
+        this.links = [];
+        this.subscription = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__["a" /* Subscription */]();
+        if (options) {
+            this.autoFocus = options.autoFocus;
+            this.useBootstrap4 = options.useBootstrap4;
+        }
+        this.subscription.add(_contextMenuService.show.subscribe(function (menuEvent) { return _this.onMenuEvent(menuEvent); }));
+        this.subscription.add(_contextMenuService.close.subscribe(function (event) { return _this.close.emit(event); }));
+    }
+    ContextMenuComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    ContextMenuComponent.prototype.onMenuEvent = function (menuEvent) {
+        if (this.disabled) {
+            return;
+        }
+        var contextMenu = menuEvent.contextMenu, event = menuEvent.event, item = menuEvent.item;
+        if (contextMenu && contextMenu !== this) {
+            return;
+        }
+        this.event = event;
+        this.item = item;
+        this.setVisibleMenuItems();
+        this._contextMenuService.openContextMenu(__assign({}, menuEvent, { menuItems: this.visibleMenuItems }));
+        this.open.next(menuEvent);
+    };
+    ContextMenuComponent.prototype.isMenuItemVisible = function (menuItem) {
+        return this.evaluateIfFunction(menuItem.visible);
+    };
+    ContextMenuComponent.prototype.setVisibleMenuItems = function () {
+        var _this = this;
+        this.visibleMenuItems = this.menuItems.filter(function (menuItem) { return _this.isMenuItemVisible(menuItem); });
+    };
+    ContextMenuComponent.prototype.evaluateIfFunction = function (value) {
+        if (value instanceof Function) {
+            return value(this.item);
+        }
+        return value;
+    };
+    ContextMenuComponent.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */], args: [{
+                    encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ViewEncapsulation */].None,
+                    selector: 'context-menu',
+                    styles: ["\n    .cdk-overlay-container {\n      position: fixed;\n      z-index: 1000;\n      pointer-events: none;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n    }\n    .ngx-contextmenu.cdk-overlay-pane {\n      position: absolute;\n      pointer-events: auto;\n      box-sizing: border-box;\n    }\n  "],
+                    template: " ",
+                },] },
+    ];
+    /** @nocollapse */
+    ContextMenuComponent.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_3__contextMenu_service__["a" /* ContextMenuService */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_4__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */],] },] },
+    ]; };
+    ContextMenuComponent.propDecorators = {
+        'autoFocus': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'useBootstrap4': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'disabled': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'close': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'open': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'menuItems': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ContentChildren */], args: [__WEBPACK_IMPORTED_MODULE_2__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],] },],
+        'menuElement': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */], args: ['menu',] },],
+    };
+    return ContextMenuComponent;
+}());
+
+//# sourceMappingURL=contextMenu.component.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/contextMenu.item.directive.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuItemDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+
+var ContextMenuItemDirective = /** @class */ (function () {
+    function ContextMenuItemDirective(template, elementRef) {
+        this.template = template;
+        this.elementRef = elementRef;
+        this.divider = false;
+        this.enabled = true;
+        this.passive = false;
+        this.visible = true;
+        this.execute = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.isActive = false;
+    }
+    Object.defineProperty(ContextMenuItemDirective.prototype, "disabled", {
+        get: function () {
+            return this.passive ||
+                this.divider ||
+                !this.evaluateIfFunction(this.enabled, this.currentItem);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ContextMenuItemDirective.prototype.evaluateIfFunction = function (value, item) {
+        if (value instanceof Function) {
+            return value(item);
+        }
+        return value;
+    };
+    ContextMenuItemDirective.prototype.setActiveStyles = function () {
+        this.isActive = true;
+    };
+    ContextMenuItemDirective.prototype.setInactiveStyles = function () {
+        this.isActive = false;
+    };
+    ContextMenuItemDirective.prototype.triggerExecute = function (item, $event) {
+        if (!this.evaluateIfFunction(this.enabled, item)) {
+            return;
+        }
+        this.execute.emit({ event: $event, item: item });
+    };
+    ContextMenuItemDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */], args: [{
+                    /* tslint:disable:directive-selector-type */
+                    selector: '[contextMenuItem]',
+                },] },
+    ];
+    /** @nocollapse */
+    ContextMenuItemDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+    ]; };
+    ContextMenuItemDirective.propDecorators = {
+        'subMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'divider': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'enabled': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'passive': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'visible': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'execute': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+    };
+    return ContextMenuItemDirective;
+}());
+
+//# sourceMappingURL=contextMenu.item.directive.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/contextMenu.service.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__ = __webpack_require__("../../../cdk/esm5/overlay.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__ = __webpack_require__("../../../cdk/esm5/portal.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contextMenuContent_component__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenuContent.component.js");
+
+
+
+
+
+
+var ContextMenuService = /** @class */ (function () {
+    function ContextMenuService(overlay, scrollStrategy) {
+        this.overlay = overlay;
+        this.scrollStrategy = scrollStrategy;
+        this.isDestroyingLeafMenu = false;
+        this.show = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__["a" /* Subject */]();
+        this.triggerClose = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__["a" /* Subject */]();
+        this.close = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__["a" /* Subject */]();
+        this.overlays = [];
+        this.fakeElement = {
+            getBoundingClientRect: function () { return ({
+                bottom: 0,
+                height: 0,
+                left: 0,
+                right: 0,
+                top: 0,
+                width: 0,
+            }); }
+        };
+    }
+    ContextMenuService.prototype.openContextMenu = function (context) {
+        var anchorElement = context.anchorElement, event = context.event, parentContextMenu = context.parentContextMenu;
+        if (!parentContextMenu) {
+            this.fakeElement.getBoundingClientRect = function () { return ({
+                bottom: event.clientY,
+                height: 0,
+                left: event.clientX,
+                right: event.clientX,
+                top: event.clientY,
+                width: 0,
+            }); };
+            this.closeAllContextMenus();
+            var positionStrategy = this.overlay.position().connectedTo({ nativeElement: this.fakeElement }, { originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+                .withFallbackPosition({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
+                .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
+                .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' })
+                .withFallbackPosition({ originX: 'end', originY: 'center' }, { overlayX: 'start', overlayY: 'center' })
+                .withFallbackPosition({ originX: 'start', originY: 'center' }, { overlayX: 'end', overlayY: 'center' });
+            this.overlays = [this.overlay.create({
+                    positionStrategy: positionStrategy,
+                    panelClass: 'ngx-contextmenu',
+                    scrollStrategy: this.scrollStrategy.close(),
+                })];
+            this.attachContextMenu(this.overlays[0], context);
+        }
+        else {
+            var positionStrategy = this.overlay.position().connectedTo({ nativeElement: event ? event.target : anchorElement }, { originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' })
+                .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'end', overlayY: 'top' });
+            var newOverlay = this.overlay.create({
+                positionStrategy: positionStrategy,
+                panelClass: 'ngx-contextmenu',
+                scrollStrategy: this.scrollStrategy.close(),
+            });
+            this.destroySubMenus(parentContextMenu);
+            this.overlays = this.overlays.concat(newOverlay);
+            this.attachContextMenu(newOverlay, context);
+        }
+    };
+    ContextMenuService.prototype.attachContextMenu = function (overlay, context) {
+        var _this = this;
+        var event = context.event, item = context.item, menuItems = context.menuItems;
+        var contextMenuContent = overlay.attach(new __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__["a" /* ComponentPortal */](__WEBPACK_IMPORTED_MODULE_5__contextMenuContent_component__["a" /* ContextMenuContentComponent */]));
+        contextMenuContent.instance.event = event;
+        contextMenuContent.instance.item = item;
+        contextMenuContent.instance.menuItems = menuItems;
+        contextMenuContent.instance.overlay = overlay;
+        contextMenuContent.instance.isLeaf = true;
+        overlay.contextMenu = contextMenuContent.instance;
+        var subscriptions = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__["a" /* Subscription */]();
+        subscriptions.add(contextMenuContent.instance.execute.asObservable()
+            .subscribe(function () { return _this.closeAllContextMenus(); }));
+        subscriptions.add(contextMenuContent.instance.closeAllMenus.asObservable()
+            .subscribe(function () { return _this.closeAllContextMenus(); }));
+        subscriptions.add(contextMenuContent.instance.closeLeafMenu.asObservable()
+            .subscribe(function (closeLeafMenuEvent) { return _this.destroyLeafMenu(closeLeafMenuEvent); }));
+        subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
+            .subscribe(function (subMenuEvent) {
+            _this.destroySubMenus(contextMenuContent.instance);
+            if (!subMenuEvent.contextMenu) {
+                contextMenuContent.instance.isLeaf = true;
+                return;
+            }
+            contextMenuContent.instance.isLeaf = false;
+            _this.show.next(subMenuEvent);
+        }));
+        contextMenuContent.onDestroy(function () {
+            menuItems.forEach(function (menuItem) { return menuItem.isActive = false; });
+            subscriptions.unsubscribe();
+        });
+    };
+    ContextMenuService.prototype.closeAllContextMenus = function () {
+        if (this.overlays) {
+            this.overlays.forEach(function (overlay, index) {
+                overlay.detach();
+                overlay.dispose();
+            });
+        }
+        this.overlays = [];
+    };
+    ContextMenuService.prototype.getLastAttachedOverlay = function () {
+        var overlay = this.overlays[this.overlays.length - 1];
+        while (this.overlays.length > 1 && overlay && !overlay.hasAttached()) {
+            overlay.detach();
+            overlay.dispose();
+            this.overlays = this.overlays.slice(0, -1);
+            overlay = this.overlays[this.overlays.length - 1];
+        }
+        return overlay;
+    };
+    ContextMenuService.prototype.destroyLeafMenu = function (_a) {
+        var _this = this;
+        var exceptRootMenu = (_a === void 0 ? {} : _a).exceptRootMenu;
+        if (this.isDestroyingLeafMenu) {
+            return;
+        }
+        this.isDestroyingLeafMenu = true;
+        setTimeout(function () {
+            var overlay = _this.getLastAttachedOverlay();
+            if (_this.overlays.length > (exceptRootMenu ? 1 : 0) && overlay) {
+                overlay.detach();
+                overlay.dispose();
+            }
+            var newLeaf = _this.getLastAttachedOverlay();
+            if (newLeaf) {
+                newLeaf.contextMenu.isLeaf = true;
+            }
+            _this.isDestroyingLeafMenu = false;
+        });
+    };
+    ContextMenuService.prototype.destroySubMenus = function (contextMenu) {
+        var overlay = contextMenu.overlay;
+        var index = this.overlays.indexOf(overlay);
+        this.overlays.slice(index + 1).forEach(function (subMenuOverlay) {
+            subMenuOverlay.detach();
+            subMenuOverlay.dispose();
+        });
+    };
+    ContextMenuService.prototype.isLeafMenu = function (contextMenuContent) {
+        var overlay = this.getLastAttachedOverlay();
+        return contextMenuContent.overlay === overlay;
+    };
+    ContextMenuService.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */] },
+    ];
+    /** @nocollapse */
+    ContextMenuService.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["a" /* Overlay */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["c" /* ScrollStrategyOptions */], },
+    ]; };
+    return ContextMenuService;
+}());
+
+//# sourceMappingURL=contextMenu.service.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/contextMenu.tokens.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONTEXT_MENU_OPTIONS; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+
+var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('CONTEXT_MENU_OPTIONS');
+//# sourceMappingURL=contextMenu.tokens.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/contextMenuContent.component.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuContentComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_tokens__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.tokens.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_a11y__ = __webpack_require__("../../../cdk/esm5/a11y.es5.js");
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+
+
+
+var ARROW_LEFT_KEYCODE = 37;
+var ContextMenuContentComponent = /** @class */ (function () {
+    function ContextMenuContentComponent(changeDetector, elementRef, options, renderer) {
+        this.changeDetector = changeDetector;
+        this.elementRef = elementRef;
+        this.options = options;
+        this.renderer = renderer;
+        this.menuItems = [];
+        this.isLeaf = false;
+        this.execute = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.openSubMenu = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.closeLeafMenu = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.closeAllMenus = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.autoFocus = false;
+        this.useBootstrap4 = false;
+        this.subscription = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__["a" /* Subscription */]();
+        if (options) {
+            this.autoFocus = options.autoFocus;
+            this.useBootstrap4 = options.useBootstrap4;
+        }
+    }
+    ContextMenuContentComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.menuItems.forEach(function (menuItem) {
+            menuItem.currentItem = _this.item;
+            _this.subscription.add(menuItem.execute.subscribe(function (event) { return _this.execute.emit(__assign({}, event, { menuItem: menuItem })); }));
+        });
+        var queryList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* QueryList */]();
+        queryList.reset(this.menuItems);
+        this._keyManager = new __WEBPACK_IMPORTED_MODULE_3__angular_cdk_a11y__["a" /* ActiveDescendantKeyManager */](queryList).withWrap();
+    };
+    ContextMenuContentComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        if (this.autoFocus) {
+            setTimeout(function () { return _this.focus(); });
+        }
+        this.overlay.updatePosition();
+    };
+    ContextMenuContentComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    ContextMenuContentComponent.prototype.focus = function () {
+        if (this.autoFocus) {
+            this.menuElement.nativeElement.focus();
+        }
+    };
+    ContextMenuContentComponent.prototype.stopEvent = function ($event) {
+        $event.stopPropagation();
+    };
+    ContextMenuContentComponent.prototype.isMenuItemEnabled = function (menuItem) {
+        return this.evaluateIfFunction(menuItem && menuItem.enabled);
+    };
+    ContextMenuContentComponent.prototype.isMenuItemVisible = function (menuItem) {
+        return this.evaluateIfFunction(menuItem && menuItem.visible);
+    };
+    ContextMenuContentComponent.prototype.evaluateIfFunction = function (value) {
+        if (value instanceof Function) {
+            return value(this.item);
+        }
+        return value;
+    };
+    ContextMenuContentComponent.prototype.isDisabled = function (link) {
+        return link.enabled && !link.enabled(this.item);
+    };
+    ContextMenuContentComponent.prototype.onKeyEvent = function (event) {
+        if (!this.isLeaf) {
+            return;
+        }
+        this._keyManager.onKeydown(event);
+    };
+    ContextMenuContentComponent.prototype.keyboardOpenSubMenu = function (event) {
+        if (!this.isLeaf) {
+            return;
+        }
+        this.cancelEvent(event);
+        var menuItem = this.menuItems[this._keyManager.activeItemIndex];
+        if (menuItem) {
+            this.onOpenSubMenu(menuItem);
+        }
+    };
+    ContextMenuContentComponent.prototype.keyboardMenuItemSelect = function (event) {
+        if (!this.isLeaf) {
+            return;
+        }
+        this.cancelEvent(event);
+        var menuItem = this.menuItems[this._keyManager.activeItemIndex];
+        if (menuItem) {
+            this.onMenuItemSelect(menuItem, event);
+        }
+    };
+    ContextMenuContentComponent.prototype.onCloseLeafMenu = function (event) {
+        if (!this.isLeaf) {
+            return;
+        }
+        this.cancelEvent(event);
+        this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE });
+    };
+    ContextMenuContentComponent.prototype.closeMenu = function (event) {
+        if (event.type === 'click' && event.button === 2) {
+            return;
+        }
+        this.closeAllMenus.emit();
+    };
+    ContextMenuContentComponent.prototype.onOpenSubMenu = function (menuItem, event) {
+        var anchorElementRef = this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
+        var anchorElement = anchorElementRef && anchorElementRef.nativeElement;
+        this.openSubMenu.emit({
+            anchorElement: anchorElement,
+            contextMenu: menuItem.subMenu,
+            event: event,
+            item: this.item,
+            parentContextMenu: this,
+        });
+    };
+    ContextMenuContentComponent.prototype.onMenuItemSelect = function (menuItem, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.onOpenSubMenu(menuItem, event);
+        if (!menuItem.subMenu) {
+            menuItem.triggerExecute(this.item, event);
+        }
+    };
+    ContextMenuContentComponent.prototype.cancelEvent = function (event) {
+        if (!event) {
+            return;
+        }
+        var target = event.target;
+        if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) > -1 || target.isContentEditable) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    ContextMenuContentComponent.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */], args: [{
+                    selector: 'context-menu-content',
+                    styles: [
+                        ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }\n    .hasSubMenu:before {\n      content: \"\u25B6\";\n      float: right;\n    }",
+                    ],
+                    template: "<div class=\"dropdown open show ngx-contextmenu\" tabindex=\"0\">\n      <ul #menu class=\"dropdown-menu show\" style=\"position: static; float: none;\" tabindex=\"0\">\n        <li #li *ngFor=\"let menuItem of menuItems; let i = index\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [class.active]=\"menuItem.isActive && isMenuItemEnabled(menuItem)\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.active]=\"menuItem.isActive && isMenuItemEnabled(menuItem)\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\" [class.hasSubMenu]=\"!!menuItem.subMenu\"\n            (click)=\"onMenuItemSelect(menuItem, $event)\" (mouseenter)=\"onOpenSubMenu(menuItem, $event)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
+                },] },
+    ];
+    /** @nocollapse */
+    ContextMenuContentComponent.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_2__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */],] },] },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Renderer */], },
+    ]; };
+    ContextMenuContentComponent.propDecorators = {
+        'menuItems': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'item': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'event': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'parentContextMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'overlay': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'isLeaf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
+        'execute': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'openSubMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'closeLeafMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'closeAllMenus': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'menuElement': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */], args: ['menu',] },],
+        'menuItemElements': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ViewChildren */], args: ['li',] },],
+        'onKeyEvent': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.ArrowDown', ['$event'],] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.ArrowUp', ['$event'],] },],
+        'keyboardOpenSubMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.ArrowRight', ['$event'],] },],
+        'keyboardMenuItemSelect': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.Enter', ['$event'],] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.Space', ['$event'],] },],
+        'onCloseLeafMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.Escape', ['$event'],] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['window:keydown.ArrowLeft', ['$event'],] },],
+        'closeMenu': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['document:click', ['$event'],] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */], args: ['document:contextmenu', ['$event'],] },],
+    };
+    return ContextMenuContentComponent;
+}());
+
+//# sourceMappingURL=contextMenuContent.component.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__ = __webpack_require__("../../../../ngx-contextmenu/lib/ngx-contextmenu.js");
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.component.js");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.service.js");
+/* unused harmony namespace reexport */
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "../../../../ngx-contextmenu/lib/ngx-contextmenu.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__ = __webpack_require__("../../../cdk/esm5/overlay.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_attach_directive__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.attach.directive.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contextMenu_component__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.component.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contextMenu_item_directive__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.item.directive.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__contextMenu_service__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.service.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contextMenu_tokens__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenu.tokens.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__contextMenuContent_component__ = __webpack_require__("../../../../ngx-contextmenu/lib/contextMenuContent.component.js");
+
+
+
+
+
+
+
+
+
+var ContextMenuModule = /** @class */ (function () {
+    function ContextMenuModule() {
+    }
+    ContextMenuModule.forRoot = function (options) {
+        return {
+            ngModule: ContextMenuModule,
+            providers: [
+                {
+                    provide: __WEBPACK_IMPORTED_MODULE_7__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */],
+                    useValue: options,
+                },
+            ],
+        };
+    };
+    ContextMenuModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_2__angular_core__["M" /* NgModule */], args: [{
+                    declarations: [
+                        __WEBPACK_IMPORTED_MODULE_3__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+                        __WEBPACK_IMPORTED_MODULE_4__contextMenu_component__["a" /* ContextMenuComponent */],
+                        __WEBPACK_IMPORTED_MODULE_8__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+                        __WEBPACK_IMPORTED_MODULE_5__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+                    ],
+                    entryComponents: [
+                        __WEBPACK_IMPORTED_MODULE_8__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+                    ],
+                    exports: [
+                        __WEBPACK_IMPORTED_MODULE_3__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+                        __WEBPACK_IMPORTED_MODULE_4__contextMenu_component__["a" /* ContextMenuComponent */],
+                        __WEBPACK_IMPORTED_MODULE_5__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+                    ],
+                    imports: [
+                        __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+                        __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["b" /* OverlayModule */],
+                    ],
+                    providers: [
+                        __WEBPACK_IMPORTED_MODULE_6__contextMenu_service__["a" /* ContextMenuService */],
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    ContextMenuModule.ctorParameters = function () { return []; };
+    return ContextMenuModule;
+}());
+
+/* unused harmony default export */ var _unused_webpack_default_export = (ContextMenuModule);
+//# sourceMappingURL=ngx-contextmenu.js.map
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/BehaviorSubject.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -698,6 +1389,66 @@ var OuterSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return OuterSubscriber;
 }(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
 //# sourceMappingURL=OuterSubscriber.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/Scheduler.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Scheduler; });
+/**
+ * An execution context and a data structure to order tasks and schedule their
+ * execution. Provides a notion of (potentially virtual) time, through the
+ * `now()` getter method.
+ *
+ * Each unit of work in a Scheduler is called an {@link Action}.
+ *
+ * ```ts
+ * class Scheduler {
+ *   now(): number;
+ *   schedule(work, delay?, state?): Subscription;
+ * }
+ * ```
+ *
+ * @class Scheduler
+ */
+var Scheduler = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function Scheduler(SchedulerAction, now) {
+        if (now === void 0) {
+            now = Scheduler.now;
+        }
+        this.SchedulerAction = SchedulerAction;
+        this.now = now;
+    }
+    /**
+     * Schedules a function, `work`, for execution. May happen at some point in
+     * the future, according to the `delay` parameter, if specified. May be passed
+     * some context object, `state`, which will be passed to the `work` function.
+     *
+     * The given arguments will be processed an stored as an Action object in a
+     * queue of actions.
+     *
+     * @param {function(state: ?T): ?Subscription} work A function representing a
+     * task, or some unit of work to be executed by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler itself.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @return {Subscription} A subscription in order to be able to unsubscribe
+     * the scheduled work.
+     */
+    Scheduler.prototype.schedule = function (work, delay, state) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return new this.SchedulerAction(this, work).schedule(state, delay);
+    };
+    Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
+    return Scheduler;
+}());
+//# sourceMappingURL=Scheduler.js.map 
 
 
 /***/ }),
@@ -2166,6 +2917,237 @@ var ForkJoinSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/observable/FromEventObservable.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FromEventObservable; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_tryCatch__ = __webpack_require__("../../../../rxjs/_esm5/util/tryCatch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_isFunction__ = __webpack_require__("../../../../rxjs/_esm5/util/isFunction.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_errorObject__ = __webpack_require__("../../../../rxjs/_esm5/util/errorObject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/** PURE_IMPORTS_START .._Observable,.._util_tryCatch,.._util_isFunction,.._util_errorObject,.._Subscription PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+
+var toString = Object.prototype.toString;
+function isNodeStyleEventEmitter(sourceObj) {
+    return !!sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
+}
+function isJQueryStyleEventEmitter(sourceObj) {
+    return !!sourceObj && typeof sourceObj.on === 'function' && typeof sourceObj.off === 'function';
+}
+function isNodeList(sourceObj) {
+    return !!sourceObj && toString.call(sourceObj) === '[object NodeList]';
+}
+function isHTMLCollection(sourceObj) {
+    return !!sourceObj && toString.call(sourceObj) === '[object HTMLCollection]';
+}
+function isEventTarget(sourceObj) {
+    return !!sourceObj && typeof sourceObj.addEventListener === 'function' && typeof sourceObj.removeEventListener === 'function';
+}
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
+var FromEventObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(FromEventObservable, _super);
+    function FromEventObservable(sourceObj, eventName, selector, options) {
+        _super.call(this);
+        this.sourceObj = sourceObj;
+        this.eventName = eventName;
+        this.selector = selector;
+        this.options = options;
+    }
+    /* tslint:enable:max-line-length */
+    /**
+     * Creates an Observable that emits events of a specific type coming from the
+     * given event target.
+     *
+     * <span class="informal">Creates an Observable from DOM events, or Node.js
+     * EventEmitter events or others.</span>
+     *
+     * <img src="./img/fromEvent.png" width="100%">
+     *
+     * `fromEvent` accepts as a first argument event target, which is an object with methods
+     * for registering event handler functions. As a second argument it takes string that indicates
+     * type of event we want to listen for. `fromEvent` supports selected types of event targets,
+     * which are described in detail below. If your event target does not match any of the ones listed,
+     * you should use {@link fromEventPattern}, which can be used on arbitrary APIs.
+     * When it comes to APIs supported by `fromEvent`, their methods for adding and removing event
+     * handler functions have different names, but they all accept a string describing event type
+     * and function itself, which will be called whenever said event happens.
+     *
+     * Every time resulting Observable is subscribed, event handler function will be registered
+     * to event target on given event type. When that event fires, value
+     * passed as a first argument to registered function will be emitted by output Observable.
+     * When Observable is unsubscribed, function will be unregistered from event target.
+     *
+     * Note that if event target calls registered function with more than one argument, second
+     * and following arguments will not appear in resulting stream. In order to get access to them,
+     * you can pass to `fromEvent` optional project function, which will be called with all arguments
+     * passed to event handler. Output Observable will then emit value returned by project function,
+     * instead of the usual value.
+     *
+     * Remember that event targets listed below are checked via duck typing. It means that
+     * no matter what kind of object you have and no matter what environment you work in,
+     * you can safely use `fromEvent` on that object if it exposes described methods (provided
+     * of course they behave as was described above). So for example if Node.js library exposes
+     * event target which has the same method names as DOM EventTarget, `fromEvent` is still
+     * a good choice.
+     *
+     * If the API you use is more callback then event handler oriented (subscribed
+     * callback function fires only once and thus there is no need to manually
+     * unregister it), you should use {@link bindCallback} or {@link bindNodeCallback}
+     * instead.
+     *
+     * `fromEvent` supports following types of event targets:
+     *
+     * **DOM EventTarget**
+     *
+     * This is an object with `addEventListener` and `removeEventListener` methods.
+     *
+     * In the browser, `addEventListener` accepts - apart from event type string and event
+     * handler function arguments - optional third parameter, which is either an object or boolean,
+     * both used for additional configuration how and when passed function will be called. When
+     * `fromEvent` is used with event target of that type, you can provide this values
+     * as third parameter as well.
+     *
+     * **Node.js EventEmitter**
+     *
+     * An object with `addListener` and `removeListener` methods.
+     *
+     * **JQuery-style event target**
+     *
+     * An object with `on` and `off` methods
+     *
+     * **DOM NodeList**
+     *
+     * List of DOM Nodes, returned for example by `document.querySelectorAll` or `Node.childNodes`.
+     *
+     * Although this collection is not event target in itself, `fromEvent` will iterate over all Nodes
+     * it contains and install event handler function in every of them. When returned Observable
+     * is unsubscribed, function will be removed from all Nodes.
+     *
+     * **DOM HtmlCollection**
+     *
+     * Just as in case of NodeList it is a collection of DOM nodes. Here as well event handler function is
+     * installed and removed in each of elements.
+     *
+     *
+     * @example <caption>Emits clicks happening on the DOM document</caption>
+     * var clicks = Rx.Observable.fromEvent(document, 'click');
+     * clicks.subscribe(x => console.log(x));
+     *
+     * // Results in:
+     * // MouseEvent object logged to console every time a click
+     * // occurs on the document.
+     *
+     *
+     * @example <caption>Use addEventListener with capture option</caption>
+     * var clicksInDocument = Rx.Observable.fromEvent(document, 'click', true); // note optional configuration parameter
+     *                                                                          // which will be passed to addEventListener
+     * var clicksInDiv = Rx.Observable.fromEvent(someDivInDocument, 'click');
+     *
+     * clicksInDocument.subscribe(() => console.log('document'));
+     * clicksInDiv.subscribe(() => console.log('div'));
+     *
+     * // By default events bubble UP in DOM tree, so normally
+     * // when we would click on div in document
+     * // "div" would be logged first and then "document".
+     * // Since we specified optional `capture` option, document
+     * // will catch event when it goes DOWN DOM tree, so console
+     * // will log "document" and then "div".
+     *
+     * @see {@link bindCallback}
+     * @see {@link bindNodeCallback}
+     * @see {@link fromEventPattern}
+     *
+     * @param {EventTargetLike} target The DOM EventTarget, Node.js
+     * EventEmitter, JQuery-like event target, NodeList or HTMLCollection to attach the event handler to.
+     * @param {string} eventName The event name of interest, being emitted by the
+     * `target`.
+     * @param {EventListenerOptions} [options] Options to pass through to addEventListener
+     * @param {SelectorMethodSignature<T>} [selector] An optional function to
+     * post-process results. It takes the arguments from the event handler and
+     * should return a single value.
+     * @return {Observable<T>}
+     * @static true
+     * @name fromEvent
+     * @owner Observable
+     */
+    FromEventObservable.create = function (target, eventName, options, selector) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_2__util_isFunction__["a" /* isFunction */])(options)) {
+            selector = options;
+            options = undefined;
+        }
+        return new FromEventObservable(target, eventName, selector, options);
+    };
+    FromEventObservable.setupSubscription = function (sourceObj, eventName, handler, subscriber, options) {
+        var unsubscribe;
+        if (isNodeList(sourceObj) || isHTMLCollection(sourceObj)) {
+            for (var i = 0, len = sourceObj.length; i < len; i++) {
+                FromEventObservable.setupSubscription(sourceObj[i], eventName, handler, subscriber, options);
+            }
+        }
+        else if (isEventTarget(sourceObj)) {
+            var source_1 = sourceObj;
+            sourceObj.addEventListener(eventName, handler, options);
+            unsubscribe = function () { return source_1.removeEventListener(eventName, handler); };
+        }
+        else if (isJQueryStyleEventEmitter(sourceObj)) {
+            var source_2 = sourceObj;
+            sourceObj.on(eventName, handler);
+            unsubscribe = function () { return source_2.off(eventName, handler); };
+        }
+        else if (isNodeStyleEventEmitter(sourceObj)) {
+            var source_3 = sourceObj;
+            sourceObj.addListener(eventName, handler);
+            unsubscribe = function () { return source_3.removeListener(eventName, handler); };
+        }
+        else {
+            throw new TypeError('Invalid event target');
+        }
+        subscriber.add(new __WEBPACK_IMPORTED_MODULE_4__Subscription__["a" /* Subscription */](unsubscribe));
+    };
+    FromEventObservable.prototype._subscribe = function (subscriber) {
+        var sourceObj = this.sourceObj;
+        var eventName = this.eventName;
+        var options = this.options;
+        var selector = this.selector;
+        var handler = selector ? function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i - 0] = arguments[_i];
+            }
+            var result = Object(__WEBPACK_IMPORTED_MODULE_1__util_tryCatch__["a" /* tryCatch */])(selector).apply(void 0, args);
+            if (result === __WEBPACK_IMPORTED_MODULE_3__util_errorObject__["a" /* errorObject */]) {
+                subscriber.error(__WEBPACK_IMPORTED_MODULE_3__util_errorObject__["a" /* errorObject */].e);
+            }
+            else {
+                subscriber.next(result);
+            }
+        } : function (e) { return subscriber.next(e); };
+        FromEventObservable.setupSubscription(sourceObj, eventName, handler, subscriber, options);
+    };
+    return FromEventObservable;
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+//# sourceMappingURL=FromEventObservable.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/observable/FromObservable.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2695,6 +3677,255 @@ var ScalarObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/observable/TimerObservable.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimerObservable; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_isNumeric__ = __webpack_require__("../../../../rxjs/_esm5/util/isNumeric.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_isScheduler__ = __webpack_require__("../../../../rxjs/_esm5/util/isScheduler.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_isDate__ = __webpack_require__("../../../../rxjs/_esm5/util/isDate.js");
+/** PURE_IMPORTS_START .._util_isNumeric,.._Observable,.._scheduler_async,.._util_isScheduler,.._util_isDate PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
+var TimerObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(TimerObservable, _super);
+    function TimerObservable(dueTime, period, scheduler) {
+        if (dueTime === void 0) {
+            dueTime = 0;
+        }
+        _super.call(this);
+        this.period = -1;
+        this.dueTime = 0;
+        if (Object(__WEBPACK_IMPORTED_MODULE_0__util_isNumeric__["a" /* isNumeric */])(period)) {
+            this.period = Number(period) < 1 && 1 || Number(period);
+        }
+        else if (Object(__WEBPACK_IMPORTED_MODULE_3__util_isScheduler__["a" /* isScheduler */])(period)) {
+            scheduler = period;
+        }
+        if (!Object(__WEBPACK_IMPORTED_MODULE_3__util_isScheduler__["a" /* isScheduler */])(scheduler)) {
+            scheduler = __WEBPACK_IMPORTED_MODULE_2__scheduler_async__["a" /* async */];
+        }
+        this.scheduler = scheduler;
+        this.dueTime = Object(__WEBPACK_IMPORTED_MODULE_4__util_isDate__["a" /* isDate */])(dueTime) ?
+            (+dueTime - this.scheduler.now()) :
+            dueTime;
+    }
+    /**
+     * Creates an Observable that starts emitting after an `initialDelay` and
+     * emits ever increasing numbers after each `period` of time thereafter.
+     *
+     * <span class="informal">Its like {@link interval}, but you can specify when
+     * should the emissions start.</span>
+     *
+     * <img src="./img/timer.png" width="100%">
+     *
+     * `timer` returns an Observable that emits an infinite sequence of ascending
+     * integers, with a constant interval of time, `period` of your choosing
+     * between those emissions. The first emission happens after the specified
+     * `initialDelay`. The initial delay may be a {@link Date}. By default, this
+     * operator uses the `async` IScheduler to provide a notion of time, but you
+     * may pass any IScheduler to it. If `period` is not specified, the output
+     * Observable emits only one value, `0`. Otherwise, it emits an infinite
+     * sequence.
+     *
+     * @example <caption>Emits ascending numbers, one every second (1000ms), starting after 3 seconds</caption>
+     * var numbers = Rx.Observable.timer(3000, 1000);
+     * numbers.subscribe(x => console.log(x));
+     *
+     * @example <caption>Emits one number after five seconds</caption>
+     * var numbers = Rx.Observable.timer(5000);
+     * numbers.subscribe(x => console.log(x));
+     *
+     * @see {@link interval}
+     * @see {@link delay}
+     *
+     * @param {number|Date} initialDelay The initial delay time to wait before
+     * emitting the first value of `0`.
+     * @param {number} [period] The period of time between emissions of the
+     * subsequent numbers.
+     * @param {Scheduler} [scheduler=async] The IScheduler to use for scheduling
+     * the emission of values, and providing a notion of "time".
+     * @return {Observable} An Observable that emits a `0` after the
+     * `initialDelay` and ever increasing numbers after each `period` of time
+     * thereafter.
+     * @static true
+     * @name timer
+     * @owner Observable
+     */
+    TimerObservable.create = function (initialDelay, period, scheduler) {
+        if (initialDelay === void 0) {
+            initialDelay = 0;
+        }
+        return new TimerObservable(initialDelay, period, scheduler);
+    };
+    TimerObservable.dispatch = function (state) {
+        var index = state.index, period = state.period, subscriber = state.subscriber;
+        var action = this;
+        subscriber.next(index);
+        if (subscriber.closed) {
+            return;
+        }
+        else if (period === -1) {
+            return subscriber.complete();
+        }
+        state.index = index + 1;
+        action.schedule(state, period);
+    };
+    TimerObservable.prototype._subscribe = function (subscriber) {
+        var index = 0;
+        var _a = this, period = _a.period, dueTime = _a.dueTime, scheduler = _a.scheduler;
+        return scheduler.schedule(TimerObservable.dispatch, dueTime, {
+            index: index, period: period, subscriber: subscriber
+        });
+    };
+    return TimerObservable;
+}(__WEBPACK_IMPORTED_MODULE_1__Observable__["a" /* Observable */]));
+//# sourceMappingURL=TimerObservable.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/observable/concat.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = concat;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_isScheduler__ = __webpack_require__("../../../../rxjs/_esm5/util/isScheduler.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__of__ = __webpack_require__("../../../../rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__from__ = __webpack_require__("../../../../rxjs/_esm5/observable/from.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__operators_concatAll__ = __webpack_require__("../../../../rxjs/_esm5/operators/concatAll.js");
+/** PURE_IMPORTS_START .._util_isScheduler,._of,._from,.._operators_concatAll PURE_IMPORTS_END */
+
+
+
+
+/* tslint:enable:max-line-length */
+/**
+ * Creates an output Observable which sequentially emits all values from given
+ * Observable and then moves on to the next.
+ *
+ * <span class="informal">Concatenates multiple Observables together by
+ * sequentially emitting their values, one Observable after the other.</span>
+ *
+ * <img src="./img/concat.png" width="100%">
+ *
+ * `concat` joins multiple Observables together, by subscribing to them one at a time and
+ * merging their results into the output Observable. You can pass either an array of
+ * Observables, or put them directly as arguments. Passing an empty array will result
+ * in Observable that completes immediately.
+ *
+ * `concat` will subscribe to first input Observable and emit all its values, without
+ * changing or affecting them in any way. When that Observable completes, it will
+ * subscribe to then next Observable passed and, again, emit its values. This will be
+ * repeated, until the operator runs out of Observables. When last input Observable completes,
+ * `concat` will complete as well. At any given moment only one Observable passed to operator
+ * emits values. If you would like to emit values from passed Observables concurrently, check out
+ * {@link merge} instead, especially with optional `concurrent` parameter. As a matter of fact,
+ * `concat` is an equivalent of `merge` operator with `concurrent` parameter set to `1`.
+ *
+ * Note that if some input Observable never completes, `concat` will also never complete
+ * and Observables following the one that did not complete will never be subscribed. On the other
+ * hand, if some Observable simply completes immediately after it is subscribed, it will be
+ * invisible for `concat`, which will just move on to the next Observable.
+ *
+ * If any Observable in chain errors, instead of passing control to the next Observable,
+ * `concat` will error immediately as well. Observables that would be subscribed after
+ * the one that emitted error, never will.
+ *
+ * If you pass to `concat` the same Observable many times, its stream of values
+ * will be "replayed" on every subscription, which means you can repeat given Observable
+ * as many times as you like. If passing the same Observable to `concat` 1000 times becomes tedious,
+ * you can always use {@link repeat}.
+ *
+ * @example <caption>Concatenate a timer counting from 0 to 3 with a synchronous sequence from 1 to 10</caption>
+ * var timer = Rx.Observable.interval(1000).take(4);
+ * var sequence = Rx.Observable.range(1, 10);
+ * var result = Rx.Observable.concat(timer, sequence);
+ * result.subscribe(x => console.log(x));
+ *
+ * // results in:
+ * // 0 -1000ms-> 1 -1000ms-> 2 -1000ms-> 3 -immediate-> 1 ... 10
+ *
+ *
+ * @example <caption>Concatenate an array of 3 Observables</caption>
+ * var timer1 = Rx.Observable.interval(1000).take(10);
+ * var timer2 = Rx.Observable.interval(2000).take(6);
+ * var timer3 = Rx.Observable.interval(500).take(10);
+ * var result = Rx.Observable.concat([timer1, timer2, timer3]); // note that array is passed
+ * result.subscribe(x => console.log(x));
+ *
+ * // results in the following:
+ * // (Prints to console sequentially)
+ * // -1000ms-> 0 -1000ms-> 1 -1000ms-> ... 9
+ * // -2000ms-> 0 -2000ms-> 1 -2000ms-> ... 5
+ * // -500ms-> 0 -500ms-> 1 -500ms-> ... 9
+ *
+ *
+ * @example <caption>Concatenate the same Observable to repeat it</caption>
+ * const timer = Rx.Observable.interval(1000).take(2);
+ *
+ * Rx.Observable.concat(timer, timer) // concating the same Observable!
+ * .subscribe(
+ *   value => console.log(value),
+ *   err => {},
+ *   () => console.log('...and it is done!')
+ * );
+ *
+ * // Logs:
+ * // 0 after 1s
+ * // 1 after 2s
+ * // 0 after 3s
+ * // 1 after 4s
+ * // "...and it is done!" also after 4s
+ *
+ * @see {@link concatAll}
+ * @see {@link concatMap}
+ * @see {@link concatMapTo}
+ *
+ * @param {ObservableInput} input1 An input Observable to concatenate with others.
+ * @param {ObservableInput} input2 An input Observable to concatenate with others.
+ * More than one input Observables may be given as argument.
+ * @param {Scheduler} [scheduler=null] An optional IScheduler to schedule each
+ * Observable subscription on.
+ * @return {Observable} All values of each passed Observable merged into a
+ * single Observable, in order, in serial fashion.
+ * @static true
+ * @name concat
+ * @owner Observable
+ */
+function concat() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        observables[_i - 0] = arguments[_i];
+    }
+    if (observables.length === 1 || (observables.length === 2 && Object(__WEBPACK_IMPORTED_MODULE_0__util_isScheduler__["a" /* isScheduler */])(observables[1]))) {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__from__["a" /* from */])(observables[0]);
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_3__operators_concatAll__["a" /* concatAll */])()(__WEBPACK_IMPORTED_MODULE_1__of__["a" /* of */].apply(void 0, observables));
+}
+//# sourceMappingURL=concat.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/observable/forkJoin.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2719,6 +3950,20 @@ var forkJoin = __WEBPACK_IMPORTED_MODULE_0__ForkJoinObservable__["a" /* ForkJoin
 
 var from = __WEBPACK_IMPORTED_MODULE_0__FromObservable__["a" /* FromObservable */].create;
 //# sourceMappingURL=from.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/observable/fromEvent.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fromEvent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FromEventObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/FromEventObservable.js");
+/** PURE_IMPORTS_START ._FromEventObservable PURE_IMPORTS_END */
+
+var fromEvent = __WEBPACK_IMPORTED_MODULE_0__FromEventObservable__["a" /* FromEventObservable */].create;
+//# sourceMappingURL=fromEvent.js.map 
 
 
 /***/ }),
@@ -2761,6 +4006,83 @@ var merge = __WEBPACK_IMPORTED_MODULE_0__operator_merge__["a" /* mergeStatic */]
 
 var of = __WEBPACK_IMPORTED_MODULE_0__ArrayObservable__["a" /* ArrayObservable */].of;
 //# sourceMappingURL=of.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/observable/timer.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return timer; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TimerObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/TimerObservable.js");
+/** PURE_IMPORTS_START ._TimerObservable PURE_IMPORTS_END */
+
+var timer = __WEBPACK_IMPORTED_MODULE_0__TimerObservable__["a" /* TimerObservable */].create;
+//# sourceMappingURL=timer.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/auditTime.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = auditTime;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__operators_auditTime__ = __webpack_require__("../../../../rxjs/_esm5/operators/auditTime.js");
+/** PURE_IMPORTS_START .._scheduler_async,.._operators_auditTime PURE_IMPORTS_END */
+
+
+/**
+ * Ignores source values for `duration` milliseconds, then emits the most recent
+ * value from the source Observable, then repeats this process.
+ *
+ * <span class="informal">When it sees a source values, it ignores that plus
+ * the next ones for `duration` milliseconds, and then it emits the most recent
+ * value from the source.</span>
+ *
+ * <img src="./img/auditTime.png" width="100%">
+ *
+ * `auditTime` is similar to `throttleTime`, but emits the last value from the
+ * silenced time window, instead of the first value. `auditTime` emits the most
+ * recent value from the source Observable on the output Observable as soon as
+ * its internal timer becomes disabled, and ignores source values while the
+ * timer is enabled. Initially, the timer is disabled. As soon as the first
+ * source value arrives, the timer is enabled. After `duration` milliseconds (or
+ * the time unit determined internally by the optional `scheduler`) has passed,
+ * the timer is disabled, then the most recent source value is emitted on the
+ * output Observable, and this process repeats for the next source value.
+ * Optionally takes a {@link IScheduler} for managing timers.
+ *
+ * @example <caption>Emit clicks at a rate of at most one click per second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.auditTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link audit}
+ * @see {@link debounceTime}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} duration Time to wait before emitting the most recent source
+ * value, measured in milliseconds or the time unit determined internally
+ * by the optional `scheduler`.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the rate-limiting behavior.
+ * @return {Observable<T>} An Observable that performs rate-limiting of
+ * emissions from the source Observable.
+ * @method auditTime
+ * @owner Observable
+ */
+function auditTime(duration, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_0__scheduler_async__["a" /* async */];
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_1__operators_auditTime__["a" /* auditTime */])(duration, scheduler)(this);
+}
+//# sourceMappingURL=auditTime.js.map 
 
 
 /***/ }),
@@ -2981,6 +4303,193 @@ function concatMap(project, resultSelector) {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/operator/debounceTime.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = debounceTime;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__operators_debounceTime__ = __webpack_require__("../../../../rxjs/_esm5/operators/debounceTime.js");
+/** PURE_IMPORTS_START .._scheduler_async,.._operators_debounceTime PURE_IMPORTS_END */
+
+
+/**
+ * Emits a value from the source Observable only after a particular time span
+ * has passed without another source emission.
+ *
+ * <span class="informal">It's like {@link delay}, but passes only the most
+ * recent value from each burst of emissions.</span>
+ *
+ * <img src="./img/debounceTime.png" width="100%">
+ *
+ * `debounceTime` delays values emitted by the source Observable, but drops
+ * previous pending delayed emissions if a new value arrives on the source
+ * Observable. This operator keeps track of the most recent value from the
+ * source Observable, and emits that only when `dueTime` enough time has passed
+ * without any other value appearing on the source Observable. If a new value
+ * appears before `dueTime` silence occurs, the previous value will be dropped
+ * and will not be emitted on the output Observable.
+ *
+ * This is a rate-limiting operator, because it is impossible for more than one
+ * value to be emitted in any time window of duration `dueTime`, but it is also
+ * a delay-like operator since output emissions do not occur at the same time as
+ * they did on the source Observable. Optionally takes a {@link IScheduler} for
+ * managing timers.
+ *
+ * @example <caption>Emit the most recent click after a burst of clicks</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.debounceTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link auditTime}
+ * @see {@link debounce}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} dueTime The timeout duration in milliseconds (or the time
+ * unit determined internally by the optional `scheduler`) for the window of
+ * time required to wait for emission silence before emitting the most recent
+ * source value.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the timeout for each value.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified `dueTime`, and may drop some values if they occur
+ * too frequently.
+ * @method debounceTime
+ * @owner Observable
+ */
+function debounceTime(dueTime, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_0__scheduler_async__["a" /* async */];
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_1__operators_debounceTime__["a" /* debounceTime */])(dueTime, scheduler)(this);
+}
+//# sourceMappingURL=debounceTime.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/delay.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = delay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__operators_delay__ = __webpack_require__("../../../../rxjs/_esm5/operators/delay.js");
+/** PURE_IMPORTS_START .._scheduler_async,.._operators_delay PURE_IMPORTS_END */
+
+
+/**
+ * Delays the emission of items from the source Observable by a given timeout or
+ * until a given Date.
+ *
+ * <span class="informal">Time shifts each item by some specified amount of
+ * milliseconds.</span>
+ *
+ * <img src="./img/delay.png" width="100%">
+ *
+ * If the delay argument is a Number, this operator time shifts the source
+ * Observable by that amount of time expressed in milliseconds. The relative
+ * time intervals between the values are preserved.
+ *
+ * If the delay argument is a Date, this operator time shifts the start of the
+ * Observable execution until the given date occurs.
+ *
+ * @example <caption>Delay each click by one second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @example <caption>Delay all clicks until a future date happens</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var delayedClicks = clicks.delay(date); // click emitted only after that date
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @see {@link debounceTime}
+ * @see {@link delayWhen}
+ *
+ * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
+ * a `Date` until which the emission of the source items is delayed.
+ * @param {Scheduler} [scheduler=async] The IScheduler to use for
+ * managing the timers that handle the time-shift for each item.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified timeout or Date.
+ * @method delay
+ * @owner Observable
+ */
+function delay(delay, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_0__scheduler_async__["a" /* async */];
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_1__operators_delay__["a" /* delay */])(delay, scheduler)(this);
+}
+//# sourceMappingURL=delay.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/do.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _do;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__operators_tap__ = __webpack_require__("../../../../rxjs/_esm5/operators/tap.js");
+/** PURE_IMPORTS_START .._operators_tap PURE_IMPORTS_END */
+
+/* tslint:enable:max-line-length */
+/**
+ * Perform a side effect for every emission on the source Observable, but return
+ * an Observable that is identical to the source.
+ *
+ * <span class="informal">Intercepts each emission on the source and runs a
+ * function, but returns an output which is identical to the source as long as errors don't occur.</span>
+ *
+ * <img src="./img/do.png" width="100%">
+ *
+ * Returns a mirrored Observable of the source Observable, but modified so that
+ * the provided Observer is called to perform a side effect for every value,
+ * error, and completion emitted by the source. Any errors that are thrown in
+ * the aforementioned Observer or handlers are safely sent down the error path
+ * of the output Observable.
+ *
+ * This operator is useful for debugging your Observables for the correct values
+ * or performing other side effects.
+ *
+ * Note: this is different to a `subscribe` on the Observable. If the Observable
+ * returned by `do` is not subscribed, the side effects specified by the
+ * Observer will never happen. `do` therefore simply spies on existing
+ * execution, it does not trigger an execution to happen like `subscribe` does.
+ *
+ * @example <caption>Map every click to the clientX position of that click, while also logging the click event</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var positions = clicks
+ *   .do(ev => console.log(ev))
+ *   .map(ev => ev.clientX);
+ * positions.subscribe(x => console.log(x));
+ *
+ * @see {@link map}
+ * @see {@link subscribe}
+ *
+ * @param {Observer|function} [nextOrObserver] A normal Observer object or a
+ * callback for `next`.
+ * @param {function} [error] Callback for errors in the source.
+ * @param {function} [complete] Callback for the completion of the source.
+ * @return {Observable} An Observable identical to the source, but runs the
+ * specified Observer or callback(s) for each item.
+ * @method do
+ * @name do
+ * @owner Observable
+ */
+function _do(nextOrObserver, error, complete) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__operators_tap__["a" /* tap */])(nextOrObserver, error, complete)(this);
+}
+//# sourceMappingURL=do.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operator/every.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3063,6 +4572,30 @@ function filter(predicate, thisArg) {
     return Object(__WEBPACK_IMPORTED_MODULE_0__operators_filter__["a" /* filter */])(predicate, thisArg)(this);
 }
 //# sourceMappingURL=filter.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/finally.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _finally;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__operators_finalize__ = __webpack_require__("../../../../rxjs/_esm5/operators/finalize.js");
+/** PURE_IMPORTS_START .._operators_finalize PURE_IMPORTS_END */
+
+/**
+ * Returns an Observable that mirrors the source Observable, but will call a specified function when
+ * the source terminates on complete or error.
+ * @param {function} callback Function to be called when source terminates.
+ * @return {Observable} An Observable that mirrors the source, but will call the specified function on termination.
+ * @method finally
+ * @owner Observable
+ */
+function _finally(callback) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__operators_finalize__["a" /* finalize */])(callback)(this);
+}
+//# sourceMappingURL=finally.js.map 
 
 
 /***/ }),
@@ -3527,6 +5060,41 @@ function share() {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/operator/startWith.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startWith;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__operators_startWith__ = __webpack_require__("../../../../rxjs/_esm5/operators/startWith.js");
+/** PURE_IMPORTS_START .._operators_startWith PURE_IMPORTS_END */
+
+/* tslint:enable:max-line-length */
+/**
+ * Returns an Observable that emits the items you specify as arguments before it begins to emit
+ * items emitted by the source Observable.
+ *
+ * <img src="./img/startWith.png" width="100%">
+ *
+ * @param {...T} values - Items you want the modified Observable to emit first.
+ * @param {Scheduler} [scheduler] - A {@link IScheduler} to use for scheduling
+ * the emissions of the `next` notifications.
+ * @return {Observable} An Observable that emits the items in the specified Iterable and then emits the items
+ * emitted by the source Observable.
+ * @method startWith
+ * @owner Observable
+ */
+function startWith() {
+    var array = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        array[_i - 0] = arguments[_i];
+    }
+    return __WEBPACK_IMPORTED_MODULE_0__operators_startWith__["a" /* startWith */].apply(void 0, array)(this);
+}
+//# sourceMappingURL=startWith.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operator/switchMap.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3587,6 +5155,252 @@ function switchMap(project, resultSelector) {
     return Object(__WEBPACK_IMPORTED_MODULE_0__operators_switchMap__["a" /* switchMap */])(project, resultSelector)(this);
 }
 //# sourceMappingURL=switchMap.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/takeUntil.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = takeUntil;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__operators_takeUntil__ = __webpack_require__("../../../../rxjs/_esm5/operators/takeUntil.js");
+/** PURE_IMPORTS_START .._operators_takeUntil PURE_IMPORTS_END */
+
+/**
+ * Emits the values emitted by the source Observable until a `notifier`
+ * Observable emits a value.
+ *
+ * <span class="informal">Lets values pass until a second Observable,
+ * `notifier`, emits something. Then, it completes.</span>
+ *
+ * <img src="./img/takeUntil.png" width="100%">
+ *
+ * `takeUntil` subscribes and begins mirroring the source Observable. It also
+ * monitors a second Observable, `notifier` that you provide. If the `notifier`
+ * emits a value, the output Observable stops mirroring the source Observable
+ * and completes.
+ *
+ * @example <caption>Tick every second until the first click happens</caption>
+ * var interval = Rx.Observable.interval(1000);
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = interval.takeUntil(clicks);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link take}
+ * @see {@link takeLast}
+ * @see {@link takeWhile}
+ * @see {@link skip}
+ *
+ * @param {Observable} notifier The Observable whose first emitted value will
+ * cause the output Observable of `takeUntil` to stop emitting values from the
+ * source Observable.
+ * @return {Observable<T>} An Observable that emits the values from the source
+ * Observable until such time as `notifier` emits its first value.
+ * @method takeUntil
+ * @owner Observable
+ */
+function takeUntil(notifier) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__operators_takeUntil__["a" /* takeUntil */])(notifier)(this);
+}
+//# sourceMappingURL=takeUntil.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/audit.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = audit;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_tryCatch__ = __webpack_require__("../../../../rxjs/_esm5/util/tryCatch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_errorObject__ = __webpack_require__("../../../../rxjs/_esm5/util/errorObject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__OuterSubscriber__ = __webpack_require__("../../../../rxjs/_esm5/OuterSubscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_subscribeToResult__ = __webpack_require__("../../../../rxjs/_esm5/util/subscribeToResult.js");
+/** PURE_IMPORTS_START .._util_tryCatch,.._util_errorObject,.._OuterSubscriber,.._util_subscribeToResult PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+/**
+ * Ignores source values for a duration determined by another Observable, then
+ * emits the most recent value from the source Observable, then repeats this
+ * process.
+ *
+ * <span class="informal">It's like {@link auditTime}, but the silencing
+ * duration is determined by a second Observable.</span>
+ *
+ * <img src="./img/audit.png" width="100%">
+ *
+ * `audit` is similar to `throttle`, but emits the last value from the silenced
+ * time window, instead of the first value. `audit` emits the most recent value
+ * from the source Observable on the output Observable as soon as its internal
+ * timer becomes disabled, and ignores source values while the timer is enabled.
+ * Initially, the timer is disabled. As soon as the first source value arrives,
+ * the timer is enabled by calling the `durationSelector` function with the
+ * source value, which returns the "duration" Observable. When the duration
+ * Observable emits a value or completes, the timer is disabled, then the most
+ * recent source value is emitted on the output Observable, and this process
+ * repeats for the next source value.
+ *
+ * @example <caption>Emit clicks at a rate of at most one click per second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.audit(ev => Rx.Observable.interval(1000));
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link auditTime}
+ * @see {@link debounce}
+ * @see {@link delayWhen}
+ * @see {@link sample}
+ * @see {@link throttle}
+ *
+ * @param {function(value: T): SubscribableOrPromise} durationSelector A function
+ * that receives a value from the source Observable, for computing the silencing
+ * duration, returned as an Observable or a Promise.
+ * @return {Observable<T>} An Observable that performs rate-limiting of
+ * emissions from the source Observable.
+ * @method audit
+ * @owner Observable
+ */
+function audit(durationSelector) {
+    return function auditOperatorFunction(source) {
+        return source.lift(new AuditOperator(durationSelector));
+    };
+}
+var AuditOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function AuditOperator(durationSelector) {
+        this.durationSelector = durationSelector;
+    }
+    AuditOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new AuditSubscriber(subscriber, this.durationSelector));
+    };
+    return AuditOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AuditSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(AuditSubscriber, _super);
+    function AuditSubscriber(destination, durationSelector) {
+        _super.call(this, destination);
+        this.durationSelector = durationSelector;
+        this.hasValue = false;
+    }
+    AuditSubscriber.prototype._next = function (value) {
+        this.value = value;
+        this.hasValue = true;
+        if (!this.throttled) {
+            var duration = Object(__WEBPACK_IMPORTED_MODULE_0__util_tryCatch__["a" /* tryCatch */])(this.durationSelector)(value);
+            if (duration === __WEBPACK_IMPORTED_MODULE_1__util_errorObject__["a" /* errorObject */]) {
+                this.destination.error(__WEBPACK_IMPORTED_MODULE_1__util_errorObject__["a" /* errorObject */].e);
+            }
+            else {
+                var innerSubscription = Object(__WEBPACK_IMPORTED_MODULE_3__util_subscribeToResult__["a" /* subscribeToResult */])(this, duration);
+                if (innerSubscription.closed) {
+                    this.clearThrottle();
+                }
+                else {
+                    this.add(this.throttled = innerSubscription);
+                }
+            }
+        }
+    };
+    AuditSubscriber.prototype.clearThrottle = function () {
+        var _a = this, value = _a.value, hasValue = _a.hasValue, throttled = _a.throttled;
+        if (throttled) {
+            this.remove(throttled);
+            this.throttled = null;
+            throttled.unsubscribe();
+        }
+        if (hasValue) {
+            this.value = null;
+            this.hasValue = false;
+            this.destination.next(value);
+        }
+    };
+    AuditSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex) {
+        this.clearThrottle();
+    };
+    AuditSubscriber.prototype.notifyComplete = function () {
+        this.clearThrottle();
+    };
+    return AuditSubscriber;
+}(__WEBPACK_IMPORTED_MODULE_2__OuterSubscriber__["a" /* OuterSubscriber */]));
+//# sourceMappingURL=audit.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/auditTime.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = auditTime;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__audit__ = __webpack_require__("../../../../rxjs/_esm5/operators/audit.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__observable_timer__ = __webpack_require__("../../../../rxjs/_esm5/observable/timer.js");
+/** PURE_IMPORTS_START .._scheduler_async,._audit,.._observable_timer PURE_IMPORTS_END */
+
+
+
+/**
+ * Ignores source values for `duration` milliseconds, then emits the most recent
+ * value from the source Observable, then repeats this process.
+ *
+ * <span class="informal">When it sees a source values, it ignores that plus
+ * the next ones for `duration` milliseconds, and then it emits the most recent
+ * value from the source.</span>
+ *
+ * <img src="./img/auditTime.png" width="100%">
+ *
+ * `auditTime` is similar to `throttleTime`, but emits the last value from the
+ * silenced time window, instead of the first value. `auditTime` emits the most
+ * recent value from the source Observable on the output Observable as soon as
+ * its internal timer becomes disabled, and ignores source values while the
+ * timer is enabled. Initially, the timer is disabled. As soon as the first
+ * source value arrives, the timer is enabled. After `duration` milliseconds (or
+ * the time unit determined internally by the optional `scheduler`) has passed,
+ * the timer is disabled, then the most recent source value is emitted on the
+ * output Observable, and this process repeats for the next source value.
+ * Optionally takes a {@link IScheduler} for managing timers.
+ *
+ * @example <caption>Emit clicks at a rate of at most one click per second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.auditTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link audit}
+ * @see {@link debounceTime}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} duration Time to wait before emitting the most recent source
+ * value, measured in milliseconds or the time unit determined internally
+ * by the optional `scheduler`.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the rate-limiting behavior.
+ * @return {Observable<T>} An Observable that performs rate-limiting of
+ * emissions from the source Observable.
+ * @method auditTime
+ * @owner Observable
+ */
+function auditTime(duration, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_0__scheduler_async__["a" /* async */];
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_1__audit__["a" /* audit */])(function () { return Object(__WEBPACK_IMPORTED_MODULE_2__observable_timer__["a" /* timer */])(duration, scheduler); });
+}
+//# sourceMappingURL=auditTime.js.map 
 
 
 /***/ }),
@@ -3859,6 +5673,136 @@ function concatMap(project, resultSelector) {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/operators/debounceTime.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = debounceTime;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/** PURE_IMPORTS_START .._Subscriber,.._scheduler_async PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * Emits a value from the source Observable only after a particular time span
+ * has passed without another source emission.
+ *
+ * <span class="informal">It's like {@link delay}, but passes only the most
+ * recent value from each burst of emissions.</span>
+ *
+ * <img src="./img/debounceTime.png" width="100%">
+ *
+ * `debounceTime` delays values emitted by the source Observable, but drops
+ * previous pending delayed emissions if a new value arrives on the source
+ * Observable. This operator keeps track of the most recent value from the
+ * source Observable, and emits that only when `dueTime` enough time has passed
+ * without any other value appearing on the source Observable. If a new value
+ * appears before `dueTime` silence occurs, the previous value will be dropped
+ * and will not be emitted on the output Observable.
+ *
+ * This is a rate-limiting operator, because it is impossible for more than one
+ * value to be emitted in any time window of duration `dueTime`, but it is also
+ * a delay-like operator since output emissions do not occur at the same time as
+ * they did on the source Observable. Optionally takes a {@link IScheduler} for
+ * managing timers.
+ *
+ * @example <caption>Emit the most recent click after a burst of clicks</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.debounceTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link auditTime}
+ * @see {@link debounce}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} dueTime The timeout duration in milliseconds (or the time
+ * unit determined internally by the optional `scheduler`) for the window of
+ * time required to wait for emission silence before emitting the most recent
+ * source value.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the timeout for each value.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified `dueTime`, and may drop some values if they occur
+ * too frequently.
+ * @method debounceTime
+ * @owner Observable
+ */
+function debounceTime(dueTime, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_1__scheduler_async__["a" /* async */];
+    }
+    return function (source) { return source.lift(new DebounceTimeOperator(dueTime, scheduler)); };
+}
+var DebounceTimeOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function DebounceTimeOperator(dueTime, scheduler) {
+        this.dueTime = dueTime;
+        this.scheduler = scheduler;
+    }
+    DebounceTimeOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler));
+    };
+    return DebounceTimeOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DebounceTimeSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(DebounceTimeSubscriber, _super);
+    function DebounceTimeSubscriber(destination, dueTime, scheduler) {
+        _super.call(this, destination);
+        this.dueTime = dueTime;
+        this.scheduler = scheduler;
+        this.debouncedSubscription = null;
+        this.lastValue = null;
+        this.hasValue = false;
+    }
+    DebounceTimeSubscriber.prototype._next = function (value) {
+        this.clearDebounce();
+        this.lastValue = value;
+        this.hasValue = true;
+        this.add(this.debouncedSubscription = this.scheduler.schedule(dispatchNext, this.dueTime, this));
+    };
+    DebounceTimeSubscriber.prototype._complete = function () {
+        this.debouncedNext();
+        this.destination.complete();
+    };
+    DebounceTimeSubscriber.prototype.debouncedNext = function () {
+        this.clearDebounce();
+        if (this.hasValue) {
+            this.destination.next(this.lastValue);
+            this.lastValue = null;
+            this.hasValue = false;
+        }
+    };
+    DebounceTimeSubscriber.prototype.clearDebounce = function () {
+        var debouncedSubscription = this.debouncedSubscription;
+        if (debouncedSubscription !== null) {
+            this.remove(debouncedSubscription);
+            debouncedSubscription.unsubscribe();
+            this.debouncedSubscription = null;
+        }
+    };
+    return DebounceTimeSubscriber;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
+function dispatchNext(subscriber) {
+    subscriber.debouncedNext();
+}
+//# sourceMappingURL=debounceTime.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operators/defaultIfEmpty.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3945,6 +5889,157 @@ var DefaultIfEmptySubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return DefaultIfEmptySubscriber;
 }(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
 //# sourceMappingURL=defaultIfEmpty.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/delay.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = delay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scheduler_async__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/async.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_isDate__ = __webpack_require__("../../../../rxjs/_esm5/util/isDate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Notification__ = __webpack_require__("../../../../rxjs/_esm5/Notification.js");
+/** PURE_IMPORTS_START .._scheduler_async,.._util_isDate,.._Subscriber,.._Notification PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+/**
+ * Delays the emission of items from the source Observable by a given timeout or
+ * until a given Date.
+ *
+ * <span class="informal">Time shifts each item by some specified amount of
+ * milliseconds.</span>
+ *
+ * <img src="./img/delay.png" width="100%">
+ *
+ * If the delay argument is a Number, this operator time shifts the source
+ * Observable by that amount of time expressed in milliseconds. The relative
+ * time intervals between the values are preserved.
+ *
+ * If the delay argument is a Date, this operator time shifts the start of the
+ * Observable execution until the given date occurs.
+ *
+ * @example <caption>Delay each click by one second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @example <caption>Delay all clicks until a future date happens</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var delayedClicks = clicks.delay(date); // click emitted only after that date
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @see {@link debounceTime}
+ * @see {@link delayWhen}
+ *
+ * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
+ * a `Date` until which the emission of the source items is delayed.
+ * @param {Scheduler} [scheduler=async] The IScheduler to use for
+ * managing the timers that handle the time-shift for each item.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified timeout or Date.
+ * @method delay
+ * @owner Observable
+ */
+function delay(delay, scheduler) {
+    if (scheduler === void 0) {
+        scheduler = __WEBPACK_IMPORTED_MODULE_0__scheduler_async__["a" /* async */];
+    }
+    var absoluteDelay = Object(__WEBPACK_IMPORTED_MODULE_1__util_isDate__["a" /* isDate */])(delay);
+    var delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(delay);
+    return function (source) { return source.lift(new DelayOperator(delayFor, scheduler)); };
+}
+var DelayOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function DelayOperator(delay, scheduler) {
+        this.delay = delay;
+        this.scheduler = scheduler;
+    }
+    DelayOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
+    };
+    return DelayOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DelaySubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(DelaySubscriber, _super);
+    function DelaySubscriber(destination, delay, scheduler) {
+        _super.call(this, destination);
+        this.delay = delay;
+        this.scheduler = scheduler;
+        this.queue = [];
+        this.active = false;
+        this.errored = false;
+    }
+    DelaySubscriber.dispatch = function (state) {
+        var source = state.source;
+        var queue = source.queue;
+        var scheduler = state.scheduler;
+        var destination = state.destination;
+        while (queue.length > 0 && (queue[0].time - scheduler.now()) <= 0) {
+            queue.shift().notification.observe(destination);
+        }
+        if (queue.length > 0) {
+            var delay_1 = Math.max(0, queue[0].time - scheduler.now());
+            this.schedule(state, delay_1);
+        }
+        else {
+            source.active = false;
+        }
+    };
+    DelaySubscriber.prototype._schedule = function (scheduler) {
+        this.active = true;
+        this.add(scheduler.schedule(DelaySubscriber.dispatch, this.delay, {
+            source: this, destination: this.destination, scheduler: scheduler
+        }));
+    };
+    DelaySubscriber.prototype.scheduleNotification = function (notification) {
+        if (this.errored === true) {
+            return;
+        }
+        var scheduler = this.scheduler;
+        var message = new DelayMessage(scheduler.now() + this.delay, notification);
+        this.queue.push(message);
+        if (this.active === false) {
+            this._schedule(scheduler);
+        }
+    };
+    DelaySubscriber.prototype._next = function (value) {
+        this.scheduleNotification(__WEBPACK_IMPORTED_MODULE_3__Notification__["a" /* Notification */].createNext(value));
+    };
+    DelaySubscriber.prototype._error = function (err) {
+        this.errored = true;
+        this.queue = [];
+        this.destination.error(err);
+    };
+    DelaySubscriber.prototype._complete = function () {
+        this.scheduleNotification(__WEBPACK_IMPORTED_MODULE_3__Notification__["a" /* Notification */].createComplete());
+    };
+    return DelaySubscriber;
+}(__WEBPACK_IMPORTED_MODULE_2__Subscriber__["a" /* Subscriber */]));
+var DelayMessage = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function DelayMessage(time, notification) {
+        this.time = time;
+        this.notification = notification;
+    }
+    return DelayMessage;
+}());
+//# sourceMappingURL=delay.js.map 
 
 
 /***/ }),
@@ -4135,6 +6230,61 @@ var FilterSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return FilterSubscriber;
 }(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
 //# sourceMappingURL=filter.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/finalize.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = finalize;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/** PURE_IMPORTS_START .._Subscriber,.._Subscription PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * Returns an Observable that mirrors the source Observable, but will call a specified function when
+ * the source terminates on complete or error.
+ * @param {function} callback Function to be called when source terminates.
+ * @return {Observable} An Observable that mirrors the source, but will call the specified function on termination.
+ * @method finally
+ * @owner Observable
+ */
+function finalize(callback) {
+    return function (source) { return source.lift(new FinallyOperator(callback)); };
+}
+var FinallyOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function FinallyOperator(callback) {
+        this.callback = callback;
+    }
+    FinallyOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new FinallySubscriber(subscriber, this.callback));
+    };
+    return FinallyOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var FinallySubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(FinallySubscriber, _super);
+    function FinallySubscriber(destination, callback) {
+        _super.call(this, destination);
+        this.add(new __WEBPACK_IMPORTED_MODULE_1__Subscription__["a" /* Subscription */](callback));
+    }
+    return FinallySubscriber;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
+//# sourceMappingURL=finalize.js.map 
 
 
 /***/ }),
@@ -5449,6 +7599,67 @@ function share() {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/operators/startWith.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startWith;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__observable_ArrayObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/ArrayObservable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__observable_ScalarObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/ScalarObservable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__observable_EmptyObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/EmptyObservable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observable_concat__ = __webpack_require__("../../../../rxjs/_esm5/observable/concat.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_isScheduler__ = __webpack_require__("../../../../rxjs/_esm5/util/isScheduler.js");
+/** PURE_IMPORTS_START .._observable_ArrayObservable,.._observable_ScalarObservable,.._observable_EmptyObservable,.._observable_concat,.._util_isScheduler PURE_IMPORTS_END */
+
+
+
+
+
+/* tslint:enable:max-line-length */
+/**
+ * Returns an Observable that emits the items you specify as arguments before it begins to emit
+ * items emitted by the source Observable.
+ *
+ * <img src="./img/startWith.png" width="100%">
+ *
+ * @param {...T} values - Items you want the modified Observable to emit first.
+ * @param {Scheduler} [scheduler] - A {@link IScheduler} to use for scheduling
+ * the emissions of the `next` notifications.
+ * @return {Observable} An Observable that emits the items in the specified Iterable and then emits the items
+ * emitted by the source Observable.
+ * @method startWith
+ * @owner Observable
+ */
+function startWith() {
+    var array = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        array[_i - 0] = arguments[_i];
+    }
+    return function (source) {
+        var scheduler = array[array.length - 1];
+        if (Object(__WEBPACK_IMPORTED_MODULE_4__util_isScheduler__["a" /* isScheduler */])(scheduler)) {
+            array.pop();
+        }
+        else {
+            scheduler = null;
+        }
+        var len = array.length;
+        if (len === 1) {
+            return Object(__WEBPACK_IMPORTED_MODULE_3__observable_concat__["a" /* concat */])(new __WEBPACK_IMPORTED_MODULE_1__observable_ScalarObservable__["a" /* ScalarObservable */](array[0], scheduler), source);
+        }
+        else if (len > 1) {
+            return Object(__WEBPACK_IMPORTED_MODULE_3__observable_concat__["a" /* concat */])(new __WEBPACK_IMPORTED_MODULE_0__observable_ArrayObservable__["a" /* ArrayObservable */](array, scheduler), source);
+        }
+        else {
+            return Object(__WEBPACK_IMPORTED_MODULE_3__observable_concat__["a" /* concat */])(new __WEBPACK_IMPORTED_MODULE_2__observable_EmptyObservable__["a" /* EmptyObservable */](scheduler), source);
+        }
+    };
+}
+//# sourceMappingURL=startWith.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operators/switchMap.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5721,6 +7932,554 @@ var TakeLastSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return TakeLastSubscriber;
 }(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
 //# sourceMappingURL=takeLast.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/takeUntil.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = takeUntil;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__OuterSubscriber__ = __webpack_require__("../../../../rxjs/_esm5/OuterSubscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_subscribeToResult__ = __webpack_require__("../../../../rxjs/_esm5/util/subscribeToResult.js");
+/** PURE_IMPORTS_START .._OuterSubscriber,.._util_subscribeToResult PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * Emits the values emitted by the source Observable until a `notifier`
+ * Observable emits a value.
+ *
+ * <span class="informal">Lets values pass until a second Observable,
+ * `notifier`, emits something. Then, it completes.</span>
+ *
+ * <img src="./img/takeUntil.png" width="100%">
+ *
+ * `takeUntil` subscribes and begins mirroring the source Observable. It also
+ * monitors a second Observable, `notifier` that you provide. If the `notifier`
+ * emits a value or a complete notification, the output Observable stops
+ * mirroring the source Observable and completes.
+ *
+ * @example <caption>Tick every second until the first click happens</caption>
+ * var interval = Rx.Observable.interval(1000);
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = interval.takeUntil(clicks);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link take}
+ * @see {@link takeLast}
+ * @see {@link takeWhile}
+ * @see {@link skip}
+ *
+ * @param {Observable} notifier The Observable whose first emitted value will
+ * cause the output Observable of `takeUntil` to stop emitting values from the
+ * source Observable.
+ * @return {Observable<T>} An Observable that emits the values from the source
+ * Observable until such time as `notifier` emits its first value.
+ * @method takeUntil
+ * @owner Observable
+ */
+function takeUntil(notifier) {
+    return function (source) { return source.lift(new TakeUntilOperator(notifier)); };
+}
+var TakeUntilOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function TakeUntilOperator(notifier) {
+        this.notifier = notifier;
+    }
+    TakeUntilOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
+    };
+    return TakeUntilOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var TakeUntilSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(TakeUntilSubscriber, _super);
+    function TakeUntilSubscriber(destination, notifier) {
+        _super.call(this, destination);
+        this.notifier = notifier;
+        this.add(Object(__WEBPACK_IMPORTED_MODULE_1__util_subscribeToResult__["a" /* subscribeToResult */])(this, notifier));
+    }
+    TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.complete();
+    };
+    TakeUntilSubscriber.prototype.notifyComplete = function () {
+        // noop
+    };
+    return TakeUntilSubscriber;
+}(__WEBPACK_IMPORTED_MODULE_0__OuterSubscriber__["a" /* OuterSubscriber */]));
+//# sourceMappingURL=takeUntil.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operators/tap.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = tap;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
+/** PURE_IMPORTS_START .._Subscriber PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/* tslint:enable:max-line-length */
+/**
+ * Perform a side effect for every emission on the source Observable, but return
+ * an Observable that is identical to the source.
+ *
+ * <span class="informal">Intercepts each emission on the source and runs a
+ * function, but returns an output which is identical to the source as long as errors don't occur.</span>
+ *
+ * <img src="./img/do.png" width="100%">
+ *
+ * Returns a mirrored Observable of the source Observable, but modified so that
+ * the provided Observer is called to perform a side effect for every value,
+ * error, and completion emitted by the source. Any errors that are thrown in
+ * the aforementioned Observer or handlers are safely sent down the error path
+ * of the output Observable.
+ *
+ * This operator is useful for debugging your Observables for the correct values
+ * or performing other side effects.
+ *
+ * Note: this is different to a `subscribe` on the Observable. If the Observable
+ * returned by `do` is not subscribed, the side effects specified by the
+ * Observer will never happen. `do` therefore simply spies on existing
+ * execution, it does not trigger an execution to happen like `subscribe` does.
+ *
+ * @example <caption>Map every click to the clientX position of that click, while also logging the click event</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var positions = clicks
+ *   .do(ev => console.log(ev))
+ *   .map(ev => ev.clientX);
+ * positions.subscribe(x => console.log(x));
+ *
+ * @see {@link map}
+ * @see {@link subscribe}
+ *
+ * @param {Observer|function} [nextOrObserver] A normal Observer object or a
+ * callback for `next`.
+ * @param {function} [error] Callback for errors in the source.
+ * @param {function} [complete] Callback for the completion of the source.
+ * @return {Observable} An Observable identical to the source, but runs the
+ * specified Observer or callback(s) for each item.
+ * @name tap
+ */
+function tap(nextOrObserver, error, complete) {
+    return function tapOperatorFunction(source) {
+        return source.lift(new DoOperator(nextOrObserver, error, complete));
+    };
+}
+var DoOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function DoOperator(nextOrObserver, error, complete) {
+        this.nextOrObserver = nextOrObserver;
+        this.error = error;
+        this.complete = complete;
+    }
+    DoOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DoSubscriber(subscriber, this.nextOrObserver, this.error, this.complete));
+    };
+    return DoOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DoSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(DoSubscriber, _super);
+    function DoSubscriber(destination, nextOrObserver, error, complete) {
+        _super.call(this, destination);
+        var safeSubscriber = new __WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */](nextOrObserver, error, complete);
+        safeSubscriber.syncErrorThrowable = true;
+        this.add(safeSubscriber);
+        this.safeSubscriber = safeSubscriber;
+    }
+    DoSubscriber.prototype._next = function (value) {
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.next(value);
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
+        }
+        else {
+            this.destination.next(value);
+        }
+    };
+    DoSubscriber.prototype._error = function (err) {
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.error(err);
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
+        }
+        else {
+            this.destination.error(err);
+        }
+    };
+    DoSubscriber.prototype._complete = function () {
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.complete();
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
+        }
+        else {
+            this.destination.complete();
+        }
+    };
+    return DoSubscriber;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
+//# sourceMappingURL=tap.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/Action.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Action; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/** PURE_IMPORTS_START .._Subscription PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * A unit of work to be executed in a {@link Scheduler}. An action is typically
+ * created from within a Scheduler and an RxJS user does not need to concern
+ * themselves about creating and manipulating an Action.
+ *
+ * ```ts
+ * class Action<T> extends Subscription {
+ *   new (scheduler: Scheduler, work: (state?: T) => void);
+ *   schedule(state?: T, delay: number = 0): Subscription;
+ * }
+ * ```
+ *
+ * @class Action<T>
+ */
+var Action = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(Action, _super);
+    function Action(scheduler, work) {
+        _super.call(this);
+    }
+    /**
+     * Schedules this action on its parent Scheduler for execution. May be passed
+     * some context object, `state`. May happen at some point in the future,
+     * according to the `delay` parameter, if specified.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler.
+     * @return {void}
+     */
+    Action.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return this;
+    };
+    return Action;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscription__["a" /* Subscription */]));
+//# sourceMappingURL=Action.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/AsyncAction.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AsyncAction; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_root__ = __webpack_require__("../../../../rxjs/_esm5/util/root.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Action__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/Action.js");
+/** PURE_IMPORTS_START .._util_root,._Action PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AsyncAction = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(AsyncAction, _super);
+    function AsyncAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+        this.pending = false;
+    }
+    AsyncAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        if (this.closed) {
+            return this;
+        }
+        // Always replace the current state with the new state.
+        this.state = state;
+        // Set the pending flag indicating that this action has been scheduled, or
+        // has recursively rescheduled itself.
+        this.pending = true;
+        var id = this.id;
+        var scheduler = this.scheduler;
+        //
+        // Important implementation note:
+        //
+        // Actions only execute once by default, unless rescheduled from within the
+        // scheduled callback. This allows us to implement single and repeat
+        // actions via the same code path, without adding API surface area, as well
+        // as mimic traditional recursion but across asynchronous boundaries.
+        //
+        // However, JS runtimes and timers distinguish between intervals achieved by
+        // serial `setTimeout` calls vs. a single `setInterval` call. An interval of
+        // serial `setTimeout` calls can be individually delayed, which delays
+        // scheduling the next `setTimeout`, and so on. `setInterval` attempts to
+        // guarantee the interval callback will be invoked more precisely to the
+        // interval period, regardless of load.
+        //
+        // Therefore, we use `setInterval` to schedule single and repeat actions.
+        // If the action reschedules itself with the same delay, the interval is not
+        // canceled. If the action doesn't reschedule, or reschedules with a
+        // different delay, the interval will be canceled after scheduled callback
+        // execution.
+        //
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, delay);
+        }
+        this.delay = delay;
+        // If this action has already an async Id, don't request a new one.
+        this.id = this.id || this.requestAsyncId(scheduler, this.id, delay);
+        return this;
+    };
+    AsyncAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return __WEBPACK_IMPORTED_MODULE_0__util_root__["a" /* root */].setInterval(scheduler.flush.bind(scheduler, this), delay);
+    };
+    AsyncAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        // If this action is rescheduled with the same delay time, don't clear the interval id.
+        if (delay !== null && this.delay === delay && this.pending === false) {
+            return id;
+        }
+        // Otherwise, if the action's delay time is different from the current delay,
+        // or the action has been rescheduled before it's executed, clear the interval id
+        return __WEBPACK_IMPORTED_MODULE_0__util_root__["a" /* root */].clearInterval(id) && undefined || undefined;
+    };
+    /**
+     * Immediately executes this action and the `work` it contains.
+     * @return {any}
+     */
+    AsyncAction.prototype.execute = function (state, delay) {
+        if (this.closed) {
+            return new Error('executing a cancelled action');
+        }
+        this.pending = false;
+        var error = this._execute(state, delay);
+        if (error) {
+            return error;
+        }
+        else if (this.pending === false && this.id != null) {
+            // Dequeue if the action didn't reschedule itself. Don't call
+            // unsubscribe(), because the action could reschedule later.
+            // For example:
+            // ```
+            // scheduler.schedule(function doWork(counter) {
+            //   /* ... I'm a busy worker bee ... */
+            //   var originalAction = this;
+            //   /* wait 100ms before rescheduling the action */
+            //   setTimeout(function () {
+            //     originalAction.schedule(counter + 1);
+            //   }, 100);
+            // }, 1000);
+            // ```
+            this.id = this.recycleAsyncId(this.scheduler, this.id, null);
+        }
+    };
+    AsyncAction.prototype._execute = function (state, delay) {
+        var errored = false;
+        var errorValue = undefined;
+        try {
+            this.work(state);
+        }
+        catch (e) {
+            errored = true;
+            errorValue = !!e && e || new Error(e);
+        }
+        if (errored) {
+            this.unsubscribe();
+            return errorValue;
+        }
+    };
+    AsyncAction.prototype._unsubscribe = function () {
+        var id = this.id;
+        var scheduler = this.scheduler;
+        var actions = scheduler.actions;
+        var index = actions.indexOf(this);
+        this.work = null;
+        this.state = null;
+        this.pending = false;
+        this.scheduler = null;
+        if (index !== -1) {
+            actions.splice(index, 1);
+        }
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, null);
+        }
+        this.delay = null;
+    };
+    return AsyncAction;
+}(__WEBPACK_IMPORTED_MODULE_1__Action__["a" /* Action */]));
+//# sourceMappingURL=AsyncAction.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/AsyncScheduler.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AsyncScheduler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Scheduler__ = __webpack_require__("../../../../rxjs/_esm5/Scheduler.js");
+/** PURE_IMPORTS_START .._Scheduler PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+var AsyncScheduler = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(AsyncScheduler, _super);
+    function AsyncScheduler() {
+        _super.apply(this, arguments);
+        this.actions = [];
+        /**
+         * A flag to indicate whether the Scheduler is currently executing a batch of
+         * queued actions.
+         * @type {boolean}
+         */
+        this.active = false;
+        /**
+         * An internal ID used to track the latest asynchronous task such as those
+         * coming from `setTimeout`, `setInterval`, `requestAnimationFrame`, and
+         * others.
+         * @type {any}
+         */
+        this.scheduled = undefined;
+    }
+    AsyncScheduler.prototype.flush = function (action) {
+        var actions = this.actions;
+        if (this.active) {
+            actions.push(action);
+            return;
+        }
+        var error;
+        this.active = true;
+        do {
+            if (error = action.execute(action.state, action.delay)) {
+                break;
+            }
+        } while (action = actions.shift()); // exhaust the scheduler queue
+        this.active = false;
+        if (error) {
+            while (action = actions.shift()) {
+                action.unsubscribe();
+            }
+            throw error;
+        }
+    };
+    return AsyncScheduler;
+}(__WEBPACK_IMPORTED_MODULE_0__Scheduler__["a" /* Scheduler */]));
+//# sourceMappingURL=AsyncScheduler.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/async.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return async; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AsyncAction__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/AsyncAction.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AsyncScheduler__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/AsyncScheduler.js");
+/** PURE_IMPORTS_START ._AsyncAction,._AsyncScheduler PURE_IMPORTS_END */
+
+
+/**
+ *
+ * Async Scheduler
+ *
+ * <span class="informal">Schedule task as if you used setTimeout(task, duration)</span>
+ *
+ * `async` scheduler schedules tasks asynchronously, by putting them on the JavaScript
+ * event loop queue. It is best used to delay tasks in time or to schedule tasks repeating
+ * in intervals.
+ *
+ * If you just want to "defer" task, that is to perform it right after currently
+ * executing synchronous code ends (commonly achieved by `setTimeout(deferredTask, 0)`),
+ * better choice will be the {@link asap} scheduler.
+ *
+ * @example <caption>Use async scheduler to delay task</caption>
+ * const task = () => console.log('it works!');
+ *
+ * Rx.Scheduler.async.schedule(task, 2000);
+ *
+ * // After 2 seconds logs:
+ * // "it works!"
+ *
+ *
+ * @example <caption>Use async scheduler to repeat task in intervals</caption>
+ * function task(state) {
+ *   console.log(state);
+ *   this.schedule(state + 1, 1000); // `this` references currently executing Action,
+ *                                   // which we reschedule with new state and delay
+ * }
+ *
+ * Rx.Scheduler.async.schedule(task, 3000, 0);
+ *
+ * // Logs:
+ * // 0 after 3s
+ * // 1 after 4s
+ * // 2 after 5s
+ * // 3 after 6s
+ *
+ * @static true
+ * @name async
+ * @owner Scheduler
+ */
+var async = /*@__PURE__*/ new __WEBPACK_IMPORTED_MODULE_1__AsyncScheduler__["a" /* AsyncScheduler */](__WEBPACK_IMPORTED_MODULE_0__AsyncAction__["a" /* AsyncAction */]);
+//# sourceMappingURL=async.js.map 
 
 
 /***/ }),
@@ -6031,6 +8790,20 @@ var isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/util/isDate.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isDate;
+/** PURE_IMPORTS_START  PURE_IMPORTS_END */
+function isDate(value) {
+    return value instanceof Date && !isNaN(+value);
+}
+//# sourceMappingURL=isDate.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/util/isFunction.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6041,6 +8814,27 @@ function isFunction(x) {
     return typeof x === 'function';
 }
 //# sourceMappingURL=isFunction.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/util/isNumeric.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isNumeric;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_isArray__ = __webpack_require__("../../../../rxjs/_esm5/util/isArray.js");
+/** PURE_IMPORTS_START .._util_isArray PURE_IMPORTS_END */
+
+function isNumeric(val) {
+    // parseFloat NaNs numeric-cast false positives (null|true|false|"")
+    // ...but misinterprets leading-number strings, particularly hex literals ("0x...")
+    // subtraction forces infinities to NaN
+    // adding 1 corrects loss of precision from parseFloat (#15100)
+    return !Object(__WEBPACK_IMPORTED_MODULE_0__util_isArray__["a" /* isArray */])(val) && (val - parseFloat(val) + 1) >= 0;
+}
+;
+//# sourceMappingURL=isNumeric.js.map 
 
 
 /***/ }),
@@ -6532,6 +9326,5534 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/a11y.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActiveDescendantKeyManager; });
+/* unused harmony export MESSAGES_CONTAINER_ID */
+/* unused harmony export CDK_DESCRIBEDBY_ID_PREFIX */
+/* unused harmony export CDK_DESCRIBEDBY_HOST_ATTRIBUTE */
+/* unused harmony export AriaDescriber */
+/* unused harmony export ARIA_DESCRIBER_PROVIDER_FACTORY */
+/* unused harmony export ARIA_DESCRIBER_PROVIDER */
+/* unused harmony export isFakeMousedownFromScreenReader */
+/* unused harmony export FocusKeyManager */
+/* unused harmony export FocusTrap */
+/* unused harmony export FocusTrapFactory */
+/* unused harmony export FocusTrapDeprecatedDirective */
+/* unused harmony export FocusTrapDirective */
+/* unused harmony export InteractivityChecker */
+/* unused harmony export ListKeyManager */
+/* unused harmony export LIVE_ANNOUNCER_ELEMENT_TOKEN */
+/* unused harmony export LiveAnnouncer */
+/* unused harmony export LIVE_ANNOUNCER_PROVIDER_FACTORY */
+/* unused harmony export LIVE_ANNOUNCER_PROVIDER */
+/* unused harmony export TOUCH_BUFFER_MS */
+/* unused harmony export FocusMonitor */
+/* unused harmony export CdkMonitorFocus */
+/* unused harmony export FOCUS_MONITOR_PROVIDER_FACTORY */
+/* unused harmony export FOCUS_MONITOR_PROVIDER */
+/* unused harmony export A11yModule */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__ = __webpack_require__("../../../cdk/esm5/rxjs.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__ = __webpack_require__("../../../cdk/esm5/platform.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_observable_of__ = __webpack_require__("../../../../rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * This class manages keyboard events for selectable lists. If you pass it a query list
+ * of items, it will set the active item correctly when arrow events occur.
+ */
+var ListKeyManager = (function () {
+    /**
+     * @param {?} _items
+     */
+    function ListKeyManager(_items) {
+        this._items = _items;
+        this._activeItemIndex = -1;
+        this._wrap = false;
+        this._letterKeyStream = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this._typeaheadSubscription = __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        this._pressedLetters = [];
+        /**
+         * Stream that emits any time the TAB key is pressed, so components can react
+         * when focus is shifted off of the list.
+         */
+        this.tabOut = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+    }
+    /**
+     * Turns on wrapping mode, which ensures that the active item will wrap to
+     * the other end of list when there are no more items in the given direction.
+     * @return {?}
+     */
+    ListKeyManager.prototype.withWrap = function () {
+        this._wrap = true;
+        return this;
+    };
+    /**
+     * Turns on typeahead mode which allows users to set the active item by typing.
+     * @param {?=} debounceInterval Time to wait after the last keystroke before setting the active item.
+     * @return {?}
+     */
+    ListKeyManager.prototype.withTypeAhead = function (debounceInterval) {
+        var _this = this;
+        if (debounceInterval === void 0) { debounceInterval = 200; }
+        if (this._items.length && this._items.some(function (item) { return typeof item.getLabel !== 'function'; })) {
+            throw Error('ListKeyManager items in typeahead mode must implement the `getLabel` method.');
+        }
+        this._typeaheadSubscription.unsubscribe();
+        // Debounce the presses of non-navigational keys, collect the ones that correspond to letters
+        // and convert those letters back into a string. Afterwards find the first item that starts
+        // with that string and select it.
+        this._typeaheadSubscription = __WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["a" /* RxChain */].from(this._letterKeyStream)
+            .call(__WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["c" /* doOperator */], function (keyCode) { return _this._pressedLetters.push(keyCode); })
+            .call(__WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["b" /* debounceTime */], debounceInterval)
+            .call(__WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["d" /* filter */], function () { return _this._pressedLetters.length > 0; })
+            .call(__WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["f" /* map */], function () { return _this._pressedLetters.join(''); })
+            .subscribe(function (inputString) {
+            var /** @type {?} */ items = _this._items.toArray();
+            // Start at 1 because we want to start searching at the item immediately
+            // following the current active item.
+            for (var /** @type {?} */ i = 1; i < items.length + 1; i++) {
+                var /** @type {?} */ index = (_this._activeItemIndex + i) % items.length;
+                var /** @type {?} */ item = items[index];
+                if (!item.disabled && ((item.getLabel))().toUpperCase().trim().indexOf(inputString) === 0) {
+                    _this.setActiveItem(index);
+                    break;
+                }
+            }
+            _this._pressedLetters = [];
+        });
+        return this;
+    };
+    /**
+     * Sets the active item to the item at the index specified.
+     * @param {?} index The index of the item to be set as active.
+     * @return {?}
+     */
+    ListKeyManager.prototype.setActiveItem = function (index) {
+        this._activeItemIndex = index;
+        this._activeItem = this._items.toArray()[index];
+    };
+    /**
+     * Sets the active item depending on the key event passed in.
+     * @param {?} event Keyboard event to be used for determining which element should be active.
+     * @return {?}
+     */
+    ListKeyManager.prototype.onKeydown = function (event) {
+        switch (event.keyCode) {
+            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["b" /* DOWN_ARROW */]:
+                this.setNextItemActive();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["f" /* UP_ARROW */]:
+                this.setPreviousItemActive();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["e" /* TAB */]:
+                this.tabOut.next();
+                return;
+            default:
+                var /** @type {?} */ keyCode = event.keyCode;
+                // Attempt to use the `event.key` which also maps it to the user's keyboard language,
+                // otherwise fall back to resolving alphanumeric characters via the keyCode.
+                if (event.key && event.key.length === 1) {
+                    this._letterKeyStream.next(event.key.toLocaleUpperCase());
+                }
+                else if ((keyCode >= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["a" /* A */] && keyCode <= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["g" /* Z */]) || (keyCode >= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["h" /* ZERO */] && keyCode <= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["d" /* NINE */])) {
+                    this._letterKeyStream.next(String.fromCharCode(keyCode));
+                }
+                // Note that we return here, in order to avoid preventing
+                // the default action of non-navigational keys.
+                return;
+        }
+        this._pressedLetters = [];
+        event.preventDefault();
+    };
+    Object.defineProperty(ListKeyManager.prototype, "activeItemIndex", {
+        /**
+         * Index of the currently active item.
+         * @return {?}
+         */
+        get: function () {
+            return this._activeItemIndex;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ListKeyManager.prototype, "activeItem", {
+        /**
+         * The active item.
+         * @return {?}
+         */
+        get: function () {
+            return this._activeItem;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the active item to the first enabled item in the list.
+     * @return {?}
+     */
+    ListKeyManager.prototype.setFirstItemActive = function () {
+        this._setActiveItemByIndex(0, 1);
+    };
+    /**
+     * Sets the active item to the last enabled item in the list.
+     * @return {?}
+     */
+    ListKeyManager.prototype.setLastItemActive = function () {
+        this._setActiveItemByIndex(this._items.length - 1, -1);
+    };
+    /**
+     * Sets the active item to the next enabled item in the list.
+     * @return {?}
+     */
+    ListKeyManager.prototype.setNextItemActive = function () {
+        this._activeItemIndex < 0 ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
+    };
+    /**
+     * Sets the active item to a previous enabled item in the list.
+     * @return {?}
+     */
+    ListKeyManager.prototype.setPreviousItemActive = function () {
+        this._activeItemIndex < 0 && this._wrap ? this.setLastItemActive()
+            : this._setActiveItemByDelta(-1);
+    };
+    /**
+     * Allows setting of the activeItemIndex without any other effects.
+     * @param {?} index The new activeItemIndex.
+     * @return {?}
+     */
+    ListKeyManager.prototype.updateActiveItemIndex = function (index) {
+        this._activeItemIndex = index;
+    };
+    /**
+     * This method sets the active item, given a list of items and the delta between the
+     * currently active item and the new active item. It will calculate differently
+     * depending on whether wrap mode is turned on.
+     * @param {?} delta
+     * @param {?=} items
+     * @return {?}
+     */
+    ListKeyManager.prototype._setActiveItemByDelta = function (delta, items) {
+        if (items === void 0) { items = this._items.toArray(); }
+        this._wrap ? this._setActiveInWrapMode(delta, items)
+            : this._setActiveInDefaultMode(delta, items);
+    };
+    /**
+     * Sets the active item properly given "wrap" mode. In other words, it will continue to move
+     * down the list until it finds an item that is not disabled, and it will wrap if it
+     * encounters either end of the list.
+     * @param {?} delta
+     * @param {?} items
+     * @return {?}
+     */
+    ListKeyManager.prototype._setActiveInWrapMode = function (delta, items) {
+        // when active item would leave menu, wrap to beginning or end
+        this._activeItemIndex =
+            (this._activeItemIndex + delta + items.length) % items.length;
+        // skip all disabled menu items recursively until an enabled one is reached
+        if (items[this._activeItemIndex].disabled) {
+            this._setActiveInWrapMode(delta, items);
+        }
+        else {
+            this.setActiveItem(this._activeItemIndex);
+        }
+    };
+    /**
+     * Sets the active item properly given the default mode. In other words, it will
+     * continue to move down the list until it finds an item that is not disabled. If
+     * it encounters either end of the list, it will stop and not wrap.
+     * @param {?} delta
+     * @param {?} items
+     * @return {?}
+     */
+    ListKeyManager.prototype._setActiveInDefaultMode = function (delta, items) {
+        this._setActiveItemByIndex(this._activeItemIndex + delta, delta, items);
+    };
+    /**
+     * Sets the active item to the first enabled item starting at the index specified. If the
+     * item is disabled, it will move in the fallbackDelta direction until it either
+     * finds an enabled item or encounters the end of the list.
+     * @param {?} index
+     * @param {?} fallbackDelta
+     * @param {?=} items
+     * @return {?}
+     */
+    ListKeyManager.prototype._setActiveItemByIndex = function (index, fallbackDelta, items) {
+        if (items === void 0) { items = this._items.toArray(); }
+        if (!items[index]) {
+            return;
+        }
+        while (items[index].disabled) {
+            index += fallbackDelta;
+            if (!items[index]) {
+                return;
+            }
+        }
+        this.setActiveItem(index);
+    };
+    return ListKeyManager;
+}());
+
+var ActiveDescendantKeyManager = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(ActiveDescendantKeyManager, _super);
+    function ActiveDescendantKeyManager() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds active styles to the newly active item and removes active
+     * styles from the previously active item.
+     * @param {?} index
+     * @return {?}
+     */
+    ActiveDescendantKeyManager.prototype.setActiveItem = function (index) {
+        if (this.activeItem) {
+            this.activeItem.setInactiveStyles();
+        }
+        _super.prototype.setActiveItem.call(this, index);
+        if (this.activeItem) {
+            this.activeItem.setActiveStyles();
+        }
+    };
+    return ActiveDescendantKeyManager;
+}(ListKeyManager));
+
+/**
+ * IDs are deliminated by an empty space, as per the spec.
+ */
+var ID_DELIMINATOR = ' ';
+/**
+ * Adds the given ID to the specified ARIA attribute on an element.
+ * Used for attributes such as aria-labelledby, aria-owns, etc.
+ * @param {?} el
+ * @param {?} attr
+ * @param {?} id
+ * @return {?}
+ */
+function addAriaReferencedId(el, attr, id) {
+    var /** @type {?} */ ids = getAriaReferenceIds(el, attr);
+    if (ids.some(function (existingId) { return existingId.trim() == id.trim(); })) {
+        return;
+    }
+    ids.push(id.trim());
+    el.setAttribute(attr, ids.join(ID_DELIMINATOR));
+}
+/**
+ * Removes the given ID from the specified ARIA attribute on an element.
+ * Used for attributes such as aria-labelledby, aria-owns, etc.
+ * @param {?} el
+ * @param {?} attr
+ * @param {?} id
+ * @return {?}
+ */
+function removeAriaReferencedId(el, attr, id) {
+    var /** @type {?} */ ids = getAriaReferenceIds(el, attr);
+    var /** @type {?} */ filteredIds = ids.filter(function (val) { return val != id.trim(); });
+    el.setAttribute(attr, filteredIds.join(ID_DELIMINATOR));
+}
+/**
+ * Gets the list of IDs referenced by the given ARIA attribute on an element.
+ * Used for attributes such as aria-labelledby, aria-owns, etc.
+ * @param {?} el
+ * @param {?} attr
+ * @return {?}
+ */
+function getAriaReferenceIds(el, attr) {
+    // Get string array of all individual ids (whitespace deliminated) in the attribute value
+    return (el.getAttribute(attr) || '').match(/\S+/g) || [];
+}
+
+/**
+ * ID used for the body container where all messages are appended.
+ */
+var MESSAGES_CONTAINER_ID = 'cdk-describedby-message-container';
+/**
+ * ID prefix used for each created message element.
+ */
+var CDK_DESCRIBEDBY_ID_PREFIX = 'cdk-describedby-message';
+/**
+ * Attribute given to each host element that is described by a message element.
+ */
+var CDK_DESCRIBEDBY_HOST_ATTRIBUTE = 'cdk-describedby-host';
+/**
+ * Global incremental identifier for each registered message element.
+ */
+var nextId = 0;
+/**
+ * Global map of all registered message elements that have been placed into the document.
+ */
+var messageRegistry = new Map();
+/**
+ * Container for all registered messages.
+ */
+var messagesContainer = null;
+/**
+ * Utility that creates visually hidden elements with a message content. Useful for elements that
+ * want to use aria-describedby to further describe themselves without adding additional visual
+ * content.
+ * \@docs-private
+ */
+var AriaDescriber = (function () {
+    /**
+     * @param {?} _platform
+     */
+    function AriaDescriber(_platform) {
+        this._platform = _platform;
+    }
+    /**
+     * Adds to the host element an aria-describedby reference to a hidden element that contains
+     * the message. If the same message has already been registered, then it will reuse the created
+     * message element.
+     * @param {?} hostElement
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype.describe = function (hostElement, message) {
+        if (!this._platform.isBrowser || !message.trim()) {
+            return;
+        }
+        if (!messageRegistry.has(message)) {
+            createMessageElement(message);
+        }
+        if (!isElementDescribedByMessage(hostElement, message)) {
+            addMessageReference(hostElement, message);
+        }
+    };
+    /**
+     * Removes the host element's aria-describedby reference to the message element.
+     * @param {?} hostElement
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype.removeDescription = function (hostElement, message) {
+        if (!this._platform.isBrowser || !message.trim()) {
+            return;
+        }
+        if (isElementDescribedByMessage(hostElement, message)) {
+            removeMessageReference(hostElement, message);
+        }
+        var /** @type {?} */ registeredMessage = messageRegistry.get(message);
+        if (registeredMessage && registeredMessage.referenceCount === 0) {
+            deleteMessageElement(message);
+        }
+        if (messagesContainer && messagesContainer.childNodes.length === 0) {
+            deleteMessagesContainer();
+        }
+    };
+    /**
+     * Unregisters all created message elements and removes the message container.
+     * @return {?}
+     */
+    AriaDescriber.prototype.ngOnDestroy = function () {
+        if (!this._platform.isBrowser) {
+            return;
+        }
+        var /** @type {?} */ describedElements = document.querySelectorAll("[" + CDK_DESCRIBEDBY_HOST_ATTRIBUTE + "]");
+        for (var /** @type {?} */ i = 0; i < describedElements.length; i++) {
+            removeCdkDescribedByReferenceIds(describedElements[i]);
+            describedElements[i].removeAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE);
+        }
+        if (messagesContainer) {
+            deleteMessagesContainer();
+        }
+        messageRegistry.clear();
+    };
+    AriaDescriber.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    AriaDescriber.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return AriaDescriber;
+}());
+/**
+ * Creates a new element in the visually hidden message container element with the message
+ * as its content and adds it to the message registry.
+ * @param {?} message
+ * @return {?}
+ */
+function createMessageElement(message) {
+    var /** @type {?} */ messageElement = document.createElement('div');
+    messageElement.setAttribute('id', CDK_DESCRIBEDBY_ID_PREFIX + "-" + nextId++);
+    messageElement.appendChild(/** @type {?} */ ((document.createTextNode(message))));
+    if (!messagesContainer) {
+        createMessagesContainer();
+    } /** @type {?} */
+    ((messagesContainer)).appendChild(messageElement);
+    messageRegistry.set(message, { messageElement: messageElement, referenceCount: 0 });
+}
+/**
+ * Deletes the message element from the global messages container.
+ * @param {?} message
+ * @return {?}
+ */
+function deleteMessageElement(message) {
+    var /** @type {?} */ registeredMessage = messageRegistry.get(message);
+    var /** @type {?} */ messageElement = registeredMessage && registeredMessage.messageElement;
+    if (messagesContainer && messageElement) {
+        messagesContainer.removeChild(messageElement);
+    }
+    messageRegistry.delete(message);
+}
+/**
+ * Creates the global container for all aria-describedby messages.
+ * @return {?}
+ */
+function createMessagesContainer() {
+    messagesContainer = document.createElement('div');
+    messagesContainer.setAttribute('id', MESSAGES_CONTAINER_ID);
+    messagesContainer.setAttribute('aria-hidden', 'true');
+    messagesContainer.style.display = 'none';
+    document.body.appendChild(messagesContainer);
+}
+/**
+ * Deletes the global messages container.
+ * @return {?}
+ */
+function deleteMessagesContainer() {
+    document.body.removeChild(/** @type {?} */ ((messagesContainer)));
+    messagesContainer = null;
+}
+/**
+ * Removes all cdk-describedby messages that are hosted through the element.
+ * @param {?} element
+ * @return {?}
+ */
+function removeCdkDescribedByReferenceIds(element) {
+    // Remove all aria-describedby reference IDs that are prefixed by CDK_DESCRIBEDBY_ID_PREFIX
+    var /** @type {?} */ originalReferenceIds = getAriaReferenceIds(element, 'aria-describedby')
+        .filter(function (id) { return id.indexOf(CDK_DESCRIBEDBY_ID_PREFIX) != 0; });
+    element.setAttribute('aria-describedby', originalReferenceIds.join(' '));
+}
+/**
+ * Adds a message reference to the element using aria-describedby and increments the registered
+ * message's reference count.
+ * @param {?} element
+ * @param {?} message
+ * @return {?}
+ */
+function addMessageReference(element, message) {
+    var /** @type {?} */ registeredMessage = ((messageRegistry.get(message)));
+    // Add the aria-describedby reference and set the describedby_host attribute to mark the element.
+    addAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
+    element.setAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE, '');
+    registeredMessage.referenceCount++;
+}
+/**
+ * Removes a message reference from the element using aria-describedby and decrements the registered
+ * message's reference count.
+ * @param {?} element
+ * @param {?} message
+ * @return {?}
+ */
+function removeMessageReference(element, message) {
+    var /** @type {?} */ registeredMessage = ((messageRegistry.get(message)));
+    registeredMessage.referenceCount--;
+    removeAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
+    element.removeAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE);
+}
+/**
+ * Returns true if the element has been described by the provided message ID.
+ * @param {?} element
+ * @param {?} message
+ * @return {?}
+ */
+function isElementDescribedByMessage(element, message) {
+    var /** @type {?} */ referenceIds = getAriaReferenceIds(element, 'aria-describedby');
+    var /** @type {?} */ registeredMessage = messageRegistry.get(message);
+    var /** @type {?} */ messageId = registeredMessage && registeredMessage.messageElement.id;
+    return !!messageId && referenceIds.indexOf(messageId) != -1;
+}
+/**
+ * \@docs-private
+ * @param {?} parentDispatcher
+ * @param {?} platform
+ * @return {?}
+ */
+function ARIA_DESCRIBER_PROVIDER_FACTORY(parentDispatcher, platform) {
+    return parentDispatcher || new AriaDescriber(platform);
+}
+/**
+ * \@docs-private
+ */
+var ARIA_DESCRIBER_PROVIDER = {
+    // If there is already an AriaDescriber available, use that. Otherwise, provide a new one.
+    provide: AriaDescriber,
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_5__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_5__angular_core__["_8" /* SkipSelf */](), AriaDescriber],
+        __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */]
+    ],
+    useFactory: ARIA_DESCRIBER_PROVIDER_FACTORY
+};
+
+/**
+ * Screenreaders will often fire fake mousedown events when a focusable element
+ * is activated using the keyboard. We can typically distinguish between these faked
+ * mousedown events and real mousedown events using the "buttons" property. While
+ * real mousedowns will indicate the mouse button that was pressed (e.g. "1" for
+ * the left mouse button), faked mousedowns will usually set the property value to 0.
+ * @param {?} event
+ * @return {?}
+ */
+function isFakeMousedownFromScreenReader(event) {
+    return event.buttons === 0;
+}
+
+var FocusKeyManager = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(FocusKeyManager, _super);
+    function FocusKeyManager() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds focuses the newly active item.
+     * @param {?} index
+     * @return {?}
+     */
+    FocusKeyManager.prototype.setActiveItem = function (index) {
+        _super.prototype.setActiveItem.call(this, index);
+        if (this.activeItem) {
+            this.activeItem.focus();
+        }
+    };
+    return FocusKeyManager;
+}(ListKeyManager));
+
+/**
+ * Utility for checking the interactivity of an element, such as whether is is focusable or
+ * tabbable.
+ */
+var InteractivityChecker = (function () {
+    /**
+     * @param {?} _platform
+     */
+    function InteractivityChecker(_platform) {
+        this._platform = _platform;
+    }
+    /**
+     * Gets whether an element is disabled.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is disabled.
+     */
+    InteractivityChecker.prototype.isDisabled = function (element) {
+        // This does not capture some cases, such as a non-form control with a disabled attribute or
+        // a form control inside of a disabled form, but should capture the most common cases.
+        return element.hasAttribute('disabled');
+    };
+    /**
+     * Gets whether an element is visible for the purposes of interactivity.
+     *
+     * This will capture states like `display: none` and `visibility: hidden`, but not things like
+     * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @param {?} element
+     * @return {?} Whether the element is visible.
+     */
+    InteractivityChecker.prototype.isVisible = function (element) {
+        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
+    };
+    /**
+     * Gets whether an element can be reached via Tab key.
+     * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is tabbable.
+     */
+    InteractivityChecker.prototype.isTabbable = function (element) {
+        // Nothing is tabbable on the the server 😎
+        if (!this._platform.isBrowser) {
+            return false;
+        }
+        var /** @type {?} */ frameElement = (getWindow(element).frameElement);
+        if (frameElement) {
+            var /** @type {?} */ frameType = frameElement && frameElement.nodeName.toLowerCase();
+            // Frame elements inherit their tabindex onto all child elements.
+            if (getTabIndexValue(frameElement) === -1) {
+                return false;
+            }
+            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
+                return false;
+            }
+            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
+                return false;
+            }
+        }
+        var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+        var /** @type {?} */ tabIndexValue = getTabIndexValue(element);
+        if (element.hasAttribute('contenteditable')) {
+            return tabIndexValue !== -1;
+        }
+        if (nodeName === 'iframe') {
+            // The frames may be tabbable depending on content, but it's not possibly to reliably
+            // investigate the content of the frames.
+            return false;
+        }
+        if (nodeName === 'audio') {
+            if (!element.hasAttribute('controls')) {
+                // By default an <audio> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK) {
+                // In Blink <audio controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'video') {
+            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
+                // In Trident a <video> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK || this._platform.FIREFOX) {
+                // In Chrome and Firefox <video controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
+            // In all Blink and WebKit based browsers <object> elements are never tabbable.
+            return false;
+        }
+        // In iOS the browser only considers some specific elements as tabbable.
+        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
+            return false;
+        }
+        return element.tabIndex >= 0;
+    };
+    /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is focusable.
+     */
+    InteractivityChecker.prototype.isFocusable = function (element) {
+        // Perform checks in order of left to most expensive.
+        // Again, naive approach that does not capture many edge cases and browser quirks.
+        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
+    };
+    InteractivityChecker.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    InteractivityChecker.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return InteractivityChecker;
+}());
+/**
+ * Checks whether the specified element has any geometry / rectangles.
+ * @param {?} element
+ * @return {?}
+ */
+function hasGeometry(element) {
+    // Use logic from jQuery to check for an invisible element.
+    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
+    return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+}
+/**
+ * Gets whether an element's
+ * @param {?} element
+ * @return {?}
+ */
+function isNativeFormElement(element) {
+    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+    return nodeName === 'input' ||
+        nodeName === 'select' ||
+        nodeName === 'button' ||
+        nodeName === 'textarea';
+}
+/**
+ * Gets whether an element is an <input type="hidden">.
+ * @param {?} element
+ * @return {?}
+ */
+function isHiddenInput(element) {
+    return isInputElement(element) && element.type == 'hidden';
+}
+/**
+ * Gets whether an element is an anchor that has an href attribute.
+ * @param {?} element
+ * @return {?}
+ */
+function isAnchorWithHref(element) {
+    return isAnchorElement(element) && element.hasAttribute('href');
+}
+/**
+ * Gets whether an element is an input element.
+ * @param {?} element
+ * @return {?}
+ */
+function isInputElement(element) {
+    return element.nodeName.toLowerCase() == 'input';
+}
+/**
+ * Gets whether an element is an anchor element.
+ * @param {?} element
+ * @return {?}
+ */
+function isAnchorElement(element) {
+    return element.nodeName.toLowerCase() == 'a';
+}
+/**
+ * Gets whether an element has a valid tabindex.
+ * @param {?} element
+ * @return {?}
+ */
+function hasValidTabIndex(element) {
+    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
+        return false;
+    }
+    var /** @type {?} */ tabIndex = element.getAttribute('tabindex');
+    // IE11 parses tabindex="" as the value "-32768"
+    if (tabIndex == '-32768') {
+        return false;
+    }
+    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
+}
+/**
+ * Returns the parsed tabindex from the element attributes instead of returning the
+ * evaluated tabindex from the browsers defaults.
+ * @param {?} element
+ * @return {?}
+ */
+function getTabIndexValue(element) {
+    if (!hasValidTabIndex(element)) {
+        return null;
+    }
+    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
+    var /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex') || '', 10);
+    return isNaN(tabIndex) ? -1 : tabIndex;
+}
+/**
+ * Checks whether the specified element is potentially tabbable on iOS
+ * @param {?} element
+ * @return {?}
+ */
+function isPotentiallyTabbableIOS(element) {
+    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+    var /** @type {?} */ inputType = nodeName === 'input' && ((element)).type;
+    return inputType === 'text'
+        || inputType === 'password'
+        || nodeName === 'select'
+        || nodeName === 'textarea';
+}
+/**
+ * Gets whether an element is potentially focusable without taking current visible/disabled state
+ * into account.
+ * @param {?} element
+ * @return {?}
+ */
+function isPotentiallyFocusable(element) {
+    // Inputs are potentially focusable *unless* they're type="hidden".
+    if (isHiddenInput(element)) {
+        return false;
+    }
+    return isNativeFormElement(element) ||
+        isAnchorWithHref(element) ||
+        element.hasAttribute('contenteditable') ||
+        hasValidTabIndex(element);
+}
+/**
+ * Gets the parent window of a DOM node with regards of being inside of an iframe.
+ * @param {?} node
+ * @return {?}
+ */
+function getWindow(node) {
+    return node.ownerDocument.defaultView || window;
+}
+
+/**
+ * Class that allows for trapping focus within a DOM element.
+ *
+ * NOTE: This class currently uses a very simple (naive) approach to focus trapping.
+ * It assumes that the tab order is the same as DOM order, which is not necessarily true.
+ * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
+ * This will be replaced with a more intelligent solution before the library is considered stable.
+ */
+var FocusTrap = (function () {
+    /**
+     * @param {?} _element
+     * @param {?} _platform
+     * @param {?} _checker
+     * @param {?} _ngZone
+     * @param {?=} deferAnchors
+     */
+    function FocusTrap(_element, _platform, _checker, _ngZone, deferAnchors) {
+        if (deferAnchors === void 0) { deferAnchors = false; }
+        this._element = _element;
+        this._platform = _platform;
+        this._checker = _checker;
+        this._ngZone = _ngZone;
+        this._enabled = true;
+        if (!deferAnchors) {
+            this.attachAnchors();
+        }
+    }
+    Object.defineProperty(FocusTrap.prototype, "enabled", {
+        /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        get: function () { return this._enabled; },
+        /**
+         * @param {?} val
+         * @return {?}
+         */
+        set: function (val) {
+            this._enabled = val;
+            if (this._startAnchor && this._endAnchor) {
+                this._startAnchor.tabIndex = this._endAnchor.tabIndex = this._enabled ? 0 : -1;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Destroys the focus trap by cleaning up the anchors.
+     * @return {?}
+     */
+    FocusTrap.prototype.destroy = function () {
+        if (this._startAnchor && this._startAnchor.parentNode) {
+            this._startAnchor.parentNode.removeChild(this._startAnchor);
+        }
+        if (this._endAnchor && this._endAnchor.parentNode) {
+            this._endAnchor.parentNode.removeChild(this._endAnchor);
+        }
+        this._startAnchor = this._endAnchor = null;
+    };
+    /**
+     * Inserts the anchors into the DOM. This is usually done automatically
+     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
+     * @return {?}
+     */
+    FocusTrap.prototype.attachAnchors = function () {
+        var _this = this;
+        // If we're not on the browser, there can be no focus to trap.
+        if (!this._platform.isBrowser) {
+            return;
+        }
+        if (!this._startAnchor) {
+            this._startAnchor = this._createAnchor();
+        }
+        if (!this._endAnchor) {
+            this._endAnchor = this._createAnchor();
+        }
+        this._ngZone.runOutsideAngular(function () {
+            ((_this._startAnchor)).addEventListener('focus', function () {
+                _this.focusLastTabbableElement();
+            }); /** @type {?} */
+            ((_this._endAnchor)).addEventListener('focus', function () {
+                _this.focusFirstTabbableElement();
+            });
+            if (_this._element.parentNode) {
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._startAnchor)), _this._element);
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._endAnchor)), _this._element.nextSibling);
+            }
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusInitialElementWhenReady = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusInitialElement()); });
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the first tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusFirstTabbableElementWhenReady = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusFirstTabbableElement()); });
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the last tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusLastTabbableElementWhenReady = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusLastTabbableElement()); });
+        });
+    };
+    /**
+     * Get the specified boundary element of the trapped region.
+     * @param {?} bound The boundary to get (start or end of trapped region).
+     * @return {?} The boundary element.
+     */
+    FocusTrap.prototype._getRegionBoundary = function (bound) {
+        // Contains the deprecated version of selector, for temporary backwards comparability.
+        var /** @type {?} */ markers = (this._element.querySelectorAll("[cdk-focus-region-" + bound + "], " +
+            ("[cdk-focus-" + bound + "]")));
+        for (var /** @type {?} */ i = 0; i < markers.length; i++) {
+            if (markers[i].hasAttribute("cdk-focus-" + bound)) {
+                console.warn("Found use of deprecated attribute 'cdk-focus-" + bound + "'," +
+                    (" use 'cdk-focus-region-" + bound + "' instead."), markers[i]);
+            }
+        }
+        if (bound == 'start') {
+            return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
+        }
+        return markers.length ?
+            markers[markers.length - 1] : this._getLastTabbableElement(this._element);
+    };
+    /**
+     * Focuses the element that should be focused when the focus trap is initialized.
+     * @return {?} Returns whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusInitialElement = function () {
+        var /** @type {?} */ redirectToElement = (this._element.querySelector('[cdk-focus-initial]'));
+        if (redirectToElement) {
+            redirectToElement.focus();
+            return true;
+        }
+        return this.focusFirstTabbableElement();
+    };
+    /**
+     * Focuses the first tabbable element within the focus trap region.
+     * @return {?} Returns whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusFirstTabbableElement = function () {
+        var /** @type {?} */ redirectToElement = this._getRegionBoundary('start');
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+        return !!redirectToElement;
+    };
+    /**
+     * Focuses the last tabbable element within the focus trap region.
+     * @return {?} Returns whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusLastTabbableElement = function () {
+        var /** @type {?} */ redirectToElement = this._getRegionBoundary('end');
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+        return !!redirectToElement;
+    };
+    /**
+     * Get the first tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    FocusTrap.prototype._getFirstTabbableElement = function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
+        // back to `childNodes` which includes text nodes, comments etc.
+        var /** @type {?} */ children = root.children || root.childNodes;
+        for (var /** @type {?} */ i = 0; i < children.length; i++) {
+            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
+                this._getFirstTabbableElement(/** @type {?} */ (children[i])) :
+                null;
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    /**
+     * Get the last tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    FocusTrap.prototype._getLastTabbableElement = function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in reverse DOM order.
+        var /** @type {?} */ children = root.children || root.childNodes;
+        for (var /** @type {?} */ i = children.length - 1; i >= 0; i--) {
+            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
+                this._getLastTabbableElement(/** @type {?} */ (children[i])) :
+                null;
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    /**
+     * Creates an anchor element.
+     * @return {?}
+     */
+    FocusTrap.prototype._createAnchor = function () {
+        var /** @type {?} */ anchor = document.createElement('div');
+        anchor.tabIndex = this._enabled ? 0 : -1;
+        anchor.classList.add('cdk-visually-hidden');
+        anchor.classList.add('cdk-focus-trap-anchor');
+        return anchor;
+    };
+    /**
+     * Executes a function when the zone is stable.
+     * @param {?} fn
+     * @return {?}
+     */
+    FocusTrap.prototype._executeOnStable = function (fn) {
+        if (this._ngZone.isStable) {
+            fn();
+        }
+        else {
+            __WEBPACK_IMPORTED_MODULE_4__angular_cdk_rxjs__["e" /* first */].call(this._ngZone.onStable.asObservable()).subscribe(fn);
+        }
+    };
+    return FocusTrap;
+}());
+/**
+ * Factory that allows easy instantiation of focus traps.
+ */
+var FocusTrapFactory = (function () {
+    /**
+     * @param {?} _checker
+     * @param {?} _platform
+     * @param {?} _ngZone
+     */
+    function FocusTrapFactory(_checker, _platform, _ngZone) {
+        this._checker = _checker;
+        this._platform = _platform;
+        this._ngZone = _ngZone;
+    }
+    /**
+     * @param {?} element
+     * @param {?=} deferAnchors
+     * @return {?}
+     */
+    FocusTrapFactory.prototype.create = function (element, deferAnchors) {
+        if (deferAnchors === void 0) { deferAnchors = false; }
+        return new FocusTrap(element, this._platform, this._checker, this._ngZone, deferAnchors);
+    };
+    FocusTrapFactory.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    FocusTrapFactory.ctorParameters = function () { return [
+        { type: InteractivityChecker, },
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */], },
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["R" /* NgZone */], },
+    ]; };
+    return FocusTrapFactory;
+}());
+/**
+ * Directive for trapping focus within a region.
+ * @deprecated
+ */
+var FocusTrapDeprecatedDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _focusTrapFactory
+     */
+    function FocusTrapDeprecatedDirective(_elementRef, _focusTrapFactory) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(FocusTrapDeprecatedDirective.prototype, "disabled", {
+        /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        get: function () { return !this.focusTrap.enabled; },
+        /**
+         * @param {?} val
+         * @return {?}
+         */
+        set: function (val) {
+            this.focusTrap.enabled = !Object(__WEBPACK_IMPORTED_MODULE_7__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(val);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    FocusTrapDeprecatedDirective.prototype.ngOnDestroy = function () {
+        this.focusTrap.destroy();
+    };
+    /**
+     * @return {?}
+     */
+    FocusTrapDeprecatedDirective.prototype.ngAfterContentInit = function () {
+        this.focusTrap.attachAnchors();
+    };
+    FocusTrapDeprecatedDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["u" /* Directive */], args: [{
+                    selector: 'cdk-focus-trap',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    FocusTrapDeprecatedDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["v" /* ElementRef */], },
+        { type: FocusTrapFactory, },
+    ]; };
+    FocusTrapDeprecatedDirective.propDecorators = {
+        'disabled': [{ type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["F" /* Input */] },],
+    };
+    return FocusTrapDeprecatedDirective;
+}());
+/**
+ * Directive for trapping focus within a region.
+ */
+var FocusTrapDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _focusTrapFactory
+     */
+    function FocusTrapDirective(_elementRef, _focusTrapFactory) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(FocusTrapDirective.prototype, "enabled", {
+        /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        get: function () { return this.focusTrap.enabled; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.focusTrap.enabled = Object(__WEBPACK_IMPORTED_MODULE_7__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    FocusTrapDirective.prototype.ngOnDestroy = function () {
+        this.focusTrap.destroy();
+    };
+    /**
+     * @return {?}
+     */
+    FocusTrapDirective.prototype.ngAfterContentInit = function () {
+        this.focusTrap.attachAnchors();
+    };
+    FocusTrapDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdkTrapFocus]',
+                    exportAs: 'cdkTrapFocus',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    FocusTrapDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["v" /* ElementRef */], },
+        { type: FocusTrapFactory, },
+    ]; };
+    FocusTrapDirective.propDecorators = {
+        'enabled': [{ type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["F" /* Input */], args: ['cdkTrapFocus',] },],
+    };
+    return FocusTrapDirective;
+}());
+
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_5__angular_core__["D" /* InjectionToken */]('liveAnnouncerElement');
+var LiveAnnouncer = (function () {
+    /**
+     * @param {?} elementToken
+     * @param {?} platform
+     */
+    function LiveAnnouncer(elementToken, platform) {
+        // Only do anything if we're on the browser platform.
+        if (platform.isBrowser) {
+            // We inject the live element as `any` because the constructor signature cannot reference
+            // browser globals (HTMLElement) on non-browser environments, since having a class decorator
+            // causes TypeScript to preserve the constructor signature types.
+            this._liveElement = elementToken || this._createLiveElement();
+        }
+    }
+    /**
+     * Announces a message to screenreaders.
+     * @param {?} message Message to be announced to the screenreader
+     * @param {?=} politeness The politeness of the announcer element
+     * @return {?}
+     */
+    LiveAnnouncer.prototype.announce = function (message, politeness) {
+        var _this = this;
+        if (politeness === void 0) { politeness = 'polite'; }
+        this._liveElement.textContent = '';
+        // TODO: ensure changing the politeness works on all environments we support.
+        this._liveElement.setAttribute('aria-live', politeness);
+        // This 100ms timeout is necessary for some browser + screen-reader combinations:
+        // - Both JAWS and NVDA over IE11 will not announce anything without a non-zero timeout.
+        // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
+        //   second time without clearing and then using a non-zero delay.
+        // (using JAWS 17 at time of this writing).
+        setTimeout(function () { return _this._liveElement.textContent = message; }, 100);
+    };
+    /**
+     * @return {?}
+     */
+    LiveAnnouncer.prototype.ngOnDestroy = function () {
+        if (this._liveElement && this._liveElement.parentNode) {
+            this._liveElement.parentNode.removeChild(this._liveElement);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    LiveAnnouncer.prototype._createLiveElement = function () {
+        var /** @type {?} */ liveEl = document.createElement('div');
+        liveEl.classList.add('cdk-visually-hidden');
+        liveEl.setAttribute('aria-atomic', 'true');
+        liveEl.setAttribute('aria-live', 'polite');
+        document.body.appendChild(liveEl);
+        return liveEl;
+    };
+    LiveAnnouncer.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    LiveAnnouncer.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["S" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["B" /* Inject */], args: [LIVE_ANNOUNCER_ELEMENT_TOKEN,] },] },
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return LiveAnnouncer;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentDispatcher
+ * @param {?} liveElement
+ * @param {?} platform
+ * @return {?}
+ */
+function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement, platform) {
+    return parentDispatcher || new LiveAnnouncer(liveElement, platform);
+}
+/**
+ * \@docs-private
+ */
+var LIVE_ANNOUNCER_PROVIDER = {
+    // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
+    provide: LiveAnnouncer,
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_5__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_5__angular_core__["_8" /* SkipSelf */](), LiveAnnouncer],
+        [new __WEBPACK_IMPORTED_MODULE_5__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_5__angular_core__["B" /* Inject */](LIVE_ANNOUNCER_ELEMENT_TOKEN)],
+        __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */],
+    ],
+    useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
+};
+
+// This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
+// that a value of around 650ms seems appropriate.
+var TOUCH_BUFFER_MS = 650;
+/**
+ * Monitors mouse and keyboard events to determine the cause of focus events.
+ */
+var FocusMonitor = (function () {
+    /**
+     * @param {?} _ngZone
+     * @param {?} _platform
+     */
+    function FocusMonitor(_ngZone, _platform) {
+        var _this = this;
+        this._ngZone = _ngZone;
+        this._platform = _platform;
+        /**
+         * The focus origin that the next focus event is a result of.
+         */
+        this._origin = null;
+        /**
+         * Whether the window has just been focused.
+         */
+        this._windowFocused = false;
+        /**
+         * Weak map of elements being monitored to their info.
+         */
+        this._elementInfo = new WeakMap();
+        this._ngZone.runOutsideAngular(function () { return _this._registerDocumentEvents(); });
+    }
+    /**
+     * Monitors focus on an element and applies appropriate CSS classes.
+     * @param {?} element The element to monitor
+     * @param {?} renderer The renderer to use to apply CSS classes to the element.
+     * @param {?} checkChildren Whether to count the element as focused when its children are focused.
+     * @return {?} An observable that emits when the focus state of the element changes.
+     *     When the element is blurred, null will be emitted.
+     */
+    FocusMonitor.prototype.monitor = function (element, renderer, checkChildren) {
+        var _this = this;
+        // Do nothing if we're not on the browser platform.
+        if (!this._platform.isBrowser) {
+            return Object(__WEBPACK_IMPORTED_MODULE_8_rxjs_observable_of__["a" /* of */])(null);
+        }
+        // Check if we're already monitoring this element.
+        if (this._elementInfo.has(element)) {
+            var /** @type {?} */ cachedInfo = this._elementInfo.get(element); /** @type {?} */
+            ((cachedInfo)).checkChildren = checkChildren;
+            return ((cachedInfo)).subject.asObservable();
+        }
+        // Create monitored element info.
+        var /** @type {?} */ info = {
+            unlisten: function () { },
+            checkChildren: checkChildren,
+            renderer: renderer,
+            subject: new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]()
+        };
+        this._elementInfo.set(element, info);
+        // Start listening. We need to listen in capture phase since focus events don't bubble.
+        var /** @type {?} */ focusListener = function (event) { return _this._onFocus(event, element); };
+        var /** @type {?} */ blurListener = function (event) { return _this._onBlur(event, element); };
+        this._ngZone.runOutsideAngular(function () {
+            element.addEventListener('focus', focusListener, true);
+            element.addEventListener('blur', blurListener, true);
+        });
+        // Create an unlisten function for later.
+        info.unlisten = function () {
+            element.removeEventListener('focus', focusListener, true);
+            element.removeEventListener('blur', blurListener, true);
+        };
+        return info.subject.asObservable();
+    };
+    /**
+     * Stops monitoring an element and removes all focus classes.
+     * @param {?} element The element to stop monitoring.
+     * @return {?}
+     */
+    FocusMonitor.prototype.stopMonitoring = function (element) {
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (elementInfo) {
+            elementInfo.unlisten();
+            elementInfo.subject.complete();
+            this._setClasses(element);
+            this._elementInfo.delete(element);
+        }
+    };
+    /**
+     * Focuses the element via the specified focus origin.
+     * @param {?} element The element to focus.
+     * @param {?} origin The focus origin.
+     * @return {?}
+     */
+    FocusMonitor.prototype.focusVia = function (element, origin) {
+        this._setOriginForCurrentEventQueue(origin);
+        element.focus();
+    };
+    /**
+     * Register necessary event listeners on the document and window.
+     * @return {?}
+     */
+    FocusMonitor.prototype._registerDocumentEvents = function () {
+        var _this = this;
+        // Do nothing if we're not on the browser platform.
+        if (!this._platform.isBrowser) {
+            return;
+        }
+        // Note: we listen to events in the capture phase so we can detect them even if the user stops
+        // propagation.
+        // On keydown record the origin and clear any touch event that may be in progress.
+        document.addEventListener('keydown', function () {
+            _this._lastTouchTarget = null;
+            _this._setOriginForCurrentEventQueue('keyboard');
+        }, true);
+        // On mousedown record the origin only if there is not touch target, since a mousedown can
+        // happen as a result of a touch event.
+        document.addEventListener('mousedown', function () {
+            if (!_this._lastTouchTarget) {
+                _this._setOriginForCurrentEventQueue('mouse');
+            }
+        }, true);
+        // When the touchstart event fires the focus event is not yet in the event queue. This means
+        // we can't rely on the trick used above (setting timeout of 0ms). Instead we wait 650ms to
+        // see if a focus happens.
+        document.addEventListener('touchstart', function (event) {
+            if (_this._touchTimeout != null) {
+                clearTimeout(_this._touchTimeout);
+            }
+            _this._lastTouchTarget = event.target;
+            _this._touchTimeout = setTimeout(function () { return _this._lastTouchTarget = null; }, TOUCH_BUFFER_MS);
+        }, true);
+        // Make a note of when the window regains focus, so we can restore the origin info for the
+        // focused element.
+        window.addEventListener('focus', function () {
+            _this._windowFocused = true;
+            setTimeout(function () { return _this._windowFocused = false; }, 0);
+        });
+    };
+    /**
+     * Sets the focus classes on the element based on the given focus origin.
+     * @param {?} element The element to update the classes on.
+     * @param {?=} origin The focus origin.
+     * @return {?}
+     */
+    FocusMonitor.prototype._setClasses = function (element, origin) {
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (elementInfo) {
+            var /** @type {?} */ toggleClass = function (className, shouldSet) {
+                shouldSet ? elementInfo.renderer.addClass(element, className) :
+                    elementInfo.renderer.removeClass(element, className);
+            };
+            toggleClass('cdk-focused', !!origin);
+            toggleClass('cdk-touch-focused', origin === 'touch');
+            toggleClass('cdk-keyboard-focused', origin === 'keyboard');
+            toggleClass('cdk-mouse-focused', origin === 'mouse');
+            toggleClass('cdk-program-focused', origin === 'program');
+        }
+    };
+    /**
+     * Sets the origin and schedules an async function to clear it at the end of the event queue.
+     * @param {?} origin The origin to set.
+     * @return {?}
+     */
+    FocusMonitor.prototype._setOriginForCurrentEventQueue = function (origin) {
+        var _this = this;
+        this._origin = origin;
+        setTimeout(function () { return _this._origin = null; }, 0);
+    };
+    /**
+     * Checks whether the given focus event was caused by a touchstart event.
+     * @param {?} event The focus event to check.
+     * @return {?} Whether the event was caused by a touch.
+     */
+    FocusMonitor.prototype._wasCausedByTouch = function (event) {
+        // Note(mmalerba): This implementation is not quite perfect, there is a small edge case.
+        // Consider the following dom structure:
+        //
+        // <div #parent tabindex="0" cdkFocusClasses>
+        //   <div #child (click)="#parent.focus()"></div>
+        // </div>
+        //
+        // If the user touches the #child element and the #parent is programmatically focused as a
+        // result, this code will still consider it to have been caused by the touch event and will
+        // apply the cdk-touch-focused class rather than the cdk-program-focused class. This is a
+        // relatively small edge-case that can be worked around by using
+        // focusVia(parentEl, renderer,  'program') to focus the parent element.
+        //
+        // If we decide that we absolutely must handle this case correctly, we can do so by listening
+        // for the first focus event after the touchstart, and then the first blur event after that
+        // focus event. When that blur event fires we know that whatever follows is not a result of the
+        // touchstart.
+        var /** @type {?} */ focusTarget = event.target;
+        return this._lastTouchTarget instanceof Node && focusTarget instanceof Node &&
+            (focusTarget === this._lastTouchTarget || focusTarget.contains(this._lastTouchTarget));
+    };
+    /**
+     * Handles focus events on a registered element.
+     * @param {?} event The focus event.
+     * @param {?} element The monitored element.
+     * @return {?}
+     */
+    FocusMonitor.prototype._onFocus = function (event, element) {
+        // NOTE(mmalerba): We currently set the classes based on the focus origin of the most recent
+        // focus event affecting the monitored element. If we want to use the origin of the first event
+        // instead we should check for the cdk-focused class here and return if the element already has
+        // it. (This only matters for elements that have includesChildren = true).
+        // If we are not counting child-element-focus as focused, make sure that the event target is the
+        // monitored element itself.
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (!elementInfo || (!elementInfo.checkChildren && element !== event.target)) {
+            return;
+        }
+        // If we couldn't detect a cause for the focus event, it's due to one of three reasons:
+        // 1) The window has just regained focus, in which case we want to restore the focused state of
+        //    the element from before the window blurred.
+        // 2) It was caused by a touch event, in which case we mark the origin as 'touch'.
+        // 3) The element was programmatically focused, in which case we should mark the origin as
+        //    'program'.
+        if (!this._origin) {
+            if (this._windowFocused && this._lastFocusOrigin) {
+                this._origin = this._lastFocusOrigin;
+            }
+            else if (this._wasCausedByTouch(event)) {
+                this._origin = 'touch';
+            }
+            else {
+                this._origin = 'program';
+            }
+        }
+        this._setClasses(element, this._origin);
+        elementInfo.subject.next(this._origin);
+        this._lastFocusOrigin = this._origin;
+        this._origin = null;
+    };
+    /**
+     * Handles blur events on a registered element.
+     * @param {?} event The blur event.
+     * @param {?} element The monitored element.
+     * @return {?}
+     */
+    FocusMonitor.prototype._onBlur = function (event, element) {
+        // If we are counting child-element-focus as focused, make sure that we aren't just blurring in
+        // order to focus another child of the monitored element.
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (!elementInfo || (elementInfo.checkChildren && event.relatedTarget instanceof Node &&
+            element.contains(event.relatedTarget))) {
+            return;
+        }
+        this._setClasses(element);
+        elementInfo.subject.next(null);
+    };
+    FocusMonitor.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    FocusMonitor.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["R" /* NgZone */], },
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return FocusMonitor;
+}());
+/**
+ * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
+ * programmatically) and adds corresponding classes to the element.
+ *
+ * There are two variants of this directive:
+ * 1) cdkMonitorElementFocus: does not consider an element to be focused if one of its children is
+ *    focused.
+ * 2) cdkMonitorSubtreeFocus: considers an element focused if it or any of its children are focused.
+ */
+var CdkMonitorFocus = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _focusMonitor
+     * @param {?} renderer
+     */
+    function CdkMonitorFocus(_elementRef, _focusMonitor, renderer) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._focusMonitor = _focusMonitor;
+        this.cdkFocusChange = new __WEBPACK_IMPORTED_MODULE_5__angular_core__["x" /* EventEmitter */]();
+        this._monitorSubscription = this._focusMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
+            .subscribe(function (origin) { return _this.cdkFocusChange.emit(origin); });
+    }
+    /**
+     * @return {?}
+     */
+    CdkMonitorFocus.prototype.ngOnDestroy = function () {
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._monitorSubscription.unsubscribe();
+    };
+    CdkMonitorFocus.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    CdkMonitorFocus.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["v" /* ElementRef */], },
+        { type: FocusMonitor, },
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["_2" /* Renderer2 */], },
+    ]; };
+    CdkMonitorFocus.propDecorators = {
+        'cdkFocusChange': [{ type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["T" /* Output */] },],
+    };
+    return CdkMonitorFocus;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentDispatcher
+ * @param {?} ngZone
+ * @param {?} platform
+ * @return {?}
+ */
+function FOCUS_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
+    return parentDispatcher || new FocusMonitor(ngZone, platform);
+}
+/**
+ * \@docs-private
+ */
+var FOCUS_MONITOR_PROVIDER = {
+    // If there is already a FocusMonitor available, use that. Otherwise, provide a new one.
+    provide: FocusMonitor,
+    deps: [[new __WEBPACK_IMPORTED_MODULE_5__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_5__angular_core__["_8" /* SkipSelf */](), FocusMonitor], __WEBPACK_IMPORTED_MODULE_5__angular_core__["R" /* NgZone */], __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["a" /* Platform */]],
+    useFactory: FOCUS_MONITOR_PROVIDER_FACTORY
+};
+
+var A11yModule = (function () {
+    function A11yModule() {
+    }
+    A11yModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_5__angular_core__["M" /* NgModule */], args: [{
+                    imports: [__WEBPACK_IMPORTED_MODULE_9__angular_common__["b" /* CommonModule */], __WEBPACK_IMPORTED_MODULE_6__angular_cdk_platform__["b" /* PlatformModule */]],
+                    declarations: [FocusTrapDirective, FocusTrapDeprecatedDirective, CdkMonitorFocus],
+                    exports: [FocusTrapDirective, FocusTrapDeprecatedDirective, CdkMonitorFocus],
+                    providers: [
+                        InteractivityChecker,
+                        FocusTrapFactory,
+                        AriaDescriber,
+                        LIVE_ANNOUNCER_PROVIDER,
+                        ARIA_DESCRIBER_PROVIDER,
+                        FOCUS_MONITOR_PROVIDER,
+                    ]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    A11yModule.ctorParameters = function () { return []; };
+    return A11yModule;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=a11y.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/bidi.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Directionality; });
+/* unused harmony export DIRECTIONALITY_PROVIDER_FACTORY */
+/* unused harmony export DIRECTIONALITY_PROVIDER */
+/* unused harmony export DIR_DOCUMENT */
+/* unused harmony export Dir */
+/* unused harmony export BidiModule */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+/**
+ * Injection token used to inject the document into Directionality.
+ * This is used so that the value can be faked in tests.
+ *
+ * We can't use the real document in tests because changing the real `dir` causes geometry-based
+ * tests in Safari to fail.
+ *
+ * We also can't re-provide the DOCUMENT token from platform-brower because the unit tests
+ * themselves use things like `querySelector` in test code.
+ */
+var DIR_DOCUMENT = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('mat-dir-doc');
+/**
+ * The directionality (LTR / RTL) context for the application (or a subtree of it).
+ * Exposes the current direction and a stream of direction changes.
+ */
+var Directionality = (function () {
+    /**
+     * @param {?=} _document
+     */
+    function Directionality(_document) {
+        this.value = 'ltr';
+        this.change = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        if (_document) {
+            // TODO: handle 'auto' value -
+            // We still need to account for dir="auto".
+            // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
+            // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
+            var bodyDir = _document.body ? _document.body.dir : null;
+            var htmlDir = _document.documentElement ? _document.documentElement.dir : null;
+            this.value = (bodyDir || htmlDir || 'ltr');
+        }
+    }
+    Directionality.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    Directionality.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */], args: [DIR_DOCUMENT,] },] },
+    ]; };
+    return Directionality;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentDirectionality
+ * @param {?} _document
+ * @return {?}
+ */
+function DIRECTIONALITY_PROVIDER_FACTORY(parentDirectionality, _document) {
+    return parentDirectionality || new Directionality(_document);
+}
+/**
+ * \@docs-private
+ */
+var DIRECTIONALITY_PROVIDER = {
+    // If there is already a Directionality available, use that. Otherwise, provide a new one.
+    provide: Directionality,
+    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* SkipSelf */](), Directionality], [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */](), __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["b" /* DOCUMENT */]]],
+    useFactory: DIRECTIONALITY_PROVIDER_FACTORY
+};
+
+/**
+ * Directive to listen for changes of direction of part of the DOM.
+ *
+ * Would provide itself in case a component looks for the Directionality service
+ */
+var Dir = (function () {
+    function Dir() {
+        /**
+         * Layout direction of the element.
+         */
+        this._dir = 'ltr';
+        /**
+         * Whether the `value` has been set to its initial value.
+         */
+        this._isInitialized = false;
+        /**
+         * Event emitted when the direction changes.
+         */
+        this.change = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    Object.defineProperty(Dir.prototype, "dir", {
+        /**
+         * \@docs-private
+         * @return {?}
+         */
+        get: function () {
+            return this._dir;
+        },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) {
+            var /** @type {?} */ old = this._dir;
+            this._dir = v;
+            if (old !== this._dir && this._isInitialized) {
+                this.change.emit();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Dir.prototype, "value", {
+        /**
+         * Current layout direction of the element.
+         * @return {?}
+         */
+        get: function () { return this.dir; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Initialize once default value has been set.
+     * @return {?}
+     */
+    Dir.prototype.ngAfterContentInit = function () {
+        this._isInitialized = true;
+    };
+    Dir.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */], args: [{
+                    selector: '[dir]',
+                    providers: [{ provide: Directionality, useExisting: Dir }],
+                    host: { '[dir]': 'dir' },
+                    exportAs: 'dir',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    Dir.ctorParameters = function () { return []; };
+    Dir.propDecorators = {
+        'change': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */], args: ['dirChange',] },],
+        'dir': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['dir',] },],
+    };
+    return Dir;
+}());
+
+var BidiModule = (function () {
+    function BidiModule() {
+    }
+    BidiModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */], args: [{
+                    exports: [Dir],
+                    declarations: [Dir],
+                    providers: [
+                        { provide: DIR_DOCUMENT, useExisting: __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["b" /* DOCUMENT */] },
+                        Directionality,
+                    ]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    BidiModule.ctorParameters = function () { return []; };
+    return BidiModule;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=bidi.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/coercion.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return coerceBooleanProperty; });
+/* unused harmony export coerceNumberProperty */
+/* unused harmony export coerceArray */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Coerces a data-bound value (typically a string) to a boolean.
+ * @param {?} value
+ * @return {?}
+ */
+function coerceBooleanProperty(value) {
+    return value != null && "" + value !== 'false';
+}
+
+/**
+ * Coerces a data-bound value (typically a string) to a number.
+ * @param {?} value
+ * @param {?=} fallbackValue
+ * @return {?}
+ */
+function coerceNumberProperty(value, fallbackValue) {
+    if (fallbackValue === void 0) { fallbackValue = 0; }
+    // parseFloat(value) handles most of the cases we're interested in (it treats null, empty string,
+    // and other non-number values as NaN, where Number just uses 0) but it considers the string
+    // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
+    return isNaN(parseFloat(/** @type {?} */ (value))) || isNaN(Number(value)) ? fallbackValue : Number(value);
+}
+
+/**
+ * Wraps the provided value in an array, unless the provided value is an array.
+ * @template T
+ * @param {?} value
+ * @return {?}
+ */
+function coerceArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=coercion.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/keycodes.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UP_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DOWN_ARROW; });
+/* unused harmony export RIGHT_ARROW */
+/* unused harmony export LEFT_ARROW */
+/* unused harmony export PAGE_UP */
+/* unused harmony export PAGE_DOWN */
+/* unused harmony export HOME */
+/* unused harmony export END */
+/* unused harmony export ENTER */
+/* unused harmony export SPACE */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TAB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ESCAPE; });
+/* unused harmony export BACKSPACE */
+/* unused harmony export DELETE */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return A; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return Z; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ZERO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NINE; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var RIGHT_ARROW = 39;
+var LEFT_ARROW = 37;
+var PAGE_UP = 33;
+var PAGE_DOWN = 34;
+var HOME = 36;
+var END = 35;
+var ENTER = 13;
+var SPACE = 32;
+var TAB = 9;
+var ESCAPE = 27;
+var BACKSPACE = 8;
+var DELETE = 46;
+var A = 65;
+var Z = 90;
+var ZERO = 48;
+var NINE = 91;
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=keycodes.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/overlay.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Overlay; });
+/* unused harmony export OverlayContainer */
+/* unused harmony export FullscreenOverlayContainer */
+/* unused harmony export OverlayRef */
+/* unused harmony export ConnectedOverlayDirective */
+/* unused harmony export OverlayOrigin */
+/* unused harmony export GlobalPositionStrategy */
+/* unused harmony export ConnectedPositionStrategy */
+/* unused harmony export OverlayConfig */
+/* unused harmony export ConnectionPositionPair */
+/* unused harmony export ScrollingVisibility */
+/* unused harmony export ConnectedOverlayPositionChange */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ScrollStrategyOptions; });
+/* unused harmony export RepositionScrollStrategy */
+/* unused harmony export CloseScrollStrategy */
+/* unused harmony export NoopScrollStrategy */
+/* unused harmony export BlockScrollStrategy */
+/* unused harmony export OVERLAY_PROVIDERS */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return OverlayModule; });
+/* unused harmony export ɵb */
+/* unused harmony export ɵa */
+/* unused harmony export ɵc */
+/* unused harmony export ɵe */
+/* unused harmony export ɵd */
+/* unused harmony export ɵf */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__ = __webpack_require__("../../../cdk/esm5/portal.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__ = __webpack_require__("../../../cdk/esm5/scrolling.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_cdk_bidi__ = __webpack_require__("../../../cdk/esm5/bidi.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
+/* unused harmony reexport ViewportRuler */
+/* unused harmony reexport VIEWPORT_RULER_PROVIDER */
+/* unused harmony reexport Scrollable */
+/* unused harmony reexport ScrollDispatcher */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Scroll strategy that doesn't do anything.
+ */
+var NoopScrollStrategy = (function () {
+    function NoopScrollStrategy() {
+    }
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.enable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.disable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.attach = function () { };
+    return NoopScrollStrategy;
+}());
+
+/**
+ * OverlayConfig captures the initial configuration used when opening an overlay.
+ */
+var OverlayConfig = (function () {
+    /**
+     * @param {?=} config
+     */
+    function OverlayConfig(config) {
+        var _this = this;
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new NoopScrollStrategy();
+        /**
+         * Custom class to add to the overlay pane.
+         */
+        this.panelClass = '';
+        /**
+         * Whether the overlay has a backdrop.
+         */
+        this.hasBackdrop = false;
+        /**
+         * Custom class to add to the backdrop
+         */
+        this.backdropClass = 'cdk-overlay-dark-backdrop';
+        /**
+         * The direction of the text in the overlay panel.
+         */
+        this.direction = 'ltr';
+        if (config) {
+            Object.keys(config).forEach(function (key) { return _this[key] = config[key]; });
+        }
+    }
+    return OverlayConfig;
+}());
+
+/**
+ * Reference to an overlay that has been created with the Overlay service.
+ * Used to manipulate or dispose of said overlay.
+ */
+var OverlayRef = (function () {
+    /**
+     * @param {?} _portalHost
+     * @param {?} _pane
+     * @param {?} _config
+     * @param {?} _ngZone
+     */
+    function OverlayRef(_portalHost, _pane, _config, _ngZone) {
+        this._portalHost = _portalHost;
+        this._pane = _pane;
+        this._config = _config;
+        this._ngZone = _ngZone;
+        this._backdropElement = null;
+        this._backdropClick = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        this._attachments = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        this._detachments = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        if (_config.scrollStrategy) {
+            _config.scrollStrategy.attach(this);
+        }
+    }
+    Object.defineProperty(OverlayRef.prototype, "overlayElement", {
+        /**
+         * The overlay's HTML element
+         * @return {?}
+         */
+        get: function () {
+            return this._pane;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Attaches the overlay to a portal instance and adds the backdrop.
+     * @param {?} portal Portal instance to which to attach the overlay.
+     * @return {?} The portal attachment result.
+     */
+    OverlayRef.prototype.attach = function (portal) {
+        var _this = this;
+        var /** @type {?} */ attachResult = this._portalHost.attach(portal);
+        if (this._config.positionStrategy) {
+            this._config.positionStrategy.attach(this);
+        }
+        // Update the pane element with the given configuration.
+        this._updateStackingOrder();
+        this.updateSize();
+        this.updateDirection();
+        this.updatePosition();
+        if (this._config.scrollStrategy) {
+            this._config.scrollStrategy.enable();
+        }
+        // Enable pointer events for the overlay pane element.
+        this._togglePointerEvents(true);
+        if (this._config.hasBackdrop) {
+            this._attachBackdrop();
+        }
+        if (this._config.panelClass) {
+            // We can't do a spread here, because IE doesn't support setting multiple classes.
+            if (Array.isArray(this._config.panelClass)) {
+                this._config.panelClass.forEach(function (cls) { return _this._pane.classList.add(cls); });
+            }
+            else {
+                this._pane.classList.add(this._config.panelClass);
+            }
+        }
+        // Only emit the `attachments` event once all other setup is done.
+        this._attachments.next();
+        return attachResult;
+    };
+    /**
+     * Detaches an overlay from a portal.
+     * @return {?} The portal detachment result.
+     */
+    OverlayRef.prototype.detach = function () {
+        this.detachBackdrop();
+        // When the overlay is detached, the pane element should disable pointer events.
+        // This is necessary because otherwise the pane element will cover the page and disable
+        // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
+        this._togglePointerEvents(false);
+        if (this._config.positionStrategy && this._config.positionStrategy.detach) {
+            this._config.positionStrategy.detach();
+        }
+        if (this._config.scrollStrategy) {
+            this._config.scrollStrategy.disable();
+        }
+        var /** @type {?} */ detachmentResult = this._portalHost.detach();
+        // Only emit after everything is detached.
+        this._detachments.next();
+        return detachmentResult;
+    };
+    /**
+     * Cleans up the overlay from the DOM.
+     * @return {?}
+     */
+    OverlayRef.prototype.dispose = function () {
+        if (this._config.positionStrategy) {
+            this._config.positionStrategy.dispose();
+        }
+        if (this._config.scrollStrategy) {
+            this._config.scrollStrategy.disable();
+        }
+        this.detachBackdrop();
+        this._portalHost.dispose();
+        this._attachments.complete();
+        this._backdropClick.complete();
+        this._detachments.next();
+        this._detachments.complete();
+    };
+    /**
+     * Checks whether the overlay has been attached.
+     * @return {?}
+     */
+    OverlayRef.prototype.hasAttached = function () {
+        return this._portalHost.hasAttached();
+    };
+    /**
+     * Returns an observable that emits when the backdrop has been clicked.
+     * @return {?}
+     */
+    OverlayRef.prototype.backdropClick = function () {
+        return this._backdropClick.asObservable();
+    };
+    /**
+     * Returns an observable that emits when the overlay has been attached.
+     * @return {?}
+     */
+    OverlayRef.prototype.attachments = function () {
+        return this._attachments.asObservable();
+    };
+    /**
+     * Returns an observable that emits when the overlay has been detached.
+     * @return {?}
+     */
+    OverlayRef.prototype.detachments = function () {
+        return this._detachments.asObservable();
+    };
+    /**
+     * Gets the current config of the overlay.
+     * @return {?}
+     */
+    OverlayRef.prototype.getConfig = function () {
+        return this._config;
+    };
+    /**
+     * Updates the position of the overlay based on the position strategy.
+     * @return {?}
+     */
+    OverlayRef.prototype.updatePosition = function () {
+        if (this._config.positionStrategy) {
+            this._config.positionStrategy.apply();
+        }
+    };
+    /**
+     * Updates the text direction of the overlay panel.
+     * @return {?}
+     */
+    OverlayRef.prototype.updateDirection = function () {
+        this._pane.setAttribute('dir', /** @type {?} */ ((this._config.direction)));
+    };
+    /**
+     * Updates the size of the overlay based on the overlay config.
+     * @return {?}
+     */
+    OverlayRef.prototype.updateSize = function () {
+        if (this._config.width || this._config.width === 0) {
+            this._pane.style.width = formatCssUnit(this._config.width);
+        }
+        if (this._config.height || this._config.height === 0) {
+            this._pane.style.height = formatCssUnit(this._config.height);
+        }
+        if (this._config.minWidth || this._config.minWidth === 0) {
+            this._pane.style.minWidth = formatCssUnit(this._config.minWidth);
+        }
+        if (this._config.minHeight || this._config.minHeight === 0) {
+            this._pane.style.minHeight = formatCssUnit(this._config.minHeight);
+        }
+        if (this._config.maxWidth || this._config.maxWidth === 0) {
+            this._pane.style.maxWidth = formatCssUnit(this._config.maxWidth);
+        }
+        if (this._config.maxHeight || this._config.maxHeight === 0) {
+            this._pane.style.maxHeight = formatCssUnit(this._config.maxHeight);
+        }
+    };
+    /**
+     * Toggles the pointer events for the overlay pane element.
+     * @param {?} enablePointer
+     * @return {?}
+     */
+    OverlayRef.prototype._togglePointerEvents = function (enablePointer) {
+        this._pane.style.pointerEvents = enablePointer ? 'auto' : 'none';
+    };
+    /**
+     * Attaches a backdrop for this overlay.
+     * @return {?}
+     */
+    OverlayRef.prototype._attachBackdrop = function () {
+        var _this = this;
+        this._backdropElement = document.createElement('div');
+        this._backdropElement.classList.add('cdk-overlay-backdrop');
+        if (this._config.backdropClass) {
+            this._backdropElement.classList.add(this._config.backdropClass);
+        } /** @type {?} */
+        ((
+        // Insert the backdrop before the pane in the DOM order,
+        // in order to handle stacked overlays properly.
+        this._pane.parentElement)).insertBefore(this._backdropElement, this._pane);
+        // Forward backdrop clicks such that the consumer of the overlay can perform whatever
+        // action desired when such a click occurs (usually closing the overlay).
+        this._backdropElement.addEventListener('click', function () { return _this._backdropClick.next(null); });
+        // Add class to fade-in the backdrop after one frame.
+        requestAnimationFrame(function () {
+            if (_this._backdropElement) {
+                _this._backdropElement.classList.add('cdk-overlay-backdrop-showing');
+            }
+        });
+    };
+    /**
+     * Updates the stacking order of the element, moving it to the top if necessary.
+     * This is required in cases where one overlay was detached, while another one,
+     * that should be behind it, was destroyed. The next time both of them are opened,
+     * the stacking will be wrong, because the detached element's pane will still be
+     * in its original DOM position.
+     * @return {?}
+     */
+    OverlayRef.prototype._updateStackingOrder = function () {
+        if (this._pane.nextSibling) {
+            ((this._pane.parentNode)).appendChild(this._pane);
+        }
+    };
+    /**
+     * Detaches the backdrop (if any) associated with the overlay.
+     * @return {?}
+     */
+    OverlayRef.prototype.detachBackdrop = function () {
+        var _this = this;
+        var /** @type {?} */ backdropToDetach = this._backdropElement;
+        if (backdropToDetach) {
+            var /** @type {?} */ finishDetach_1 = function () {
+                // It may not be attached to anything in certain cases (e.g. unit tests).
+                if (backdropToDetach && backdropToDetach.parentNode) {
+                    backdropToDetach.parentNode.removeChild(backdropToDetach);
+                }
+                // It is possible that a new portal has been attached to this overlay since we started
+                // removing the backdrop. If that is the case, only clear the backdrop reference if it
+                // is still the same instance that we started to remove.
+                if (_this._backdropElement == backdropToDetach) {
+                    _this._backdropElement = null;
+                }
+            };
+            backdropToDetach.classList.remove('cdk-overlay-backdrop-showing');
+            if (this._config.backdropClass) {
+                backdropToDetach.classList.remove(this._config.backdropClass);
+            }
+            backdropToDetach.addEventListener('transitionend', finishDetach_1);
+            // If the backdrop doesn't have a transition, the `transitionend` event won't fire.
+            // In this case we make it unclickable and we try to remove it after a delay.
+            backdropToDetach.style.pointerEvents = 'none';
+            // Run this outside the Angular zone because there's nothing that Angular cares about.
+            // If it were to run inside the Angular zone, every test that used Overlay would have to be
+            // either async or fakeAsync.
+            this._ngZone.runOutsideAngular(function () {
+                setTimeout(finishDetach_1, 500);
+            });
+        }
+    };
+    return OverlayRef;
+}());
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function formatCssUnit(value) {
+    return typeof value === 'string' ? (value) : value + "px";
+}
+
+/** Horizontal dimension of a connection point on the perimeter of the origin or overlay element. */
+/**
+ * The points of the origin element and the overlay element to connect.
+ */
+var ConnectionPositionPair = (function () {
+    /**
+     * @param {?} origin
+     * @param {?} overlay
+     */
+    function ConnectionPositionPair(origin, overlay) {
+        this.originX = origin.originX;
+        this.originY = origin.originY;
+        this.overlayX = overlay.overlayX;
+        this.overlayY = overlay.overlayY;
+    }
+    return ConnectionPositionPair;
+}());
+/**
+ * Set of properties regarding the position of the origin and overlay relative to the viewport
+ * with respect to the containing Scrollable elements.
+ *
+ * The overlay and origin are clipped if any part of their bounding client rectangle exceeds the
+ * bounds of any one of the strategy's Scrollable's bounding client rectangle.
+ *
+ * The overlay and origin are outside view if there is no overlap between their bounding client
+ * rectangle and any one of the strategy's Scrollable's bounding client rectangle.
+ *
+ *       -----------                    -----------
+ *       | outside |                    | clipped |
+ *       |  view   |              --------------------------
+ *       |         |              |     |         |        |
+ *       ----------               |     -----------        |
+ *  --------------------------    |                        |
+ *  |                        |    |      Scrollable        |
+ *  |                        |    |                        |
+ *  |                        |     --------------------------
+ *  |      Scrollable        |
+ *  |                        |
+ *  --------------------------
+ */
+var ScrollingVisibility = (function () {
+    function ScrollingVisibility() {
+    }
+    return ScrollingVisibility;
+}());
+/**
+ * The change event emitted by the strategy when a fallback position is used.
+ */
+var ConnectedOverlayPositionChange = (function () {
+    /**
+     * @param {?} connectionPair
+     * @param {?} scrollableViewProperties
+     */
+    function ConnectedOverlayPositionChange(connectionPair, scrollableViewProperties) {
+        this.connectionPair = connectionPair;
+        this.scrollableViewProperties = scrollableViewProperties;
+    }
+    /**
+     * @nocollapse
+     */
+    ConnectedOverlayPositionChange.ctorParameters = function () { return [
+        { type: ConnectionPositionPair, },
+        { type: ScrollingVisibility, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */] },] },
+    ]; };
+    return ConnectedOverlayPositionChange;
+}());
+
+/**
+ * Gets whether an element is scrolled outside of view by any of its parent scrolling containers.
+ * \@docs-private
+ * @param {?} element Dimensions of the element (from getBoundingClientRect)
+ * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
+ * @return {?} Whether the element is scrolled out of view
+ */
+function isElementScrolledOutsideView(element, scrollContainers) {
+    return scrollContainers.some(function (containerBounds) {
+        var /** @type {?} */ outsideAbove = element.bottom < containerBounds.top;
+        var /** @type {?} */ outsideBelow = element.top > containerBounds.bottom;
+        var /** @type {?} */ outsideLeft = element.right < containerBounds.left;
+        var /** @type {?} */ outsideRight = element.left > containerBounds.right;
+        return outsideAbove || outsideBelow || outsideLeft || outsideRight;
+    });
+}
+/**
+ * Gets whether an element is clipped by any of its scrolling containers.
+ * \@docs-private
+ * @param {?} element Dimensions of the element (from getBoundingClientRect)
+ * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
+ * @return {?} Whether the element is clipped
+ */
+function isElementClippedByScrolling(element, scrollContainers) {
+    return scrollContainers.some(function (scrollContainerRect) {
+        var /** @type {?} */ clippedAbove = element.top < scrollContainerRect.top;
+        var /** @type {?} */ clippedBelow = element.bottom > scrollContainerRect.bottom;
+        var /** @type {?} */ clippedLeft = element.left < scrollContainerRect.left;
+        var /** @type {?} */ clippedRight = element.right > scrollContainerRect.right;
+        return clippedAbove || clippedBelow || clippedLeft || clippedRight;
+    });
+}
+
+/**
+ * A strategy for positioning overlays. Using this strategy, an overlay is given an
+ * implicit position relative some origin element. The relative position is defined in terms of
+ * a point on the origin element that is connected to a point on the overlay element. For example,
+ * a basic dropdown is connecting the bottom-left corner of the origin to the top-left corner
+ * of the overlay.
+ */
+var ConnectedPositionStrategy = (function () {
+    /**
+     * @param {?} originPos
+     * @param {?} overlayPos
+     * @param {?} _connectedTo
+     * @param {?} _viewportRuler
+     */
+    function ConnectedPositionStrategy(originPos, overlayPos, _connectedTo, _viewportRuler) {
+        this._connectedTo = _connectedTo;
+        this._viewportRuler = _viewportRuler;
+        /**
+         * Layout direction of the position strategy.
+         */
+        this._dir = 'ltr';
+        /**
+         * The offset in pixels for the overlay connection point on the x-axis
+         */
+        this._offsetX = 0;
+        /**
+         * The offset in pixels for the overlay connection point on the y-axis
+         */
+        this._offsetY = 0;
+        /**
+         * The Scrollable containers used to check scrollable view properties on position change.
+         */
+        this.scrollables = [];
+        /**
+         * Subscription to viewport resize events.
+         */
+        this._resizeSubscription = __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        /**
+         * Ordered list of preferred positions, from most to least desirable.
+         */
+        this._preferredPositions = [];
+        this._onPositionChange = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        this._origin = this._connectedTo.nativeElement;
+        this.withFallbackPosition(originPos, overlayPos);
+    }
+    Object.defineProperty(ConnectedPositionStrategy.prototype, "_isRtl", {
+        /**
+         * Whether the we're dealing with an RTL context
+         * @return {?}
+         */
+        get: function () {
+            return this._dir === 'rtl';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedPositionStrategy.prototype, "onPositionChange", {
+        /**
+         * Emits an event when the connection point changes.
+         * @return {?}
+         */
+        get: function () {
+            return this._onPositionChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedPositionStrategy.prototype, "positions", {
+        /**
+         * Ordered list of preferred positions, from most to least desirable.
+         * @return {?}
+         */
+        get: function () {
+            return this._preferredPositions;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.attach = function (overlayRef) {
+        var _this = this;
+        this._overlayRef = overlayRef;
+        this._pane = overlayRef.overlayElement;
+        this._resizeSubscription.unsubscribe();
+        this._resizeSubscription = this._viewportRuler.change().subscribe(function () { return _this.apply(); });
+    };
+    /**
+     * Performs any cleanup after the element is destroyed.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.dispose = function () {
+        this._resizeSubscription.unsubscribe();
+    };
+    /**
+     * \@docs-private
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.detach = function () {
+        this._resizeSubscription.unsubscribe();
+    };
+    /**
+     * Updates the position of the overlay element, using whichever preferred position relative
+     * to the origin fits on-screen.
+     * \@docs-private
+     *
+     * @return {?} Resolves when the styles have been applied.
+     */
+    ConnectedPositionStrategy.prototype.apply = function () {
+        // We need the bounding rects for the origin and the overlay to determine how to position
+        // the overlay relative to the origin.
+        var /** @type {?} */ element = this._pane;
+        var /** @type {?} */ originRect = this._origin.getBoundingClientRect();
+        var /** @type {?} */ overlayRect = element.getBoundingClientRect();
+        // We use the viewport rect to determine whether a position would go off-screen.
+        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        // Fallback point if none of the fallbacks fit into the viewport.
+        var /** @type {?} */ fallbackPoint;
+        var /** @type {?} */ fallbackPosition;
+        // We want to place the overlay in the first of the preferred positions such that the
+        // overlay fits on-screen.
+        for (var _i = 0, _a = this._preferredPositions; _i < _a.length; _i++) {
+            var pos = _a[_i];
+            // Get the (x, y) point of connection on the origin, and then use that to get the
+            // (top, left) coordinate for the overlay at `pos`.
+            var /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, pos);
+            var /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, pos);
+            // If the overlay in the calculated position fits on-screen, put it there and we're done.
+            if (overlayPoint.fitsInViewport) {
+                this._setElementPosition(element, overlayRect, overlayPoint, pos);
+                // Save the last connected position in case the position needs to be re-calculated.
+                this._lastConnectedPosition = pos;
+                return;
+            }
+            else if (!fallbackPoint || fallbackPoint.visibleArea < overlayPoint.visibleArea) {
+                fallbackPoint = overlayPoint;
+                fallbackPosition = pos;
+            }
+        }
+        // If none of the preferred positions were in the viewport, take the one
+        // with the largest visible area.
+        this._setElementPosition(element, overlayRect, /** @type {?} */ ((fallbackPoint)), /** @type {?} */ ((fallbackPosition)));
+    };
+    /**
+     * This re-aligns the overlay element with the trigger in its last calculated position,
+     * even if a position higher in the "preferred positions" list would now fit. This
+     * allows one to re-align the panel without changing the orientation of the panel.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.recalculateLastPosition = function () {
+        var /** @type {?} */ originRect = this._origin.getBoundingClientRect();
+        var /** @type {?} */ overlayRect = this._pane.getBoundingClientRect();
+        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        var /** @type {?} */ lastPosition = this._lastConnectedPosition || this._preferredPositions[0];
+        var /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, lastPosition);
+        var /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, lastPosition);
+        this._setElementPosition(this._pane, overlayRect, overlayPoint, lastPosition);
+    };
+    /**
+     * Sets the list of Scrollable containers that host the origin element so that
+     * on reposition we can evaluate if it or the overlay has been clipped or outside view. Every
+     * Scrollable must be an ancestor element of the strategy's origin element.
+     * @param {?} scrollables
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withScrollableContainers = function (scrollables) {
+        this.scrollables = scrollables;
+    };
+    /**
+     * Adds a new preferred fallback position.
+     * @param {?} originPos
+     * @param {?} overlayPos
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withFallbackPosition = function (originPos, overlayPos) {
+        this._preferredPositions.push(new ConnectionPositionPair(originPos, overlayPos));
+        return this;
+    };
+    /**
+     * Sets the layout direction so the overlay's position can be adjusted to match.
+     * @param {?} dir New layout direction.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withDirection = function (dir) {
+        this._dir = dir;
+        return this;
+    };
+    /**
+     * Sets an offset for the overlay's connection point on the x-axis
+     * @param {?} offset New offset in the X axis.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withOffsetX = function (offset) {
+        this._offsetX = offset;
+        return this;
+    };
+    /**
+     * Sets an offset for the overlay's connection point on the y-axis
+     * @param {?} offset New offset in the Y axis.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withOffsetY = function (offset) {
+        this._offsetY = offset;
+        return this;
+    };
+    /**
+     * Gets the horizontal (x) "start" dimension based on whether the overlay is in an RTL context.
+     * @param {?} rect
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._getStartX = function (rect) {
+        return this._isRtl ? rect.right : rect.left;
+    };
+    /**
+     * Gets the horizontal (x) "end" dimension based on whether the overlay is in an RTL context.
+     * @param {?} rect
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._getEndX = function (rect) {
+        return this._isRtl ? rect.left : rect.right;
+    };
+    /**
+     * Gets the (x, y) coordinate of a connection point on the origin based on a relative position.
+     * @param {?} originRect
+     * @param {?} pos
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._getOriginConnectionPoint = function (originRect, pos) {
+        var /** @type {?} */ originStartX = this._getStartX(originRect);
+        var /** @type {?} */ originEndX = this._getEndX(originRect);
+        var /** @type {?} */ x;
+        if (pos.originX == 'center') {
+            x = originStartX + (originRect.width / 2);
+        }
+        else {
+            x = pos.originX == 'start' ? originStartX : originEndX;
+        }
+        var /** @type {?} */ y;
+        if (pos.originY == 'center') {
+            y = originRect.top + (originRect.height / 2);
+        }
+        else {
+            y = pos.originY == 'top' ? originRect.top : originRect.bottom;
+        }
+        return { x: x, y: y };
+    };
+    /**
+     * Gets the (x, y) coordinate of the top-left corner of the overlay given a given position and
+     * origin point to which the overlay should be connected, as well as how much of the element
+     * would be inside the viewport at that position.
+     * @param {?} originPoint
+     * @param {?} overlayRect
+     * @param {?} viewportRect
+     * @param {?} pos
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._getOverlayPoint = function (originPoint, overlayRect, viewportRect, pos) {
+        // Calculate the (overlayStartX, overlayStartY), the start of the potential overlay position
+        // relative to the origin point.
+        var /** @type {?} */ overlayStartX;
+        if (pos.overlayX == 'center') {
+            overlayStartX = -overlayRect.width / 2;
+        }
+        else if (pos.overlayX === 'start') {
+            overlayStartX = this._isRtl ? -overlayRect.width : 0;
+        }
+        else {
+            overlayStartX = this._isRtl ? 0 : -overlayRect.width;
+        }
+        var /** @type {?} */ overlayStartY;
+        if (pos.overlayY == 'center') {
+            overlayStartY = -overlayRect.height / 2;
+        }
+        else {
+            overlayStartY = pos.overlayY == 'top' ? 0 : -overlayRect.height;
+        }
+        // The (x, y) coordinates of the overlay.
+        var /** @type {?} */ x = originPoint.x + overlayStartX + this._offsetX;
+        var /** @type {?} */ y = originPoint.y + overlayStartY + this._offsetY;
+        // How much the overlay would overflow at this position, on each side.
+        var /** @type {?} */ leftOverflow = 0 - x;
+        var /** @type {?} */ rightOverflow = (x + overlayRect.width) - viewportRect.width;
+        var /** @type {?} */ topOverflow = 0 - y;
+        var /** @type {?} */ bottomOverflow = (y + overlayRect.height) - viewportRect.height;
+        // Visible parts of the element on each axis.
+        var /** @type {?} */ visibleWidth = this._subtractOverflows(overlayRect.width, leftOverflow, rightOverflow);
+        var /** @type {?} */ visibleHeight = this._subtractOverflows(overlayRect.height, topOverflow, bottomOverflow);
+        // The area of the element that's within the viewport.
+        var /** @type {?} */ visibleArea = visibleWidth * visibleHeight;
+        var /** @type {?} */ fitsInViewport = (overlayRect.width * overlayRect.height) === visibleArea;
+        return { x: x, y: y, fitsInViewport: fitsInViewport, visibleArea: visibleArea };
+    };
+    /**
+     * Gets the view properties of the trigger and overlay, including whether they are clipped
+     * or completely outside the view of any of the strategy's scrollables.
+     * @param {?} overlay
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._getScrollVisibility = function (overlay) {
+        var /** @type {?} */ originBounds = this._origin.getBoundingClientRect();
+        var /** @type {?} */ overlayBounds = overlay.getBoundingClientRect();
+        var /** @type {?} */ scrollContainerBounds = this.scrollables.map(function (s) { return s.getElementRef().nativeElement.getBoundingClientRect(); });
+        return {
+            isOriginClipped: isElementClippedByScrolling(originBounds, scrollContainerBounds),
+            isOriginOutsideView: isElementScrolledOutsideView(originBounds, scrollContainerBounds),
+            isOverlayClipped: isElementClippedByScrolling(overlayBounds, scrollContainerBounds),
+            isOverlayOutsideView: isElementScrolledOutsideView(overlayBounds, scrollContainerBounds),
+        };
+    };
+    /**
+     * Physically positions the overlay element to the given coordinate.
+     * @param {?} element
+     * @param {?} overlayRect
+     * @param {?} overlayPoint
+     * @param {?} pos
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._setElementPosition = function (element, overlayRect, overlayPoint, pos) {
+        // We want to set either `top` or `bottom` based on whether the overlay wants to appear above
+        // or below the origin and the direction in which the element will expand.
+        var /** @type {?} */ verticalStyleProperty = pos.overlayY === 'bottom' ? 'bottom' : 'top';
+        // When using `bottom`, we adjust the y position such that it is the distance
+        // from the bottom of the viewport rather than the top.
+        var /** @type {?} */ y = verticalStyleProperty === 'top' ?
+            overlayPoint.y :
+            document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
+        // We want to set either `left` or `right` based on whether the overlay wants to appear "before"
+        // or "after" the origin, which determines the direction in which the element will expand.
+        // For the horizontal axis, the meaning of "before" and "after" change based on whether the
+        // page is in RTL or LTR.
+        var /** @type {?} */ horizontalStyleProperty;
+        if (this._dir === 'rtl') {
+            horizontalStyleProperty = pos.overlayX === 'end' ? 'left' : 'right';
+        }
+        else {
+            horizontalStyleProperty = pos.overlayX === 'end' ? 'right' : 'left';
+        }
+        // When we're setting `right`, we adjust the x position such that it is the distance
+        // from the right edge of the viewport rather than the left edge.
+        var /** @type {?} */ x = horizontalStyleProperty === 'left' ?
+            overlayPoint.x :
+            document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
+        // Reset any existing styles. This is necessary in case the preferred position has
+        // changed since the last `apply`.
+        ['top', 'bottom', 'left', 'right'].forEach(function (p) { return element.style[p] = null; });
+        element.style[verticalStyleProperty] = y + "px";
+        element.style[horizontalStyleProperty] = x + "px";
+        // Notify that the position has been changed along with its change properties.
+        var /** @type {?} */ scrollableViewProperties = this._getScrollVisibility(element);
+        var /** @type {?} */ positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
+        this._onPositionChange.next(positionChange);
+    };
+    /**
+     * Subtracts the amount that an element is overflowing on an axis from it's length.
+     * @param {?} length
+     * @param {...?} overflows
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype._subtractOverflows = function (length) {
+        var overflows = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            overflows[_i - 1] = arguments[_i];
+        }
+        return overflows.reduce(function (currentValue, currentOverflow) {
+            return currentValue - Math.max(currentOverflow, 0);
+        }, length);
+    };
+    return ConnectedPositionStrategy;
+}());
+
+/**
+ * A strategy for positioning overlays. Using this strategy, an overlay is given an
+ * explicit position relative to the browser's viewport. We use flexbox, instead of
+ * transforms, in order to avoid issues with subpixel rendering which can cause the
+ * element to become blurry.
+ */
+var GlobalPositionStrategy = (function () {
+    function GlobalPositionStrategy() {
+        this._cssPosition = 'static';
+        this._topOffset = '';
+        this._bottomOffset = '';
+        this._leftOffset = '';
+        this._rightOffset = '';
+        this._alignItems = '';
+        this._justifyContent = '';
+        this._width = '';
+        this._height = '';
+        this._wrapper = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.attach = function (overlayRef) {
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * Sets the top position of the overlay. Clears any previously set vertical position.
+     * @param {?=} value New top offset.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.top = function (value) {
+        if (value === void 0) { value = ''; }
+        this._bottomOffset = '';
+        this._topOffset = value;
+        this._alignItems = 'flex-start';
+        return this;
+    };
+    /**
+     * Sets the left position of the overlay. Clears any previously set horizontal position.
+     * @param {?=} value New left offset.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.left = function (value) {
+        if (value === void 0) { value = ''; }
+        this._rightOffset = '';
+        this._leftOffset = value;
+        this._justifyContent = 'flex-start';
+        return this;
+    };
+    /**
+     * Sets the bottom position of the overlay. Clears any previously set vertical position.
+     * @param {?=} value New bottom offset.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.bottom = function (value) {
+        if (value === void 0) { value = ''; }
+        this._topOffset = '';
+        this._bottomOffset = value;
+        this._alignItems = 'flex-end';
+        return this;
+    };
+    /**
+     * Sets the right position of the overlay. Clears any previously set horizontal position.
+     * @param {?=} value New right offset.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.right = function (value) {
+        if (value === void 0) { value = ''; }
+        this._leftOffset = '';
+        this._rightOffset = value;
+        this._justifyContent = 'flex-end';
+        return this;
+    };
+    /**
+     * Sets the overlay width and clears any previously set width.
+     * @param {?=} value New width for the overlay
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.width = function (value) {
+        if (value === void 0) { value = ''; }
+        this._width = value;
+        // When the width is 100%, we should reset the `left` and the offset,
+        // in order to ensure that the element is flush against the viewport edge.
+        if (value === '100%') {
+            this.left('0px');
+        }
+        return this;
+    };
+    /**
+     * Sets the overlay height and clears any previously set height.
+     * @param {?=} value New height for the overlay
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.height = function (value) {
+        if (value === void 0) { value = ''; }
+        this._height = value;
+        // When the height is 100%, we should reset the `top` and the offset,
+        // in order to ensure that the element is flush against the viewport edge.
+        if (value === '100%') {
+            this.top('0px');
+        }
+        return this;
+    };
+    /**
+     * Centers the overlay horizontally with an optional offset.
+     * Clears any previously set horizontal position.
+     *
+     * @param {?=} offset Overlay offset from the horizontal center.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.centerHorizontally = function (offset) {
+        if (offset === void 0) { offset = ''; }
+        this.left(offset);
+        this._justifyContent = 'center';
+        return this;
+    };
+    /**
+     * Centers the overlay vertically with an optional offset.
+     * Clears any previously set vertical position.
+     *
+     * @param {?=} offset Overlay offset from the vertical center.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.centerVertically = function (offset) {
+        if (offset === void 0) { offset = ''; }
+        this.top(offset);
+        this._alignItems = 'center';
+        return this;
+    };
+    /**
+     * Apply the position to the element.
+     * \@docs-private
+     *
+     * @return {?} Resolved when the styles have been applied.
+     */
+    GlobalPositionStrategy.prototype.apply = function () {
+        var /** @type {?} */ element = this._overlayRef.overlayElement;
+        if (!this._wrapper && element.parentNode) {
+            this._wrapper = document.createElement('div');
+            this._wrapper.classList.add('cdk-global-overlay-wrapper');
+            element.parentNode.insertBefore(this._wrapper, element);
+            this._wrapper.appendChild(element);
+        }
+        var /** @type {?} */ styles = element.style;
+        var /** @type {?} */ parentStyles = ((element.parentNode)).style;
+        styles.position = this._cssPosition;
+        styles.marginTop = this._topOffset;
+        styles.marginLeft = this._leftOffset;
+        styles.marginBottom = this._bottomOffset;
+        styles.marginRight = this._rightOffset;
+        styles.width = this._width;
+        styles.height = this._height;
+        parentStyles.justifyContent = this._justifyContent;
+        parentStyles.alignItems = this._alignItems;
+    };
+    /**
+     * Removes the wrapper element from the DOM.
+     * @return {?}
+     */
+    GlobalPositionStrategy.prototype.dispose = function () {
+        if (this._wrapper && this._wrapper.parentNode) {
+            this._wrapper.parentNode.removeChild(this._wrapper);
+            this._wrapper = null;
+        }
+    };
+    return GlobalPositionStrategy;
+}());
+
+/**
+ * Builder for overlay position strategy.
+ */
+var OverlayPositionBuilder = (function () {
+    /**
+     * @param {?} _viewportRuler
+     */
+    function OverlayPositionBuilder(_viewportRuler) {
+        this._viewportRuler = _viewportRuler;
+    }
+    /**
+     * Creates a global position strategy.
+     * @return {?}
+     */
+    OverlayPositionBuilder.prototype.global = function () {
+        return new GlobalPositionStrategy();
+    };
+    /**
+     * Creates a relative position strategy.
+     * @param {?} elementRef
+     * @param {?} originPos
+     * @param {?} overlayPos
+     * @return {?}
+     */
+    OverlayPositionBuilder.prototype.connectedTo = function (elementRef, originPos, overlayPos) {
+        return new ConnectedPositionStrategy(originPos, overlayPos, elementRef, this._viewportRuler);
+    };
+    OverlayPositionBuilder.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    OverlayPositionBuilder.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["d" /* ViewportRuler */], },
+    ]; };
+    return OverlayPositionBuilder;
+}());
+
+/**
+ * The OverlayContainer is the container in which all overlays will load.
+ * It should be provided in the root component to ensure it is properly shared.
+ */
+var OverlayContainer = (function () {
+    function OverlayContainer() {
+    }
+    /**
+     * @return {?}
+     */
+    OverlayContainer.prototype.ngOnDestroy = function () {
+        if (this._containerElement && this._containerElement.parentNode) {
+            this._containerElement.parentNode.removeChild(this._containerElement);
+        }
+    };
+    /**
+     * This method returns the overlay container element. It will lazily
+     * create the element the first time  it is called to facilitate using
+     * the container in non-browser environments.
+     * @return {?} the container element
+     */
+    OverlayContainer.prototype.getContainerElement = function () {
+        if (!this._containerElement) {
+            this._createContainer();
+        }
+        return this._containerElement;
+    };
+    /**
+     * Create the overlay container element, which is simply a div
+     * with the 'cdk-overlay-container' class on the document body.
+     * @return {?}
+     */
+    OverlayContainer.prototype._createContainer = function () {
+        var /** @type {?} */ container = document.createElement('div');
+        container.classList.add('cdk-overlay-container');
+        document.body.appendChild(container);
+        this._containerElement = container;
+    };
+    OverlayContainer.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    OverlayContainer.ctorParameters = function () { return []; };
+    return OverlayContainer;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentContainer
+ * @return {?}
+ */
+function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
+    return parentContainer || new OverlayContainer();
+}
+/**
+ * \@docs-private
+ */
+var OVERLAY_CONTAINER_PROVIDER = {
+    // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
+    provide: OverlayContainer,
+    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* SkipSelf */](), OverlayContainer]],
+    useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
+};
+
+/**
+ * Returns an error to be thrown when attempting to attach an already-attached scroll strategy.
+ * @return {?}
+ */
+function getMatScrollStrategyAlreadyAttachedError() {
+    return Error("Scroll strategy has already been attached.");
+}
+
+/**
+ * Strategy that will close the overlay as soon as the user starts scrolling.
+ */
+var CloseScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     */
+    function CloseScrollStrategy(_scrollDispatcher) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.attach = function (overlayRef) {
+        if (this._overlayRef) {
+            throw getMatScrollStrategyAlreadyAttachedError();
+        }
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
+                if (_this._overlayRef.hasAttached()) {
+                    _this._overlayRef.detach();
+                }
+                _this.disable();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return CloseScrollStrategy;
+}());
+
+/**
+ * Strategy that will prevent the user from scrolling while the overlay is visible.
+ */
+var BlockScrollStrategy = (function () {
+    /**
+     * @param {?} _viewportRuler
+     */
+    function BlockScrollStrategy(_viewportRuler) {
+        this._viewportRuler = _viewportRuler;
+        this._previousHTMLStyles = { top: '', left: '' };
+        this._isEnabled = false;
+    }
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.attach = function () { };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.enable = function () {
+        if (this._canBeEnabled()) {
+            var /** @type {?} */ root = document.documentElement;
+            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
+            // Cache the previous inline styles in case the user had set them.
+            this._previousHTMLStyles.left = root.style.left || '';
+            this._previousHTMLStyles.top = root.style.top || '';
+            // Note: we're using the `html` node, instead of the `body`, because the `body` may
+            // have the user agent margin, whereas the `html` is guaranteed not to have one.
+            root.style.left = -this._previousScrollPosition.left + "px";
+            root.style.top = -this._previousScrollPosition.top + "px";
+            root.classList.add('cdk-global-scrollblock');
+            this._isEnabled = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.disable = function () {
+        if (this._isEnabled) {
+            this._isEnabled = false;
+            document.documentElement.style.left = this._previousHTMLStyles.left;
+            document.documentElement.style.top = this._previousHTMLStyles.top;
+            document.documentElement.classList.remove('cdk-global-scrollblock');
+            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype._canBeEnabled = function () {
+        // Since the scroll strategies can't be singletons, we have to use a global CSS class
+        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
+        // scrolling multiple times.
+        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
+            return false;
+        }
+        var /** @type {?} */ body = document.body;
+        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
+        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
+    };
+    return BlockScrollStrategy;
+}());
+
+/**
+ * Strategy that will update the element position as the user is scrolling.
+ */
+var RepositionScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     * @param {?=} _config
+     */
+    function RepositionScrollStrategy(_scrollDispatcher, _config) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._config = _config;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.attach = function (overlayRef) {
+        if (this._overlayRef) {
+            throw getMatScrollStrategyAlreadyAttachedError();
+        }
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            var /** @type {?} */ throttle = this._config ? this._config.scrollThrottle : 0;
+            this._scrollSubscription = this._scrollDispatcher.scrolled(throttle, function () {
+                _this._overlayRef.updatePosition();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return RepositionScrollStrategy;
+}());
+
+/**
+ * Options for how an overlay will handle scrolling.
+ *
+ * Users can provide a custom value for `ScrollStrategyOptions` to replace the default
+ * behaviors. This class primarily acts as a factory for ScrollStrategy instances.
+ */
+var ScrollStrategyOptions = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     * @param {?} _viewportRuler
+     */
+    function ScrollStrategyOptions(_scrollDispatcher, _viewportRuler) {
+        var _this = this;
+        this._scrollDispatcher = _scrollDispatcher;
+        this._viewportRuler = _viewportRuler;
+        /**
+         * Do nothing on scroll.
+         */
+        this.noop = function () { return new NoopScrollStrategy(); };
+        /**
+         * Close the overlay as soon as the user scrolls.
+         */
+        this.close = function () { return new CloseScrollStrategy(_this._scrollDispatcher); };
+        /**
+         * Block scrolling.
+         */
+        this.block = function () { return new BlockScrollStrategy(_this._viewportRuler); };
+        /**
+         * Update the overlay's position on scroll.
+         * @param config Configuration to be used inside the scroll strategy.
+         * Allows debouncing the reposition calls.
+         */
+        this.reposition = function (config) {
+            return new RepositionScrollStrategy(_this._scrollDispatcher, config);
+        };
+    }
+    ScrollStrategyOptions.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    ScrollStrategyOptions.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["b" /* ScrollDispatcher */], },
+        { type: __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["d" /* ViewportRuler */], },
+    ]; };
+    return ScrollStrategyOptions;
+}());
+
+/**
+ * Next overlay unique ID.
+ */
+var nextUniqueId = 0;
+/**
+ * The default config for newly created overlays.
+ */
+var defaultConfig = new OverlayConfig();
+/**
+ * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
+ * used as a low-level building building block for other components. Dialogs, tooltips, menus,
+ * selects, etc. can all be built using overlays. The service should primarily be used by authors
+ * of re-usable components rather than developers building end-user applications.
+ *
+ * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
+ */
+var Overlay = (function () {
+    /**
+     * @param {?} scrollStrategies
+     * @param {?} _overlayContainer
+     * @param {?} _componentFactoryResolver
+     * @param {?} _positionBuilder
+     * @param {?} _appRef
+     * @param {?} _injector
+     * @param {?} _ngZone
+     */
+    function Overlay(scrollStrategies, _overlayContainer, _componentFactoryResolver, _positionBuilder, _appRef, _injector, _ngZone) {
+        this.scrollStrategies = scrollStrategies;
+        this._overlayContainer = _overlayContainer;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._positionBuilder = _positionBuilder;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._ngZone = _ngZone;
+    }
+    /**
+     * Creates an overlay.
+     * @param {?=} config Config to apply to the overlay.
+     * @return {?} Reference to the created overlay.
+     */
+    Overlay.prototype.create = function (config) {
+        if (config === void 0) { config = defaultConfig; }
+        var /** @type {?} */ pane = this._createPaneElement();
+        var /** @type {?} */ portalHost = this._createPortalHost(pane);
+        return new OverlayRef(portalHost, pane, config, this._ngZone);
+    };
+    /**
+     * Returns a position builder that can be used, via fluent API,
+     * to construct and configure a position strategy.
+     * @return {?}
+     */
+    Overlay.prototype.position = function () {
+        return this._positionBuilder;
+    };
+    /**
+     * Creates the DOM element for an overlay and appends it to the overlay container.
+     * @return {?} Newly-created pane element
+     */
+    Overlay.prototype._createPaneElement = function () {
+        var /** @type {?} */ pane = document.createElement('div');
+        pane.id = "cdk-overlay-" + nextUniqueId++;
+        pane.classList.add('cdk-overlay-pane');
+        this._overlayContainer.getContainerElement().appendChild(pane);
+        return pane;
+    };
+    /**
+     * Create a DomPortalHost into which the overlay content can be loaded.
+     * @param {?} pane The DOM element to turn into a portal host.
+     * @return {?} A portal host for the given DOM element.
+     */
+    Overlay.prototype._createPortalHost = function (pane) {
+        return new __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__["b" /* DomPortalHost */](pane, this._componentFactoryResolver, this._appRef, this._injector);
+    };
+    Overlay.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    Overlay.ctorParameters = function () { return [
+        { type: ScrollStrategyOptions, },
+        { type: OverlayContainer, },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* ComponentFactoryResolver */], },
+        { type: OverlayPositionBuilder, },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["g" /* ApplicationRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Injector */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], },
+    ]; };
+    return Overlay;
+}());
+
+/**
+ * The FullscreenOverlayContainer is the alternative to OverlayContainer
+ * that supports correct displaying of overlay elements in Fullscreen mode
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
+ * It should be provided in the root component that way:
+ * providers: [
+ *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
+ * ],
+ */
+var FullscreenOverlayContainer = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_5_tslib__["a" /* __extends */])(FullscreenOverlayContainer, _super);
+    function FullscreenOverlayContainer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._createContainer = function () {
+        var _this = this;
+        _super.prototype._createContainer.call(this);
+        this._adjustParentForFullscreenChange();
+        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
+    };
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
+        if (!this._containerElement) {
+            return;
+        }
+        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
+        var /** @type {?} */ parent = fullscreenElement || document.body;
+        parent.appendChild(this._containerElement);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
+        if (document.fullscreenEnabled) {
+            document.addEventListener('fullscreenchange', fn);
+        }
+        else if (document.webkitFullscreenEnabled) {
+            document.addEventListener('webkitfullscreenchange', fn);
+        }
+        else if (((document)).mozFullScreenEnabled) {
+            document.addEventListener('mozfullscreenchange', fn);
+        }
+        else if (((document)).msFullscreenEnabled) {
+            document.addEventListener('MSFullscreenChange', fn);
+        }
+    };
+    /**
+     * When the page is put into fullscreen mode, a specific element is specified.
+     * Only that element and its children are visible when in fullscreen mode.
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
+        return document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            ((document)).mozFullScreenElement ||
+            ((document)).msFullscreenElement ||
+            null;
+    };
+    FullscreenOverlayContainer.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    FullscreenOverlayContainer.ctorParameters = function () { return []; };
+    return FullscreenOverlayContainer;
+}(OverlayContainer));
+
+/**
+ * Default set of positions for the overlay. Follows the behavior of a dropdown.
+ */
+var defaultPositionList = [
+    new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
+    new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
+];
+/**
+ * Injection token that determines the scroll handling while the connected overlay is open.
+ */
+var MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('mat-connected-overlay-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
+ * Directive applied to an element to make it usable as an origin for an Overlay using a
+ * ConnectedPositionStrategy.
+ */
+var OverlayOrigin = (function () {
+    /**
+     * @param {?} elementRef
+     */
+    function OverlayOrigin(elementRef) {
+        this.elementRef = elementRef;
+    }
+    OverlayOrigin.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]',
+                    exportAs: 'cdkOverlayOrigin',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    OverlayOrigin.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+    ]; };
+    return OverlayOrigin;
+}());
+/**
+ * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
+ */
+var ConnectedOverlayDirective = (function () {
+    /**
+     * @param {?} _overlay
+     * @param {?} _renderer
+     * @param {?} templateRef
+     * @param {?} viewContainerRef
+     * @param {?} _scrollStrategy
+     * @param {?} _dir
+     */
+    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _scrollStrategy, _dir) {
+        this._overlay = _overlay;
+        this._renderer = _renderer;
+        this._scrollStrategy = _scrollStrategy;
+        this._dir = _dir;
+        this._hasBackdrop = false;
+        this._backdropSubscription = __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        this._positionSubscription = __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        this._offsetX = 0;
+        this._offsetY = 0;
+        this._escapeListener = function () { };
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = this._scrollStrategy();
+        /**
+         * Whether the overlay is open.
+         */
+        this.open = false;
+        /**
+         * Event emitted when the backdrop is clicked.
+         */
+        this.backdropClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        /**
+         * Event emitted when the position has changed.
+         */
+        this.positionChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        /**
+         * Event emitted when the overlay has been attached.
+         */
+        this.attach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        /**
+         * Event emitted when the overlay has been detached.
+         */
+        this.detach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this._templatePortal = new __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__["d" /* TemplatePortal */](templateRef, viewContainerRef);
+    }
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetX", {
+        /**
+         * The offset in pixels for the overlay connection point on the x-axis
+         * @return {?}
+         */
+        get: function () { return this._offsetX; },
+        /**
+         * @param {?} offsetX
+         * @return {?}
+         */
+        set: function (offsetX) {
+            this._offsetX = offsetX;
+            if (this._position) {
+                this._position.withOffsetX(offsetX);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetY", {
+        /**
+         * The offset in pixels for the overlay connection point on the y-axis
+         * @return {?}
+         */
+        get: function () { return this._offsetY; },
+        /**
+         * @param {?} offsetY
+         * @return {?}
+         */
+        set: function (offsetY) {
+            this._offsetY = offsetY;
+            if (this._position) {
+                this._position.withOffsetY(offsetY);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "hasBackdrop", {
+        /**
+         * Whether or not the overlay should attach a backdrop.
+         * @return {?}
+         */
+        get: function () { return this._hasBackdrop; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._hasBackdrop = Object(__WEBPACK_IMPORTED_MODULE_7__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOrigin", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.origin; },
+        /**
+         * @param {?} _origin
+         * @return {?}
+         */
+        set: function (_origin) { this.origin = _origin; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedPositions", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.positions; },
+        /**
+         * @param {?} _positions
+         * @return {?}
+         */
+        set: function (_positions) { this.positions = _positions; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOffsetX", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.offsetX; },
+        /**
+         * @param {?} _offsetX
+         * @return {?}
+         */
+        set: function (_offsetX) { this.offsetX = _offsetX; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOffsetY", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.offsetY; },
+        /**
+         * @param {?} _offsetY
+         * @return {?}
+         */
+        set: function (_offsetY) { this.offsetY = _offsetY; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedWidth", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.width; },
+        /**
+         * @param {?} _width
+         * @return {?}
+         */
+        set: function (_width) { this.width = _width; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedHeight", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.height; },
+        /**
+         * @param {?} _height
+         * @return {?}
+         */
+        set: function (_height) { this.height = _height; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedMinWidth", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.minWidth; },
+        /**
+         * @param {?} _minWidth
+         * @return {?}
+         */
+        set: function (_minWidth) { this.minWidth = _minWidth; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedMinHeight", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.minHeight; },
+        /**
+         * @param {?} _minHeight
+         * @return {?}
+         */
+        set: function (_minHeight) { this.minHeight = _minHeight; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedBackdropClass", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.backdropClass; },
+        /**
+         * @param {?} _backdropClass
+         * @return {?}
+         */
+        set: function (_backdropClass) { this.backdropClass = _backdropClass; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedScrollStrategy", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.scrollStrategy; },
+        /**
+         * @param {?} _scrollStrategy
+         * @return {?}
+         */
+        set: function (_scrollStrategy) {
+            this.scrollStrategy = _scrollStrategy;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOpen", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.open; },
+        /**
+         * @param {?} _open
+         * @return {?}
+         */
+        set: function (_open) { this.open = _open; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedHasBackdrop", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.hasBackdrop; },
+        /**
+         * @param {?} _hasBackdrop
+         * @return {?}
+         */
+        set: function (_hasBackdrop) { this.hasBackdrop = _hasBackdrop; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
+        /**
+         * The associated overlay reference.
+         * @return {?}
+         */
+        get: function () {
+            return this._overlayRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "dir", {
+        /**
+         * The element's layout direction.
+         * @return {?}
+         */
+        get: function () {
+            return this._dir ? this._dir.value : 'ltr';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
+        this._destroyOverlay();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['open'] || changes['_deprecatedOpen']) {
+            this.open ? this._attachOverlay() : this._detachOverlay();
+        }
+    };
+    /**
+     * Creates an overlay
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._createOverlay = function () {
+        if (!this.positions || !this.positions.length) {
+            this.positions = defaultPositionList;
+        }
+        this._overlayRef = this._overlay.create(this._buildConfig());
+    };
+    /**
+     * Builds the overlay config based on the directive's inputs
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._buildConfig = function () {
+        var /** @type {?} */ positionStrategy = this._position = this._createPositionStrategy();
+        var /** @type {?} */ overlayConfig = new OverlayConfig({
+            positionStrategy: positionStrategy,
+            scrollStrategy: this.scrollStrategy,
+            hasBackdrop: this.hasBackdrop
+        });
+        if (this.width || this.width === 0) {
+            overlayConfig.width = this.width;
+        }
+        if (this.height || this.height === 0) {
+            overlayConfig.height = this.height;
+        }
+        if (this.minWidth || this.minWidth === 0) {
+            overlayConfig.minWidth = this.minWidth;
+        }
+        if (this.minHeight || this.minHeight === 0) {
+            overlayConfig.minHeight = this.minHeight;
+        }
+        if (this.backdropClass) {
+            overlayConfig.backdropClass = this.backdropClass;
+        }
+        return overlayConfig;
+    };
+    /**
+     * Returns the position strategy of the overlay to be set on the overlay config
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._createPositionStrategy = function () {
+        var /** @type {?} */ pos = this.positions[0];
+        var /** @type {?} */ originPoint = { originX: pos.originX, originY: pos.originY };
+        var /** @type {?} */ overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
+        var /** @type {?} */ strategy = this._overlay.position()
+            .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
+            .withOffsetX(this.offsetX)
+            .withOffsetY(this.offsetY);
+        this._handlePositionChanges(strategy);
+        return strategy;
+    };
+    /**
+     * @param {?} strategy
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._handlePositionChanges = function (strategy) {
+        var _this = this;
+        for (var /** @type {?} */ i = 1; i < this.positions.length; i++) {
+            strategy.withFallbackPosition({ originX: this.positions[i].originX, originY: this.positions[i].originY }, { overlayX: this.positions[i].overlayX, overlayY: this.positions[i].overlayY });
+        }
+        this._positionSubscription =
+            strategy.onPositionChange.subscribe(function (pos) { return _this.positionChange.emit(pos); });
+    };
+    /**
+     * Attaches the overlay and subscribes to backdrop clicks if backdrop exists
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._attachOverlay = function () {
+        var _this = this;
+        if (!this._overlayRef) {
+            this._createOverlay();
+        }
+        this._position.withDirection(this.dir);
+        this._overlayRef.getConfig().direction = this.dir;
+        this._initEscapeListener();
+        if (!this._overlayRef.hasAttached()) {
+            this._overlayRef.attach(this._templatePortal);
+            this.attach.emit();
+        }
+        if (this.hasBackdrop) {
+            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
+                _this.backdropClick.emit();
+            });
+        }
+    };
+    /**
+     * Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._detachOverlay = function () {
+        if (this._overlayRef) {
+            this._overlayRef.detach();
+            this.detach.emit();
+        }
+        this._backdropSubscription.unsubscribe();
+        this._escapeListener();
+    };
+    /**
+     * Destroys the overlay created by this directive.
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._destroyOverlay = function () {
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+        }
+        this._backdropSubscription.unsubscribe();
+        this._positionSubscription.unsubscribe();
+        this._escapeListener();
+    };
+    /**
+     * Sets the event listener that closes the overlay when pressing Escape.
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._initEscapeListener = function () {
+        var _this = this;
+        this._escapeListener = this._renderer.listen('document', 'keydown', function (event) {
+            if (event.keyCode === __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["c" /* ESCAPE */]) {
+                _this._detachOverlay();
+            }
+        });
+    };
+    ConnectedOverlayDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]',
+                    exportAs: 'cdkConnectedOverlay'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    ConnectedOverlayDirective.ctorParameters = function () { return [
+        { type: Overlay, },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* Renderer2 */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ViewContainerRef */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */], args: [MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY,] },] },
+        { type: __WEBPACK_IMPORTED_MODULE_6__angular_cdk_bidi__["a" /* Directionality */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */] },] },
+    ]; };
+    ConnectedOverlayDirective.propDecorators = {
+        'origin': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayOrigin',] },],
+        'positions': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayPositions',] },],
+        'offsetX': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayOffsetX',] },],
+        'offsetY': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayOffsetY',] },],
+        'width': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayWidth',] },],
+        'height': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayHeight',] },],
+        'minWidth': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayMinWidth',] },],
+        'minHeight': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayMinHeight',] },],
+        'backdropClass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayBackdropClass',] },],
+        'scrollStrategy': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayScrollStrategy',] },],
+        'open': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayOpen',] },],
+        'hasBackdrop': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['cdkConnectedOverlayHasBackdrop',] },],
+        '_deprecatedOrigin': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['origin',] },],
+        '_deprecatedPositions': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['positions',] },],
+        '_deprecatedOffsetX': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['offsetX',] },],
+        '_deprecatedOffsetY': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['offsetY',] },],
+        '_deprecatedWidth': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['width',] },],
+        '_deprecatedHeight': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['height',] },],
+        '_deprecatedMinWidth': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['minWidth',] },],
+        '_deprecatedMinHeight': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['minHeight',] },],
+        '_deprecatedBackdropClass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['backdropClass',] },],
+        '_deprecatedScrollStrategy': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['scrollStrategy',] },],
+        '_deprecatedOpen': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['open',] },],
+        '_deprecatedHasBackdrop': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */], args: ['hasBackdrop',] },],
+        'backdropClick': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'positionChange': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'attach': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+        'detach': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
+    };
+    return ConnectedOverlayDirective;
+}());
+
+var OVERLAY_PROVIDERS = [
+    Overlay,
+    OverlayPositionBuilder,
+    __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["c" /* VIEWPORT_RULER_PROVIDER */],
+    OVERLAY_CONTAINER_PROVIDER,
+    MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER,
+];
+var OverlayModule = (function () {
+    function OverlayModule() {
+    }
+    OverlayModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */], args: [{
+                    imports: [__WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__["c" /* PortalModule */], __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["a" /* ScrollDispatchModule */]],
+                    exports: [ConnectedOverlayDirective, OverlayOrigin, __WEBPACK_IMPORTED_MODULE_3__angular_cdk_scrolling__["a" /* ScrollDispatchModule */]],
+                    declarations: [ConnectedOverlayDirective, OverlayOrigin],
+                    providers: [OVERLAY_PROVIDERS, ScrollStrategyOptions],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    OverlayModule.ctorParameters = function () { return []; };
+    return OverlayModule;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=overlay.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/platform.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Platform; });
+/* unused harmony export getSupportedInputTypes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PlatformModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+// Whether the current platform supports the V8 Break Iterator. The V8 check
+// is necessary to detect all Blink based browsers.
+var hasV8BreakIterator = (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
+/**
+ * Service to detect the current platform by comparing the userAgent strings and
+ * checking browser-specific global properties.
+ * \@docs-private
+ */
+var Platform = (function () {
+    function Platform() {
+        this.isBrowser = typeof document === 'object' && !!document;
+        /**
+         * Layout Engines
+         */
+        this.EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
+        this.TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
+        this.BLINK = this.isBrowser &&
+            (!!(((window)).chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT);
+        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
+        // ensure that Webkit runs standalone and is not used as another engine's base.
+        this.WEBKIT = this.isBrowser &&
+            /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+        /**
+         * Browsers and Platform Types
+         */
+        this.IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
+        // them self as Gecko-like browsers and modify the userAgent's according to that.
+        // Since we only cover one explicit Firefox case, we can simply check for Firefox
+        // instead of having an unstable check for Gecko.
+        this.FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
+        // Trident on mobile adds the android platform to the userAgent to trick detections.
+        this.ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
+        // Safari browsers will include the Safari keyword in their userAgent. Some browsers may fake
+        // this and just place the Safari keyword in the userAgent. To be more safe about Safari every
+        // Safari browser should also use Webkit as its layout engine.
+        this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
+    }
+    Platform.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    Platform.ctorParameters = function () { return []; };
+    return Platform;
+}());
+
+/**
+ * Cached result Set of input types support by the current browser.
+ */
+var supportedInputTypes;
+/**
+ * Types of <input> that *might* be supported.
+ */
+var candidateInputTypes = [
+    // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
+    // first changing it to something else:
+    // The specified value "" does not conform to the required format.
+    // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+    'color',
+    'button',
+    'checkbox',
+    'date',
+    'datetime-local',
+    'email',
+    'file',
+    'hidden',
+    'image',
+    'month',
+    'number',
+    'password',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'text',
+    'time',
+    'url',
+    'week',
+];
+/**
+ * @return {?} The input types supported by this browser.
+ */
+function getSupportedInputTypes() {
+    // Result is cached.
+    if (supportedInputTypes) {
+        return supportedInputTypes;
+    }
+    // We can't check if an input type is not supported until we're on the browser, so say that
+    // everything is supported when not on the browser. We don't use `Platform` here since it's
+    // just a helper function and can't inject it.
+    if (typeof document !== 'object' || !document) {
+        supportedInputTypes = new Set(candidateInputTypes);
+        return supportedInputTypes;
+    }
+    var /** @type {?} */ featureTestInput = document.createElement('input');
+    supportedInputTypes = new Set(candidateInputTypes.filter(function (value) {
+        featureTestInput.setAttribute('type', value);
+        return featureTestInput.type === value;
+    }));
+    return supportedInputTypes;
+}
+
+var PlatformModule = (function () {
+    function PlatformModule() {
+    }
+    PlatformModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */], args: [{
+                    providers: [Platform]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    PlatformModule.ctorParameters = function () { return []; };
+    return PlatformModule;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=platform.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/portal.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Portal */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentPortal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TemplatePortal; });
+/* unused harmony export BasePortalHost */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DomPortalHost; });
+/* unused harmony export TemplatePortalDirective */
+/* unused harmony export PortalHostDirective */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PortalModule; });
+/* unused harmony export PortalInjector */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+/**
+ * Throws an exception when attempting to attach a null portal to a host.
+ * \@docs-private
+ * @return {?}
+ */
+function throwNullPortalError() {
+    throw Error('Must provide a portal to attach');
+}
+/**
+ * Throws an exception when attempting to attach a portal to a host that is already attached.
+ * \@docs-private
+ * @return {?}
+ */
+function throwPortalAlreadyAttachedError() {
+    throw Error('Host already has a portal attached');
+}
+/**
+ * Throws an exception when attempting to attach a portal to an already-disposed host.
+ * \@docs-private
+ * @return {?}
+ */
+function throwPortalHostAlreadyDisposedError() {
+    throw Error('This PortalHost has already been disposed');
+}
+/**
+ * Throws an exception when attempting to attach an unknown portal type.
+ * \@docs-private
+ * @return {?}
+ */
+function throwUnknownPortalTypeError() {
+    throw Error('Attempting to attach an unknown Portal type. BasePortalHost accepts either ' +
+        'a ComponentPortal or a TemplatePortal.');
+}
+/**
+ * Throws an exception when attempting to attach a portal to a null host.
+ * \@docs-private
+ * @return {?}
+ */
+function throwNullPortalHostError() {
+    throw Error('Attempting to attach a portal to a null PortalHost');
+}
+/**
+ * Throws an exception when attempting to detach a portal that is not attached.
+ * \@docs-privatew
+ * @return {?}
+ */
+function throwNoPortalAttachedError() {
+    throw Error('Attempting to detach a portal that is not attached to a host');
+}
+
+/**
+ * A `Portal` is something that you want to render somewhere else.
+ * It can be attach to / detached from a `PortalHost`.
+ * @abstract
+ */
+var Portal = (function () {
+    function Portal() {
+    }
+    /**
+     * Attach this portal to a host.
+     * @param {?} host
+     * @return {?}
+     */
+    Portal.prototype.attach = function (host) {
+        if (host == null) {
+            throwNullPortalHostError();
+        }
+        if (host.hasAttached()) {
+            throwPortalAlreadyAttachedError();
+        }
+        this._attachedHost = host;
+        return (host.attach(this));
+    };
+    /**
+     * Detach this portal from its host
+     * @return {?}
+     */
+    Portal.prototype.detach = function () {
+        var /** @type {?} */ host = this._attachedHost;
+        if (host == null) {
+            throwNoPortalAttachedError();
+        }
+        else {
+            this._attachedHost = null;
+            host.detach();
+        }
+    };
+    Object.defineProperty(Portal.prototype, "isAttached", {
+        /**
+         * Whether this portal is attached to a host.
+         * @return {?}
+         */
+        get: function () {
+            return this._attachedHost != null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the PortalHost reference without performing `attach()`. This is used directly by
+     * the PortalHost when it is performing an `attach()` or `detach()`.
+     * @param {?} host
+     * @return {?}
+     */
+    Portal.prototype.setAttachedHost = function (host) {
+        this._attachedHost = host;
+    };
+    return Portal;
+}());
+/**
+ * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
+ */
+var ComponentPortal = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(ComponentPortal, _super);
+    /**
+     * @param {?} component
+     * @param {?=} viewContainerRef
+     * @param {?=} injector
+     */
+    function ComponentPortal(component, viewContainerRef, injector) {
+        var _this = _super.call(this) || this;
+        _this.component = component;
+        _this.viewContainerRef = viewContainerRef;
+        _this.injector = injector;
+        return _this;
+    }
+    return ComponentPortal;
+}(Portal));
+/**
+ * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
+ */
+var TemplatePortal = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(TemplatePortal, _super);
+    /**
+     * @param {?} template
+     * @param {?} viewContainerRef
+     * @param {?=} context
+     */
+    function TemplatePortal(template, viewContainerRef, context) {
+        var _this = _super.call(this) || this;
+        _this.templateRef = template;
+        _this.viewContainerRef = viewContainerRef;
+        if (context) {
+            _this.context = context;
+        }
+        return _this;
+    }
+    Object.defineProperty(TemplatePortal.prototype, "origin", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.templateRef.elementRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Attach the the portal to the provided `PortalHost`.
+     * When a context is provided it will override the `context` property of the `TemplatePortal`
+     * instance.
+     * @param {?} host
+     * @param {?=} context
+     * @return {?}
+     */
+    TemplatePortal.prototype.attach = function (host, context) {
+        if (context === void 0) { context = this.context; }
+        this.context = context;
+        return _super.prototype.attach.call(this, host);
+    };
+    /**
+     * @return {?}
+     */
+    TemplatePortal.prototype.detach = function () {
+        this.context = undefined;
+        return _super.prototype.detach.call(this);
+    };
+    return TemplatePortal;
+}(Portal));
+/**
+ * Partial implementation of PortalHost that only deals with attaching either a
+ * ComponentPortal or a TemplatePortal.
+ * @abstract
+ */
+var BasePortalHost = (function () {
+    function BasePortalHost() {
+        /**
+         * Whether this host has already been permanently disposed.
+         */
+        this._isDisposed = false;
+    }
+    /**
+     * Whether this host has an attached portal.
+     * @return {?}
+     */
+    BasePortalHost.prototype.hasAttached = function () {
+        return !!this._attachedPortal;
+    };
+    /**
+     * @param {?} portal
+     * @return {?}
+     */
+    BasePortalHost.prototype.attach = function (portal) {
+        if (!portal) {
+            throwNullPortalError();
+        }
+        if (this.hasAttached()) {
+            throwPortalAlreadyAttachedError();
+        }
+        if (this._isDisposed) {
+            throwPortalHostAlreadyDisposedError();
+        }
+        if (portal instanceof ComponentPortal) {
+            this._attachedPortal = portal;
+            return this.attachComponentPortal(portal);
+        }
+        else if (portal instanceof TemplatePortal) {
+            this._attachedPortal = portal;
+            return this.attachTemplatePortal(portal);
+        }
+        throwUnknownPortalTypeError();
+    };
+    /**
+     * @abstract
+     * @template T
+     * @param {?} portal
+     * @return {?}
+     */
+    BasePortalHost.prototype.attachComponentPortal = function (portal) { };
+    /**
+     * @abstract
+     * @template C
+     * @param {?} portal
+     * @return {?}
+     */
+    BasePortalHost.prototype.attachTemplatePortal = function (portal) { };
+    /**
+     * @return {?}
+     */
+    BasePortalHost.prototype.detach = function () {
+        if (this._attachedPortal) {
+            this._attachedPortal.setAttachedHost(null);
+            this._attachedPortal = null;
+        }
+        this._invokeDisposeFn();
+    };
+    /**
+     * @return {?}
+     */
+    BasePortalHost.prototype.dispose = function () {
+        if (this.hasAttached()) {
+            this.detach();
+        }
+        this._invokeDisposeFn();
+        this._isDisposed = true;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    BasePortalHost.prototype.setDisposeFn = function (fn) {
+        this._disposeFn = fn;
+    };
+    /**
+     * @return {?}
+     */
+    BasePortalHost.prototype._invokeDisposeFn = function () {
+        if (this._disposeFn) {
+            this._disposeFn();
+            this._disposeFn = null;
+        }
+    };
+    return BasePortalHost;
+}());
+
+/**
+ * A PortalHost for attaching portals to an arbitrary DOM element outside of the Angular
+ * application context.
+ *
+ * This is the only part of the portal core that directly touches the DOM.
+ */
+var DomPortalHost = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(DomPortalHost, _super);
+    /**
+     * @param {?} _hostDomElement
+     * @param {?} _componentFactoryResolver
+     * @param {?} _appRef
+     * @param {?} _defaultInjector
+     */
+    function DomPortalHost(_hostDomElement, _componentFactoryResolver, _appRef, _defaultInjector) {
+        var _this = _super.call(this) || this;
+        _this._hostDomElement = _hostDomElement;
+        _this._componentFactoryResolver = _componentFactoryResolver;
+        _this._appRef = _appRef;
+        _this._defaultInjector = _defaultInjector;
+        return _this;
+    }
+    /**
+     * Attach the given ComponentPortal to DOM element using the ComponentFactoryResolver.
+     * @template T
+     * @param {?} portal Portal to be attached
+     * @return {?}
+     */
+    DomPortalHost.prototype.attachComponentPortal = function (portal) {
+        var _this = this;
+        var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
+        var /** @type {?} */ componentRef;
+        // If the portal specifies a ViewContainerRef, we will use that as the attachment point
+        // for the component (in terms of Angular's component tree, not rendering).
+        // When the ViewContainerRef is missing, we use the factory to create the component directly
+        // and then manually attach the view to the application.
+        if (portal.viewContainerRef) {
+            componentRef = portal.viewContainerRef.createComponent(componentFactory, portal.viewContainerRef.length, portal.injector || portal.viewContainerRef.parentInjector);
+            this.setDisposeFn(function () { return componentRef.destroy(); });
+        }
+        else {
+            componentRef = componentFactory.create(portal.injector || this._defaultInjector);
+            this._appRef.attachView(componentRef.hostView);
+            this.setDisposeFn(function () {
+                _this._appRef.detachView(componentRef.hostView);
+                componentRef.destroy();
+            });
+        }
+        // At this point the component has been instantiated, so we move it to the location in the DOM
+        // where we want it to be rendered.
+        this._hostDomElement.appendChild(this._getComponentRootNode(componentRef));
+        return componentRef;
+    };
+    /**
+     * Attaches a template portal to the DOM as an embedded view.
+     * @template C
+     * @param {?} portal Portal to be attached.
+     * @return {?}
+     */
+    DomPortalHost.prototype.attachTemplatePortal = function (portal) {
+        var _this = this;
+        var /** @type {?} */ viewContainer = portal.viewContainerRef;
+        var /** @type {?} */ viewRef = viewContainer.createEmbeddedView(portal.templateRef, portal.context);
+        viewRef.detectChanges();
+        // The method `createEmbeddedView` will add the view as a child of the viewContainer.
+        // But for the DomPortalHost the view can be added everywhere in the DOM (e.g Overlay Container)
+        // To move the view to the specified host element. We just re-append the existing root nodes.
+        viewRef.rootNodes.forEach(function (rootNode) { return _this._hostDomElement.appendChild(rootNode); });
+        this.setDisposeFn((function () {
+            var /** @type {?} */ index = viewContainer.indexOf(viewRef);
+            if (index !== -1) {
+                viewContainer.remove(index);
+            }
+        }));
+        // TODO(jelbourn): Return locals from view.
+        return viewRef;
+    };
+    /**
+     * Clears out a portal from the DOM.
+     * @return {?}
+     */
+    DomPortalHost.prototype.dispose = function () {
+        _super.prototype.dispose.call(this);
+        if (this._hostDomElement.parentNode != null) {
+            this._hostDomElement.parentNode.removeChild(this._hostDomElement);
+        }
+    };
+    /**
+     * Gets the root HTMLElement for an instantiated component.
+     * @param {?} componentRef
+     * @return {?}
+     */
+    DomPortalHost.prototype._getComponentRootNode = function (componentRef) {
+        return (((componentRef.hostView)).rootNodes[0]);
+    };
+    return DomPortalHost;
+}(BasePortalHost));
+
+/**
+ * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
+ * the directive instance itself can be attached to a host, enabling declarative use of portals.
+ *
+ * Usage:
+ * <ng-template portal #greeting>
+ *   <p> Hello {{name}} </p>
+ * </ng-template>
+ */
+var TemplatePortalDirective = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(TemplatePortalDirective, _super);
+    /**
+     * @param {?} templateRef
+     * @param {?} viewContainerRef
+     */
+    function TemplatePortalDirective(templateRef, viewContainerRef) {
+        return _super.call(this, templateRef, viewContainerRef) || this;
+    }
+    TemplatePortalDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdk-portal], [cdkPortal], [portal]',
+                    exportAs: 'cdkPortal',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    TemplatePortalDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_12" /* TemplateRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_18" /* ViewContainerRef */], },
+    ]; };
+    return TemplatePortalDirective;
+}(TemplatePortal));
+/**
+ * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
+ * directly attached to it, enabling declarative use.
+ *
+ * Usage:
+ * <ng-template [cdkPortalHost]="greeting"></ng-template>
+ */
+var PortalHostDirective = (function (_super) {
+    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */])(PortalHostDirective, _super);
+    /**
+     * @param {?} _componentFactoryResolver
+     * @param {?} _viewContainerRef
+     */
+    function PortalHostDirective(_componentFactoryResolver, _viewContainerRef) {
+        var _this = _super.call(this) || this;
+        _this._componentFactoryResolver = _componentFactoryResolver;
+        _this._viewContainerRef = _viewContainerRef;
+        /**
+         * The attached portal.
+         */
+        _this._portal = null;
+        return _this;
+    }
+    Object.defineProperty(PortalHostDirective.prototype, "_deprecatedPortal", {
+        /**
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.portal; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.portal = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PortalHostDirective.prototype, "portal", {
+        /**
+         * Portal associated with the Portal host.
+         * @return {?}
+         */
+        get: function () {
+            return this._portal;
+        },
+        /**
+         * @param {?} portal
+         * @return {?}
+         */
+        set: function (portal) {
+            if (this.hasAttached()) {
+                _super.prototype.detach.call(this);
+            }
+            if (portal) {
+                _super.prototype.attach.call(this, portal);
+            }
+            this._portal = portal;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    PortalHostDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.dispose.call(this);
+        this._portal = null;
+    };
+    /**
+     * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
+     *
+     * @template T
+     * @param {?} portal Portal to be attached to the portal host.
+     * @return {?}
+     */
+    PortalHostDirective.prototype.attachComponentPortal = function (portal) {
+        portal.setAttachedHost(this);
+        // If the portal specifies an origin, use that as the logical location of the component
+        // in the application tree. Otherwise use the location of this PortalHost.
+        var /** @type {?} */ viewContainerRef = portal.viewContainerRef != null ?
+            portal.viewContainerRef :
+            this._viewContainerRef;
+        var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
+        var /** @type {?} */ ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
+        _super.prototype.setDisposeFn.call(this, function () { return ref.destroy(); });
+        this._portal = portal;
+        return ref;
+    };
+    /**
+     * Attach the given TemplatePortal to this PortlHost as an embedded View.
+     * @template C
+     * @param {?} portal Portal to be attached.
+     * @return {?}
+     */
+    PortalHostDirective.prototype.attachTemplatePortal = function (portal) {
+        var _this = this;
+        portal.setAttachedHost(this);
+        var /** @type {?} */ viewRef = this._viewContainerRef.createEmbeddedView(portal.templateRef, portal.context);
+        _super.prototype.setDisposeFn.call(this, function () { return _this._viewContainerRef.clear(); });
+        this._portal = portal;
+        return viewRef;
+    };
+    PortalHostDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdkPortalHost], [portalHost]',
+                    exportAs: 'cdkPortalHost',
+                    inputs: ['portal: cdkPortalHost']
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    PortalHostDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["q" /* ComponentFactoryResolver */], },
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_18" /* ViewContainerRef */], },
+    ]; };
+    PortalHostDirective.propDecorators = {
+        '_deprecatedPortal': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */], args: ['portalHost',] },],
+    };
+    return PortalHostDirective;
+}(BasePortalHost));
+var PortalModule = (function () {
+    function PortalModule() {
+    }
+    PortalModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */], args: [{
+                    exports: [TemplatePortalDirective, PortalHostDirective],
+                    declarations: [TemplatePortalDirective, PortalHostDirective],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    PortalModule.ctorParameters = function () { return []; };
+    return PortalModule;
+}());
+
+/**
+ * Custom injector to be used when providing custom
+ * injection tokens to components inside a portal.
+ * \@docs-private
+ */
+var PortalInjector = (function () {
+    /**
+     * @param {?} _parentInjector
+     * @param {?} _customTokens
+     */
+    function PortalInjector(_parentInjector, _customTokens) {
+        this._parentInjector = _parentInjector;
+        this._customTokens = _customTokens;
+    }
+    /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
+    PortalInjector.prototype.get = function (token, notFoundValue) {
+        var /** @type {?} */ value = this._customTokens.get(token);
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+        return this._parentInjector.get(token, notFoundValue);
+    };
+    return PortalInjector;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=portal.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/rxjs.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RxChain; });
+/* unused harmony export FinallyBrand */
+/* unused harmony export CatchBrand */
+/* unused harmony export DoBrand */
+/* unused harmony export MapBrand */
+/* unused harmony export FilterBrand */
+/* unused harmony export ShareBrand */
+/* unused harmony export FirstBrand */
+/* unused harmony export SwitchMapBrand */
+/* unused harmony export StartWithBrand */
+/* unused harmony export DebounceTimeBrand */
+/* unused harmony export AuditTimeBrand */
+/* unused harmony export TakeUntilBrand */
+/* unused harmony export DelayBrand */
+/* unused harmony export finallyOperator */
+/* unused harmony export catchOperator */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return doOperator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return map$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return filter$1; });
+/* unused harmony export share */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return first$1; });
+/* unused harmony export switchMap */
+/* unused harmony export startWith */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return debounceTime$1; });
+/* unused harmony export auditTime */
+/* unused harmony export takeUntil */
+/* unused harmony export delay */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_operator_finally__ = __webpack_require__("../../../../rxjs/_esm5/operator/finally.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_operator_catch__ = __webpack_require__("../../../../rxjs/_esm5/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_do__ = __webpack_require__("../../../../rxjs/_esm5/operator/do.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_filter__ = __webpack_require__("../../../../rxjs/_esm5/operator/filter.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_share__ = __webpack_require__("../../../../rxjs/_esm5/operator/share.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operator_first__ = __webpack_require__("../../../../rxjs/_esm5/operator/first.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operator_switchMap__ = __webpack_require__("../../../../rxjs/_esm5/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operator_startWith__ = __webpack_require__("../../../../rxjs/_esm5/operator/startWith.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operator_debounceTime__ = __webpack_require__("../../../../rxjs/_esm5/operator/debounceTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operator_auditTime__ = __webpack_require__("../../../../rxjs/_esm5/operator/auditTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_takeUntil__ = __webpack_require__("../../../../rxjs/_esm5/operator/takeUntil.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_operator_delay__ = __webpack_require__("../../../../rxjs/_esm5/operator/delay.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Utility class used to chain RxJS operators.
+ *
+ * This class is the concrete implementation, but the type used by the user when chaining
+ * is StrictRxChain. The strict chain enforces types on the operators to the same level as
+ * the prototype-added equivalents.
+ */
+var RxChain = (function () {
+    /**
+     * @param {?} _context
+     */
+    function RxChain(_context) {
+        this._context = _context;
+    }
+    /**
+     * Starts a new chain and specifies the initial `this` value.
+     * @template O
+     * @param {?} context Initial `this` value for the chain.
+     * @return {?}
+     */
+    RxChain.from = function (context) {
+        return new RxChain(context);
+    };
+    /**
+     * Invokes an RxJS operator as a part of the chain.
+     * @param {?} operator Operator to be invoked.
+     * @param {...?} args Arguments to be passed to the operator.
+     * @return {?}
+     */
+    RxChain.prototype.call = function (operator) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        this._context = operator.call.apply(operator, [this._context].concat(args));
+        return this;
+    };
+    /**
+     * Subscribes to the result of the chain.
+     * @param {?} fn Callback to be invoked when the result emits a value.
+     * @return {?}
+     */
+    RxChain.prototype.subscribe = function (fn) {
+        return this._context.subscribe(fn);
+    };
+    /**
+     * Returns the result of the chain.
+     * @return {?}
+     */
+    RxChain.prototype.result = function () {
+        return this._context;
+    };
+    return RxChain;
+}());
+
+var FinallyBrand = (function () {
+    function FinallyBrand() {
+    }
+    return FinallyBrand;
+}());
+var CatchBrand = (function () {
+    function CatchBrand() {
+    }
+    return CatchBrand;
+}());
+var DoBrand = (function () {
+    function DoBrand() {
+    }
+    return DoBrand;
+}());
+var MapBrand = (function () {
+    function MapBrand() {
+    }
+    return MapBrand;
+}());
+var FilterBrand = (function () {
+    function FilterBrand() {
+    }
+    return FilterBrand;
+}());
+var ShareBrand = (function () {
+    function ShareBrand() {
+    }
+    return ShareBrand;
+}());
+var FirstBrand = (function () {
+    function FirstBrand() {
+    }
+    return FirstBrand;
+}());
+var SwitchMapBrand = (function () {
+    function SwitchMapBrand() {
+    }
+    return SwitchMapBrand;
+}());
+var StartWithBrand = (function () {
+    function StartWithBrand() {
+    }
+    return StartWithBrand;
+}());
+var DebounceTimeBrand = (function () {
+    function DebounceTimeBrand() {
+    }
+    return DebounceTimeBrand;
+}());
+var AuditTimeBrand = (function () {
+    function AuditTimeBrand() {
+    }
+    return AuditTimeBrand;
+}());
+var TakeUntilBrand = (function () {
+    function TakeUntilBrand() {
+    }
+    return TakeUntilBrand;
+}());
+var DelayBrand = (function () {
+    function DelayBrand() {
+    }
+    return DelayBrand;
+}());
+// We add `Function` to the type intersection to make this nomically different from
+// `finallyOperatorType` while still being structurally the same. Without this, TypeScript tries to
+// reduce `typeof _finallyOperator & FinallyBrand` to `finallyOperatorType<T>` and then fails
+// because `T` isn't known.
+var finallyOperator = (__WEBPACK_IMPORTED_MODULE_0_rxjs_operator_finally__["a" /* _finally */]);
+var catchOperator = (__WEBPACK_IMPORTED_MODULE_1_rxjs_operator_catch__["a" /* _catch */]);
+var doOperator = (__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_do__["a" /* _do */]);
+var map$1 = (__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__["a" /* map */]);
+var filter$1 = (__WEBPACK_IMPORTED_MODULE_4_rxjs_operator_filter__["a" /* filter */]);
+var share$1 = (__WEBPACK_IMPORTED_MODULE_5_rxjs_operator_share__["a" /* share */]);
+var first$1 = (__WEBPACK_IMPORTED_MODULE_6_rxjs_operator_first__["a" /* first */]);
+var switchMap$1 = (__WEBPACK_IMPORTED_MODULE_7_rxjs_operator_switchMap__["a" /* switchMap */]);
+var startWith$1 = (__WEBPACK_IMPORTED_MODULE_8_rxjs_operator_startWith__["a" /* startWith */]);
+var debounceTime$1 = (__WEBPACK_IMPORTED_MODULE_9_rxjs_operator_debounceTime__["a" /* debounceTime */]);
+var auditTime$1 = (__WEBPACK_IMPORTED_MODULE_10_rxjs_operator_auditTime__["a" /* auditTime */]);
+var takeUntil$1 = (__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_takeUntil__["a" /* takeUntil */]);
+var delay$1 = (__WEBPACK_IMPORTED_MODULE_12_rxjs_operator_delay__["a" /* delay */]);
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=rxjs.es5.js.map
+
+
+/***/ }),
+
+/***/ "../../../cdk/esm5/scrolling.es5.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export DEFAULT_SCROLL_TIME */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ScrollDispatcher; });
+/* unused harmony export SCROLL_DISPATCHER_PROVIDER_FACTORY */
+/* unused harmony export SCROLL_DISPATCHER_PROVIDER */
+/* unused harmony export Scrollable */
+/* unused harmony export DEFAULT_RESIZE_TIME */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ViewportRuler; });
+/* unused harmony export VIEWPORT_RULER_PROVIDER_FACTORY */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return VIEWPORT_RULER_PROVIDER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollDispatchModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__ = __webpack_require__("../../../cdk/esm5/platform.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_fromEvent__ = __webpack_require__("../../../../rxjs/_esm5/observable/fromEvent.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__ = __webpack_require__("../../../../rxjs/_esm5/operator/auditTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_observable_merge__ = __webpack_require__("../../../../rxjs/_esm5/observable/merge.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_observable_of__ = __webpack_require__("../../../../rxjs/_esm5/observable/of.js");
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Time in ms to throttle the scrolling events by default.
+ */
+var DEFAULT_SCROLL_TIME = 20;
+/**
+ * Service contained all registered Scrollable references and emits an event when any one of the
+ * Scrollable references emit a scrolled event.
+ */
+var ScrollDispatcher = (function () {
+    /**
+     * @param {?} _ngZone
+     * @param {?} _platform
+     */
+    function ScrollDispatcher(_ngZone, _platform) {
+        this._ngZone = _ngZone;
+        this._platform = _platform;
+        /**
+         * Subject for notifying that a registered scrollable reference element has been scrolled.
+         */
+        this._scrolled = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        /**
+         * Keeps track of the global `scroll` and `resize` subscriptions.
+         */
+        this._globalSubscription = null;
+        /**
+         * Keeps track of the amount of subscriptions to `scrolled`. Used for cleaning up afterwards.
+         */
+        this._scrolledCount = 0;
+        /**
+         * Map of all the scrollable references that are registered with the service and their
+         * scroll event subscriptions.
+         */
+        this.scrollableReferences = new Map();
+    }
+    /**
+     * Registers a Scrollable with the service and listens for its scrolled events. When the
+     * scrollable is scrolled, the service emits the event in its scrolled observable.
+     * @param {?} scrollable Scrollable instance to be registered.
+     * @return {?}
+     */
+    ScrollDispatcher.prototype.register = function (scrollable) {
+        var _this = this;
+        var /** @type {?} */ scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
+        this.scrollableReferences.set(scrollable, scrollSubscription);
+    };
+    /**
+     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
+     * @param {?} scrollable Scrollable instance to be deregistered.
+     * @return {?}
+     */
+    ScrollDispatcher.prototype.deregister = function (scrollable) {
+        var /** @type {?} */ scrollableReference = this.scrollableReferences.get(scrollable);
+        if (scrollableReference) {
+            scrollableReference.unsubscribe();
+            this.scrollableReferences.delete(scrollable);
+        }
+    };
+    /**
+     * Subscribes to an observable that emits an event whenever any of the registered Scrollable
+     * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
+     * to override the default "throttle" time.
+     * @param {?=} auditTimeInMs
+     * @param {?=} callback
+     * @return {?}
+     */
+    ScrollDispatcher.prototype.scrolled = function (auditTimeInMs, callback) {
+        var _this = this;
+        if (auditTimeInMs === void 0) { auditTimeInMs = DEFAULT_SCROLL_TIME; }
+        // Scroll events can only happen on the browser, so do nothing if we're not on the browser.
+        if (!this._platform.isBrowser) {
+            return __WEBPACK_IMPORTED_MODULE_3_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        }
+        // In the case of a 0ms delay, use an observable without auditTime
+        // since it does add a perceptible delay in processing overhead.
+        var /** @type {?} */ observable = auditTimeInMs > 0 ?
+            __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__["a" /* auditTime */].call(this._scrolled.asObservable(), auditTimeInMs) :
+            this._scrolled.asObservable();
+        this._scrolledCount++;
+        if (!this._globalSubscription) {
+            this._globalSubscription = this._ngZone.runOutsideAngular(function () {
+                return Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_fromEvent__["a" /* fromEvent */])(window.document, 'scroll').subscribe(function () { return _this._notify(); });
+            });
+        }
+        // Note that we need to do the subscribing from here, in order to be able to remove
+        // the global event listeners once there are no more subscriptions.
+        var /** @type {?} */ subscription = observable.subscribe(callback);
+        subscription.add(function () {
+            _this._scrolledCount--;
+            if (_this._globalSubscription && !_this.scrollableReferences.size && !_this._scrolledCount) {
+                _this._globalSubscription.unsubscribe();
+                _this._globalSubscription = null;
+            }
+        });
+        return subscription;
+    };
+    /**
+     * Returns all registered Scrollables that contain the provided element.
+     * @param {?} elementRef
+     * @return {?}
+     */
+    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
+        var _this = this;
+        var /** @type {?} */ scrollingContainers = [];
+        this.scrollableReferences.forEach(function (_subscription, scrollable) {
+            if (_this.scrollableContainsElement(scrollable, elementRef)) {
+                scrollingContainers.push(scrollable);
+            }
+        });
+        return scrollingContainers;
+    };
+    /**
+     * Returns true if the element is contained within the provided Scrollable.
+     * @param {?} scrollable
+     * @param {?} elementRef
+     * @return {?}
+     */
+    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
+        var /** @type {?} */ element = elementRef.nativeElement;
+        var /** @type {?} */ scrollableElement = scrollable.getElementRef().nativeElement;
+        // Traverse through the element parents until we reach null, checking if any of the elements
+        // are the scrollable's element.
+        do {
+            if (element == scrollableElement) {
+                return true;
+            }
+        } while (element = element.parentElement);
+        return false;
+    };
+    /**
+     * Sends a notification that a scroll event has been fired.
+     * @return {?}
+     */
+    ScrollDispatcher.prototype._notify = function () {
+        this._scrolled.next();
+    };
+    ScrollDispatcher.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    ScrollDispatcher.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], },
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return ScrollDispatcher;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentDispatcher
+ * @param {?} ngZone
+ * @param {?} platform
+ * @return {?}
+ */
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
+    return parentDispatcher || new ScrollDispatcher(ngZone, platform);
+}
+/**
+ * \@docs-private
+ */
+var SCROLL_DISPATCHER_PROVIDER = {
+    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
+    provide: ScrollDispatcher,
+    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* SkipSelf */](), ScrollDispatcher], __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__["a" /* Platform */]],
+    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
+};
+
+/**
+ * Sends an event when the directive's element is scrolled. Registers itself with the
+ * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
+ * can be listened to through the service.
+ */
+var Scrollable = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _scroll
+     * @param {?} _ngZone
+     * @param {?} _renderer
+     */
+    function Scrollable(_elementRef, _scroll, _ngZone, _renderer) {
+        this._elementRef = _elementRef;
+        this._scroll = _scroll;
+        this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementScrolled = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+    }
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.ngOnInit = function () {
+        var _this = this;
+        this._scrollListener = this._ngZone.runOutsideAngular(function () {
+            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
+                _this._elementScrolled.next(event);
+            });
+        });
+        this._scroll.register(this);
+    };
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.ngOnDestroy = function () {
+        this._scroll.deregister(this);
+        if (this._scrollListener) {
+            this._scrollListener();
+            this._scrollListener = null;
+        }
+    };
+    /**
+     * Returns observable that emits when a scroll event is fired on the host element.
+     * @return {?}
+     */
+    Scrollable.prototype.elementScrolled = function () {
+        return this._elementScrolled.asObservable();
+    };
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.getElementRef = function () {
+        return this._elementRef;
+    };
+    Scrollable.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */], args: [{
+                    selector: '[cdk-scrollable], [cdkScrollable]'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    Scrollable.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+        { type: ScrollDispatcher, },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* Renderer2 */], },
+    ]; };
+    return Scrollable;
+}());
+
+/**
+ * Time in ms to throttle the resize events by default.
+ */
+var DEFAULT_RESIZE_TIME = 20;
+/**
+ * Simple utility for getting the bounds of the browser viewport.
+ * \@docs-private
+ */
+var ViewportRuler = (function () {
+    /**
+     * @param {?} platform
+     * @param {?} ngZone
+     * @param {?} scrollDispatcher
+     */
+    function ViewportRuler(platform, ngZone, scrollDispatcher) {
+        var _this = this;
+        this._change = platform.isBrowser ? ngZone.runOutsideAngular(function () {
+            return Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_observable_merge__["a" /* merge */])(Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_fromEvent__["a" /* fromEvent */])(window, 'resize'), Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_fromEvent__["a" /* fromEvent */])(window, 'orientationchange'));
+        }) : Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_observable_of__["a" /* of */])();
+        // Subscribe to scroll and resize events and update the document rectangle on changes.
+        this._invalidateCacheSubscriptions = [
+            scrollDispatcher.scrolled(0, function () { return _this._cacheViewportGeometry(); }),
+            this.change().subscribe(function () { return _this._cacheViewportGeometry(); })
+        ];
+    }
+    /**
+     * @return {?}
+     */
+    ViewportRuler.prototype.ngOnDestroy = function () {
+        this._invalidateCacheSubscriptions.forEach(function (subscription) { return subscription.unsubscribe(); });
+    };
+    /**
+     * Gets a ClientRect for the viewport's bounds.
+     * @param {?=} documentRect
+     * @return {?}
+     */
+    ViewportRuler.prototype.getViewportRect = function (documentRect) {
+        if (documentRect === void 0) { documentRect = this._documentRect; }
+        // Cache the document bounding rect so that we don't recompute it for multiple calls.
+        if (!documentRect) {
+            this._cacheViewportGeometry();
+            documentRect = this._documentRect;
+        }
+        // Use the document element's bounding rect rather than the window scroll properties
+        // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
+        // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
+        // conceptual viewports. Under most circumstances these viewports are equivalent, but they
+        // can disagree when the page is pinch-zoomed (on devices that support touch).
+        // See https://bugs.chromium.org/p/chromium/issues/detail?id=489206#c4
+        // We use the documentElement instead of the body because, by default (without a css reset)
+        // browsers typically give the document body an 8px margin, which is not included in
+        // getBoundingClientRect().
+        var /** @type {?} */ scrollPosition = this.getViewportScrollPosition(documentRect);
+        var /** @type {?} */ height = window.innerHeight;
+        var /** @type {?} */ width = window.innerWidth;
+        return {
+            top: scrollPosition.top,
+            left: scrollPosition.left,
+            bottom: scrollPosition.top + height,
+            right: scrollPosition.left + width,
+            height: height,
+            width: width,
+        };
+    };
+    /**
+     * Gets the (top, left) scroll position of the viewport.
+     * @param {?=} documentRect
+     * @return {?}
+     */
+    ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
+        if (documentRect === void 0) { documentRect = this._documentRect; }
+        // Cache the document bounding rect so that we don't recompute it for multiple calls.
+        if (!documentRect) {
+            this._cacheViewportGeometry();
+            documentRect = this._documentRect;
+        }
+        // The top-left-corner of the viewport is determined by the scroll position of the document
+        // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
+        // whether `document.body` or `document.documentElement` is the scrolled element, so reading
+        // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
+        // `document.documentElement` works consistently, where the `top` and `left` values will
+        // equal negative the scroll position.
+        var /** @type {?} */ top = -((documentRect)).top || document.body.scrollTop || window.scrollY ||
+            document.documentElement.scrollTop || 0;
+        var /** @type {?} */ left = -((documentRect)).left || document.body.scrollLeft || window.scrollX ||
+            document.documentElement.scrollLeft || 0;
+        return { top: top, left: left };
+    };
+    /**
+     * Returns a stream that emits whenever the size of the viewport changes.
+     * @param {?=} throttleTime
+     * @return {?}
+     */
+    ViewportRuler.prototype.change = function (throttleTime) {
+        if (throttleTime === void 0) { throttleTime = DEFAULT_RESIZE_TIME; }
+        return throttleTime > 0 ? __WEBPACK_IMPORTED_MODULE_5_rxjs_operator_auditTime__["a" /* auditTime */].call(this._change, throttleTime) : this._change;
+    };
+    /**
+     * Caches the latest client rectangle of the document element.
+     * @return {?}
+     */
+    ViewportRuler.prototype._cacheViewportGeometry = function () {
+        this._documentRect = document.documentElement.getBoundingClientRect();
+    };
+    ViewportRuler.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */] },
+    ];
+    /**
+     * @nocollapse
+     */
+    ViewportRuler.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__["a" /* Platform */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], },
+        { type: ScrollDispatcher, },
+    ]; };
+    return ViewportRuler;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentRuler
+ * @param {?} platform
+ * @param {?} ngZone
+ * @param {?} scrollDispatcher
+ * @return {?}
+ */
+function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, platform, ngZone, scrollDispatcher) {
+    return parentRuler || new ViewportRuler(platform, ngZone, scrollDispatcher);
+}
+/**
+ * \@docs-private
+ */
+var VIEWPORT_RULER_PROVIDER = {
+    // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
+    provide: ViewportRuler,
+    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* SkipSelf */](), ViewportRuler], __WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__["a" /* Platform */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* NgZone */], ScrollDispatcher],
+    useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
+};
+
+var ScrollDispatchModule = (function () {
+    function ScrollDispatchModule() {
+    }
+    ScrollDispatchModule.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */], args: [{
+                    imports: [__WEBPACK_IMPORTED_MODULE_1__angular_cdk_platform__["b" /* PlatformModule */]],
+                    exports: [Scrollable],
+                    declarations: [Scrollable],
+                    providers: [SCROLL_DISPATCHER_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    ScrollDispatchModule.ctorParameters = function () { return []; };
+    return ScrollDispatchModule;
+}());
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=scrolling.es5.js.map
 
 
 /***/ }),
@@ -54236,7 +62558,7 @@ var DEFAULT_VALUE_ACCESSOR = {
  * @return {?}
  */
 function _isAndroid() {
-    var /** @type {?} */ userAgent = Object(__WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* ɵgetDOM */])() ? Object(__WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* ɵgetDOM */])().getUserAgent() : '';
+    var /** @type {?} */ userAgent = Object(__WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["d" /* ɵgetDOM */])() ? Object(__WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["d" /* ɵgetDOM */])().getUserAgent() : '';
     return /android (\d+)/.test(userAgent.toLowerCase());
 }
 /**
@@ -61092,7 +69414,7 @@ var CookieXSRFStrategy = (function () {
      * @return {?}
      */
     CookieXSRFStrategy.prototype.configureRequest = function (req) {
-        var /** @type {?} */ xsrfToken = Object(__WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* ɵgetDOM */])().getCookie(this._cookieName);
+        var /** @type {?} */ xsrfToken = Object(__WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["d" /* ɵgetDOM */])().getCookie(this._cookieName);
         if (xsrfToken) {
             req.headers.set(this._headerName, xsrfToken);
         }
@@ -62022,7 +70344,7 @@ ResourceLoaderImpl.ctorParameters = function () { return []; };
  * found in the LICENSE file at https://angular.io/license
  */
 var INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS = [
-    __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["b" /* ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */],
+    __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["c" /* ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */],
     {
         provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["i" /* COMPILER_OPTIONS */],
         useValue: { providers: [{ provide: __WEBPACK_IMPORTED_MODULE_1__angular_compiler__["a" /* ResourceLoader */], useClass: ResourceLoaderImpl }] },
@@ -62133,7 +70455,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__[
 /* unused harmony export enableDebugTools */
 /* unused harmony export By */
 /* unused harmony export NgProbeToken */
-/* unused harmony export DOCUMENT */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DOCUMENT$1; });
 /* unused harmony export EVENT_MANAGER_PLUGINS */
 /* unused harmony export EventManager */
 /* unused harmony export HAMMER_GESTURE_CONFIG */
@@ -62141,7 +70463,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__[
 /* unused harmony export DomSanitizer */
 /* unused harmony export VERSION */
 /* unused harmony export ɵBROWSER_SANITIZATION_PROVIDERS */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return INTERNAL_BROWSER_PLATFORM_PROVIDERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return INTERNAL_BROWSER_PLATFORM_PROVIDERS; });
 /* unused harmony export ɵinitDomAdapter */
 /* unused harmony export ɵBrowserDomAdapter */
 /* unused harmony export ɵBrowserPlatformLocation */
@@ -62149,7 +70471,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__[
 /* unused harmony export ɵBrowserGetTestability */
 /* unused harmony export ɵELEMENT_PROBE_PROVIDERS */
 /* unused harmony export ɵDomAdapter */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getDOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDOM; });
 /* unused harmony export ɵsetRootDomAdapter */
 /* unused harmony export ɵDomRendererFactory2 */
 /* unused harmony export ɵNAMESPACE_URIS */
@@ -72767,7 +81089,7 @@ function setupRouter(ref, urlSerializer, contexts, location, injector, loader, c
         router.errorHandler = opts.errorHandler;
     }
     if (opts.enableTracing) {
-        var /** @type {?} */ dom_1 = Object(__WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__["c" /* ɵgetDOM */])();
+        var /** @type {?} */ dom_1 = Object(__WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__["d" /* ɵgetDOM */])();
         router.events.subscribe(function (e) {
             dom_1.logGroup("Router Event: " + ((e.constructor)).name);
             dom_1.log(e.toString());

@@ -21,10 +21,9 @@ export class DataComponent implements OnInit {
   model: any = {};
   loading = false;
   currentUser: UserInfoWithToken;
-  folder: Folder;
   folders: Folder[] = [];
-  file: File;
   files: File[] = [];
+  uploadFiles: any[];
   folderId: string;
 
   private sub: Subscription;
@@ -40,45 +39,84 @@ export class DataComponent implements OnInit {
       .switchMap(params => {
         this.folderId = params['folderId'];
 
-        return this.dataService.loadAllFolders(this.folder.folderId);
+        return this.dataService.loadRootFolders(this.folderId);
       })
       .subscribe(res => this.folders = res);
   }
 
-  private loadAllFolders(folderId: string) {
-    this.dataService.loadAllFolders(folderId).subscribe(
-      data => {
-        this.folders = data.json() as Folder[];
-        console.log('Loading folders successfull');
-      },
-      error => {
-        //show info about error
-        console.log('Loading folders unsuccessfull');
-      });
+  
+      //this.loadRootFiles();
+
+
+  onChange(files: any[]) {
+      this.uploadFiles = files;
+  }
+
+  checkIfImage(name: string){
+      var fileExtension = "";
+      if (name.lastIndexOf(".") > 0) {
+          fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
+      }
+      if (fileExtension.toLowerCase() == "jpg") {
+          return true;
+      }
+      if (fileExtension.toLowerCase() == "png") {
+          return false;
+      }
+      else {
+          return false;
+      }
+  }
+
+  private loadRootFolders() {
+      this.homeService.loadRootFolders(null).subscribe(
+          data => {
+              this.folders = data as Folder[];
+              localStorage.setItem('folders', JSON.stringify(data))
+              console.log('Loading root folders successfull');
+          },
+          error => {
+              //show info about error
+              console.log('Loading root folders unsuccessfull');
+          });
+
+  }
+
+  private loadRootFiles() {
+      this.homeService.loadRootFiles(null).subscribe(
+          data => {
+              this.files = data as File[];
+              localStorage.setItem('files', JSON.stringify(data))
+              console.log('Loading root files successfull');
+          },
+          error => {
+              //show info about error
+              console.log('Loading root files unsuccessfull');
+          });
 
   }
 
   createfolder() {
-    this.loading = true;
-    this.homeService.createfolder(this.model.foldername, null)
-      .subscribe(
-      data => {
-        console.log('Creating folder successfull');
-        this.closeModal();
-        this.loadAllFolders(this.folderId);
-      },
-      error => {
-        console.log('Cant create folder');
-        this.loading = false;
-      });
+      this.loading = true;
+      this.homeService.createfolder(this.model.foldername, null)
+          .subscribe(
+          data => {
+              console.log('Creating folder successfull');
+              this.closeModal();
+              this.loadRootFolders();
+          },
+          error => {
+              console.log('Cant create folder');
+              this.loading = false;
+          });
 
   }
 
   private closeModal(): void {
-    this.closeBtn.nativeElement.click();
+      this.closeBtn.nativeElement.click();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  moveToSelectedFolder(folderId) {
+      this.router.navigate(['', folderId])
   }
 }

@@ -53,23 +53,26 @@
     </div>
   </div>
 </div>
-<h3>Папки</h3>
-<div class="row">
-  <div class="col-md-4" *ngFor="let folder of folders | async">
-    <div class="thumbnail">
+<div *ngIf="folders?.length > 0">
+  <h3>Папки</h3>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let folder of folders">
+      <div class="thumbnail">
         <h4>
           <div (dblclick)="moveToSelectedFolder(folder.folderId)">{{ folder.name }}</div>
-        </h4>      
+        </h4>
+      </div>
     </div>
   </div>
 </div>
-<h3>Файлы</h3>
-<div class="row">
-  <div class="col-md-4" *ngFor="let folder of folders | async">
-    <div class="thumbnail">
-        <h4>
-          <div (dblclick)="moveToSelectedFolder(folder.folderId)">{{ folder.name }}</div>
-        </h4>      
+<div *ngIf="files?.length > 0">
+  <h3>Файлы</h3>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let file of files">
+      <div class="thumbnail">
+        <h4>{{file.name}}
+        </h4>
+      </div>
     </div>
   </div>
 </div>

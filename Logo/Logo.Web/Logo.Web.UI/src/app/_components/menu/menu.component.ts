@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, } from '@angular/core';
 
 import { UserInfoWithToken, UserInfo } from '../login/user';
 
@@ -10,6 +10,9 @@ import { UserInfoWithToken, UserInfo } from '../login/user';
 export class MenuComponent implements OnInit {
 
   currentUser: UserInfo;
+  @Output() 
+	toggleGridEvent = new EventEmitter<boolean>();
+  grid = true;
 
   constructor(
   ) {
@@ -24,4 +27,15 @@ export class MenuComponent implements OnInit {
 
   }
 
+  toggleGrid(): void {
+    this.grid = true;
+    this.toggleGridEvent.emit(true);
+    console.log('togg');
+  }
+
+  toggleList(): void {
+    this.grid = false;
+    this.toggleGridEvent.emit(false);
+    console.log('togl');
+  }
 }

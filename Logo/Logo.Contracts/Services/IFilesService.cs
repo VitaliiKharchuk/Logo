@@ -10,5 +10,6 @@ namespace Logo.Contracts.Services
         Task SimpleUploadAsync(byte[] file, string fileName);
 
         Task<byte[]> SimpleDownloadAsync(string fileName);
+
     }
 }
