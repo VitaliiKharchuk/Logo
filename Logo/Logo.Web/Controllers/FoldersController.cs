@@ -44,15 +44,37 @@ namespace Logo.Web.Controllers
         [Route("get-folders/{id?}")]
         public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
         {
-            return _foldersService.GetFoldersInFolder(id);
 
+            if (id  ==  default(Guid))
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                      .Where(item => item.Type == "UserId")
+                                      .Select(item => item.Value)
+                                      .FirstOrDefault());
+
+                return _foldersService.GetRootFolders(ownerId);
+
+            }
+
+            return _foldersService.GetFoldersInFolder(id);
         }
 
         [HttpGet]
         [Route("get-files/{id?}")]
         public IEnumerable<FileInfo> GetFilesContent(Guid id)
         {
-            return _foldersService.GetFilesInFolder(id);
+            if (id == default(Guid))
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                      .Where(item => item.Type == "UserId")
+                                      .Select(item => item.Value)
+                                      .FirstOrDefault());
+
+
+                return _foldersService.GetRootFiles(ownerId);
+            }
+
+                return _foldersService.GetFilesInFolder(id);
         }
 
 
@@ -181,6 +203,37 @@ namespace Logo.Web.Controllers
 
             return Ok();
         }
+
+
+        [HttpGet]
+        [Route("get-root-folders")]
+        public   IEnumerable<FolderInfo>   GetRootFolders()
+        {
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
+
+            return _foldersService.GetRootFolders(ownerId);
+            
+        }
+
+        [HttpGet]
+        [Route("get-root-files")]
+        public IEnumerable<FileInfo> GetRootFiles()
+        {
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
+
+
+            return _foldersService.GetRootFiles(ownerId);            
+        }
+
+
+
+
 
     }
 }

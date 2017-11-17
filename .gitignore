@@ -10,4 +10,4 @@
 [Oo]bj/
 .idea/
 .vs/
-log-history.txt
+*.txt
