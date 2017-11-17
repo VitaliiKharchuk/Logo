@@ -3,7 +3,7 @@ export class Folder {
     ownerId: string;
     parentFolderId: string;
     name: string;
-    creationDat: Date;
+    creationDate: Date;
     uploadDate: Date;
     level: Int32Array;
     hasPublicAccess: boolean

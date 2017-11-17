@@ -95,5 +95,34 @@ html, body {
   src: URL('assets/Raleway/Raleway-ThinItalic.ttf');
 }
 
+.ngx-contextmenu .dropdown-menu>li>a {
+  border: solid 1px  none;
+  background-color: white;
+  padding: 5px;
+  padding-left: 40px;
+  color:  #7a7a7a;
+  font-family: Raleway-Bold;
+  letter-spacing: 1px ;
+  font-size: 1em;
+  width: 250px;
+}
+.ngx-contextmenu li {
+  display: block;
+  border-top: solid 1px #C2C2C2;
+  text-align: left;
+}
+.ngx-contextmenu li:first-child {
+  border-top:none;
+}
+.ngx-contextmenu a {
+  color: #C2C2C2;
+  display: block;
+  padding: 0.5em 1em;
+}
+.ngx-contextmenu a:hover {
+  color:#7a7a7a;
+  background-color:#C2C2C2;
+}
+
 
 
