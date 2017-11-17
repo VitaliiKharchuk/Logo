@@ -333,6 +333,40 @@ namespace Logo.Implementation
                 HasPublicAccess = y.HasPublicAccess
             }).ToList();
         }
+
+
+
+        public IEnumerable<FolderInfo> GetRootFolders(Guid ownerId)
+        {
+            return  _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId).Select(y => new FolderInfo()
+            {
+                FolderId = y.FolderId,
+                ParentFolderId = y.ParentFolderId,
+                OwnerId = y.OwnerId,
+                Name = y.Name,
+                CreationDate = y.CreationDate,
+                UploadDate = y.UploadDate,
+                Level = y.Level,
+                HasPublicAccess = y.HasPublicAccess
+            }).ToList();
+        }
+
+       public  IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
+       {
+            return _dbContext.Files.Where(x => x.ParentFolderId == null && x.OwnerId == ownerId).Select(y => new Contracts.FileInfo()
+            {
+                FileId = y.FileId,
+                ParentFolderId = y.ParentFolderId,
+                OwnerId = y.OwnerId,
+                Name = y.Name,
+                CreationDate = y.CreationDate,
+                UploadDate = y.UploadDate,
+                Size = y.Size,
+                Type = y.Type,
+                HasPublicAccess = y.HasPublicAccess
+            }).ToList();
+       }
+
     }
 }
 

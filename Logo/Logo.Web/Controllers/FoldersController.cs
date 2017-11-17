@@ -182,5 +182,25 @@ namespace Logo.Web.Controllers
             return Ok();
         }
 
+
+        [HttpGet]
+        [Route("get-root-folders/{ownerId?}")]
+        public   IEnumerable<FolderInfo>   GetRootFolders(Guid  ownerId)
+        {
+            return _foldersService.GetRootFolders(ownerId);
+            
+        }
+
+        [HttpGet]
+        [Route("get-root-files/{ownerId?}")]
+        public IEnumerable<FileInfo> GetRootFiles(Guid ownerId)
+        {
+            return _foldersService.GetRootFiles(ownerId);            
+        }
+
+
+
+
+
     }
 }

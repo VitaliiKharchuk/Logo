@@ -1,0 +1,259 @@
+2017-11-17 10:20:30.178 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/  
+2017-11-17 10:20:30.370 +02:00 [INF] The file /index.html was not modified
+2017-11-17 10:20:30.391 +02:00 [INF] Request finished in 236.9114ms 304 text/html
+2017-11-17 10:20:30.452 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/polyfills.bundle.js  
+2017-11-17 10:20:30.456 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/main.bundle.js  
+2017-11-17 10:20:30.467 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/scripts.bundle.js  
+2017-11-17 10:20:30.473 +02:00 [INF] The file /scripts.bundle.js was not modified
+2017-11-17 10:20:30.482 +02:00 [INF] The file /polyfills.bundle.js was not modified
+2017-11-17 10:20:30.495 +02:00 [INF] Request finished in 53.8362ms 304 application/javascript
+2017-11-17 10:20:30.545 +02:00 [INF] Request finished in 59.4281ms 304 application/javascript
+2017-11-17 10:20:30.558 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/styles.bundle.js  
+2017-11-17 10:20:30.574 +02:00 [INF] The file /styles.bundle.js was not modified
+2017-11-17 10:20:30.588 +02:00 [INF] The file /main.bundle.js was not modified
+2017-11-17 10:20:30.601 +02:00 [INF] Request finished in 163.5354ms 304 application/javascript
+2017-11-17 10:20:30.637 +02:00 [INF] Request finished in 121.2822ms 304 application/javascript
+2017-11-17 10:20:30.640 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/inline.bundle.js  
+2017-11-17 10:20:30.665 +02:00 [INF] The file /inline.bundle.js was not modified
+2017-11-17 10:20:30.693 +02:00 [INF] Request finished in 155.2524ms 304 application/javascript
+2017-11-17 10:20:30.702 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/vendor.bundle.js  
+2017-11-17 10:20:30.725 +02:00 [INF] The file /vendor.bundle.js was not modified
+2017-11-17 10:20:30.730 +02:00 [INF] Request finished in 151.2708ms 304 application/javascript
+2017-11-17 10:20:32.029 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folder/get-root-folders application/json 462
+2017-11-17 10:20:32.033 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/next.svg  
+2017-11-17 10:20:32.039 +02:00 [INF] The file /assets/icons/next.svg was not modified
+2017-11-17 10:20:32.068 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/search.svg  
+2017-11-17 10:20:32.073 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/img/user.svg  
+2017-11-17 10:20:32.088 +02:00 [INF] The file /assets/icons/search.svg was not modified
+2017-11-17 10:20:32.098 +02:00 [INF] Request finished in 66.0426ms 304 image/svg+xml
+2017-11-17 10:20:32.108 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/tile.svg  
+2017-11-17 10:20:32.160 +02:00 [INF] The file /assets/icons/tile.svg was not modified
+2017-11-17 10:20:32.174 +02:00 [INF] Request finished in 19.2233ms 304 image/svg+xml
+2017-11-17 10:20:32.185 +02:00 [INF] The file /assets/img/user.svg was not modified
+2017-11-17 10:20:32.222 +02:00 [INF] Request finished in 162.3528ms 304 image/svg+xml
+2017-11-17 10:20:32.232 +02:00 [INF] Request finished in 137.3234ms 304 image/svg+xml
+2017-11-17 10:20:32.263 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/icons/list.svg  
+2017-11-17 10:20:32.275 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Black.ttf  
+2017-11-17 10:20:32.306 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-Bold.ttf  
+2017-11-17 10:20:32.316 +02:00 [INF] Request finished in 309.8479ms 404 
+2017-11-17 10:20:32.343 +02:00 [INF] The file /assets/Raleway/Raleway-Bold.ttf was not modified
+2017-11-17 10:20:32.356 +02:00 [INF] Request finished in 101.3664ms 304 application/x-font-ttf
+2017-11-17 10:20:32.362 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/assets/Raleway/Raleway-SemiBold.ttf  
+2017-11-17 10:20:32.364 +02:00 [INF] The file /assets/icons/list.svg was not modified
+2017-11-17 10:20:32.366 +02:00 [INF] The file /assets/Raleway/Raleway-Black.ttf was not modified
+2017-11-17 10:20:32.393 +02:00 [INF] The file /assets/Raleway/Raleway-SemiBold.ttf was not modified
+2017-11-17 10:20:32.416 +02:00 [INF] Request finished in 242.1764ms 304 image/svg+xml
+2017-11-17 10:20:32.419 +02:00 [INF] Request finished in 75.4183ms 304 application/x-font-ttf
+2017-11-17 10:20:32.427 +02:00 [INF] Request finished in 112.5228ms 304 application/x-font-ttf
+2017-11-17 10:24:43.714 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 64
+2017-11-17 10:24:44.013 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-17 10:24:44.219 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:24:45.087 +02:00 [ERR] An error occurred using the connection to database 'logodb' on server 'tcp:logo-server-darabase.database.windows.net,1433'.
+System.Data.SqlClient.SqlException (0x80131904): Cannot open server 'logo-server-darabase' requested by the login. Client with IP address '195.177.74.50' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+ClientConnectionId:eb41665c-5f73-467a-b210-eba328f4fd9a
+Error Number:40615,State:1,Class:14
+2017-11-17 10:24:45.159 +02:00 [ERR] An exception occurred in the database while iterating the results of a query for context type 'Logo.Implementation.DatabaseModels.LogoDbContext'.
+System.Data.SqlClient.SqlException (0x80131904): Cannot open server 'logo-server-darabase' requested by the login. Client with IP address '195.177.74.50' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure , QueryContext )
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass17_0`1.<CompileQueryCore>b__0(QueryContext qc)
+ClientConnectionId:eb41665c-5f73-467a-b210-eba328f4fd9a
+Error Number:40615,State:1,Class:14
+System.Data.SqlClient.SqlException (0x80131904): Cannot open server 'logo-server-darabase' requested by the login. Client with IP address '195.177.74.50' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure , QueryContext )
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass17_0`1.<CompileQueryCore>b__0(QueryContext qc)
+ClientConnectionId:eb41665c-5f73-467a-b210-eba328f4fd9a
+Error Number:40615,State:1,Class:14
+2017-11-17 10:25:27.089 +02:00 [ERR] Cannot open server 'logo-server-darabase' requested by the login. Client with IP address '195.177.74.50' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+System.Data.SqlClient.SqlException (0x80131904): Cannot open server 'logo-server-darabase' requested by the login. Client with IP address '195.177.74.50' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure , QueryContext )
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass17_0`1.<CompileQueryCore>b__0(QueryContext qc)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at Logo.Implementation.UsersService.GetUserByCredentials(UserCredentials userCredentials) in C:\Project3\Logo\Logo\Logo.Implementation\UsersService.cs:line 66
+   at Logo.Web.Controllers.UsersController.GetUserInfoWithToken(UserCredentials userCredentials) in C:\Project3\Logo\Logo\Logo.Web\Controllers\UsersController.cs:line 39
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextExceptionFilterAsync>d__23.MoveNext()
+ClientConnectionId:eb41665c-5f73-467a-b210-eba328f4fd9a
+Error Number:40615,State:1,Class:14
+2017-11-17 10:25:27.134 +02:00 [INF] Executing JsonResult, writing value Logo.Contracts.ApiError.
+2017-11-17 10:25:27.169 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 43360.7477ms
+2017-11-17 10:25:27.196 +02:00 [INF] Request finished in 43463.6859ms 500 application/json; charset=utf-8
+2017-11-17 10:27:28.817 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 64
+2017-11-17 10:27:28.830 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-17 10:27:28.838 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:27:29.449 +02:00 [INF] Executed DbCommand (76ms) [Parameters=[@__userCredentials_Email_0='?' (Size = 254), @__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userCredentials_Email_0) AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-17 10:27:29.556 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 401
+2017-11-17 10:27:29.578 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 738.0662ms
+2017-11-17 10:27:29.583 +02:00 [INF] Request finished in 768.8228ms 401 
+2017-11-17 10:29:28.367 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUser  
+2017-11-17 10:29:28.587 +02:00 [INF] Request finished in 236.5429ms 404 
+2017-11-17 10:29:47.826 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/users/GetAllUsers  
+2017-11-17 10:29:48.041 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) with arguments (null) - ModelState is "Valid"
+2017-11-17 10:29:48.327 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:29:48.341 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-17 10:29:49.086 +02:00 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [y].[Email], [y].[UserID], [y].[Password] AS [Name]
+FROM [Users] AS [y]
+2017-11-17 10:29:49.144 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetAllUsers (Logo.Web) in 1235.2512000000002ms
+2017-11-17 10:29:49.150 +02:00 [INF] Request finished in 1323.3234ms 200 application/json; charset=utf-8
+2017-11-17 10:30:05.252 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/users/auth-token application/json 65
+2017-11-17 10:30:05.335 +02:00 [INF] Executing action method Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) with arguments (["Logo.Contracts.UserCredentials"]) - ModelState is "Valid"
+2017-11-17 10:30:05.348 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:30:05.483 +02:00 [INF] Executed DbCommand (79ms) [Parameters=[@__userCredentials_Email_0='?' (Size = 254), @__userCredentials_Password_1='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [x].[UserID], [x].[Email], [x].[Name], [x].[Password]
+FROM [Users] AS [x]
+WHERE ([x].[Email] = @__userCredentials_Email_0) AND ([x].[Password] = @__userCredentials_Password_1)
+2017-11-17 10:30:05.554 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-17 10:30:05.565 +02:00 [INF] Executed action Logo.Web.Controllers.UsersController.GetUserInfoWithToken (Logo.Web) in 288.2427ms
+2017-11-17 10:30:05.571 +02:00 [INF] Request finished in 318.8823ms 200 application/json; charset=utf-8
+2017-11-17 10:31:04.933 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/GetAllFolders application/json 140
+2017-11-17 10:31:04.943 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:31:04.947 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:31:04.952 +02:00 [INF] Request finished in 20.2817ms 404 
+2017-11-17 10:32:07.775 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/get-root-folders/4568c931-452b-4c0c-8daf-eb08ffcd97bc application/json 
+2017-11-17 10:32:07.779 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:32:07.803 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:32:07.807 +02:00 [INF] Request finished in 32.7804ms 404 
+2017-11-17 10:32:37.363 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/add-folder application/json 
+2017-11-17 10:32:37.368 +02:00 [INF] Request finished in 7.1389ms 404 
+2017-11-17 10:34:13.600 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:44365/api/folders/add-folder application/json 56
+2017-11-17 10:34:13.614 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:34:13.619 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:34:13.647 +02:00 [INF] Authorization was successful for user: null.
+2017-11-17 10:34:13.658 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) with arguments (["Logo.Contracts.ObjectCredentials"]) - ModelState is "Valid"
+2017-11-17 10:34:13.684 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:34:13.764 +02:00 [INF] Executed DbCommand (55ms) [Parameters=[@__folderCredentialsWithOwner_OwnerId_1='?', @__folderCredentialsWithOwner_ObjectCredentials_Name_2='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Folders] AS [x]
+        WHERE ([x].[ParentFolderID] IS NULL AND ([x].[OwnerID] = @__folderCredentialsWithOwner_OwnerId_1)) AND ([x].[Name] = @__folderCredentialsWithOwner_ObjectCredentials_Name_2))
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-11-17 10:34:13.828 +02:00 [INF] Executed DbCommand (48ms) [Parameters=[@__objectCredentialsWithOwner_OwnerId_1='?', @__objectCredentialsWithOwner_ObjectCredentials_Name_2='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Files] AS [x]
+        WHERE ([x].[ParentFolderID] IS NULL AND ([x].[OwnerID] = @__objectCredentialsWithOwner_OwnerId_1)) AND ([x].[Name] = @__objectCredentialsWithOwner_ObjectCredentials_Name_2))
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-11-17 10:34:14.026 +02:00 [INF] Executed DbCommand (48ms) [Parameters=[@p0='?', @p1='?', @p2='?', @p3='?', @p4='?' (Size = 50), @p5='?', @p6='?', @p7='?'], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Folders] ([FolderID], [CreationDate], [HasPublicAccess], [Level], [Name], [OwnerID], [ParentFolderID], [UploadDate])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2017-11-17 10:34:14.083 +02:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 200
+2017-11-17 10:34:14.085 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.CreateFolder (Logo.Web) in 479.1377ms
+2017-11-17 10:34:14.108 +02:00 [INF] Request finished in 490.1608ms 200 
+2017-11-17 10:34:21.344 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/get-root-folders/4568c931-452b-4c0c-8daf-eb08ffcd97bc application/json 
+2017-11-17 10:34:21.367 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:34:21.390 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:34:21.413 +02:00 [INF] Request finished in 47.9025ms 404 
+2017-11-17 10:34:47.982 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/get-root-folder/4568c931-452b-4c0c-8daf-eb08ffcd97bc application/json 
+2017-11-17 10:34:48.000 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:34:48.005 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:34:48.009 +02:00 [INF] Authorization was successful for user: null.
+2017-11-17 10:34:48.014 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetRootFolders (Logo.Web) with arguments (["4568c931-452b-4c0c-8daf-eb08ffcd97bc"]) - ModelState is "Valid"
+2017-11-17 10:34:48.040 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:34:48.119 +02:00 [INF] Executed DbCommand (46ms) [Parameters=[@__ownerId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT [x].[FolderID], [x].[ParentFolderID], [x].[OwnerID], [x].[Name], [x].[CreationDate], [x].[UploadDate], [x].[Level], [x].[HasPublicAccess]
+FROM [Folders] AS [x]
+WHERE [x].[ParentFolderID] IS NULL AND ([x].[OwnerID] = @__ownerId_0)
+2017-11-17 10:34:48.151 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-17 10:34:48.173 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetRootFolders (Logo.Web) in 180.286ms
+2017-11-17 10:34:48.185 +02:00 [INF] Request finished in 197.2654ms 200 application/json; charset=utf-8
+2017-11-17 10:35:24.625 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:44365/api/folders/get-root-file/4568c931-452b-4c0c-8daf-eb08ffcd97bc application/json 
+2017-11-17 10:35:24.650 +02:00 [INF] Successfully validated the token.
+2017-11-17 10:35:24.653 +02:00 [INF] AuthenticationScheme: Bearer was successfully authenticated.
+2017-11-17 10:35:24.656 +02:00 [INF] Authorization was successful for user: null.
+2017-11-17 10:35:24.679 +02:00 [INF] Executing action method Logo.Web.Controllers.FoldersController.GetRootFiles (Logo.Web) with arguments (["4568c931-452b-4c0c-8daf-eb08ffcd97bc"]) - ModelState is "Valid"
+2017-11-17 10:35:24.704 +02:00 [INF] Entity Framework Core 2.0.0-rtm-26452 initialized 'LogoDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-11-17 10:35:24.777 +02:00 [INF] Executed DbCommand (43ms) [Parameters=[@__ownerId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT [x].[FileID], [x].[ParentFolderID], [x].[OwnerID], [x].[Name], [x].[CreationDate], [x].[UploadDate], [x].[Size], [x].[Type], [x].[HasPublicAccess]
+FROM [Files] AS [x]
+WHERE [x].[ParentFolderID] IS NULL AND ([x].[OwnerID] = @__ownerId_0)
+2017-11-17 10:35:24.806 +02:00 [INF] Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+2017-11-17 10:35:24.842 +02:00 [INF] Executed action Logo.Web.Controllers.FoldersController.GetRootFiles (Logo.Web) in 186.8623ms
+2017-11-17 10:35:24.858 +02:00 [INF] Request finished in 223.0274ms 200 application/json; charset=utf-8
