@@ -98,6 +98,9 @@ namespace Logo.Implementation
                     throw new InvalidOperationException("Attachment  level  is  maximum");
             }
 
+
+         
+
             _dbContext.Add
                 (new Folder
                 {
@@ -111,6 +114,10 @@ namespace Logo.Implementation
                     HasPublicAccess = false
 
                 });
+
+
+           
+
 
             _dbContext.SaveChanges();
         }

@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     folderrenamem: any = {};
 
     constructor(private homeService: HomeService,
-        private router: Router,) {
+        private router: Router, ) {
     }
 
     ngOnInit() {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         this.uploadFiles = files;
     }
 
-    checkIfImage(name: string){
+    checkIfImage(name: string) {
         var fileExtension = "";
         if (name.lastIndexOf(".") > 0) {
             fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
@@ -95,56 +95,59 @@ export class HomeComponent implements OnInit {
                 this.loadRootFolders();
             },
             error => {
-                
+                this.loadRootFolders();
                 console.log('Cant create folder');
                 this.closeModal();
             });
 
     }
 
-    renamefolder(){
+    renamefolder() {
         let folderId = this.selectedFolderId;
+        console.log(this.folderrenamem.name, folderId);
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
-        .subscribe(
-        data => {
-            // console.log('Renaming folder successfull for ', folderId);
-            // this.closeModal();
-            // this.loadRootFolders();
-        },
-        error => {
-            // this.closeModal();
-            // console.log('Cant rename folderfor ', folderId);
-        });
+            .subscribe(
+            data => {
+                console.log('Renaming folder successfull for ', folderId);
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                this.loadRootFolders();
+                this.closeModal();
+                console.log('Cant rename folderfor ', folderId);
+            });
         this.closeModal();
     }
 
-    deleteFolder(){
+    deleteFolder() {
         let folderId = this.selectedFolderId;
         this.homeService.deleteFolder(folderId)
-        .subscribe(
-        data => {
-            console.log('Delete folder successfull');
-            this.closeModal();
-            this.loadRootFolders();
-        },
-        error => {
-            this.closeModal();
-            console.log('Cant delete folder');
-        });
+            .subscribe(
+            data => {
+                console.log('Delete folder successfull');
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                this.closeModal();
+                console.log('Cant delete folder');
+                this.loadRootFolders();
+            });
     }
 
-    addTags(){
+    addTags() {
         let folderId = this.selectedFolderId;
         this.homeService.addTags(folderId, this.model.tags)
-        .subscribe(
-        data => {
-            console.log('Add tags successfull');
-            this.closeModal();
-            this.loadRootFolders();
-        },
-        error => {
-            console.log('Cant add tags');
-        });
+            .subscribe(
+            data => {
+                console.log('Add tags successfull');
+                this.closeModal();
+                this.loadRootFolders();
+            },
+            error => {
+                console.log('Cant add tags');
+            });
     }
 
     private closeModal(): void {
@@ -155,23 +158,23 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['', folderId])
     }
 
-    openRenameFolderModal(folderId: string){
+    openRenameFolderModal(folderId: string) {
         document.getElementById("openRenameFolderModalButton").click();
         console.log('modal for rename open ', folderId);
         this.selectedFolderId = folderId;
     }
 
-    openAddTagFolderModal(folderId: string){
+    openAddTagFolderModal(folderId: string) {
         document.getElementById("openAddTagFolderModalButton").click();
         console.log('modal for add tag open ', folderId);
         this.selectedFolderId = folderId;
     }
 
-    callDownloadZIP(folderId: string){
+    callDownloadZIP(folderId: string) {
 
     }
 
-    openDeleteFolderModal(folderId: string){
+    openDeleteFolderModal(folderId: string) {
         document.getElementById("openDeleteFolderModalButton").click();
         console.log('modal for deleting open ', folderId);
         this.selectedFolderId = folderId;
