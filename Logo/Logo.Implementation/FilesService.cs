@@ -20,7 +20,7 @@ using Logo.Contracts.Services;
 
 namespace Logo.Implementation
 {
-    public  class FilesService : IFilesService
+    public  class FilesService //: IFilesService
     {
 
         public  async Task SimpleUploadAsync(byte[] file, string fileName)
@@ -33,13 +33,17 @@ namespace Logo.Implementation
 
         public static async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
-            CloudBlobContainer container = await GetContainerReference();
+            /*
+            CloudBlobContainer container = await GetContainerReference().Wait().GetAwaiter();
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
 
             byte[] fileArr = new byte[10000000000];   // size  of   file  in   bytes
             blockBlob.DownloadToByteArrayAsync(fileArr, 0).Wait();
 
             return fileArr;
+            */
+
+            return null;
         }
        
         public  async Task<CloudBlobContainer> GetContainerReference()

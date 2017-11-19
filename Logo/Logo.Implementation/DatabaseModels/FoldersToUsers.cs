@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class FoldersToUsers
+    public partial class FoldersToUsers
     {
         public Guid FolderId { get; set; }
         public Guid UserId { get; set; }

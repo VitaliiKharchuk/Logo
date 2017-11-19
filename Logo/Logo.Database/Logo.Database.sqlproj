@@ -66,5 +66,6 @@
     <Build Include="FilesToTags.sql" />
     <Build Include="Tags.sql" />
     <Build Include="FilesToUsers.sql" />
+    <Build Include="FoldersToTags.sql" />
   </ItemGroup>
 </Project>

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class FilesToTags
+    public partial class FoldersToTags
     {
-        public Guid FileId { get; set; }
+        public Guid FolderId { get; set; }
         public Guid TagId { get; set; }
 
-        public File File { get; set; }
+        public Folder Folder { get; set; }
         public Tag Tag { get; set; }
     }
 }

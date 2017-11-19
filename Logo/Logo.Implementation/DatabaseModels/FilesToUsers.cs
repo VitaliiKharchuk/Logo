@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class FilesToUsers
+    public partial class FilesToUsers
     {
         public Guid FileId { get; set; }
         public Guid UserId { get; set; }

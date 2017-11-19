@@ -5,6 +5,7 @@ using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Logo.Implementation
 {

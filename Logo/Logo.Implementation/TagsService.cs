@@ -1,53 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
 using Logo.Implementation.DatabaseModels;
 using System.Linq;
+using Logo.Contracts;
+using Logo.Contracts.Services;
 
 namespace Logo.Implementation
 {
-    public class TagsService
+    public class TagsService : ITagsService
     {
         LogoDbContext _dbContext;
 
-        static  private  int _idTag = 0;
-
-        public  TagsService (LogoDbContext dbContext )
+        public TagsService(LogoDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public   void  CreateTag( Guid fileId , string  text)
+        public void CreateTag(TagsCredentials tagsCredentials)
         {
-
-            File file = _dbContext.Files.Where(f => f.FileId == fileId).FirstOrDefault();
-
-
-            Tag tag = new Tag { TagId = _idTag++ , Name = text };
-
-
-            FilesToTags filesToTags = new FilesToTags {FileId = fileId,   File = file ,  Tag = tag, TagId = _idTag};
-
-            
-
+            Tag tag = new Tag { Name = tagsCredentials.Text, TagId = Guid.NewGuid() };
             _dbContext.Add(tag);
 
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
+
+            if (tagsCredentials.ObjectType.Equals(ObjectType.File))
+            {
+                FilesToTags filesToTags = new FilesToTags
+                {
+                    FileId = tagsCredentials.ObjectId,
+                    TagId = tag.TagId
+                };
+                _dbContext.Add(filesToTags);
+            }
+
+            else
+            {
+                FoldersToTags foldersToTags = new FoldersToTags
+                {
+                    FolderId = tagsCredentials.ObjectId,
+                    TagId = tag.TagId
+                };
+
+                _dbContext.Add(foldersToTags);
+            }
+
+            _dbContext.SaveChanges();
         }
 
-
-        public  void  AddTag(Guid fileId, int tagId)
+        public IEnumerable<TagInfo> GetFileTags(Guid fileId)
         {
-
-            FilesToTags filesToTags = new FilesToTags { FileId = fileId, TagId = tagId };
+            return _dbContext.FilesToTags.Where(t => t.FileId == fileId)
+            .Select(t => new TagInfo()
+            {
+                TagName = t.Tag.Name
+            })
+            .ToList();
         }
 
-        public IEnumerable<Tag>  GetFileTags  (Guid fileId)
-        {         
-            return _dbContext.FilesToTags.Where(t => t.FileId == fileId).Select(t => t.Tag).ToList();
+        public IEnumerable<TagInfo> GetFolderTags(Guid folderId)
+        {
+            return _dbContext.FoldersToTags.Where(t => t.FolderId == folderId)
+            .Select(t => new TagInfo()
+            {
+                TagName = t.Tag.Name
+            })
+            .ToList();
         }
 
+        public IEnumerable<TagInfo> GetAllTags()
+        {
+            return _dbContext.Tags.Select(t => new TagInfo()
+            {
+                TagName = t.Name
+            })
+            .ToList();
+        }
 
 
     }

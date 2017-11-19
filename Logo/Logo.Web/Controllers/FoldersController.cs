@@ -18,11 +18,12 @@ namespace Logo.Web.Controllers
     public class FoldersController : Controller
     {
         private readonly IFoldersService _foldersService;
+        private readonly ITagsService _tagsService;
 
-        public FoldersController(IFoldersService foldersService)
+        public FoldersController(IFoldersService foldersService, ITagsService tagsService)
         {
-
             _foldersService = foldersService;
+            _tagsService = tagsService;
         }
 
         [HttpGet]   //only for   testing
@@ -45,7 +46,7 @@ namespace Logo.Web.Controllers
         public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
         {
 
-            if (id  ==  default(Guid))
+            if (id == default(Guid))
             {
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                       .Where(item => item.Type == "UserId")
@@ -74,7 +75,7 @@ namespace Logo.Web.Controllers
                 return _foldersService.GetRootFiles(ownerId);
             }
 
-                return _foldersService.GetFilesInFolder(id);
+            return _foldersService.GetFilesInFolder(id);
         }
 
 
@@ -207,7 +208,7 @@ namespace Logo.Web.Controllers
 
         [HttpGet]
         [Route("get-root-folders")]
-        public   IEnumerable<FolderInfo>   GetRootFolders()
+        public IEnumerable<FolderInfo> GetRootFolders()
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                   .Where(item => item.Type == "UserId")
@@ -215,7 +216,7 @@ namespace Logo.Web.Controllers
                                   .FirstOrDefault());
 
             return _foldersService.GetRootFolders(ownerId);
-            
+
         }
 
         [HttpGet]
@@ -228,12 +229,50 @@ namespace Logo.Web.Controllers
                                   .FirstOrDefault());
 
 
-            return _foldersService.GetRootFiles(ownerId);            
+            return _foldersService.GetRootFiles(ownerId);
         }
 
 
+        [HttpPost]
+        [Route("create-folder-tag")]
+        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
+        {
+            tagsCredentials.ObjectType = ObjectType.Folder;
+            _tagsService.CreateTag(tagsCredentials);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("create-file-tag")]
+        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
+        {
+            tagsCredentials.ObjectType = ObjectType.File;
+            _tagsService.CreateTag(tagsCredentials);
+
+            return Ok();
+        }
 
 
+        [HttpGet]
+        [Route("get-file-tag/{id?}")]
+        public IEnumerable <TagInfo> GetFileTag(Guid  id)
+        {
+            return _tagsService.GetFileTags(id);
+        }
 
+        [HttpGet]
+        [Route("get-folder-tag/{id?}")]
+        public IEnumerable<TagInfo> GetFolderTag(Guid id)
+        {
+            return _tagsService.GetFolderTags(id);
+        }
+
+        [HttpGet]
+        [Route("get-all-tags")]
+        public IEnumerable<TagInfo> GetAllTags()  //  for   testing
+        {
+            return _tagsService.GetAllTags();
+        }
     }
 }

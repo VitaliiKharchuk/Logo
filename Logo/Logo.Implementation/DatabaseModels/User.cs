@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class User
+    public partial class User
     {
         public User()
         {
@@ -12,7 +12,7 @@ namespace Logo.Implementation.DatabaseModels
             Folders = new HashSet<Folder>();
             FoldersToUsers = new HashSet<FoldersToUsers>();
         }
-       
+
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

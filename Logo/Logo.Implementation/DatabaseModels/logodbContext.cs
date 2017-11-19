@@ -1,18 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class LogoDbContext : DbContext
+    public partial class LogoDbContext : DbContext
     {
-        private readonly string _connectionString;
-
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FilesToTags> FilesToTags { get; set; }
         public virtual DbSet<FilesToUsers> FilesToUsers { get; set; }
         public virtual DbSet<Folder> Folders { get; set; }
+        public virtual DbSet<FoldersToTags> FoldersToTags { get; set; }
         public virtual DbSet<FoldersToUsers> FoldersToUsers { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
+
+
+        public string _connectionString;
+
 
         public LogoDbContext()
         {
@@ -27,6 +32,7 @@ namespace Logo.Implementation.DatabaseModels
             : base(options)
         {
         }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,8 +53,6 @@ namespace Logo.Implementation.DatabaseModels
                     .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
-
-                entity.Property(e => e.HasPublicAccess).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -84,13 +88,13 @@ namespace Logo.Implementation.DatabaseModels
                     .WithMany(p => p.FilesToTags)
                     .HasForeignKey(d => d.FileId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FilesToTa__FileI__5BE2A6F2");
+                    .HasConstraintName("FK__FilesToTa__FileI__74AE54BC");
 
                 entity.HasOne(d => d.Tag)
                     .WithMany(p => p.FilesToTags)
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FilesToTa__TagID__5CD6CB2B");
+                    .HasConstraintName("FK__FilesToTa__TagID__75A278F5");
             });
 
             modelBuilder.Entity<FilesToUsers>(entity =>
@@ -124,8 +128,6 @@ namespace Logo.Implementation.DatabaseModels
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
-                entity.Property(e => e.HasPublicAccess).HasDefaultValueSql("((0))");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -143,9 +145,30 @@ namespace Logo.Implementation.DatabaseModels
                     .HasConstraintName("FK__Folders__OwnerID__60A75C0F");
 
                 entity.HasOne(d => d.ParentFolder)
-                    .WithMany(p => p.ChildFolders)
+                    .WithMany(p => p.InverseParentFolder)
                     .HasForeignKey(d => d.ParentFolderId)
                     .HasConstraintName("FK__Folders__ParentF__5FB337D6");
+            });
+
+            modelBuilder.Entity<FoldersToTags>(entity =>
+            {
+                entity.HasKey(e => new { e.FolderId, e.TagId });
+
+                entity.Property(e => e.FolderId).HasColumnName("FolderID");
+
+                entity.Property(e => e.TagId).HasColumnName("TagID");
+
+                entity.HasOne(d => d.Folder)
+                    .WithMany(p => p.FoldersToTags)
+                    .HasForeignKey(d => d.FolderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FoldersTo__Folde__76969D2E");
+
+                entity.HasOne(d => d.Tag)
+                    .WithMany(p => p.FoldersToTags)
+                    .HasForeignKey(d => d.TagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FoldersTo__TagID__778AC167");
             });
 
             modelBuilder.Entity<FoldersToUsers>(entity =>
@@ -175,7 +198,7 @@ namespace Logo.Implementation.DatabaseModels
 
                 entity.Property(e => e.TagId)
                     .HasColumnName("TagID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Name).HasMaxLength(200);
             });
@@ -183,6 +206,10 @@ namespace Logo.Implementation.DatabaseModels
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserId);
+
+                entity.HasIndex(e => new { e.Email, e.UserId })
+                    .HasName("UC_User")
+                    .IsUnique();
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")

@@ -24,11 +24,11 @@ namespace Logo.Web
         {
             services.AddAuthorization(auth =>
             {
-                
+
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
-                
+
 
                 //auth.AddPolicy("User", policy => policy.RequireClaim("UserId"));
             });
@@ -72,7 +72,7 @@ namespace Logo.Web
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
-
+            services.AddTransient<ITagsService, TagsService>();
 
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel
@@ -86,7 +86,8 @@ namespace Logo.Web
         {
             loggerFactory.AddSerilog();
 
-            app.Use(async (context, next) => {
+            app.Use(async (context, next) =>
+            {
                 await next();
                 if (context.Response.StatusCode == 404 &&
                     !Path.HasExtension(context.Request.Path.Value) &&
@@ -109,7 +110,7 @@ namespace Logo.Web
             app.UseAuthentication();
 
             //var options = new RewriteOptions()
-             //   .AddRedirectToHttps();
+            //   .AddRedirectToHttps();
 
             //app.UseRewriter(options);
         }
