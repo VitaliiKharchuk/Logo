@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Folder } from './folder';
 import { FolderNameWithParentFolderId } from './folderNameWithParentFolderId';
 import { UpdatedObject } from './updatedObject';
+import { Observable } from "rxjs/Rx"
 
 @Injectable()
 export class HomeService {
@@ -12,9 +13,9 @@ export class HomeService {
   createfolder( folderName: string, parentFolderId: string ) {
     let folderNameWithParentFolderId: FolderNameWithParentFolderId = {
       name: folderName,
-      parentId: parentFolderId, 
+      parentObjectId: parentFolderId, 
     };
-    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt());
   }
 
   deleteFolder(selectedId: string){
@@ -24,7 +25,7 @@ export class HomeService {
   addTags(folderId: string, tags: string){
     let tagsWithFolderId: FolderNameWithParentFolderId = {
       name: tags,
-      parentId: folderId,
+      parentObjectId: folderId,
     };
 
     return this.http.post('/api/folders/add-tags-folder', tagsWithFolderId, this.jwt()).map((response: Response) => response.json());
@@ -35,6 +36,14 @@ export class HomeService {
   }
 
   loadRootFiles(id: string) {
+    return this.http.get('api/folders/get-root-files/', this.jwt()).map((response: Response) => response.json());
+  }
+
+  loadFolders(id: string) {
+    return this.http.get('api/folders/get-folders/' + id, this.jwt()).map((response: Response) => response.json());
+  }
+
+  loadFiles(id: string) {
     return this.http.get('api/folders/get-files/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
@@ -44,7 +53,6 @@ export class HomeService {
       updatedName: folderName,
     };
 
-    console.log( updatedObject.updatedName,  updatedObject.objectId);
     return this.http.post('/api/folders/rename-folder', updatedObject, this.jwt()).map((response: Response) => response.json());
   }
 
@@ -56,4 +64,10 @@ export class HomeService {
       return new RequestOptions({ headers: headers });
     }
   }
+
+  public handleError = (error: Response) => {
+    console.log(error);
+// Do messaging and error handling here
+return Observable.throw(error)
+}
 }

@@ -30,12 +30,10 @@ export class MenuComponent implements OnInit {
   toggleGrid(): void {
     this.grid = true;
     this.toggleGridEvent.emit(true);
-    console.log('togg');
   }
 
   toggleList(): void {
     this.grid = false;
     this.toggleGridEvent.emit(false);
-    console.log('togl');
   }
 }

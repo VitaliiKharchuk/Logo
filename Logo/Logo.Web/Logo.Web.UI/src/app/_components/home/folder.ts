@@ -6,5 +6,6 @@ export class Folder {
     creationDate: Date;
     uploadDate: Date;
     level: Int32Array;
-    hasPublicAccess: boolean
+    hasPublicAccess: boolean;
+    //tags: string[];
 }
