@@ -12,7 +12,7 @@ export class DataService {
     createfolder(folderName: string, parentFolderId: string) {
       let folderNameWithParentFolderId: FolderNameWithParentFolderId = {
         name: folderName,
-        parentId: parentFolderId,
+        parentObjectId: parentFolderId,
       };
   
       return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map((response: Response) => response.json());

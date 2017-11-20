@@ -6,6 +6,7 @@ import { File } from './file';
 import { UserInfoWithToken } from '../login/user';
 import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
+
 import { ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
@@ -15,7 +16,15 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 })
 
 export class HomeComponent implements OnInit {
-    @ViewChild('closeBtn') closeBtn: ElementRef;
+    @ViewChild('closeCreateFolderModal') closeCreateFolderModal: ElementRef;
+    @ViewChild('closeUploadFileModal') closeUploadFileModal: ElementRef;
+    @ViewChild('closeRenameFolderModal') closeRenameFolderModal: ElementRef;
+    @ViewChild('closeAddTagFolderModal') closeAddTagFolderModal: ElementRef;
+    @ViewChild('closeDeleteFolderModal') closeDeleteFolderModal: ElementRef;
+    @ViewChild('closeRenameFileModal') closeRenameFileModal: ElementRef;
+    @ViewChild('closeAddTagFileModal') closeAddTagFileModal: ElementRef;
+    @ViewChild('closeDeleteFileModal') closeDeleteFileModal: ElementRef;
+
     @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
     model: any = {};
     currentUser: UserInfoWithToken;
@@ -23,12 +32,15 @@ export class HomeComponent implements OnInit {
     files: File[] = [];
     uploadFiles: any[];
     selectedFolderId: string;
+    selectedFolderName: string;
+    selectedFileId: string;
     tags: string;
     grid: true;
     folderrenamem: any = {};
 
     constructor(private homeService: HomeService,
-        private router: Router, ) {
+        private router: Router,
+        private route:ActivatedRoute ) {
     }
 
     ngOnInit() {
@@ -86,18 +98,17 @@ export class HomeComponent implements OnInit {
     }
 
     createfolder() {
-        console.log('create folder', this.model.foldername);
         this.homeService.createfolder(this.model.foldername, null)
             .subscribe(
             data => {
-                console.log('Creating folder successfull');
-                this.closeModal();
+                console.log('Creating folder successfull', data);
+                this.closeCreateFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
                 this.loadRootFolders();
-                console.log('Cant create folder');
-                this.closeModal();
+                console.log('Cant create folder', error);
+                this.closeCreateFolderModal.nativeElement.click();
             });
 
     }
@@ -108,16 +119,15 @@ export class HomeComponent implements OnInit {
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
             .subscribe(
             data => {
-                console.log('Renaming folder successfull for ', folderId);
-                this.closeModal();
+                console.log('Renaming folder successfull for ', folderId); 
+                this.closeRenameFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
                 this.loadRootFolders();
-                this.closeModal();
+                this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
             });
-        this.closeModal();
     }
 
     deleteFolder() {
@@ -126,11 +136,11 @@ export class HomeComponent implements OnInit {
             .subscribe(
             data => {
                 console.log('Delete folder successfull');
-                this.closeModal();
+                this.closeDeleteFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
-                this.closeModal();
+                this.closeDeleteFolderModal.nativeElement.click();
                 console.log('Cant delete folder');
                 this.loadRootFolders();
             });
@@ -142,21 +152,15 @@ export class HomeComponent implements OnInit {
             .subscribe(
             data => {
                 console.log('Add tags successfull');
-                this.closeModal();
+                this.closeAddTagFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
+                this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
             });
     }
 
-    private closeModal(): void {
-        this.closeBtn.nativeElement.click();
-    }
-
-    moveToSelectedFolder(folderId) {
-        this.router.navigate(['', folderId])
-    }
 
     openRenameFolderModal(folderId: string) {
         document.getElementById("openRenameFolderModalButton").click();
@@ -180,7 +184,42 @@ export class HomeComponent implements OnInit {
         this.selectedFolderId = folderId;
     }
 
+    //files
+    openRenameFileModal(fileId: string) {
+        document.getElementById("openRenameFileModalButton").click();
+        console.log('modal for rename open ', fileId);
+        this.selectedFileId = fileId;
+    }
+
+    openAddTagFileModal(fileId: string) {
+        document.getElementById("openAddTagFileModalButton").click();
+        console.log('modal for add tag open ', fileId);
+        this.selectedFileId = fileId;
+    }
+
+    callDownload(fileId: string) {
+
+    }
+
+    openDeleteFileModal(fileId: string) {
+        document.getElementById("openDeleteFileModalButton").click();
+        console.log('modal for deleting open ', fileId);
+        this.selectedFileId = fileId;
+    }
+
     toggleGrid(res) {
         this.grid = res;
+    }
+
+    private closeModal(closeBtn: ElementRef): void {
+        //this.closeBtn.nativeElement.click();
+    }
+
+    
+    moveToSelectedFolder(folderId, folderName) {
+        this.router.navigate(['', folderId]);
+        console.log('moving ',this.route.snapshot, folderName);
+        
+        this.route.snapshot.data.breadcrumb = folderName;
     }
 }

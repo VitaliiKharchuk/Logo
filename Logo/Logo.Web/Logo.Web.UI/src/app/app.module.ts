@@ -16,18 +16,21 @@ import { AuthentificationService } from './_components/login/authentification.se
 import { HomeService } from './_components/home/home.service';
 import { DataComponent } from './_components/data/data.component';
 import { DataService } from './_components/data/data.service';
+import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.component';
 
+import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 
 @NgModule({
     declarations: [
-        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent
+        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent, BreadcrumbsComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         routing,
-        ContextMenuModule
+        ContextMenuModule,
+        McBreadcrumbsModule.forRoot()
     ],
     providers: [
         AuthentificationGuard,

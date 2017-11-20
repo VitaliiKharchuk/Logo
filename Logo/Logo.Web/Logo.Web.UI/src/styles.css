@@ -5,6 +5,11 @@ html, body {
     background-color: #f0f1f7 !important;
 }
 
+html{
+  overflow-x: auto !important;
+  min-width: 1420px !important;
+}
+
 @font-face {
   font-family: 'Raleway-Black';
   src: URL('assets/Raleway/Raleway-Black.ttf');
