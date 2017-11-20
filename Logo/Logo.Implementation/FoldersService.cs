@@ -316,7 +316,7 @@ namespace Logo.Implementation
                    Size = y.Size,
                    Type = y.Type,
                    HasPublicAccess = y.HasPublicAccess,
-                   TagList = _tagsService.GetFolderTags(y.FileId)
+                  // TagList = _tagsService.GetFolderTags(y.FileId)
                });
         }
 
@@ -334,7 +334,7 @@ namespace Logo.Implementation
                 UploadDate = y.UploadDate,
                 Level = y.Level,
                 HasPublicAccess = y.HasPublicAccess,
-                TagList = _tagsService.GetFolderTags(FolderId)
+                //TagList = _tagsService.GetFolderTags(FolderId)
             }).ToList();
         }
 
@@ -352,7 +352,7 @@ namespace Logo.Implementation
                 Type = y.Type,
                 HasPublicAccess = y.HasPublicAccess,
 
-                TagList = _tagsService.GetFileTags(FileId)
+               // TagList = _tagsService.GetFileTags(FileId)
             }).ToList();
         }
 
@@ -369,7 +369,7 @@ namespace Logo.Implementation
                 UploadDate = y.UploadDate,
                 Level = y.Level,
                 HasPublicAccess = y.HasPublicAccess,
-                TagList = _tagsService.GetFolderTags(y.FolderId)
+                //TagList = _tagsService.GetFolderTags(y.FolderId)
 
             }).ToList();
         }
@@ -387,7 +387,7 @@ namespace Logo.Implementation
                 Size = y.Size,
                 Type = y.Type,
                 HasPublicAccess = y.HasPublicAccess,
-                TagList = _tagsService.GetFolderTags(y.FileId)
+                //TagList = _tagsService.GetFolderTags(y.FileId)
             }).ToList();
        }
 
