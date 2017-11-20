@@ -27,7 +27,7 @@
     <div *ngIf="folders?.length > 0">
       <div class="title-f">Папки</div>
       <div class="row">
-        <div class="col-xs-3" *ngFor="let folder of folders" [class.selected]="folder.folderId === selectedFolderId">
+        <div class="col-xs-3" *ngFor="let folder of folders" [class.selected]="folder.folderId === selectedObjectId">
           <div class="folder-grid" [contextMenu]="static" (dblclick)="moveToSelectedFolder(folder.folderId, folder.name)">
 
             <div class="folder-grid-item">
@@ -102,7 +102,7 @@
         <div [contextMenu]="static" (dblclick)="moveToSelectedFolder(folder.folderId, folder.name)">
           <div class="col-sm-9 just-for-padding">
             <div class="folder-grid-item">
-              <img src="assets\icons\folder.svg" class="img-folder"> {{folder.name}} {{folder.folderId}}
+              <img src="assets\icons\folder.svg" class="img-folder"> {{folder.name}}
             </div>
           </div>
           <div class="col-sm-3">
@@ -224,13 +224,17 @@
     <!-- Modal content-->
     <div class="modal-content custom-modal">
       <div class="modal-header custom-header">
-        <h4 class="modal-title">Загрузка файлов</h4>
+        <h4 class="modal-title">Загрузка файлов
+          <span class="img-tag">
+            <img src="assets\icons\reload.svg" class="img-tag pull-right">
+          </span>
+        </h4>
       </div>
       <div class="modal-body modal-body-on-upload-files">
         <div class="file_upload">
           <button type="button">Выбрать</button>
 
-          <input type="file" #inputfiles (change)="onChange(inputfiles.files)" placeholder="Upload file" accept=".jpg,.png,.avi" multiple>
+          <input type="file" #inputfiles (change)="onChange(inputfiles.files)" placeholder="Upload file" accept=".jpg,.png,.avi,.mov,.mkv" multiple>
         </div>
         <table class="table">
           <tbody>
@@ -319,13 +323,13 @@
       </div>
       <div class="modal-body">
 
-        <form name="form" (ngSubmit)="f.form.valid && addTags()" #f="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !tags.valid }">
+        <form name="formAddTags" (ngSubmit)="formAT.valid && addTags()" #formAT="ngForm" novalidate>
+          <div class="form-group" [ngClass]="{ 'has-error': formAT.submitted && !tags.valid }">
             <label for="tags"></label>
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
               required></textarea>
 
-            <div *ngIf="f.submitted && !tags.valid" class="help-block">Имя пользователя необходимо</div>
+            <div *ngIf="formAT.submitted && !tags.valid" class="help-block">Имя пользователя необходимо</div>
           </div>
           <div class="form-group right">
             <button class="button-transparent" *ngIf="false" data-dismiss="modal" #closeAddTagFolderModal>Отмена</button>
@@ -355,6 +359,7 @@
   </div>
 </div>
 
+<!-- files -->
 
 <!-- Modal -->
 <div class="modal fade" id="renameFileModal" role="dialog">
@@ -365,17 +370,17 @@
         <h4 class="modal-title">Переименовать файл</h4>
       </div>
       <div class="modal-body">
-        <form name="formrenamev" (ngSubmit)="formrename.valid && renamefolder()" #formrename="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': formrename.submitted && !folderrename.valid }">
+        <form name="formrenamev" (ngSubmit)="formrenameFile.valid && renameFile()" #formrenameFile="ngForm" novalidate>
+          <div class="form-group" [ngClass]="{ 'has-error': formrenameFile.submitted && !formrenameFile.valid }">
             <label for="folderrename"></label>
-            <input type="text" class="form-control form-control-on-add-folder" name="folderrename" placeholder="Имя папки" [(ngModel)]="folderrenamem.name"
+            <input type="text" class="form-control form-control-on-add-folder" name="formrenameFile" placeholder="Имя папки" [(ngModel)]="model.renameFile"
               #folderrename="ngModel" required maxlength="50" />
-            <div *ngIf="formrename.submitted && folderrename.errors && (folderrename.dirty || folderrename.touched)" class="alerts">
+            <div *ngIf="formrenameFile.submitted && formrenameFile.errors && (formrenameFile.dirty || formrenameFile.touched)" class="alerts">
               <br>
-              <div [hidden]="!folderrename.errors.required">
+              <div [hidden]="!formrenameFile.errors.required">
                 Имя файла необходимо.
               </div>
-              <div [hidden]="!folderrename.errors.maxlength">
+              <div [hidden]="!formrenameFile.errors.maxlength">
                 Максимальная длинна имени 50 символов.
               </div>
             </div>
@@ -405,7 +410,7 @@
       </div>
       <div class="modal-body">
 
-        <form name="form" (ngSubmit)="f.form.valid && addTags()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="f.form.valid && addTagsFile()" #f="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !tags.valid }">
             <label for="tags"></label>
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"

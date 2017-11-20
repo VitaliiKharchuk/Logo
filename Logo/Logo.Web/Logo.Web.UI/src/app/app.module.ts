@@ -18,7 +18,6 @@ import { DataComponent } from './_components/data/data.component';
 import { DataService } from './_components/data/data.service';
 import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.component';
 
-import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 
 @NgModule({
     declarations: [
@@ -29,8 +28,7 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
         FormsModule,
         HttpModule,
         routing,
-        ContextMenuModule,
-        McBreadcrumbsModule.forRoot()
+        ContextMenuModule
     ],
     providers: [
         AuthentificationGuard,

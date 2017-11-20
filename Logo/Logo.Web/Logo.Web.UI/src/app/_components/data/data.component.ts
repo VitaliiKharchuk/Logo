@@ -33,8 +33,7 @@ export class DataComponent implements OnInit {
     folders: Folder[] = [];
     files: File[] = [];
     uploadFiles: any[];
-    selectedFolderId: string;
-    selectedFileId: string;
+    selectedObjectId: string;
     tags: string;
     grid: true;
     folderrenamem: any = {};
@@ -55,6 +54,12 @@ export class DataComponent implements OnInit {
                 return this.homeService.loadFolders(this.folderId);
             })
             .subscribe(res => this.folders = res);
+        if (JSON.parse(localStorage.getItem('grid')) === null) {
+            this.grid = true;
+        }
+        else {
+            this.grid = JSON.parse(localStorage.getItem('grid'));
+        }
     }
 
 
@@ -86,92 +91,123 @@ export class DataComponent implements OnInit {
         }
     }
 
-    private loadFolders(folderId: string) {
-        this.homeService.loadFolders(this.folderId).subscribe(
+    //initial
+    private loadRootFolders() {
+        this.homeService.loadRootFolders(null).subscribe(
             data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Loading root folders successfull');
+                }
                 this.folders = data as Folder[];
                 localStorage.setItem('folders', JSON.stringify(data))
-                console.log('Loading folders successfull datac', this.folderId);
             },
             error => {
                 //show info about error
-                console.log('Loading folders unsuccessfull datac', this.folderId);
+                console.log('Loading root folders unsuccessfull');
             });
 
     }
 
-    private loadFiles(folderId: string) {
-        this.homeService.loadFiles(this.folderId).subscribe(
+    private loadRootFiles() {
+        this.homeService.loadRootFiles(null).subscribe(
             data => {
                 this.files = data as File[];
                 localStorage.setItem('files', JSON.stringify(data))
-                console.log('Loading files successfull datac', this.folderId);
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Loading root files successfull');
+                }
             },
             error => {
                 //show info about error
-                console.log('Loading files unsuccessfull datac', this.folderId);
+                console.log('Loading root files unsuccessfull');
             });
 
     }
 
+    //menu
     createfolder() {
-        console.log('Creating folder in datac', this.model.foldername, this.folderId);
-        this.homeService.createfolder(this.model.foldername, this.folderId)
+        this.homeService.createfolder(this.model.foldername, null)
             .subscribe(
             data => {
-                console.log('Creating folder successfull');
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Creating folder successfull', data);
+                }
                 this.closeCreateFolderModal.nativeElement.click();
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
             },
             error => {
-                this.loadFolders(this.folderId);
-                console.log('Cant create folder');
+                this.loadRootFolders();
+                console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
             });
-
     }
 
+    //folders
     renamefolder() {
-        let folderId = this.selectedFolderId;
+        let folderId = this.selectedObjectId;
         console.log(this.folderrenamem.name, folderId);
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
             .subscribe(
             data => {
-                console.log('Renaming folder successfull for ', folderId); 
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Renaming folder successfull for ', folderId);
+                }
                 this.closeRenameFolderModal.nativeElement.click();
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
             },
             error => {
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
             });
     }
 
     deleteFolder() {
-        let folderId = this.selectedFolderId;
+        let folderId = this.selectedObjectId;
         this.homeService.deleteFolder(folderId)
             .subscribe(
             data => {
-                console.log('Delete folder successfull');
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Delete folder successfull');
+                }
                 this.closeDeleteFolderModal.nativeElement.click();
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
             },
             error => {
                 this.closeDeleteFolderModal.nativeElement.click();
                 console.log('Cant delete folder');
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
             });
     }
 
     addTags() {
-        let folderId = this.selectedFolderId;
+        let folderId = this.selectedObjectId;
         this.homeService.addTags(folderId, this.model.tags)
             .subscribe(
             data => {
-                console.log('Add tags successfull');
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Add tags successfull');
+                }
                 this.closeAddTagFolderModal.nativeElement.click();
-                this.loadFolders(this.folderId);
+                this.loadRootFolders();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
@@ -179,17 +215,82 @@ export class DataComponent implements OnInit {
             });
     }
 
+    //files
+    renameFile() {
+        let fileId = this.selectedObjectId;
+        console.log(this.model.renameFile, fileId);
+        this.homeService.renameFolder(this.model.renameFile, fileId)
+            .subscribe(
+            data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Renaming file successfull for ', fileId);
+                }
+                this.closeRenameFileModal.nativeElement.click();
+                this.loadRootFolders();
+            },
+            error => {
+                this.loadRootFolders();
+                this.closeRenameFileModal.nativeElement.click();
+                console.log('Cant rename file for ', fileId);
+            });
+    }
 
+    deleteFile() {
+        let fileId = this.selectedObjectId;
+        this.homeService.deleteFile(fileId)
+            .subscribe(
+            data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Delete file successfull');
+                }
+                this.closeDeleteFileModal.nativeElement.click();
+                this.loadRootFolders();
+            },
+            error => {
+                this.closeDeleteFileModal.nativeElement.click();
+                console.log('Cant delete file');
+                this.loadRootFolders();
+            });
+    }
+
+    addTagsFile() {
+        let fileId = this.selectedObjectId;
+        this.homeService.addTagsFile(fileId, this.model.tags)
+            .subscribe(
+            data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('Add tags successfull');
+                }
+                this.closeAddTagFileModal.nativeElement.click();
+                this.loadRootFolders();
+            },
+            error => {
+                this.closeAddTagFileModal.nativeElement.click();
+                console.log('Cant add tags');
+            });
+    }
+
+
+    //folders
     openRenameFolderModal(folderId: string) {
         document.getElementById("openRenameFolderModalButton").click();
         console.log('modal for rename open ', folderId);
-        this.selectedFolderId = folderId;
+        this.selectedObjectId = folderId;
     }
 
     openAddTagFolderModal(folderId: string) {
         document.getElementById("openAddTagFolderModalButton").click();
         console.log('modal for add tag open ', folderId);
-        this.selectedFolderId = folderId;
+        this.selectedObjectId = folderId;
     }
 
     callDownloadZIP(folderId: string) {
@@ -199,20 +300,20 @@ export class DataComponent implements OnInit {
     openDeleteFolderModal(folderId: string) {
         document.getElementById("openDeleteFolderModalButton").click();
         console.log('modal for deleting open ', folderId);
-        this.selectedFolderId = folderId;
+        this.selectedObjectId = folderId;
     }
 
     //files
     openRenameFileModal(fileId: string) {
         document.getElementById("openRenameFileModalButton").click();
         console.log('modal for rename open ', fileId);
-        this.selectedFileId = fileId;
+        this.selectedObjectId = fileId;
     }
 
     openAddTagFileModal(fileId: string) {
         document.getElementById("openAddTagFileModalButton").click();
         console.log('modal for add tag open ', fileId);
-        this.selectedFileId = fileId;
+        this.selectedObjectId = fileId;
     }
 
     callDownload(fileId: string) {
@@ -222,21 +323,17 @@ export class DataComponent implements OnInit {
     openDeleteFileModal(fileId: string) {
         document.getElementById("openDeleteFileModalButton").click();
         console.log('modal for deleting open ', fileId);
-        this.selectedFileId = fileId;
+        this.selectedObjectId = fileId;
     }
 
     toggleGrid(res) {
         this.grid = res;
     }
 
-    private closeModal(closeBtn: ElementRef): void {
-        //this.closeBtn.nativeElement.click();
-    }
-
     moveToSelectedFolder(folderId, folderName) {
         this.router.navigate(['', folderId]);
-        console.log('navigate to', folderId)
         console.log('moving ', this.route.snapshot, folderName);
+
         this.route.snapshot.data.breadcrumb = folderName;
     }
 }
