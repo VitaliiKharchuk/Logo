@@ -6,12 +6,18 @@ namespace Logo.Contracts.Services
 {
     public interface ITagsService
     {
-        void CreateTag(TagsCredentials tagsCredentials);
+        void CreateTagToFolder(TagsCredentials tagsCredentials);
 
-        IEnumerable<TagInfo> GetFileTags(Guid fileId);
+        void CreateTagToFile(TagsCredentials tagsCredentials);
+      
+        IEnumerable<string> GetFolderTags(Guid folderId);
 
-        IEnumerable<TagInfo> GetFolderTags(Guid folderId);
+        IEnumerable<string> GetFileTags(Guid fileId);
+       
+        void DeleteTagsFromFolder(Guid folderId);
 
-        IEnumerable<TagInfo> GetAllTags();
+        void DeleteTagsFromFile(Guid fileId);
+
+        IEnumerable<string> GetAllTags();
     }
 }

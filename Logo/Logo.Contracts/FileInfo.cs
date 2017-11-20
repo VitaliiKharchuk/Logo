@@ -16,5 +16,7 @@ namespace Logo.Contracts
         public int Type { get; set; }
         public bool? HasPublicAccess { get; set; }
 
+        public IEnumerable<string> TagList;
+
     }
 }

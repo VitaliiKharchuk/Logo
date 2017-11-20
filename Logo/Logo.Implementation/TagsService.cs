@@ -16,66 +16,88 @@ namespace Logo.Implementation
             _dbContext = dbContext;
         }
 
-        public void CreateTag(TagsCredentials tagsCredentials)
+        public Tag CreateTag(TagsCredentials tagsCredentials)
         {
             Tag tag = new Tag { Name = tagsCredentials.Text, TagId = Guid.NewGuid() };
             _dbContext.Add(tag);
-
             _dbContext.SaveChanges();
 
-            if (tagsCredentials.ObjectType.Equals(ObjectType.File))
-            {
-                FilesToTags filesToTags = new FilesToTags
-                {
-                    FileId = tagsCredentials.ObjectId,
-                    TagId = tag.TagId
-                };
-                _dbContext.Add(filesToTags);
-            }
+            return tag;
+        }
 
-            else
-            {
-                FoldersToTags foldersToTags = new FoldersToTags
-                {
-                    FolderId = tagsCredentials.ObjectId,
-                    TagId = tag.TagId
-                };
+        public void CreateTagToFolder(TagsCredentials tagsCredentials)
+        {
 
-                _dbContext.Add(foldersToTags);
-            }
+            Tag tag = CreateTag(tagsCredentials);
+
+            FoldersToTags foldersToTags = new FoldersToTags
+            {
+                FolderId = tagsCredentials.ObjectId,
+                TagId = tag.TagId
+            };
+
+            _dbContext.Add(foldersToTags);
+            _dbContext.SaveChanges();
+        }
+
+        public void CreateTagToFile(TagsCredentials tagsCredentials)
+        {
+            Tag tag = CreateTag(tagsCredentials);
+
+            FilesToTags foldersToTags = new FilesToTags
+            {
+                FileId = tagsCredentials.ObjectId,
+                TagId = tag.TagId
+            };
+
+            _dbContext.Add(foldersToTags);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteTagsFromFile(Guid fileId)
+        {
+            var fileToTag = _dbContext.FilesToTags
+                .Where(t => t.FileId == fileId)
+                .FirstOrDefault();
+
+            if (fileToTag != null)
+                _dbContext.FilesToTags.Remove(fileToTag);
 
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TagInfo> GetFileTags(Guid fileId)
+
+        public void DeleteTagsFromFolder(Guid folderId)
+        {
+            var folderToTags = _dbContext.FoldersToTags
+                  .Where(t => t.FolderId == folderId)
+                  .FirstOrDefault();
+
+            if (folderToTags != null)
+                _dbContext.FoldersToTags.Remove(folderToTags);
+
+            _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<string> GetFileTags(Guid fileId)
         {
             return _dbContext.FilesToTags.Where(t => t.FileId == fileId)
-            .Select(t => new TagInfo()
-            {
-                TagName = t.Tag.Name
-            })
+            .Select(t => t.Tag.Name)
             .ToList();
         }
 
-        public IEnumerable<TagInfo> GetFolderTags(Guid folderId)
+        public IEnumerable<string> GetFolderTags(Guid folderId)
         {
             return _dbContext.FoldersToTags.Where(t => t.FolderId == folderId)
-            .Select(t => new TagInfo()
-            {
-                TagName = t.Tag.Name
-            })
+            .Select(t => t.Tag.Name)
             .ToList();
         }
 
-        public IEnumerable<TagInfo> GetAllTags()
+        public IEnumerable<string> GetAllTags()
         {
-            return _dbContext.Tags.Select(t => new TagInfo()
-            {
-                TagName = t.Name
-            })
-            .ToList();
+            return _dbContext.Tags
+             .Select(t => t.Name)
+             .ToList();
         }
-
-
     }
 }

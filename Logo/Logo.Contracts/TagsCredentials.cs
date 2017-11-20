@@ -8,6 +8,5 @@ namespace Logo.Contracts
     {        
         public Guid ObjectId { get; set; }
         public string Text { get; set; }
-        public Enum ObjectType { get; set; }        
     }
 }
