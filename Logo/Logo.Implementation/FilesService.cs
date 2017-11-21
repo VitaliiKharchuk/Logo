@@ -23,40 +23,76 @@ namespace Logo.Implementation
     public  class FilesService //: IFilesService
     {
 
-        public  async Task SimpleUploadAsync(byte[] file, string fileName)
-        {
-            CloudBlobContainer container = await GetContainerReference();
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
-
-            blockBlob.UploadFromByteArrayAsync(file, 0, file.Length).Wait();
-        }
-
         public static async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
-            /*
-            CloudBlobContainer container = await GetContainerReference().Wait().GetAwaiter();
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
 
-            byte[] fileArr = new byte[10000000000];   // size  of   file  in   bytes
-            blockBlob.DownloadToByteArrayAsync(fileArr, 0).Wait();
+            var ms = new MemoryStream();
 
-            return fileArr;
-            */
+            await blockBlob.DownloadToStreamAsync(ms);
 
-            return null;
+            return ms.ToArray();
         }
-       
-        public  async Task<CloudBlobContainer> GetContainerReference()
+
+        public static async Task SimpleUploadStreamAsync(FileStream file, string fileName)
         {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=vitalii;AccountKey=MlMH+2fNABUjeJBj6XDimg6x10YLeMeT/pHB+moaZtcSmrOVgjN+bQt6Mw1ycjwoOup6eneixZR1Vh9iVJIeYQ==;EndpointSuffix=core.windows.net";
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("container");
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
+
+            await blockBlob.UploadFromStreamAsync(file);
+        }
+
+
+        public static async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
+        {
+            var container = await GetContainerReference();
+            var tasks = new List<Task<byte[]>>();
+            foreach (var fileName in fileNames)
+            {
+                var blockBlob = container.GetBlockBlobReference(fileName);
+                tasks.Add(Task.Run(async () =>
+                {
+                    var ms = new MemoryStream();
+                    await blockBlob.DownloadToStreamAsync(ms);
+                    return ms.ToArray();
+                }));
+            }
+            return await Task.WhenAll(tasks);
+        }
+
+        public static async Task UploadFiles(IEnumerable<string> fileNames)
+        {
+            var container = await GetContainerReference();
+            var tasks = new List<Task>();
+            foreach (var fileName in fileNames)
+            {
+                var blockBlob = container.GetBlockBlobReference(Path.GetFileName(fileName));
+
+                tasks.Add(Task.Run(async () =>
+                {
+                    Stream fileStream = File.OpenRead(fileName);
+                    await blockBlob.UploadFromStreamAsync(fileStream);
+
+                }));
+            }
+
+            await Task.WhenAll(tasks);
+        }
+
+        public static async Task<CloudBlobContainer> GetContainerReference()
+        {
+            var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
+            var storageAccount = CloudStorageAccount.Parse(connectionString);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("container");
 
             await container.CreateIfNotExistsAsync();
-
             return container;
         }
+
+
+
 
     }
 }
