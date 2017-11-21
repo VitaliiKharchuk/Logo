@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.IO;
 
 namespace Logo.Contracts.Services
 {
@@ -14,7 +14,7 @@ namespace Logo.Contracts.Services
 
         IEnumerable<FileInfo> GetRootFiles(Guid ownerId);
         FileInfo GetFile(Guid folderId);
-        void CreateFile(ObjectCredentialsWithOwner folderCredentials);
+        void CreateFile(ObjectCredentialsWithOwner folderCredentials, MemoryStream  fileStream);
         void RenameFile(UpdatedObject updatedFolder);
         void DeleteFile(Guid folderId);
 

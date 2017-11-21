@@ -126,7 +126,7 @@ namespace Logo.Web.Controllers
                 {
                     ObjectCredentials = folderCredentials,
                     OwnerId = ownerId
-                });
+                },  null);
             }
 
             catch (Exception ex)

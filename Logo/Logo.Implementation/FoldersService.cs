@@ -24,15 +24,18 @@ namespace Logo.Implementation
     {
         private readonly LogoDbContext _dbContext;
         private readonly ITagsService _tagsService;
+        private readonly IFilesService _filesService;
+
 
         private readonly int maxRootLevel = 9;   //[0..9]
         private readonly int maxNameLong = 50;   //[0..9]
 
 
-        public FoldersService(LogoDbContext dbContext, ITagsService tagsService)
+        public FoldersService(LogoDbContext dbContext, ITagsService tagsService, IFilesService filesService)
         {
             _dbContext = dbContext;
             _tagsService = tagsService;
+            _filesService = filesService;
         }
 
         public FolderInfo GetFolder(Guid folderId)
@@ -101,10 +104,7 @@ namespace Logo.Implementation
                 if (rootFolder.Level == maxRootLevel)
                     throw new InvalidOperationException("Attachment  level  is  maximum");
             }
-
-
-         
-
+            
             _dbContext.Add
                 (new Folder
                 {
@@ -116,17 +116,13 @@ namespace Logo.Implementation
                     UploadDate = null,
                     Level = folderCredentialsWithOwner.ObjectCredentials.ParentObjectId == null ? 0 : rootFolder.Level + 1,
                     HasPublicAccess = false
-
                 });
 
-
-           
-
-
+            
             _dbContext.SaveChanges();
         }
 
-        public void CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
+        public void CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner, MemoryStream fileStream)
         {
             if (fileCredentialsWithOwner.ObjectCredentials.Name.Length > maxNameLong)
                 throw new InvalidOperationException("Long  name of file");
@@ -136,27 +132,36 @@ namespace Logo.Implementation
 
             string fileExtention = Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name);
             if (
-                      fileExtention == "." + FileExtentions.avi.ToString("g")
+                      fileExtention == "." + FileExtentions.avi.ToString("g")    //   gavnocode!    rewrite need
                    || fileExtention == "." + FileExtentions.jpg.ToString("g")
                    || fileExtention == "." + FileExtentions.mkv.ToString("g")
                    || fileExtention == "." + FileExtentions.mov.ToString("g")
                    || fileExtention == "." + FileExtentions.png.ToString("g")
                 )
+
             {
+
+                Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
+
                 _dbContext.Add
                     (new DatabaseModels.File
                     {
-                        FileId = Guid.NewGuid(),
+                        FileId = fileId,
                         OwnerId = fileCredentialsWithOwner.OwnerId,
                         ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
                         CreationDate = DateTime.Now,
                         UploadDate = null,
                         Size = 0,     //need   implementation
-                        Type = -1,      //need  implementation
+                        Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
                         HasPublicAccess = false
-
                     });
+
+
+                byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
+                MemoryStream fs = new MemoryStream(array);
+
+                _filesService.SimpleUploadStreamAsync(fs, fileId);
 
                 _dbContext.SaveChanges();
             }
@@ -360,6 +365,7 @@ namespace Logo.Implementation
 
         public IEnumerable<FolderInfo> GetRootFolders(Guid ownerId)
         {
+
             return  _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId).Select(y => new FolderInfo()
             {
                 FolderId = y.FolderId,
@@ -404,6 +410,12 @@ namespace Logo.Implementation
 
             FolderInfo folderInfo = GetFolder(FolderId);
 
+            parentList.Add(new ObjectCredentials
+            {
+                Name = folderInfo.Name,
+                ParentObjectId = folderInfo.ParentFolderId
+            });
+
 
             while(folderInfo.ParentFolderId !=  null)
             {
@@ -416,6 +428,7 @@ namespace Logo.Implementation
                 });
 
                 folderInfo = parentFolder; 
+
 
             }
 

@@ -73,6 +73,7 @@ namespace Logo.Web
             services.AddTransient<IFoldersService, FoldersService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<IFilesService, FilesService>();
 
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel
