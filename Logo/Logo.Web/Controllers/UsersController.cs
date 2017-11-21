@@ -19,7 +19,7 @@ namespace Logo.Web.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly ICryptographyService _cryptographyService;
-
+      
         public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
         {
             _usersService = usersService;
@@ -146,5 +146,13 @@ namespace Logo.Web.Controllers
             return _usersService.GetAllUsers();    
         }
         
+
+
+
+
+
+
+
+
     }
 }

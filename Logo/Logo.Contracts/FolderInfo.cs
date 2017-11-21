@@ -14,5 +14,7 @@ namespace Logo.Contracts
         public DateTime? UploadDate { get; set; }
         public int Level { get; set; }
         public bool? HasPublicAccess { get; set; }
+
+        public IEnumerable<string> TagList;
     }
 }

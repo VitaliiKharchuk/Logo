@@ -14,120 +14,85 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.RetryPolicies;
 
+
+using Logo.Contracts.Services;
+
+
 namespace Logo.Implementation
 {
-    public  class FilesService
+    public  class FilesService //: IFilesService
     {
 
-        public static async Task SimpleUpload(byte[] file, string fileName)
+        public static async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
-            CloudBlobContainer container = await GetContainerReference();
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
 
-            await blockBlob.UploadFromByteArrayAsync(file, 0, file.Length);
+            var ms = new MemoryStream();
+
+            await blockBlob.DownloadToStreamAsync(ms);
+
+            return ms.ToArray();
+        }
+
+        public static async Task SimpleUploadStreamAsync(FileStream file, string fileName)
+        {
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
+
+            await blockBlob.UploadFromStreamAsync(file);
         }
 
 
-        public static async Task UploadFileInBlocks(byte[] file, string fileName)
+        public static async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
         {
-            CloudBlobContainer cloudBlobContainer = await GetContainerReference();
-            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(fileName);
-
-            // This is important to understand, that if the same file was already uploaded in ANY other way (e.g. like a single blob or by blocks but with other IDs
-            // the upload will most definitely fail. This will happen because the block IDs that you associate with a blob must all be the same length.
-            // So, if you have previously uploaded file as a one blob, Azure will assign is its own block IDs which will not be the same as yours and the upload will fail.
-            await blob.DeleteIfExistsAsync();
-
-            List<string> blockIDs = new List<string>();
-
-            int blockSize = 5 * 1024 * 1024;
-            long fileSize = file.Length;
-
-            int fullSizeCount = (int)(fileSize / blockSize);
-            int restSize = (int)(fileSize - fullSizeCount * blockSize);
-
-            var blocksById = new Dictionary<int, byte[]>();
-
-            Action<int, int> createBlocks = (currentBlockSize, partId) =>
+            var container = await GetContainerReference();
+            var tasks = new List<Task<byte[]>>();
+            foreach (var fileName in fileNames)
             {
-                byte[] bytesToUpload = new byte[currentBlockSize];
-                Array.Copy(file, partId * blockSize, bytesToUpload, 0, bytesToUpload.Length);
-                blocksById.Add(partId, bytesToUpload);
-            };
-
-            Parallel.For(0, fullSizeCount, partId =>
-            {
-                createBlocks(blockSize, partId);
-            });
-
-            createBlocks(restSize, fullSizeCount);
-
-            var blockIds = new ConcurrentBag<string>();
-
-            Parallel.ForEach(blocksById, blockById =>
-            {
-                string encoded = GetBase64BlockId(blockById.Key);
-                blockIds.Add(encoded);
-                using (MemoryStream memoryStream = new MemoryStream(blockById.Value, 0, blockById.Value.Length))
+                var blockBlob = container.GetBlockBlobReference(fileName);
+                tasks.Add(Task.Run(async () =>
                 {
-                     blob.PutBlockAsync(encoded, memoryStream, null, null, 
-                         new BlobRequestOptions
-                    {
-                        RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(2), 1)
-                    }, null);//todo!
-                }
-            });
-
-            await blob.PutBlockListAsync(blockIds);
+                    var ms = new MemoryStream();
+                    await blockBlob.DownloadToStreamAsync(ms);
+                    return ms.ToArray();
+                }));
+            }
+            return await Task.WhenAll(tasks);
         }
 
-
-        public static async Task< byte[]> DownloadFileInBlocks(string fileName)
+        public static async Task UploadFiles(IEnumerable<string> fileNames)
         {
-            CloudBlobContainer cloudBlobContainer = await GetContainerReference();
-            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
-
-            int blockSize = 1024 * 1024; // 1 MB block size
-
-            await blob.FetchAttributesAsync();
-            long fileSize = blob.Properties.Length;
-
-            var blobContents = new byte[fileSize];
-            var fullSizeCount = (int)(fileSize / blockSize);
-            var restSize = (int)(fileSize - fullSizeCount * blockSize);
-
-            IEnumerable<int> parts = Enumerable.Range(0, fullSizeCount);
-            int currentPart = -1;
-
-            Parallel.ForEach(parts, async part =>
+            var container = await GetContainerReference();
+            var tasks = new List<Task>();
+            foreach (var fileName in fileNames)
             {
-                await blob.DownloadRangeToByteArrayAsync(blobContents, Interlocked.Add(ref currentPart, blockSize), currentPart, blockSize);
-            });
+                var blockBlob = container.GetBlockBlobReference(Path.GetFileName(fileName));
 
-            int finalIndexAndOffset = fullSizeCount + restSize;
-            await blob.DownloadRangeToByteArrayAsync(blobContents, finalIndexAndOffset, finalIndexAndOffset, restSize);
+                tasks.Add(Task.Run(async () =>
+                {
+                    Stream fileStream = File.OpenRead(fileName);
+                    await blockBlob.UploadFromStreamAsync(fileStream);
 
-            return blobContents;
-        }
+                }));
+            }
 
-
-
-        private static string GetBase64BlockId(int blockId)
-        {
-            return Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}", blockId.ToString("0000000"))));
+            await Task.WhenAll(tasks);
         }
 
         public static async Task<CloudBlobContainer> GetContainerReference()
         {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=vitalii;AccountKey=MlMH+2fNABUjeJBj6XDimg6x10YLeMeT/pHB+moaZtcSmrOVgjN+bQt6Mw1ycjwoOup6eneixZR1Vh9iVJIeYQ==;EndpointSuffix=core.windows.net";
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("container");
+            var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
+            var storageAccount = CloudStorageAccount.Parse(connectionString);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("container");
 
             await container.CreateIfNotExistsAsync();
-
             return container;
         }
+
+
+
 
     }
 }

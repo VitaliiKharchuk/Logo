@@ -18,18 +18,23 @@ namespace Logo.Web.Controllers
     public class FoldersController : Controller
     {
         private readonly IFoldersService _foldersService;
+        private readonly ITagsService _tagsService;
 
-        public FoldersController(IFoldersService foldersService)
+        public FoldersController(IFoldersService foldersService, ITagsService tagsService)
         {
-
             _foldersService = foldersService;
+            _tagsService = tagsService;
         }
 
         [HttpGet]   //only for   testing
         [Route("[action]")]
         public IEnumerable<FolderInfo> GetAllFolders()
         {
-            return _foldersService.GetAllFolders();
+
+                return _foldersService.GetAllFolders();
+            
+            
+
         }
 
         [HttpGet]   //only for   testing
@@ -45,7 +50,7 @@ namespace Logo.Web.Controllers
         public IEnumerable<FolderInfo> GetFoldersContent(Guid id)
         {
 
-            if (id  ==  default(Guid))
+            if (id == default(Guid))
             {
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                       .Where(item => item.Type == "UserId")
@@ -74,7 +79,7 @@ namespace Logo.Web.Controllers
                 return _foldersService.GetRootFiles(ownerId);
             }
 
-                return _foldersService.GetFilesInFolder(id);
+            return _foldersService.GetFilesInFolder(id);
         }
 
 
@@ -99,8 +104,9 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
+
 
             return Ok();
         }
@@ -125,7 +131,7 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
 
             return Ok();
@@ -144,7 +150,7 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
 
             return Ok();
@@ -163,8 +169,9 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
+
 
             return Ok();
         }
@@ -181,8 +188,9 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
+
 
             return Ok();
         }
@@ -198,8 +206,9 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Ok(ex);    // 
+                return Json(new { success = false, message = ex.Message });    // 
             }
+
 
             return Ok();
         }
@@ -207,7 +216,7 @@ namespace Logo.Web.Controllers
 
         [HttpGet]
         [Route("get-root-folders")]
-        public   IEnumerable<FolderInfo>   GetRootFolders()
+        public IEnumerable<FolderInfo> GetRootFolders()
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                   .Where(item => item.Type == "UserId")
@@ -215,7 +224,7 @@ namespace Logo.Web.Controllers
                                   .FirstOrDefault());
 
             return _foldersService.GetRootFolders(ownerId);
-            
+
         }
 
         [HttpGet]
@@ -228,12 +237,56 @@ namespace Logo.Web.Controllers
                                   .FirstOrDefault());
 
 
-            return _foldersService.GetRootFiles(ownerId);            
+            return _foldersService.GetRootFiles(ownerId);
         }
 
 
+        [HttpPost]
+        [Route("create-folder-tag")]
+        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
+        {
+            _tagsService.CreateTagToFolder(tagsCredentials);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("create-file-tag")]
+        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
+        {
+            _tagsService.CreateTagToFile(tagsCredentials);
+
+            return Ok();
+        }
 
 
+        [HttpGet]
+        [Route("get-file-tag/{id?}")]
+        public IEnumerable <string> GetFileTag(Guid  id)
+        {
+            return _tagsService.GetFileTags(id);
+        }
 
+        [HttpGet]
+        [Route("get-folder-tag/{id?}")]
+        public IEnumerable<string> GetFolderTag(Guid id)
+        {
+            return _tagsService.GetFolderTags(id);
+        }
+
+        [HttpGet]
+        [Route("get-all-tags")]
+        public IEnumerable<string> GetAllTags()  //  for   testing
+        {
+            return _tagsService.GetAllTags();
+        }
+
+
+        [HttpGet]
+        [Route("get-path-to-root/{folderId?}")]
+        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid folderId)
+        {
+            return _foldersService.GetPathToRoot(folderId);
+        }
     }
 }

@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class Tag
+    public partial class Tag
     {
         public Tag()
         {
             FilesToTags = new HashSet<FilesToTags>();
+            FoldersToTags = new HashSet<FoldersToTags>();
         }
 
-        public int TagId { get; set; }
+        public Guid TagId { get; set; }
         public string Name { get; set; }
 
         public ICollection<FilesToTags> FilesToTags { get; set; }
+        public ICollection<FoldersToTags> FoldersToTags { get; set; }
     }
 }

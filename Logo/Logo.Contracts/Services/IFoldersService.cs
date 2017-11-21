@@ -18,6 +18,9 @@ namespace Logo.Contracts.Services
         void RenameFile(UpdatedObject updatedFolder);
         void DeleteFile(Guid folderId);
 
+
+        IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId);
+
         IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId);
         IEnumerable<FileInfo> GetFilesInFolder(Guid folderId);
 

@@ -5,6 +5,7 @@ using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Logo.Implementation
 {
@@ -22,13 +23,16 @@ namespace Logo.Implementation
     public class FoldersService : IFoldersService
     {
         private readonly LogoDbContext _dbContext;
+        private readonly ITagsService _tagsService;
+
         private readonly int maxRootLevel = 9;   //[0..9]
         private readonly int maxNameLong = 50;   //[0..9]
 
 
-        public FoldersService(LogoDbContext dbContext)
+        public FoldersService(LogoDbContext dbContext, ITagsService tagsService)
         {
             _dbContext = dbContext;
+            _tagsService = tagsService;
         }
 
         public FolderInfo GetFolder(Guid folderId)
@@ -230,6 +234,7 @@ namespace Logo.Implementation
         public void DeleteFolder(Guid folderId)  //  need    recursive  deleting   
         {
             var folder = GetFolder(folderId);
+            _tagsService.DeleteTagsFromFolder(folderId);
 
             
             List<FolderInfo> folders = GetFoldersInFolder(folderId).ToList();
@@ -251,8 +256,11 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
+
+      
         public void DeleteFile(Guid fileId)  
         {
+            _tagsService.DeleteTagsFromFile(fileId);
             var  file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
             _dbContext.Files.Remove(file);
 
@@ -287,7 +295,10 @@ namespace Logo.Implementation
                    CreationDate = y.CreationDate,
                    UploadDate = y.UploadDate,
                    Level = y.Level,
-                   HasPublicAccess = y.HasPublicAccess
+                   HasPublicAccess = y.HasPublicAccess,
+
+                   //TagList = _tagsService.GetFolderTags(y.FolderId)
+
                });
         }
 
@@ -304,7 +315,8 @@ namespace Logo.Implementation
                    UploadDate = y.UploadDate,
                    Size = y.Size,
                    Type = y.Type,
-                   HasPublicAccess = y.HasPublicAccess
+                   HasPublicAccess = y.HasPublicAccess,
+                  // TagList = _tagsService.GetFolderTags(y.FileId)
                });
         }
 
@@ -321,13 +333,14 @@ namespace Logo.Implementation
                 CreationDate = y.CreationDate,
                 UploadDate = y.UploadDate,
                 Level = y.Level,
-                HasPublicAccess = y.HasPublicAccess
+                HasPublicAccess = y.HasPublicAccess,
+                //TagList = _tagsService.GetFolderTags(FolderId)
             }).ToList();
         }
 
-        public IEnumerable<Contracts.FileInfo> GetFilesInFolder(Guid FolderId)
+        public IEnumerable<Contracts.FileInfo> GetFilesInFolder(Guid FileId)
         {
-            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FolderId)).Select(y => new Contracts.FileInfo()
+            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FileId)).Select(y => new Contracts.FileInfo()
             {
                 FileId = y.FileId,
                 ParentFolderId = y.ParentFolderId,
@@ -337,10 +350,11 @@ namespace Logo.Implementation
                 UploadDate = y.UploadDate,
                 Size = y.Size,
                 Type = y.Type,
-                HasPublicAccess = y.HasPublicAccess
+                HasPublicAccess = y.HasPublicAccess,
+
+               // TagList = _tagsService.GetFileTags(FileId)
             }).ToList();
         }
-
 
 
         public IEnumerable<FolderInfo> GetRootFolders(Guid ownerId)
@@ -354,7 +368,9 @@ namespace Logo.Implementation
                 CreationDate = y.CreationDate,
                 UploadDate = y.UploadDate,
                 Level = y.Level,
-                HasPublicAccess = y.HasPublicAccess
+                HasPublicAccess = y.HasPublicAccess,
+                //TagList = _tagsService.GetFolderTags(y.FolderId)
+
             }).ToList();
         }
 
@@ -370,9 +386,39 @@ namespace Logo.Implementation
                 UploadDate = y.UploadDate,
                 Size = y.Size,
                 Type = y.Type,
-                HasPublicAccess = y.HasPublicAccess
+                HasPublicAccess = y.HasPublicAccess,
+                //TagList = _tagsService.GetFolderTags(y.FileId)
             }).ToList();
        }
+
+
+       public IEnumerable<ObjectCredentials> GetPathToRoot(Guid  FolderId)
+       {
+            List<ObjectCredentials> parentList = new List<ObjectCredentials>();
+
+            FolderInfo folderInfo = GetFolder(FolderId);
+
+
+            while(folderInfo.ParentFolderId !=  null)
+            {
+
+                FolderInfo parentFolder = GetFolder((Guid) folderInfo.ParentFolderId);
+                parentList.Add(new ObjectCredentials
+                {
+                    Name = parentFolder.Name,
+                    ParentObjectId = parentFolder.FolderId
+                });
+
+                folderInfo = parentFolder; 
+
+            }
+
+            return parentList;       
+       }
+
+
+
+
 
     }
 }

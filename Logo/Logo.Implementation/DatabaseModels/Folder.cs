@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class Folder
+    public partial class Folder
     {
         public Folder()
         {
             Files = new HashSet<File>();
+            FoldersToTags = new HashSet<FoldersToTags>();
             FoldersToUsers = new HashSet<FoldersToUsers>();
-            ChildFolders = new HashSet<Folder>();
+            InverseParentFolder = new HashSet<Folder>();
         }
 
         public Guid FolderId { get; set; }
@@ -24,7 +25,8 @@ namespace Logo.Implementation.DatabaseModels
         public User Owner { get; set; }
         public Folder ParentFolder { get; set; }
         public ICollection<File> Files { get; set; }
+        public ICollection<FoldersToTags> FoldersToTags { get; set; }
         public ICollection<FoldersToUsers> FoldersToUsers { get; set; }
-        public ICollection<Folder> ChildFolders { get; set; }
+        public ICollection<Folder> InverseParentFolder { get; set; }
     }
 }

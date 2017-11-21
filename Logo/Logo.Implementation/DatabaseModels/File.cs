@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logo.Implementation.DatabaseModels
 {
-    public class File
+    public partial class File
     {
         public File()
         {
@@ -12,14 +12,14 @@ namespace Logo.Implementation.DatabaseModels
         }
 
         public Guid FileId { get; set; }
-        public Guid? ParentFolderId { get; set; }    
+        public Guid? ParentFolderId { get; set; }
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UploadDate { get; set; }
         public int? Size { get; set; }
         public int Type { get; set; }
-        public bool? HasPublicAccess { get; set; }
+        public bool HasPublicAccess { get; set; }
 
         public User Owner { get; set; }
         public Folder ParentFolder { get; set; }
