@@ -8,15 +8,13 @@ import { DataComponent } from './_components/data/data.component';
 
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthentificationGuard], data: { breadcrumb: 'Мои файлы' } },
+    { path: '', component: HomeComponent, canActivate: [AuthentificationGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: ':folderId', component: DataComponent, data: { breadcrumb: '1' } ,
-    children: [
-      { path: ':folderId', component: DataComponent, data: { breadcrumb: '2' } },
+    { path: ':folderId', component: DataComponent },
+   
     //   { path: ':fileId',  component: FilePreviewComponent }
-    ]
-  },
+
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

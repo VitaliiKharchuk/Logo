@@ -10,19 +10,26 @@ export class HomeService {
 
   constructor(private http: Http) { }
 
-  createfolder( folderName: string, parentFolderId: string ) {
+  //menu
+  createfolder(folderName: string, parentFolderId: string) {
     let folderNameWithParentFolderId: FolderNameWithParentFolderId = {
       name: folderName,
-      parentObjectId: parentFolderId, 
+      parentObjectId: parentFolderId,
     };
-    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt());
+    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map((response: Response) => response.json());
   }
 
-  deleteFolder(selectedId: string){
-    return this.http.get('/api/folders/delete-folder/' + selectedId, this.jwt()).map((response: Response) => response.json());
+  //folders
+  renameFolder(folderName: string, FolderId: string) {
+    let updatedObject: UpdatedObject = {
+      objectId: FolderId,
+      updatedName: folderName,
+    };
+
+    return this.http.post('/api/folders/rename-folder', updatedObject, this.jwt()).map((response: Response) => response.json());
   }
 
-  addTags(folderId: string, tags: string){
+  addTags(folderId: string, tags: string) {
     let tagsWithFolderId: FolderNameWithParentFolderId = {
       name: tags,
       parentObjectId: folderId,
@@ -31,6 +38,35 @@ export class HomeService {
     return this.http.post('/api/folders/add-tags-folder', tagsWithFolderId, this.jwt()).map((response: Response) => response.json());
   }
 
+  deleteFolder(selectedId: string) {
+    return this.http.get('/api/folders/delete-folder/' + selectedId, this.jwt()).map((response: Response) => response.json());
+  }
+
+  //files
+  renameFile(fileName: string, FolderId: string) {
+    let updatedObject: UpdatedObject = {
+      objectId: FolderId,
+      updatedName: fileName,
+    };
+
+    return this.http.post('/api/folders/rename-file', updatedObject, this.jwt()).map((response: Response) => response.json());
+  }
+
+  deleteFile(selectedId: string) {
+    return this.http.get('/api/folders/delete-file/' + selectedId, this.jwt()).map((response: Response) => response.json());
+  }
+
+  addTagsFile(fileId: string, tags: string) {
+    let tagsWithFolderId: FolderNameWithParentFolderId = {
+      name: tags,
+      parentObjectId: fileId,
+    };
+
+    return this.http.post('/api/folders/add-tags-file', tagsWithFolderId, this.jwt()).map((response: Response) => response.json());
+  }
+
+
+  //initial requests
   loadRootFolders(id: string) {
     return this.http.get('api/folders/get-root-folders/', this.jwt()).map((response: Response) => response.json());
   }
@@ -47,15 +83,6 @@ export class HomeService {
     return this.http.get('api/folders/get-files/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
-  renameFolder(folderName: string, FolderId: string) {
-    let updatedObject: UpdatedObject = {
-      objectId: FolderId,
-      updatedName: folderName,
-    };
-
-    return this.http.post('/api/folders/rename-folder', updatedObject, this.jwt()).map((response: Response) => response.json());
-  }
-
   private jwt() {
     // create authorization header with jwt token
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -64,10 +91,4 @@ export class HomeService {
       return new RequestOptions({ headers: headers });
     }
   }
-
-  public handleError = (error: Response) => {
-    console.log(error);
-// Do messaging and error handling here
-return Observable.throw(error)
-}
 }
