@@ -158,10 +158,10 @@ namespace Logo.Implementation
                     });
 
 
-                byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
-                MemoryStream fs = new MemoryStream(array);
+                //byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
+                //MemoryStream fs = new MemoryStream(array);
 
-                _filesService.SimpleUploadStreamAsync(fs, fileId);
+                _filesService.SimpleUploadStreamAsync(fileStream, fileId);
 
                 _dbContext.SaveChanges();
             }
