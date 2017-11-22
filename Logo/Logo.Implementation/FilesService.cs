@@ -16,7 +16,7 @@ using Microsoft.WindowsAzure.Storage.RetryPolicies;
 
 
 using Logo.Contracts.Services;
-
+using Logo.Contracts;
 
 namespace Logo.Implementation
 {
@@ -35,12 +35,12 @@ namespace Logo.Implementation
             return ms.ToArray();
         }
 
-        public async Task SimpleUploadStreamAsync(MemoryStream file, Guid fileName)
+        public async Task SimpleUploadStreamAsync( LoadedFileBack loadedFileBack )
         {
             var container = await GetContainerReference();
-            var blockBlob = container.GetBlockBlobReference(fileName.ToString());
+            var blockBlob = container.GetBlockBlobReference( loadedFileBack.FileNameInBlob.ToString());
 
-            await blockBlob.UploadFromStreamAsync(file);
+            await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
 
 
@@ -61,18 +61,18 @@ namespace Logo.Implementation
             return await Task.WhenAll(tasks);
         }
 
-        public async Task UploadFiles(IEnumerable<string> fileNames)
+        public async Task UploadFiles(IEnumerable<LoadedFileBack> files)
         {
             var container = await GetContainerReference();
             var tasks = new List<Task>();
-            foreach (var fileName in fileNames)
+            foreach (var file in files)
             {
-                var blockBlob = container.GetBlockBlobReference(Path.GetFileName(fileName));
+                var blockBlob = container.GetBlockBlobReference(file.FileNameInBlob.ToString());
 
                 tasks.Add(Task.Run(async () =>
                 {
-                    Stream fileStream = File.OpenRead(fileName);
-                    await blockBlob.UploadFromStreamAsync(fileStream);
+                    //Stream fileStream = File.OpenRead(fileName);
+                    await blockBlob.UploadFromStreamAsync(file.Stream);
 
                 }));
             }

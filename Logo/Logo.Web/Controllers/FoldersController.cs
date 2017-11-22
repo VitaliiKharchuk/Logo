@@ -104,40 +104,12 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });    // 
+                return Json(new { success = false, message = ex.Message });    
             }
 
 
             return Ok();
         }
-
-        [HttpPost]
-        [Route("add-file")]
-        public IActionResult CreateFile([FromBody]  ObjectCredentials folderCredentials)
-        {
-            try
-            {
-                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                   .Where(item => item.Type == "UserId")
-                                   .Select(item => item.Value)
-                                   .FirstOrDefault());
-
-                _foldersService.CreateFile(new ObjectCredentialsWithOwner
-                {
-                    ObjectCredentials = folderCredentials,
-                    OwnerId = ownerId
-                },  null);
-            }
-
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });    // 
-            }
-
-            return Ok();
-        }
-
-
 
         [HttpPost]
         [Route("rename-folder")]

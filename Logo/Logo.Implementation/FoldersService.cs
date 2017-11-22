@@ -122,7 +122,7 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
-        public void CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner, MemoryStream fileStream)
+        public Guid CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
         {
             if (fileCredentialsWithOwner.ObjectCredentials.Name.Length > maxNameLong)
                 throw new InvalidOperationException("Long  name of file");
@@ -150,9 +150,9 @@ namespace Logo.Implementation
                         OwnerId = fileCredentialsWithOwner.OwnerId,
                         ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
-                        CreationDate = DateTime.Now,
-                        UploadDate = null,
-                        Size = 0,     //need   implementation
+                        CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
+                        UploadDate = DateTime.Now,
+                        Size = fileCredentialsWithOwner.ObjectCredentials.Size,     
                         Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
                         HasPublicAccess = false
                     });
@@ -161,9 +161,10 @@ namespace Logo.Implementation
                 //byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
                 //MemoryStream fs = new MemoryStream(array);
 
-                _filesService.SimpleUploadStreamAsync(fileStream, fileId);
-
+                
                 _dbContext.SaveChanges();
+
+                return fileId;
             }
 
             else

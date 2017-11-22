@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 
 namespace Logo.Web.Models
 {
-    public class LoadedFile
+    public class LoadedFileUI
     {
         public string FileName { get; set; }
 
-        public  Guid ?  ParentFolderId { get; set; }
-       
+        public  Guid ? ParentFolderId { get; set; }
+
+        public DateTime ? CreationDate { get; set; }
+
         public byte[] FileContent { get; set; }
+       
     }
 }

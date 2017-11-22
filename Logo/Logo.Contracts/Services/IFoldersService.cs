@@ -14,7 +14,7 @@ namespace Logo.Contracts.Services
 
         IEnumerable<FileInfo> GetRootFiles(Guid ownerId);
         FileInfo GetFile(Guid folderId);
-        void CreateFile(ObjectCredentialsWithOwner folderCredentials, MemoryStream  fileStream);
+        Guid CreateFile(ObjectCredentialsWithOwner folderCredentials);  
         void RenameFile(UpdatedObject updatedFolder);
         void DeleteFile(Guid folderId);
 

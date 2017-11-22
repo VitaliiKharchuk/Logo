@@ -9,8 +9,8 @@ namespace Logo.Contracts.Services
     public interface IFilesService
     {
          Task<byte[]> SimpleDownloadAsync(string fileName);
-         Task SimpleUploadStreamAsync(MemoryStream file, Guid fileName);
+         Task SimpleUploadStreamAsync(LoadedFileBack loadedFileBack);
          Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames);
-         Task UploadFiles(IEnumerable<string> fileNames);
+         Task UploadFiles(IEnumerable<LoadedFileBack> loadedFilesBack);
     }
 }

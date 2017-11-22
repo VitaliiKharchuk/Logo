@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 
 using Logo.Implementation;
-using System.Collections.Generic;
 
 namespace Logo.Web.Controllers
 {
@@ -33,6 +32,7 @@ namespace Logo.Web.Controllers
         public IActionResult GetUserInfoWithToken([FromBody]UserCredentials userCredentials)
         {
 
+
             UserInfo user = null;
             try
             {
@@ -43,10 +43,11 @@ namespace Logo.Web.Controllers
                 });
             }
 
-            catch(InvalidOperationException ex)
+            catch (Exception ex)
             {
-                return Unauthorized();
+                return Json(new { success = false, message = ex.Message });    
             }
+
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -116,43 +117,12 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-               return Ok(ex);
+                return Json(new { success = false, message = ex.Message });    
             }
 
             return Ok();
            
         }
-
-        [HttpGet]
-        [Route("[action]/{email?}")]                  //for   testing
-        public IActionResult GetByEmail(string email)
-        {
-            UserInfo userInfo = _usersService.GetUserByEmail(email);
-
-            UserInfoWithToken userInfoWithToken = new UserInfoWithToken
-            {
-                Token = "secret   tokeb",
-                UserInfo = userInfo
-            };
-
-            return new ObjectResult(userInfoWithToken);
-        }
-        
-        [HttpGet]
-        [Route("GetAllUsers")]                  //for   testing
-
-        public IEnumerable<UserFullInformation> GetAllUsers()  //only  for   testing
-        {
-            return _usersService.GetAllUsers();    
-        }
-        
-
-
-
-
-
-
-
 
     }
 }

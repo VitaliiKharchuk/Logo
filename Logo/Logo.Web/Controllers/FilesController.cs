@@ -9,12 +9,15 @@ using Logo.Web.Models;
 using Logo.Contracts;
 using System.Linq;
 
+
+using Logo.Implementation;
+
 namespace Logo.Web.Controllers
 {
 
     [Authorize("Bearer")]
     [Route("api/[controller]")]
-    //[ServiceFilter(typeof(ApiExceptionFilter))]
+    [ServiceFilter(typeof(ApiExceptionFilter))]
     public class FilesController : Controller
     {
         IFilesService _filesService;
@@ -28,36 +31,80 @@ namespace Logo.Web.Controllers
 
 
         [HttpPost]
-        [Route ("upload-file")]
-        public IActionResult UploadFile([FromBody] LoadedFile file)
-        {                        
-            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                  .Where(item => item.Type == "UserId")
-                                  .Select(item => item.Value)
-                                  .FirstOrDefault());
+        [Route("upload-file")]
+        public IActionResult UploadFile([FromBody] LoadedFileUI file)
+        {
 
-            _foldersService.CreateFile(new ObjectCredentialsWithOwner
+            try
             {
-                OwnerId = ownerId,
-                ObjectCredentials = new ObjectCredentials
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                      .Where(item => item.Type == "UserId")
+                                      .Select(item => item.Value)
+                                      .FirstOrDefault());
+
+                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
                 {
-                    Name = file.FileName,
-                    ParentObjectId = file.ParentFolderId
-                }
-            }, new MemoryStream(file.FileContent));   
+                    OwnerId = ownerId,
+                    ObjectCredentials = new ObjectCredentials
+                    {
+                        Name = file.FileName,
+                        ParentObjectId = file.ParentFolderId,
+                        //CreationDate = file.CreationDate,
+                        //Size = file.FileContent.Length
+
+                        CreationDate = DateTime.Now,
+                        Size = -1
+
+                    }
+                });
+
+                 //byte[] arr = System.IO.File.ReadAllBytes(file.FileName);  //for  testing
+
+                _filesService.SimpleUploadStreamAsync(new LoadedFileBack
+                {
+                    FileNameInBlob = fileId,
+                    Stream = new MemoryStream(file.FileContent)
+                });
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });    
+            }
 
             return Ok();
         }
 
 
+        [HttpGet]
+        [Route("download-file/{fileId?}")]
+        public IActionResult DownloadedFile(Guid fileId)
+        {
 
+            try
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                      .Where(item => item.Type == "UserId")
+                                      .Select(item => item.Value)
+                                      .FirstOrDefault());
+            }
 
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });    
+            }
 
+            Contracts.FileInfo fileInfo = _foldersService.GetFile(fileId);
 
-       
-
-
-
+           byte[] arr = _filesService.SimpleDownloadAsync(fileId.ToString()).GetAwaiter().GetResult();
+         
+            return Ok(new LoadedFileUI {
+                FileContent = arr,
+                FileName = fileInfo.Name,
+                CreationDate = fileInfo.UploadDate
+              
+            });
+        }
 
     }
 }
