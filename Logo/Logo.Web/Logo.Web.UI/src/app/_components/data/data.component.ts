@@ -38,6 +38,7 @@ export class DataComponent implements OnInit {
     grid: true;
     folderrenamem: any = {};
     folderId: string;
+    
 
     private sub: Subscription;
 
@@ -60,6 +61,8 @@ export class DataComponent implements OnInit {
         else {
             this.grid = JSON.parse(localStorage.getItem('grid'));
         }
+        this.loadFiles();
+        
     }
 
 
@@ -92,47 +95,45 @@ export class DataComponent implements OnInit {
     }
 
     //initial
-    private loadRootFolders() {
-        this.homeService.loadRootFolders(null).subscribe(
+    private loadFolders() {
+        this.homeService.loadFolders(this.folderId).subscribe(
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
                 }
                 else {
-                    console.log('Loading root folders successfull');
+                    console.log('Loading folders successfull');
                 }
                 this.folders = data as Folder[];
-                localStorage.setItem('folders', JSON.stringify(data))
             },
             error => {
                 //show info about error
-                console.log('Loading root folders unsuccessfull');
+                console.log('Loading folders unsuccessfull');
             });
 
     }
 
-    private loadRootFiles() {
-        this.homeService.loadRootFiles(null).subscribe(
+    private loadFiles() {
+        this.homeService.loadFiles(this.folderId).subscribe(
             data => {
                 this.files = data as File[];
-                localStorage.setItem('files', JSON.stringify(data))
                 if (!data.success && data.message) {
                     console.log(data.message)
                 }
                 else {
-                    console.log('Loading root files successfull');
+                    console.log('Loading files successfull');
                 }
             },
             error => {
                 //show info about error
-                console.log('Loading root files unsuccessfull');
+                console.log('Loading files unsuccessfull');
             });
 
     }
 
     //menu
     createfolder() {
-        this.homeService.createfolder(this.model.foldername, null)
+        this.homeService.createfolder(this.model.foldername, this.folderId)
             .subscribe(
             data => {
                 if (!data.success && data.message) {
@@ -142,10 +143,10 @@ export class DataComponent implements OnInit {
                     console.log('Creating folder successfull', data);
                 }
                 this.closeCreateFolderModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFolders();
             },
             error => {
-                this.loadRootFolders();
+                this.loadFolders();
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
             });
@@ -165,10 +166,10 @@ export class DataComponent implements OnInit {
                     console.log('Renaming folder successfull for ', folderId);
                 }
                 this.closeRenameFolderModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFolders();
             },
             error => {
-                this.loadRootFolders();
+                this.loadFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
             });
@@ -186,12 +187,12 @@ export class DataComponent implements OnInit {
                     console.log('Delete folder successfull');
                 }
                 this.closeDeleteFolderModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFolders();
             },
             error => {
                 this.closeDeleteFolderModal.nativeElement.click();
                 console.log('Cant delete folder');
-                this.loadRootFolders();
+                this.loadFolders();
             });
     }
 
@@ -207,9 +208,10 @@ export class DataComponent implements OnInit {
                     console.log('Add tags successfull');
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFolders();
             },
             error => {
+                this.loadFolders();
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
             });
@@ -229,10 +231,10 @@ export class DataComponent implements OnInit {
                     console.log('Renaming file successfull for ', fileId);
                 }
                 this.closeRenameFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFiles();
             },
             error => {
-                this.loadRootFolders();
+                this.loadFiles();
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
             });
@@ -250,12 +252,12 @@ export class DataComponent implements OnInit {
                     console.log('Delete file successfull');
                 }
                 this.closeDeleteFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFiles();
             },
             error => {
                 this.closeDeleteFileModal.nativeElement.click();
                 console.log('Cant delete file');
-                this.loadRootFolders();
+                this.loadFiles();
             });
     }
 
@@ -271,9 +273,10 @@ export class DataComponent implements OnInit {
                     console.log('Add tags successfull');
                 }
                 this.closeAddTagFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadFiles();
             },
             error => {
+                this.loadFiles();
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
             });
@@ -332,8 +335,5 @@ export class DataComponent implements OnInit {
 
     moveToSelectedFolder(folderId, folderName) {
         this.router.navigate(['', folderId]);
-        console.log('moving ', this.route.snapshot, folderName);
-
-        this.route.snapshot.data.breadcrumb = folderName;
     }
 }

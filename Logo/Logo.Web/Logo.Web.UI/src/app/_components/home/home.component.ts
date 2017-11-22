@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
         else {
             this.grid = JSON.parse(localStorage.getItem('grid'));
         }
-        console.log('h', this.grid)
     }
 
     onChange(files: any[]) {
@@ -76,7 +75,7 @@ export class HomeComponent implements OnInit {
 
     //initial
     private loadRootFolders() {
-        this.homeService.loadRootFolders(null).subscribe(
+        this.homeService.loadRootFolders().subscribe(
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
@@ -94,7 +93,7 @@ export class HomeComponent implements OnInit {
     }
 
     private loadRootFiles() {
-        this.homeService.loadRootFiles(null).subscribe(
+        this.homeService.loadRootFiles().subscribe(
             data => {
                 this.files = data as File[];
                 if (!data.success && data.message) {
@@ -157,7 +156,7 @@ export class HomeComponent implements OnInit {
     deleteFolder() {
         let folderId = this.selectedObjectId;
         this.homeService.deleteFolder(folderId)
-            .subscribe(
+            .subscribe(       
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
@@ -209,10 +208,10 @@ export class HomeComponent implements OnInit {
                     console.log('Renaming file successfull for ', fileId);
                 }
                 this.closeRenameFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadRootFiles()
             },
             error => {
-                this.loadRootFolders();
+                this.loadRootFiles()
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
             });
@@ -230,12 +229,12 @@ export class HomeComponent implements OnInit {
                     console.log('Delete file successfull');
                 }
                 this.closeDeleteFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadRootFiles()
             },
             error => {
                 this.closeDeleteFileModal.nativeElement.click();
                 console.log('Cant delete file');
-                this.loadRootFolders();
+                this.loadRootFiles()
             });
     }
 
@@ -251,7 +250,7 @@ export class HomeComponent implements OnInit {
                     console.log('Add tags successfull');
                 }
                 this.closeAddTagFileModal.nativeElement.click();
-                this.loadRootFolders();
+                this.loadRootFiles()
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
@@ -312,8 +311,5 @@ export class HomeComponent implements OnInit {
 
     moveToSelectedFolder(folderId, folderName) {
         this.router.navigate(['', folderId]);
-        console.log('moving ', this.route.snapshot, folderName);
-
-        this.route.snapshot.data.breadcrumb = folderName;
     }
 }

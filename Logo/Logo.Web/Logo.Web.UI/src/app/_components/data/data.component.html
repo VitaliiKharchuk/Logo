@@ -1,4 +1,4 @@
-<app-menu (toggleGridEvent)="toggleGrid($event)">
+<app-menu (toggleGridEvent)="toggleGrid($event)" [folderId]="folderId">
 </app-menu>
 <div class="placefornav">
 
@@ -90,7 +90,9 @@
           </div>
           <div class="col-sm-3">
             <div class="folder-grid-item">
-              #тут будут теги
+              <span *ngFor="let tag of folder.tagList">
+                #{{tag}}
+              </span>
             </div>
           </div>
           <button id="openRenameFolderModalButton" hidden="true" data-toggle="modal" data-target="#renameFolderModal">Переименовать</button>
@@ -124,7 +126,9 @@
         </div>
         <div class="col-sm-3">
           <div class="folder-grid-item">
-            #тут будут теги
+            <span *ngFor="let tag of folder.tagList">
+              #{{tag}}
+            </span>
           </div>
         </div>
 
@@ -245,9 +249,9 @@
           </tbody>
         </table>
         <div class="right-for-upload">
-        <button class="button-transparent" data-dismiss="modal" #closeUploadFileModal>Отмена</button>
-        <button class="button-color">Готово</button>
-      </div>
+          <button class="button-transparent" data-dismiss="modal" #closeUploadFileModal>Отмена</button>
+          <button class="button-color">Готово</button>
+        </div>
       </div>
     </div>
   </div>

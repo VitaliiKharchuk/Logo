@@ -16,7 +16,7 @@ export class HomeService {
       name: folderName,
       parentObjectId: parentFolderId,
     };
-    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map(this.extractData);
   }
 
   //folders
@@ -26,7 +26,7 @@ export class HomeService {
       updatedName: folderName,
     };
 
-    return this.http.post('/api/folders/rename-folder', updatedObject, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/rename-folder', updatedObject, this.jwt()).map(this.extractData);
   }
 
   addTags(folderId: string, tags: string) {
@@ -35,11 +35,11 @@ export class HomeService {
       parentObjectId: folderId,
     };
 
-    return this.http.post('/api/folders/add-tags-folder', tagsWithFolderId, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/add-tags-folder', tagsWithFolderId, this.jwt()).map(this.extractData);
   }
 
   deleteFolder(selectedId: string) {
-    return this.http.get('/api/folders/delete-folder/' + selectedId, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/folders/delete-folder/' + selectedId, this.jwt()).map(this.extractData);
   }
 
   //files
@@ -49,11 +49,11 @@ export class HomeService {
       updatedName: fileName,
     };
 
-    return this.http.post('/api/folders/rename-file', updatedObject, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/rename-file', updatedObject, this.jwt()).map(this.extractData);
   }
 
   deleteFile(selectedId: string) {
-    return this.http.get('/api/folders/delete-file/' + selectedId, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/folders/delete-file/' + selectedId, this.jwt()).map(this.extractData);
   }
 
   addTagsFile(fileId: string, tags: string) {
@@ -62,25 +62,33 @@ export class HomeService {
       parentObjectId: fileId,
     };
 
-    return this.http.post('/api/folders/add-tags-file', tagsWithFolderId, this.jwt()).map((response: Response) => response.json());
+    return this.http.post('/api/folders/add-tags-file', tagsWithFolderId, this.jwt()).map(this.extractData);
   }
 
 
   //initial requests
-  loadRootFolders(id: string) {
-    return this.http.get('api/folders/get-root-folders/', this.jwt()).map((response: Response) => response.json());
+  loadRootFolders() {
+    return this.http.get('api/folders/get-root-folders/', this.jwt()).map(this.extractData);
   }
 
-  loadRootFiles(id: string) {
-    return this.http.get('api/folders/get-root-files/', this.jwt()).map((response: Response) => response.json());
+  loadRootFiles() {
+    return this.http.get('api/folders/get-root-files/', this.jwt()).map(this.extractData);
   }
 
   loadFolders(id: string) {
-    return this.http.get('api/folders/get-folders/' + id, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('api/folders/get-folders/' + id, this.jwt()).map(this.extractData);
   }
 
   loadFiles(id: string) {
-    return this.http.get('api/folders/get-files/' + id, this.jwt()).map((response: Response) => response.json());
+    return this.http.get('api/folders/get-files/' + id, this.jwt()).map(this.extractData);
+  }
+
+  loadBreadcrumbs(id: string) {
+    return this.http.get('api/folders/get-path-to-root/' + id, this.jwt()).map(this.extractData);    
+  }
+
+  private extractData(res: Response) {        
+    return res.text() ? res.json() : {}; ;
   }
 
   private jwt() {

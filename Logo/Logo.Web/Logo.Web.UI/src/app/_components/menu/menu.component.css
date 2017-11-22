@@ -9,7 +9,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 3.5em;
+    font-size: 3.2em;
     letter-spacing: 10px;
     color: #423f41;
     font-family: Raleway-Black;
@@ -39,7 +39,7 @@
     height: 60px !important;
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .logout{
@@ -75,7 +75,7 @@
 
 @media (max-width: 769px) {
     .navbar-fixed-top {
-        background-color: lightblue;
+    background-color: lightblue;
 }
 .navbar-collapse {
     display: none!important;
@@ -112,13 +112,13 @@
 
 .search-holder{
     border-radius: 0px;
-    color:  #949495 !important;
+    color:  #7a7a7a !important;
     background-color: #f0f1f7;
     height: 60px !important;
     padding-left: 20px !important; 
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: 1.4em;
     border: none;
     width: 100%  !important;
     box-shadow: none;
@@ -164,7 +164,7 @@
 .droplist-el{
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
-    font-size: 1em;
+    font-size:16px;
     padding: 10px;
     color:  #949495 !important;
 }
@@ -197,6 +197,24 @@
     margin-left: 100px;
 }
 
+.breadcrumps-link{
+    color:  #333333;
+}
+
+.breadcrumps-link:visited {
+    color:  #333333;
+}
+
+.breadcrumps-link:hover {
+    color:  #333333;
+    text-decoration: none;
+    background-color: #f0f1f7;
+}
+
+.breadcrumps-link:active {
+    color:  #333333;
+}
+
 .sort-button{
     background-color: transparent;
     border-radius: 7px;
@@ -216,9 +234,9 @@
 .text-right{
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     padding: 10px;
-    color:  #949495 !important;
+    color:  #7a7a7a !important;
     vertical-align: middle; 
 }
 
@@ -234,9 +252,9 @@
 .access-params{
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     padding: 10px;
-    color:  #949495 !important;
+    color:  #7a7a7a !important;
     vertical-align: middle; 
     background-color: transparent;
     border: none;
@@ -247,3 +265,7 @@
     outline:0;
 }
 
+.img-breadcrumbs{
+    height: 15px;
+    width: 15px;
+}

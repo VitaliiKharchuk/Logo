@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, } from '@angular/core';
-
+import { Component, OnInit, Output, Input, EventEmitter, } from '@angular/core';
+import { FolderNameWithParentFolderId } from '../home/folderNameWithParentFolderId';
+import { HomeService } from '../home/home.service';
 import { UserInfoWithToken, UserInfo } from '../login/user';
 
 @Component({
@@ -13,8 +14,10 @@ export class MenuComponent implements OnInit {
   @Output()
   toggleGridEvent = new EventEmitter<boolean>();
   grid = true;
+  @Input() folderId: string;
+  breadcrumbs: FolderNameWithParentFolderId[];
 
-  constructor(
+  constructor(private homeService: HomeService,
   ) {
     let userInfoWithToken: UserInfoWithToken = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUser = userInfoWithToken.userInfo;
@@ -27,7 +30,33 @@ export class MenuComponent implements OnInit {
     else {
       this.grid = JSON.parse(localStorage.getItem('grid'));
     }
+
+    if (!(this.folderId === undefined)) {
+      this.loadBreadcrumbs();
+    }
   }
+
+  ngOnChanges() {
+    this.loadBreadcrumbs();
+  }
+
+  private loadBreadcrumbs() {
+    this.homeService.loadBreadcrumbs(this.folderId).subscribe(
+      data => {
+        this.breadcrumbs = (data as FolderNameWithParentFolderId[]).reverse();
+        if (!data.success && data.message) {
+          console.log(data.message)
+        }
+        else {
+          console.log('Loading files successfull');
+        }
+      },
+      error => {
+        //show info about error
+        console.log('Loading files unsuccessfull');
+      });
+  }
+
 
   toggleGrid(): void {
     this.grid = true;

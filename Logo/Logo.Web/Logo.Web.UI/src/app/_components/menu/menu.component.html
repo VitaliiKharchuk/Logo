@@ -55,8 +55,12 @@
   <div class="bottom-navbar">
     <div>
       <div class="navbar-left">
-        <div class="text-myfiles">Мои файлы
-          <breadcrumbs></breadcrumbs>
+        <div class="text-myfiles">
+            <a [routerLink]="['']" class="breadcrumps-link">Мои файлы</a>
+          <span *ngFor="let item of breadcrumbs">
+              <img src="assets\icons\next.svg" class="img-breadcrumbs">
+              <a [routerLink]="['', item.parentObjectId]" class="breadcrumps-link">{{item.name}}</a>
+          </span>
         </div>
       </div>
     </div>

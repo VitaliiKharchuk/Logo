@@ -7,5 +7,5 @@ export class Folder {
     uploadDate: Date;
     level: Int32Array;
     hasPublicAccess: boolean;
-    //tags: string[];
+    tagList: string[];
 }

@@ -5,5 +5,6 @@ export class File {
     name: string;
     creationDate: Date;
     uploadDate: Date;
-    hasPublicAccess: boolean
+    hasPublicAccess: boolean;
+    tagList: string[];
 }

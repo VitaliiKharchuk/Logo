@@ -107,7 +107,9 @@
           </div>
           <div class="col-sm-3">
             <div class="folder-grid-item">
-              #тут будут теги
+              <span *ngFor="let tag of folder.tagList">
+              #{{tag}}
+              </span>
             </div>
           </div>
           <button id="openRenameFolderModalButton" hidden="true" data-toggle="modal" data-target="#renameFolderModal">Переименовать</button>
@@ -141,7 +143,8 @@
         </div>
         <div class="col-sm-3">
           <div class="folder-grid-item">
-            #тут будут теги
+            <span *ngFor="let tag of file.tagList"></span>
+            #{{tag}}
           </div>
         </div>
 
