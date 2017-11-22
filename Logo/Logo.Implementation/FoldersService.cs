@@ -356,7 +356,7 @@ namespace Logo.Implementation
 
             foreach (var folder in  folders)
             {
-                folder.TagList = _tagsService.GetFolderTags(folderId);
+                folder.TagList = _tagsService.GetFolderTags(folder.FolderId);
             }
 
 
@@ -384,7 +384,7 @@ namespace Logo.Implementation
 
             foreach (var file in files)
             {
-                file.TagList = _tagsService.GetFileTags(folderId);
+                file.TagList = _tagsService.GetFileTags(file.FileId);
             }
 
             return files; 
