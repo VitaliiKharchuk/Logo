@@ -2,14 +2,14 @@ using Logo.Contracts;
 using Logo.Implementation;
 using Logo.Implementation.DatabaseModels;
 using Logo.Web.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Logo.Tests
 {
     //[TestClass]
     public class UsersControllerTest
     {
-        //[TestMethod]
+      //  [TestMethod]
         public void GetTokenTest()
         {
             var connectionString = "";

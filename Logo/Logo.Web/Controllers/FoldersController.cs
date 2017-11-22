@@ -153,6 +153,7 @@ namespace Logo.Web.Controllers
         [Route("delete-folder/{id?}")]
         public IActionResult DeleteFolder(Guid id)
         {
+
             try
             {
                 _foldersService.DeleteFolder(id);
@@ -162,8 +163,7 @@ namespace Logo.Web.Controllers
             {
                 return Json(new { success = false, message = ex.Message });    // 
             }
-
-
+            
             return Ok();
         }
 
@@ -215,7 +215,7 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("create-folder-tag")]
-        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
+        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFolder(tagsCredentials);
 
@@ -224,7 +224,7 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("create-file-tag")]
-        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
+        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFile(tagsCredentials);
 

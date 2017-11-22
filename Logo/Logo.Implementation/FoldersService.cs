@@ -47,20 +47,24 @@ namespace Logo.Implementation
                 throw new InvalidOperationException("Folder not found.");
             }
 
-            return new FolderInfo
-            {
-                FolderId = folder.FolderId,
-                OwnerId = folder.OwnerId,
-                ParentFolderId = folder.ParentFolderId,
-                Name = folder.Name,
-                CreationDate = folder.CreationDate,
-                UploadDate = folder.UploadDate,
-                Level = folder.Level,
-                HasPublicAccess = folder.HasPublicAccess
-            };
+            FolderInfo folderInfo = 
+                 new FolderInfo
+                 {
+                    FolderId = folder.FolderId,
+                    OwnerId = folder.OwnerId,
+                    ParentFolderId = folder.ParentFolderId,
+                    Name = folder.Name,
+                    CreationDate = folder.CreationDate,
+                    UploadDate = folder.UploadDate,
+                    Level = folder.Level,
+                    HasPublicAccess = folder.HasPublicAccess,               
+                 };
+
+            folderInfo.TagList = _tagsService.GetFolderTags(folderId);
+
+
+            return folderInfo;
         }
-
-
 
         public Contracts.FileInfo GetFile(Guid fileId)
         {
@@ -73,7 +77,6 @@ namespace Logo.Implementation
 
             return new Contracts.FileInfo
             {
-
                 FileId = file.FileId,
                 ParentFolderId = file.ParentFolderId,
                 OwnerId = file.OwnerId,
@@ -240,8 +243,6 @@ namespace Logo.Implementation
         public void DeleteFolder(Guid folderId)  //  need    recursive  deleting   
         {
             var folder = GetFolder(folderId);
-            _tagsService.DeleteTagsFromFolder(folderId);
-
             
             List<FolderInfo> folders = GetFoldersInFolder(folderId).ToList();
             List<Contracts.FileInfo> files = GetFilesInFolder(folderId).ToList();
@@ -249,16 +250,22 @@ namespace Logo.Implementation
             foreach (var fileInfo in files)       // delete all  files in  current  dirictory
             {
                 DeleteFile(fileInfo.FileId);
+                _dbContext.SaveChanges();
             }
 
             foreach (var folderinfo in folders)   //deep   recursive to   sub -  directives   and   delete   them
             {
+                _tagsService.DeleteTagsFromFolder(folderinfo.FolderId);
+                _dbContext.SaveChanges();
                 DeleteFolder(folderinfo.FolderId);
+                _dbContext.SaveChanges();
             }
+
+            _tagsService.DeleteTagsFromFolder(folderId);
+            _dbContext.SaveChanges();
 
             var folderRoot = _dbContext.Folders.FirstOrDefault(x => x.FolderId == folderId);         // delete  root  directory   
             _dbContext.Folders.Remove(folderRoot);
-
             _dbContext.SaveChanges();
         }
 
@@ -267,6 +274,8 @@ namespace Logo.Implementation
         public void DeleteFile(Guid fileId)  
         {
             _tagsService.DeleteTagsFromFile(fileId);
+            _dbContext.SaveChanges();
+
             var  file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
             _dbContext.Files.Remove(file);
 
@@ -310,6 +319,7 @@ namespace Logo.Implementation
 
         public IEnumerable<Contracts.FileInfo> GetAllFiles()   //only  for  testing
         {
+            
             return _dbContext.Set<DatabaseModels.File>().Select(
                y => new Contracts.FileInfo()
                {
@@ -328,26 +338,37 @@ namespace Logo.Implementation
 
 
 
-        public IEnumerable<FolderInfo> GetFoldersInFolder(Guid FolderId)
+        public IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId)
         {
-            return _dbContext.Folders.Where(x => x.ParentFolderId.Equals(FolderId)).Select(y => new FolderInfo()
-            {
-                FolderId = y.FolderId,
-                ParentFolderId = y.ParentFolderId,
-                OwnerId = y.OwnerId,
-                Name = y.Name,
-                CreationDate = y.CreationDate,
-                UploadDate = y.UploadDate,
-                Level = y.Level,
-                HasPublicAccess = y.HasPublicAccess,
-                TagList = new  string[] { "FolderTag1" ,  "FolderTag2" , "FolderTag3"  }
+            IEnumerable <FolderInfo> folders = 
+                _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderId))
+                .Select(y => new FolderInfo()
+                {
+                    FolderId = y.FolderId,
+                    ParentFolderId = y.ParentFolderId,
+                    OwnerId = y.OwnerId,
+                    Name = y.Name,
+                    CreationDate = y.CreationDate,
+                    UploadDate = y.UploadDate,
+                    Level = y.Level,
+                    HasPublicAccess = y.HasPublicAccess,                   
+                }).ToList();
 
-            }).ToList();
+            foreach (var folder in  folders)
+            {
+                folder.TagList = _tagsService.GetFolderTags(folderId);
+            }
+
+
+            return folders;
         }
 
-        public IEnumerable<Contracts.FileInfo> GetFilesInFolder(Guid FileId)
+        public IEnumerable<Contracts.FileInfo> GetFilesInFolder(Guid folderId)
         {
-            return _dbContext.Files.Where(x => x.ParentFolderId.Equals(FileId)).Select(y => new Contracts.FileInfo()
+
+            IEnumerable<Contracts.FileInfo> files =
+             _dbContext.Files.Where(x => x.ParentFolderId.Equals(folderId))
+                .Select(y => new Contracts.FileInfo()
             {
                 FileId = y.FileId,
                 ParentFolderId = y.ParentFolderId,
@@ -358,51 +379,70 @@ namespace Logo.Implementation
                 Size = y.Size,
                 Type = y.Type,
                 HasPublicAccess = y.HasPublicAccess,
-                TagList = new string[] { "FileTag1", "FileTag2", "FileTag3" }
-                // TagList = _tagsService.GetFileTags(FileId)
+               
             }).ToList();
+
+            foreach (var file in files)
+            {
+                file.TagList = _tagsService.GetFileTags(folderId);
+            }
+
+            return files; 
         }
 
 
         public IEnumerable<FolderInfo> GetRootFolders(Guid ownerId)
         {
 
-            return  _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId).Select(y => new FolderInfo()
+            IEnumerable<FolderInfo> folders =
+
+            _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId)
+                .Select(y => new FolderInfo()
+                {
+                    FolderId = y.FolderId,
+                    ParentFolderId = y.ParentFolderId,
+                    OwnerId = y.OwnerId,
+                    Name = y.Name,
+                    CreationDate = y.CreationDate,
+                    UploadDate = y.UploadDate,
+                    Level = y.Level,
+                    HasPublicAccess = y.HasPublicAccess,
+                }).ToList();
+
+            foreach (var folder in folders)
             {
-                FolderId = y.FolderId,
-                ParentFolderId = y.ParentFolderId,
-                OwnerId = y.OwnerId,
-                Name = y.Name,
-                CreationDate = y.CreationDate,
-                UploadDate = y.UploadDate,
-                Level = y.Level,
-                HasPublicAccess = y.HasPublicAccess,
-                //TagList = _tagsService.GetFolderTags(y.FolderId)
+                folder.TagList = _tagsService.GetFolderTags(folder.FolderId);
+            }
 
-                TagList = new string[] { "FolderTag1", "FolderTag2", "FolderTag3" }
-
-            }).ToList();
+            return folders;
         }
 
        public  IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
        {
-            return _dbContext.Files.Where(x => x.ParentFolderId == null && x.OwnerId == ownerId).Select(y => new Contracts.FileInfo()
-            {
-                FileId = y.FileId,
-                ParentFolderId = y.ParentFolderId,
-                OwnerId = y.OwnerId,
-                Name = y.Name,
-                CreationDate = y.CreationDate,
-                UploadDate = y.UploadDate,
-                Size = y.Size,
-                Type = y.Type,
-                HasPublicAccess = y.HasPublicAccess,
 
-                TagList = new string [] { "FileTag1", "FileTag2", "FileTag3" }
-                //TagList = _tagsService.GetFolderTags(y.FileId)
+            IEnumerable<Contracts.FileInfo> files =
 
+             _dbContext.Files.Where(x => x.ParentFolderId == null && x.OwnerId == ownerId)
+                .Select(y => new Contracts.FileInfo()
+                {
+                    FileId = y.FileId,
+                    ParentFolderId = y.ParentFolderId,
+                    OwnerId = y.OwnerId,
+                    Name = y.Name,
+                    CreationDate = y.CreationDate,
+                    UploadDate = y.UploadDate,
+                    Size = y.Size,
+                    Type = y.Type,
+                    HasPublicAccess = y.HasPublicAccess,
             }).ToList();
-       }
+
+            foreach (var file in files)
+            {
+                file.TagList = _tagsService.GetFileTags(file.FileId);
+            }
+
+            return files;
+        }
 
 
        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid  FolderId)

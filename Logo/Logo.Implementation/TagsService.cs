@@ -27,54 +27,100 @@ namespace Logo.Implementation
 
         public void CreateTagToFolder(TagsCredentials tagsCredentials)
         {
+            string[] tags = ParseTagString(tagsCredentials.Text);
 
-            Tag tag = CreateTag(tagsCredentials);
-
-            FoldersToTags foldersToTags = new FoldersToTags
+            foreach (var tagName in tags)
             {
-                FolderId = tagsCredentials.ObjectId,
-                TagId = tag.TagId
-            };
+                Tag tag = _dbContext.Tags.Where(t => t.Name.Equals(tagName)).FirstOrDefault();
 
-            _dbContext.Add(foldersToTags);
-            _dbContext.SaveChanges();
+                if (tag == null)
+                {
+                    tag = CreateTag(new TagsCredentials
+                    {
+                        Text = tagName,
+                        ObjectId = tagsCredentials.ObjectId
+                    });
+                }
+
+                FoldersToTags foldersToTags = new FoldersToTags  //  create   connectin  betwenn  folder  and tag
+                {
+                    FolderId = tagsCredentials.ObjectId,
+                    TagId = tag.TagId
+                };
+
+                if (_dbContext.FoldersToTags     //if  not   esist   connection   between  tag  and  folder
+                    .Where(t => t.FolderId == foldersToTags.FolderId && t.TagId == foldersToTags.TagId)
+                    .FirstOrDefault() == null)
+                {
+                    _dbContext.FoldersToTags.Add(foldersToTags);
+                    _dbContext.SaveChanges();
+                }
+            }
+
         }
 
         public void CreateTagToFile(TagsCredentials tagsCredentials)
         {
-            Tag tag = CreateTag(tagsCredentials);
+            string[] tags = ParseTagString(tagsCredentials.Text);
 
-            FilesToTags foldersToTags = new FilesToTags
+            foreach (var tagName in tags)
             {
-                FileId = tagsCredentials.ObjectId,
-                TagId = tag.TagId
-            };
+                Tag tag = _dbContext.Tags.Where(t => t.Name.Equals(tagName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
 
-            _dbContext.Add(foldersToTags);
-            _dbContext.SaveChanges();
+                /*
+                FilesToTags filesToTags = _dbContext.FilesToTags
+                    .Where(t => t.FileId == tagsCredentials.ObjectId && t.Tag.Name == tagName)
+                    .FirstOrDefault();
+                 */
+
+                if (tag == null)
+                {
+                    tag = CreateTag(new TagsCredentials
+                    {
+                        Text = tagName,
+                        ObjectId = tagsCredentials.ObjectId
+                    });
+                }
+
+                FilesToTags filesToTags = new FilesToTags
+                {
+                    FileId = tagsCredentials.ObjectId,
+                    TagId = tag.TagId
+                };
+
+                if (_dbContext.FilesToTags     //if  not   esist   connection   between  tag  and  files
+                    .Where(t => t.FileId == filesToTags.FileId && t.TagId == filesToTags.TagId)
+                    .FirstOrDefault() == null)
+                {
+                    _dbContext.FilesToTags.Add(filesToTags);
+                    _dbContext.SaveChanges();
+                }
+
+            }
         }
 
         public void DeleteTagsFromFile(Guid fileId)
         {
             var fileToTag = _dbContext.FilesToTags
-                .Where(t => t.FileId == fileId)
-                .FirstOrDefault();
+                .Where(t => t.FileId == fileId);
 
-            if (fileToTag != null)
-                _dbContext.FilesToTags.Remove(fileToTag);
+            foreach (var file in fileToTag)
+            {
+                _dbContext.FilesToTags.Remove(file);
+            }
 
             _dbContext.SaveChanges();
         }
 
-
         public void DeleteTagsFromFolder(Guid folderId)
         {
             var folderToTags = _dbContext.FoldersToTags
-                  .Where(t => t.FolderId == folderId)
-                  .FirstOrDefault();
+                  .Where(t => t.FolderId == folderId);
 
-            if (folderToTags != null)
-                _dbContext.FoldersToTags.Remove(folderToTags);
+            foreach (var folder in folderToTags)
+            {
+                _dbContext.FoldersToTags.Remove(folder);
+            }
 
             _dbContext.SaveChanges();
         }
@@ -98,6 +144,11 @@ namespace Logo.Implementation
             return _dbContext.Tags
              .Select(t => t.Name)
              .ToList();
+        }
+
+        public string[] ParseTagString(string text)
+        {
+            return text.Split(new string[] { "#", " " }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

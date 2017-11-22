@@ -34,7 +34,6 @@ namespace Logo.Web.Controllers
         [Route("upload-file")]
         public IActionResult UploadFile([FromBody] LoadedFileUI file)
         {
-
             try
             {
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
