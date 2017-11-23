@@ -1,4 +1,4 @@
-export class File {
+export class FileCustom {
     FileId: string;
     parentFolderId: string;
     ownerId: string;

@@ -108,7 +108,7 @@
           <div class="col-sm-3">
             <div class="folder-grid-item">
               <span *ngFor="let tag of folder.tagList">
-              #{{tag}}
+                #{{tag}}
               </span>
             </div>
           </div>
@@ -237,41 +237,41 @@
         <div class="file_upload">
           <button type="button">Выбрать</button>
 
-          <input type="file" #inputfiles (change)="onChange(inputfiles.files)" placeholder="Upload file" accept=".jpg,.png,.avi,.mov,.mkv" multiple>
+          <input type="file" #inputfiles (change)="onChange(inputfiles.files)" placeholder="Upload file" accept=".jpg,.png,.avi,.mov,.mkv"
+            multiple>
         </div>
         <table class="table">
           <tbody>
             <tr *ngFor="let f of uploadFiles; let i = index">
-              <td>
-                <img src="assets\icons\success.svg" width="20" height="20">
-              </td>
-              <td>
-                <img src="assets\icons\picture.svg" width="20" height="20" *ngIf="checkIfImage(f.name)">
-                <img src="assets\icons\video-player.svg" width="20" height="20" *ngIf="!checkIfImage(f.name)">
-              </td>
-              <td class="name-file-in-table">{{f.name}}</td>
-              <td>
-                <form name="form" (ngSubmit)="frm.form.valid" #frm="ngForm" novalidate>
-                  <div [ngClass]="{ 'has-error': frm.submitted && !hashtag.valid }">
-                    <input type="text" class="form-control-on-upload-file" name="f.name-{{i}}" placeholder="+Добавить тег" [(ngModel)]="f.hashtag"
-                      #hashtag="ngModel" />
-                    <div *ngIf="hashtag.errors && (hashtag.dirty && hashtag.touched)" class="alerts">
-                      <br>
-                      <div [hidden]="!hashtag.errors">
-                        Введите корректный тег.
+                <td>
+                  <img src="assets\icons\success.svg" width="20" height="20">
+                </td>
+                <td>
+                  <img src="assets\icons\picture.svg" width="20" height="20" *ngIf="checkIfImage(f.name)">
+                  <img src="assets\icons\video-player.svg" width="20" height="20" *ngIf="!checkIfImage(f.name)">
+                </td>
+                <td class="name-file-in-table">{{f.name}}</td>
+                <td>
+                  <form name="form" #frm="ngForm" novalidate>
+                    <div>
+                      <input type="text" class="form-control-on-upload-file" name="f.name-{{i}}" placeholder="+Добавить тег" [(ngModel)]="f.hashtag"
+                        #hashtag="ngModel" />
+                      <div *ngIf="hashtag.errors && (hashtag.dirty && hashtag.touched)" class="alerts">
+                        <br>
+                        <div [hidden]="!hashtag.errors">
+                          Введите корректный тег.
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </form>
-              </td>
-
+                  </form>
+                </td>
             </tr>
           </tbody>
         </table>
         <div class="right-for-upload">
-        <button class="button-transparent" data-dismiss="modal" #closeUploadFileModal>Отмена</button>
-        <button class="button-color">Готово</button>
-      </div>
+          <button class="button-transparent" data-dismiss="modal" #closeUploadFileModal>Отмена</button>
+          <button class="button-color" (click)="uploadFile()">Готово</button>
+        </div>
       </div>
     </div>
   </div>

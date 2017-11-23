@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { routing } from './app.routing';
@@ -26,6 +26,7 @@ import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.comp
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         routing,
         ContextMenuModule

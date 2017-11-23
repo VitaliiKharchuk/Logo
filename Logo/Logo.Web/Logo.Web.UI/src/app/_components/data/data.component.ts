@@ -4,7 +4,7 @@ import 'rxjs/add/operator/switchMap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Folder } from '../home/folder';
-import { File } from '../home/file';
+import { FileCustom } from '../home/file';
 import { UserInfoWithToken } from '../login/user';
 import { DataService } from './data.service';
 import { HomeService } from '../home/home.service';
@@ -31,7 +31,7 @@ export class DataComponent implements OnInit {
     model: any = {};
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
-    files: File[] = [];
+    files: FileCustom[] = [];
     uploadFiles: any[];
     selectedObjectId: string;
     tags: string;
@@ -116,7 +116,7 @@ export class DataComponent implements OnInit {
     private loadFiles() {
         this.homeService.loadFiles(this.folderId).subscribe(
             data => {
-                this.files = data as File[];
+                this.files = data as FileCustom[];
                 if (!data.success && data.message) {
                     console.log(data.message)
                 }

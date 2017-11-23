@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Folder } from './folder';
-import { File } from './file';
+import { FileCustom } from './file';
 import { UserInfoWithToken } from '../login/user';
 import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 import { ContextMenuComponent } from 'ngx-contextmenu';
 
@@ -29,17 +30,19 @@ export class HomeComponent implements OnInit {
     model: any = {};
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
-    files: File[] = [];
-    uploadFiles: any[];
+    files: FileCustom[] = [];
+    uploadFiles: Array<File>;
     selectedObjectId: string;
     selectedFolderName: string;
     tags: string;
     grid: true;
     folderrenamem: any = {};
+    public filesForm: FormGroup;
 
     constructor(private homeService: HomeService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private _fb: FormBuilder) {
     }
 
     ngOnInit() {
@@ -53,9 +56,9 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    onChange(files: any[]) {
-        this.uploadFiles = files;
-    }
+    onChange(fileInput: any[]) {
+        this.uploadFiles = fileInput;
+}
 
     checkIfImage(name: string) {
         var fileExtension = "";
@@ -95,7 +98,7 @@ export class HomeComponent implements OnInit {
     private loadRootFiles() {
         this.homeService.loadRootFiles().subscribe(
             data => {
-                this.files = data as File[];
+                this.files = data as FileCustom[];
                 if (!data.success && data.message) {
                     console.log(data.message)
                 }
@@ -130,6 +133,36 @@ export class HomeComponent implements OnInit {
                 this.closeCreateFolderModal.nativeElement.click();
             });
     }
+
+    uploadFile() {
+        console.log('upload', this.uploadFiles);
+        let formData:FormData = new FormData();
+        formData.append(this.uploadFiles[0].name, this.uploadFiles[0]);
+        this.homeService.uploadFile('1','2','3', formData)
+        .subscribe(
+        data => {
+            if (!data.success && data.message) {
+                console.log(data.message)
+            }
+            else {
+                console.log('upload file successfull', data);
+            }
+            this.closeUploadFileModal.nativeElement.click();
+            this.loadRootFolders();
+        },
+        error => {
+            this.loadRootFolders();
+            console.log('Cant upload file', error);
+            //this.closeUploadFileModal.nativeElement.click();
+        });
+    }
+
+    private prepareSave(file: File): any {
+        let input = new FormData();
+        input.append('name', file.name);
+        input.append('img', file);
+        return input;
+      }
 
     //folders
     renamefolder() {

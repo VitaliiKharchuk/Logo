@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Folder } from './folder';
-import { FolderNameWithParentFolderId } from './folderNameWithParentFolderId';
+import { FolderNameWithParentFolderId, FileNameWithFolderIdWithDate } from './folderNameWithParentFolderId';
 import { UpdatedObject } from './updatedObject';
 import { Observable } from "rxjs/Rx"
 
@@ -17,6 +17,15 @@ export class HomeService {
       parentObjectId: parentFolderId,
     };
     return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map(this.extractData);
+  }
+
+  uploadFile(folderName: string, parentFolderId: string, date: any, input: FormData){
+    let fileNameWithFolderIdWithDate: FileNameWithFolderIdWithDate = {
+      fileName: folderName,
+      parentFolderId: parentFolderId,
+      creationDate: date.toString()
+    };
+    return this.http.post('/api/files/upload-request', input, this.jwt()).map(this.extractData);
   }
 
   //folders
