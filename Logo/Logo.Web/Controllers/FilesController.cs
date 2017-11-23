@@ -185,12 +185,9 @@ namespace Logo.Web.Controllers
 
             using (Stream stream = file.OpenReadStream())
             {
-                MemoryStream ms = new MemoryStream(); 
-                stream.CopyTo(ms);
-
                 await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
                 {
-                    Stream = ms,
+                    Stream = stream,
                     FileNameInBlob = fileId
                 });
             }

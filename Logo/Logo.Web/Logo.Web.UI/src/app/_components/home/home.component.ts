@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit {
         console.log('fileToUpload', fileToUpload);
 
         let formData:FormData = new FormData();
-        formData.append(this.uploadFiles[0].name, this.uploadFiles[0]);
+        formData.append("file", fileToUpload);
 
         this.homeService.uploadFile('1','2','3', formData)
         .subscribe(
@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
                 console.log(data.message)
             }
             else {
-                console.log('upload file successfull', data);
+                console.log('upload filwe successfull', data);
             }
             this.closeUploadFileModal.nativeElement.click();
             this.loadRootFolders();
@@ -162,14 +162,7 @@ export class HomeComponent implements OnInit {
             //this.closeUploadFileModal.nativeElement.click();
         });
     }
-
-    private prepareSave(file: File): any {
-        let input = new FormData();
-        input.append('name', file.name);
-        input.append('img', file);
-        return input;
-      }
-
+    
     //folders
     renamefolder() {
         let folderId = this.selectedObjectId;

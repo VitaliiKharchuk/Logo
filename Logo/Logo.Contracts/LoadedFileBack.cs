@@ -7,7 +7,7 @@ namespace Logo.Contracts
 {
     public class LoadedFileBack
     {
-        public  MemoryStream  Stream;
+        public  Stream  Stream;
         public Guid FileNameInBlob;
 
     }
