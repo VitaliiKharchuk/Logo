@@ -113,6 +113,7 @@ namespace Logo.Web.Controllers
             });
         }
         */
+        /*
         [HttpPost]
         [Route("upload-request")]
         public IActionResult Upload()
@@ -155,7 +156,44 @@ namespace Logo.Web.Controllers
 
             return Ok();
         }
+        */
 
-    }
-        
+
+        [HttpPost]
+        [Route("upload-request")]
+        public async Task Upload(IFormFile file)
+        {
+            if (file == null) throw new Exception("File is null");
+            if (file.Length == 0) throw new Exception("File is empty");
+
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                .Where(item => item.Type == "UserId")
+                                .Select(item => item.Value)
+                                .FirstOrDefault());
+
+            Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
+            {
+                OwnerId = ownerId,
+                ObjectCredentials = new ObjectCredentials
+                {
+                    Name = file.FileName,
+                    ParentObjectId = null,
+                    CreationDate = DateTime.Now,
+                    Size = file.Length
+                }
+            });
+
+            using (Stream stream = file.OpenReadStream())
+            {
+                MemoryStream ms = new MemoryStream(); 
+                stream.CopyTo(ms);
+
+                await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
+                {
+                    Stream = ms,
+                    FileNameInBlob = fileId
+                });
+            }
+        }
+    }        
 }

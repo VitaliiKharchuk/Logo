@@ -122,7 +122,7 @@ namespace Logo.Web.Controllers
 
             return Ok();
            
+}
         }
 
     }
-}
