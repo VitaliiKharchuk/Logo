@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -12,5 +13,7 @@ namespace Logo.Contracts.Services
          Task SimpleUploadStreamAsync(LoadedFileBack loadedFileBack);
          Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames);
          Task UploadFiles(IEnumerable<LoadedFileBack> loadedFilesBack);
+
+         //Task<IActionResult> Upload( );
     }
 }

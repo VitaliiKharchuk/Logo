@@ -32,9 +32,7 @@ namespace Logo.Web.Controllers
         {
 
                 return _foldersService.GetAllFolders();
-            
-            
-
+                   
         }
 
         [HttpGet]   //only for   testing
@@ -44,6 +42,22 @@ namespace Logo.Web.Controllers
             return _foldersService.GetAllFiles();
         }
 
+
+
+        [HttpGet]
+        [Route("get-folder/{id?}")]
+        public FolderInfo GetFolder(Guid id)
+        {
+            return _foldersService.GetFolder(id);
+        }
+
+        [HttpGet]
+        [Route("get-file/{id?}")]
+        public FileInfo GetFile(Guid id)
+        {
+            return _foldersService.GetFile(id);
+
+        }
 
         [HttpGet]
         [Route("get-folders/{id?}")]
@@ -110,6 +124,35 @@ namespace Logo.Web.Controllers
 
             return Ok();
         }
+
+
+        [HttpPost]
+        [Route("add-file")]
+        public IActionResult CreateFile([FromBody]  ObjectCredentials fileCredentials)
+        {
+            try
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                   .Where(item => item.Type == "UserId")
+                                   .Select(item => item.Value)
+                                   .FirstOrDefault());
+
+                _foldersService.CreateFile(new ObjectCredentialsWithOwner
+                {
+                    ObjectCredentials = fileCredentials,
+                    OwnerId = ownerId                 
+                });
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
+
+            return Ok();
+        }
+
 
         [HttpPost]
         [Route("rename-folder")]
@@ -260,5 +303,24 @@ namespace Logo.Web.Controllers
         {
             return _foldersService.GetPathToRoot(folderId);
         }
+
+
+        [HttpGet]
+        [Route("search-name/{fileName?}")]
+        public  IEnumerable<FileInfo> SearchFilesOnName(string fileName)
+        {
+            return   _foldersService.SearchFilesOnName(fileName);
+        }
+
+        [HttpGet]
+        [Route("search-tag/{tagName?}")]
+        public IEnumerable<FileInfo> SearchFilesOnTag(string tagName)
+        {
+
+            return _foldersService.SearchFilesOnTag(tagName);
+        }
+
+
+
     }
 }

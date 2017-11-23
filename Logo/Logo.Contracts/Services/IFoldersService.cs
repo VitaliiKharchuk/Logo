@@ -13,7 +13,7 @@ namespace Logo.Contracts.Services
         void DeleteFolder(Guid folderId);
 
         IEnumerable<FileInfo> GetRootFiles(Guid ownerId);
-        FileInfo GetFile(Guid folderId);
+        FileInfo GetFile(Guid fileId);
         Guid CreateFile(ObjectCredentialsWithOwner folderCredentials);  
         void RenameFile(UpdatedObject updatedFolder);
         void DeleteFile(Guid folderId);
@@ -23,6 +23,10 @@ namespace Logo.Contracts.Services
 
         IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId);
         IEnumerable<FileInfo> GetFilesInFolder(Guid folderId);
+
+        IEnumerable<FileInfo> SearchFilesOnName(string fileName);
+        IEnumerable<FileInfo> SearchFilesOnTag(string tagName);
+
 
         IEnumerable<FolderInfo> GetAllFolders();  //only  for   testing
         IEnumerable<FileInfo> GetAllFiles();  //only  for   testing

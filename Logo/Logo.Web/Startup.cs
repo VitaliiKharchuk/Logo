@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Microsoft.Extensions.Logging;
 using Serilog.Events;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace Logo.Web
 {
@@ -22,6 +24,8 @@ namespace Logo.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();  
+
             services.AddAuthorization(auth =>
             {
 

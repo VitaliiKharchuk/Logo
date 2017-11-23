@@ -75,7 +75,7 @@ namespace Logo.Implementation
                 throw new InvalidOperationException("File not found.");
             }
 
-            return new Contracts.FileInfo
+            Contracts.FileInfo fileInfo = new Contracts.FileInfo
             {
                 FileId = file.FileId,
                 ParentFolderId = file.ParentFolderId,
@@ -87,6 +87,10 @@ namespace Logo.Implementation
                 Type = file.Type,
                 HasPublicAccess = file.HasPublicAccess
             };
+
+            fileInfo.TagList = _tagsService.GetFileTags( fileInfo.FileId);
+
+            return fileInfo;
         }
 
 
@@ -155,7 +159,7 @@ namespace Logo.Implementation
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
                         CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
                         UploadDate = DateTime.Now,
-                        Size = fileCredentialsWithOwner.ObjectCredentials.Size,     
+                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,     
                         Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
                         HasPublicAccess = false
                     });
@@ -476,8 +480,53 @@ namespace Logo.Implementation
             return parentList;       
        }
 
+        public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName)
+        {
+           IEnumerable<Contracts.FileInfo> files  = _dbContext.Files.Where(t => t.Name == fileName)
+                .Select(y => new Contracts.FileInfo()
+                {
+                   FileId = y.FileId,
+                   ParentFolderId = y.ParentFolderId,
+                   OwnerId = y.OwnerId,
+                   Name = y.Name,
+                   CreationDate = y.CreationDate,
+                   UploadDate = y.UploadDate,
+                   Size = y.Size,
+                   Type = y.Type,
+                   HasPublicAccess = y.HasPublicAccess,
+               });
 
+            foreach (var file in  files)
+            {
+                file.TagList = _tagsService.GetFileTags(file.FileId);
+            }
 
+            return files;
+        }
+
+        public IEnumerable<Contracts.FileInfo> SearchFilesOnTag(string tagName)
+        {
+            IEnumerable<Contracts.FileInfo> files = _dbContext.FilesToTags.Where(t => t.Tag.Name ==  tagName)
+                 .Select(y => new Contracts.FileInfo()
+                 {
+                     FileId = y.File.FileId,
+                     ParentFolderId = y.File.ParentFolderId,
+                     OwnerId = y.File.OwnerId,
+                     Name = y.File.Name,
+                     CreationDate = y.File.CreationDate,
+                     UploadDate = y.File.UploadDate,
+                     Size = y.File.Size,
+                     Type = y.File.Type,
+                     HasPublicAccess = y.File.HasPublicAccess,
+                 });
+
+            foreach (var file in files)
+            {
+                file.TagList = _tagsService.GetFileTags(file.FileId);
+            }
+
+            return files;
+        }
 
 
     }
