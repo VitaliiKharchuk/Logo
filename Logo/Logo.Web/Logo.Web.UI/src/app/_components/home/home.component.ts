@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     @ViewChild('closeAddTagFileModal') closeAddTagFileModal: ElementRef;
     @ViewChild('closeDeleteFileModal') closeDeleteFileModal: ElementRef;
 
+    @ViewChild("inputfiles") inputfiles;
     @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
     model: any = {};
     currentUser: UserInfoWithToken;
@@ -136,8 +137,13 @@ export class HomeComponent implements OnInit {
 
     uploadFile() {
         console.log('upload', this.uploadFiles);
+        let fi = this.inputfiles.nativeElement;
+        let fileToUpload = fi.files[0];
+        console.log('fileToUpload', fileToUpload);
+
         let formData:FormData = new FormData();
         formData.append(this.uploadFiles[0].name, this.uploadFiles[0]);
+
         this.homeService.uploadFile('1','2','3', formData)
         .subscribe(
         data => {
