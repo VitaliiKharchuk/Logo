@@ -65,7 +65,7 @@ namespace Logo.Web
 
             // TODO: use Configuration.GetConnectionString("DefaultConnection")
             var connectionString = "Server=tcp:logo-server-darabase.database.windows.net,1433;Initial Catalog=logodb;Persist Security Info=False;User ID=logo-server-admin;Password=pF8Tyzu7FEH8;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<LogodbContext>(options => options.UseSqlServer(connectionString));
 
             //var connectionStringLocal = "Data Source=YOURCAT\\SQLEXPRESS;Initial Catalog=logodb;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";
             //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionStringLocal));

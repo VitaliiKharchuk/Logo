@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+
+
 namespace Logo.Implementation.DatabaseModels
 {
-    public partial class LogoDbContext : DbContext
+    public partial class LogodbContext : DbContext
     {
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<FilesToTags> FilesToTags { get; set; }
@@ -18,17 +20,16 @@ namespace Logo.Implementation.DatabaseModels
 
         public string _connectionString;
 
-
-        public LogoDbContext()
+        public LogodbContext()
         {
         }
 
-        public LogoDbContext(string connectionString)
+        public LogodbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public LogoDbContext(DbContextOptions<LogoDbContext> options)
+        public LogodbContext(DbContextOptions<LogodbContext> options)
             : base(options)
         {
         }
@@ -36,10 +37,12 @@ namespace Logo.Implementation.DatabaseModels
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
             if (_connectionString != null)
             {
                 optionsBuilder.UseSqlServer(_connectionString);
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +56,8 @@ namespace Logo.Implementation.DatabaseModels
                     .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ImageStorage).HasMaxLength(2000);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -68,12 +73,12 @@ namespace Logo.Implementation.DatabaseModels
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.OwnerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Files__OwnerID__5AEE82B9");
+                    .HasConstraintName("FK__Files__OwnerID__05D8E0BE");
 
                 entity.HasOne(d => d.ParentFolder)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.ParentFolderId)
-                    .HasConstraintName("FK__Files__ParentFol__59FA5E80");
+                    .HasConstraintName("FK__Files__ParentFol__04E4BC85");
             });
 
             modelBuilder.Entity<FilesToTags>(entity =>
@@ -88,7 +93,7 @@ namespace Logo.Implementation.DatabaseModels
                     .WithMany(p => p.FilesToTags)
                     .HasForeignKey(d => d.FileId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FilesToTa__FileI__74AE54BC");
+                    .HasConstraintName("FK__FilesToTa__FileI__07C12930");
 
                 entity.HasOne(d => d.Tag)
                     .WithMany(p => p.FilesToTags)
@@ -109,7 +114,7 @@ namespace Logo.Implementation.DatabaseModels
                     .WithMany(p => p.FilesToUsers)
                     .HasForeignKey(d => d.FileId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FilesToUs__FileI__5DCAEF64");
+                    .HasConstraintName("FK__FilesToUs__FileI__06CD04F7");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.FilesToUsers)

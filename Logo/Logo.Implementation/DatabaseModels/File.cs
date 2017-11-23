@@ -20,6 +20,7 @@ namespace Logo.Implementation.DatabaseModels
         public int? Size { get; set; }
         public int Type { get; set; }
         public bool HasPublicAccess { get; set; }
+        public byte[] ImageStorage { get; set; }
 
         public User Owner { get; set; }
         public Folder ParentFolder { get; set; }

@@ -49,13 +49,15 @@ namespace Logo.Implementation
                 #if !DEBUG
                 var msg = "An unhandled error occurred.";                
                 string stack = null;
-           #else
+            #else
                 var msg = context.Exception.GetBaseException().Message;
                 string stack = context.Exception.StackTrace;
-           #endif
-                
-                apiError = new ApiError(msg);
-                apiError.detail = stack;
+            #endif
+
+                apiError = new ApiError(msg)
+                {
+                    Detail = stack
+                };
 
                 context.HttpContext.Response.StatusCode = 500;
 

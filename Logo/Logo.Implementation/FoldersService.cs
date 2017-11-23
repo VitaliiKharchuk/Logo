@@ -22,7 +22,7 @@ namespace Logo.Implementation
 
     public class FoldersService : IFoldersService
     {
-        private readonly LogoDbContext _dbContext;
+        private readonly LogodbContext _dbContext;
         private readonly ITagsService _tagsService;
         private readonly IFilesService _filesService;
 
@@ -31,7 +31,7 @@ namespace Logo.Implementation
         private readonly int maxNameLong = 50;   //[0..9]
 
 
-        public FoldersService(LogoDbContext dbContext, ITagsService tagsService, IFilesService filesService)
+        public FoldersService(LogodbContext dbContext, ITagsService tagsService, IFilesService filesService)
         {
             _dbContext = dbContext;
             _tagsService = tagsService;
@@ -355,7 +355,8 @@ namespace Logo.Implementation
                     CreationDate = y.CreationDate,
                     UploadDate = y.UploadDate,
                     Level = y.Level,
-                    HasPublicAccess = y.HasPublicAccess,                   
+                    HasPublicAccess = y.HasPublicAccess,   
+                    
                 }).ToList();
 
             foreach (var folder in  folders)
@@ -383,6 +384,7 @@ namespace Logo.Implementation
                 Size = y.Size,
                 Type = y.Type,
                 HasPublicAccess = y.HasPublicAccess,
+                ResizedImage = y.ImageStorage
                
             }).ToList();
 
@@ -438,7 +440,8 @@ namespace Logo.Implementation
                     Size = y.Size,
                     Type = y.Type,
                     HasPublicAccess = y.HasPublicAccess,
-            }).ToList();
+                    ResizedImage = y.ImageStorage
+                }).ToList();
 
             foreach (var file in files)
             {
@@ -526,6 +529,14 @@ namespace Logo.Implementation
             }
 
             return files;
+        }
+
+
+        public void SetThumbnail(Guid fileId, byte[] resizedImage)
+        {
+            _dbContext.Files.Where(t => t.FileId == fileId)
+                .FirstOrDefault()
+                .ImageStorage = resizedImage;
         }
 
 

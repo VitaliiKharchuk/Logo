@@ -30,6 +30,8 @@ namespace Logo.Contracts.Services
 
         IEnumerable<FolderInfo> GetAllFolders();  //only  for   testing
         IEnumerable<FileInfo> GetAllFiles();  //only  for   testing
+
+        void SetThumbnail(Guid fileId, byte[] resizedImage);
     }
 
 }

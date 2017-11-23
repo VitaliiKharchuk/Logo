@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Logo.Web.Models
 {
-    public class LoadedFileUI
-    {
-        //public string FileName { get; set; }
 
+    public class LoadedFileUI 
+    {
+       public string FileName { get; set;}
+        
         public  Guid ? ParentFolderId { get; set; }
 
-        public DateTime ? CreationDate { get; set; }
+        public DateTime  CreationDate { get; set; }
 
-        //public byte[] FileContent { get; set; }    
+        public  string  Tags { get; set; }   
+
+        public long Length { get; set; }
+         
     }
+
 }

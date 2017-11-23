@@ -13,5 +13,6 @@ namespace Logo.Contracts
         public DateTime ? CreationDate { get; set; }
 
         public long Size { get; set; }
+        
     }
 }

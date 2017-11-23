@@ -8,5 +8,6 @@
 	[UploadDate] datetime,
 	[Size] int,
 	[Type] int NOT NULL,
-	[HasPublicAccess] bit DEFAULT 0 NOT NULL
+	[HasPublicAccess] bit DEFAULT 0 NOT NULL, 
+    [ImageStorage] VARBINARY(2000) NULL
 )

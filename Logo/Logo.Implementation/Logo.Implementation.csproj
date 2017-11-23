@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="RevStackCore-ImageSharp" Version="0.9.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="8.5.0" />
     
   </ItemGroup>

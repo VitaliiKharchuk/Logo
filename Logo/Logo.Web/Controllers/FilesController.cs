@@ -15,6 +15,9 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
+using System.Drawing;
+
+
 namespace Logo.Web.Controllers
 {
 
@@ -177,9 +180,9 @@ namespace Logo.Web.Controllers
                 ObjectCredentials = new ObjectCredentials
                 {
                     Name = file.FileName,
-                    ParentObjectId = null,
+                    ParentObjectId =  null,
                     CreationDate = DateTime.Now,
-                    Size = file.Length
+                    Size = file.Length,                    
                 }
             });
 
@@ -190,6 +193,11 @@ namespace Logo.Web.Controllers
                     Stream = stream,
                     FileNameInBlob = fileId
                 });
+
+                byte [] resizedImage = _filesService.ResizeImage(stream);
+
+                _foldersService.SetThumbnail(fileId, resizedImage);
+
             }
         }
     }        
