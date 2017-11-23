@@ -111,8 +111,8 @@ namespace Logo.Web.Controllers
 
             });
         }
-
-        [HttpPost("upload-request")]
+        [HttpPost]
+        [Route("upload-request")]
         public IActionResult Upload([FromBody] LoadedFileUI loadedFile)
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
