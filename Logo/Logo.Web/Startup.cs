@@ -75,7 +75,7 @@ namespace Logo.Web
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
-            services.AddTransient<ICryptographyService, CryptographyService>();
+            services.AddTransient<IMathService, MathService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IFilesService, FilesService>();
 

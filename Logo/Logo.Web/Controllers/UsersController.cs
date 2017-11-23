@@ -17,9 +17,9 @@ namespace Logo.Web.Controllers
     public class UsersController : Controller
     {
         private readonly IUsersService _usersService;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly IMathService _cryptographyService;
       
-        public UsersController(IUsersService usersService,  ICryptographyService cryptographyService)
+        public UsersController(IUsersService usersService,  IMathService cryptographyService)
         {
             _usersService = usersService;
             _cryptographyService = cryptographyService;

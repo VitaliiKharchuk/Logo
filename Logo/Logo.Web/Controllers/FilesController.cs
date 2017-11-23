@@ -115,14 +115,17 @@ namespace Logo.Web.Controllers
         */
         [HttpPost]
         [Route("upload-request")]
-        public IActionResult Upload([FromBody] LoadedFileUI loadedFile)
+        public IActionResult Upload()
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                   .Where(item => item.Type == "UserId")
                                   .Select(item => item.Value)
                                   .FirstOrDefault());
 
+
+            
             var files = Request.Form.Files;
+            
 
             foreach (var file in files)   //  only  one  file
             {
@@ -134,10 +137,9 @@ namespace Logo.Web.Controllers
                     ObjectCredentials = new ObjectCredentials
                     {
                         Name = file.FileName,
-                        ParentObjectId = loadedFile.ParentFolderId,
-                        CreationDate = loadedFile.CreationDate,                        
+                        ParentObjectId = null,
+                        CreationDate = DateTime.Now,                        
                         Size = file.Length
-
                     }
                 });
 
