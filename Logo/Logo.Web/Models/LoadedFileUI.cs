@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,16 +10,13 @@ namespace Logo.Web.Models
 
     public class LoadedFileUI 
     {
-       public string FileName { get; set;}
-        
+        public IFormFile FileContent { get; set; }
+
         public  Guid ? ParentFolderId { get; set; }
 
         public DateTime  CreationDate { get; set; }
 
-        public  string  Tags { get; set; }   
-
-        public long Length { get; set; }
-         
+        public  string  Tags { get; set; }        
     }
 
 }

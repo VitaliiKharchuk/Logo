@@ -537,6 +537,9 @@ namespace Logo.Implementation
             _dbContext.Files.Where(t => t.FileId == fileId)
                 .FirstOrDefault()
                 .ImageStorage = resizedImage;
+
+
+            _dbContext.SaveChanges();
         }
 
 
