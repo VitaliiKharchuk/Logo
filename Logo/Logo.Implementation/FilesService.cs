@@ -16,14 +16,14 @@ using Microsoft.WindowsAzure.Storage.RetryPolicies;
 
 
 using Logo.Contracts.Services;
-
+using Logo.Contracts;
 
 namespace Logo.Implementation
 {
-    public  class FilesService //: IFilesService
+    public class FilesService : IFilesService
     {
-
-        public static async Task<byte[]> SimpleDownloadAsync(string fileName)
+        
+        public async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
             var container = await GetContainerReference();
             var blockBlob = container.GetBlockBlobReference(fileName);
@@ -35,16 +35,16 @@ namespace Logo.Implementation
             return ms.ToArray();
         }
 
-        public static async Task SimpleUploadStreamAsync(FileStream file, string fileName)
+        public async Task SimpleUploadStreamAsync( LoadedFileBack loadedFileBack )
         {
             var container = await GetContainerReference();
-            var blockBlob = container.GetBlockBlobReference(fileName);
+            var blockBlob = container.GetBlockBlobReference( loadedFileBack.FileNameInBlob.ToString());
 
-            await blockBlob.UploadFromStreamAsync(file);
+            await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
 
 
-        public static async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
+        public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
         {
             var container = await GetContainerReference();
             var tasks = new List<Task<byte[]>>();
@@ -61,18 +61,18 @@ namespace Logo.Implementation
             return await Task.WhenAll(tasks);
         }
 
-        public static async Task UploadFiles(IEnumerable<string> fileNames)
+        public async Task UploadFiles(IEnumerable<LoadedFileBack> files)
         {
             var container = await GetContainerReference();
             var tasks = new List<Task>();
-            foreach (var fileName in fileNames)
+            foreach (var file in files)
             {
-                var blockBlob = container.GetBlockBlobReference(Path.GetFileName(fileName));
+                var blockBlob = container.GetBlockBlobReference(file.FileNameInBlob.ToString());
 
                 tasks.Add(Task.Run(async () =>
                 {
-                    Stream fileStream = File.OpenRead(fileName);
-                    await blockBlob.UploadFromStreamAsync(fileStream);
+                    //Stream fileStream = File.OpenRead(fileName);
+                    await blockBlob.UploadFromStreamAsync(file.Stream);
 
                 }));
             }
@@ -80,7 +80,7 @@ namespace Logo.Implementation
             await Task.WhenAll(tasks);
         }
 
-        public static async Task<CloudBlobContainer> GetContainerReference()
+        private  async Task<CloudBlobContainer> GetContainerReference()
         {
             var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
             var storageAccount = CloudStorageAccount.Parse(connectionString);
@@ -90,9 +90,5 @@ namespace Logo.Implementation
             await container.CreateIfNotExistsAsync();
             return container;
         }
-
-
-
-
     }
 }

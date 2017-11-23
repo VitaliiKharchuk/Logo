@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Microsoft.Extensions.Logging;
 using Serilog.Events;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace Logo.Web
 {
@@ -22,6 +24,8 @@ namespace Logo.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();  
+
             services.AddAuthorization(auth =>
             {
 
@@ -71,8 +75,9 @@ namespace Logo.Web
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();
-            services.AddTransient<ICryptographyService, CryptographyService>();
+            services.AddTransient<IMathService, MathService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<IFilesService, FilesService>();
 
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel

@@ -32,9 +32,7 @@ namespace Logo.Web.Controllers
         {
 
                 return _foldersService.GetAllFolders();
-            
-            
-
+                   
         }
 
         [HttpGet]   //only for   testing
@@ -44,6 +42,22 @@ namespace Logo.Web.Controllers
             return _foldersService.GetAllFiles();
         }
 
+
+
+        [HttpGet]
+        [Route("get-folder/{id?}")]
+        public FolderInfo GetFolder(Guid id)
+        {
+            return _foldersService.GetFolder(id);
+        }
+
+        [HttpGet]
+        [Route("get-file/{id?}")]
+        public FileInfo GetFile(Guid id)
+        {
+            return _foldersService.GetFile(id);
+
+        }
 
         [HttpGet]
         [Route("get-folders/{id?}")]
@@ -104,16 +118,17 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });    // 
+                return Json(new { success = false, message = ex.Message });    
             }
 
 
             return Ok();
         }
 
+
         [HttpPost]
         [Route("add-file")]
-        public IActionResult CreateFile([FromBody]  ObjectCredentials folderCredentials)
+        public IActionResult CreateFile([FromBody]  ObjectCredentials fileCredentials)
         {
             try
             {
@@ -124,19 +139,19 @@ namespace Logo.Web.Controllers
 
                 _foldersService.CreateFile(new ObjectCredentialsWithOwner
                 {
-                    ObjectCredentials = folderCredentials,
-                    OwnerId = ownerId
+                    ObjectCredentials = fileCredentials,
+                    OwnerId = ownerId                 
                 });
             }
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });    // 
+                return Json(new { success = false, message = ex.Message });
             }
+
 
             return Ok();
         }
-
 
 
         [HttpPost]
@@ -181,6 +196,7 @@ namespace Logo.Web.Controllers
         [Route("delete-folder/{id?}")]
         public IActionResult DeleteFolder(Guid id)
         {
+
             try
             {
                 _foldersService.DeleteFolder(id);
@@ -190,8 +206,7 @@ namespace Logo.Web.Controllers
             {
                 return Json(new { success = false, message = ex.Message });    // 
             }
-
-
+            
             return Ok();
         }
 
@@ -242,8 +257,8 @@ namespace Logo.Web.Controllers
 
 
         [HttpPost]
-        [Route("create-folder-tag")]
-        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
+        [Route("add-folder-tag")]
+        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFolder(tagsCredentials);
 
@@ -251,8 +266,8 @@ namespace Logo.Web.Controllers
         }
 
         [HttpPost]
-        [Route("create-file-tag")]
-        public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
+        [Route("add-file-tag")]
+        public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFile(tagsCredentials);
 
@@ -287,6 +302,31 @@ namespace Logo.Web.Controllers
         public IEnumerable<ObjectCredentials> GetPathToRoot(Guid folderId)
         {
             return _foldersService.GetPathToRoot(folderId);
+        }
+
+
+        [HttpGet]
+        [Route("search-name/{fileName?}")]
+        public  IEnumerable<FileInfo> SearchFilesOnName(string fileName)
+        {
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
+
+            return _foldersService.SearchFilesOnName(fileName, ownerId);
+        }
+
+        [HttpGet]
+        [Route("search-tag/{tagName?}")]
+        public IEnumerable<FileInfo> SearchFilesOnTag(string tagName)
+        {
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
+
+            return _foldersService.SearchFilesOnTag(tagName, ownerId);
         }
     }
 }

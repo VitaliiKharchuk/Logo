@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Logo.Implementation
 {
-    public class CryptographyService : ICryptographyService
+    public class MathService : IMathService
     {
 
         public string RSAEncryptData(string originalString)
