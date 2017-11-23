@@ -10,6 +10,8 @@ namespace Logo.Implementation
     public class TagsService : ITagsService
     {
         LogoDbContext _dbContext;
+        private readonly int _maxTagLength = 100;
+        private readonly int _maxTagsPerFile = 200;
 
         public TagsService(LogoDbContext dbContext)
         {
@@ -59,19 +61,27 @@ namespace Logo.Implementation
 
         }
 
+
+        int GetFileTagsCapacity(Guid fileId)
+        {
+            return _dbContext.FilesToTags.Where(t => t.FileId == fileId).Count();
+        }
+
         public void CreateTagToFile(TagsCredentials tagsCredentials)
         {
             string[] tags = ParseTagString(tagsCredentials.Text);
 
+
+
             foreach (var tagName in tags)
             {
-                Tag tag = _dbContext.Tags.Where(t => t.Name.Equals(tagName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                if (tagName.Length > _maxTagLength)
+                    throw new InvalidOperationException(String.Format("Длинна тега превышает {0} символов", _maxTagLength));
 
-                /*
-                FilesToTags filesToTags = _dbContext.FilesToTags
-                    .Where(t => t.FileId == tagsCredentials.ObjectId && t.Tag.Name == tagName)
-                    .FirstOrDefault();
-                 */
+                if (GetFileTagsCapacity(tagsCredentials.ObjectId) + 1 > _maxTagsPerFile)
+                    throw new InvalidOperationException(String.Format("На один файл возможно добавить не более {0} тегов", _maxTagsPerFile));
+
+                Tag tag = _dbContext.Tags.Where(t => t.Name.Equals(tagName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
 
                 if (tag == null)
                 {
@@ -88,14 +98,13 @@ namespace Logo.Implementation
                     TagId = tag.TagId
                 };
 
-                if (_dbContext.FilesToTags     //if  not   esist   connection   between  tag  and  files
+                if (_dbContext.FilesToTags     //if  not   exsist   connection   between  tag  and  files
                     .Where(t => t.FileId == filesToTags.FileId && t.TagId == filesToTags.TagId)
                     .FirstOrDefault() == null)
                 {
                     _dbContext.FilesToTags.Add(filesToTags);
                     _dbContext.SaveChanges();
                 }
-
             }
         }
 

@@ -33,7 +33,7 @@ namespace Logo.Web.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-
+        /*
         [HttpPost]
         [Route("upload-file")]
         public IActionResult UploadFile([FromBody] LoadedFileUI file)
@@ -77,8 +77,9 @@ namespace Logo.Web.Controllers
 
             return Ok();
         }
+        */
 
-
+        /*
         [HttpGet]
         [Route("download-file/{fileId?}")]
         public IActionResult DownloadedFile(Guid fileId)
@@ -111,6 +112,7 @@ namespace Logo.Web.Controllers
 
             });
         }
+        */
         [HttpPost]
         [Route("upload-request")]
         public IActionResult Upload([FromBody] LoadedFileUI loadedFile)
@@ -145,7 +147,7 @@ namespace Logo.Web.Controllers
                 _filesService.SimpleUploadStreamAsync(new LoadedFileBack
                 {
                     Stream = ms,
-                  FileNameInBlob = fileId
+                    FileNameInBlob = fileId
                 } );
             }
 

@@ -24,8 +24,8 @@ namespace Logo.Contracts.Services
         IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId);
         IEnumerable<FileInfo> GetFilesInFolder(Guid folderId);
 
-        IEnumerable<FileInfo> SearchFilesOnName(string fileName);
-        IEnumerable<FileInfo> SearchFilesOnTag(string tagName);
+        IEnumerable<FileInfo> SearchFilesOnName(string fileName,  Guid ownerId);
+        IEnumerable<FileInfo> SearchFilesOnTag(string tagName,  Guid ownerId);
 
 
         IEnumerable<FolderInfo> GetAllFolders();  //only  for   testing

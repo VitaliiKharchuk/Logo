@@ -480,9 +480,9 @@ namespace Logo.Implementation
             return parentList;       
        }
 
-        public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName)
+        public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName, Guid ownerId)
         {
-           IEnumerable<Contracts.FileInfo> files  = _dbContext.Files.Where(t => t.Name == fileName)
+           IEnumerable<Contracts.FileInfo> files  = _dbContext.Files.Where(t => t.Name.Contains(fileName)  && t.OwnerId == ownerId)
                 .Select(y => new Contracts.FileInfo()
                 {
                    FileId = y.FileId,
@@ -494,7 +494,7 @@ namespace Logo.Implementation
                    Size = y.Size,
                    Type = y.Type,
                    HasPublicAccess = y.HasPublicAccess,
-               });
+               }).ToList(); 
 
             foreach (var file in  files)
             {
@@ -504,9 +504,9 @@ namespace Logo.Implementation
             return files;
         }
 
-        public IEnumerable<Contracts.FileInfo> SearchFilesOnTag(string tagName)
+        public IEnumerable<Contracts.FileInfo> SearchFilesOnTag(string tagName, Guid ownerId)
         {
-            IEnumerable<Contracts.FileInfo> files = _dbContext.FilesToTags.Where(t => t.Tag.Name ==  tagName)
+            IEnumerable<Contracts.FileInfo> files = _dbContext.FilesToTags.Where(t => t.Tag.Name.Contains(tagName) && t.File.OwnerId == ownerId)
                  .Select(y => new Contracts.FileInfo()
                  {
                      FileId = y.File.FileId,
@@ -518,7 +518,7 @@ namespace Logo.Implementation
                      Size = y.File.Size,
                      Type = y.File.Type,
                      HasPublicAccess = y.File.HasPublicAccess,
-                 });
+                 }).ToList();
 
             foreach (var file in files)
             {

@@ -257,7 +257,7 @@ namespace Logo.Web.Controllers
 
 
         [HttpPost]
-        [Route("create-folder-tag")]
+        [Route("add-folder-tag")]
         public IActionResult CreateFolderTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFolder(tagsCredentials);
@@ -266,7 +266,7 @@ namespace Logo.Web.Controllers
         }
 
         [HttpPost]
-        [Route("create-file-tag")]
+        [Route("add-file-tag")]
         public IActionResult CreateFileTag([FromBody] TagsCredentials tagsCredentials)
         {
             _tagsService.CreateTagToFile(tagsCredentials);
@@ -309,18 +309,24 @@ namespace Logo.Web.Controllers
         [Route("search-name/{fileName?}")]
         public  IEnumerable<FileInfo> SearchFilesOnName(string fileName)
         {
-            return   _foldersService.SearchFilesOnName(fileName);
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
+
+            return _foldersService.SearchFilesOnName(fileName, ownerId);
         }
 
         [HttpGet]
         [Route("search-tag/{tagName?}")]
         public IEnumerable<FileInfo> SearchFilesOnTag(string tagName)
         {
+            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                  .Where(item => item.Type == "UserId")
+                                  .Select(item => item.Value)
+                                  .FirstOrDefault());
 
-            return _foldersService.SearchFilesOnTag(tagName);
+            return _foldersService.SearchFilesOnTag(tagName, ownerId);
         }
-
-
-
     }
 }
