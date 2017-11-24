@@ -7,6 +7,8 @@ import { UserInfoWithToken } from '../login/user';
 import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 import { ContextMenuComponent } from 'ngx-contextmenu';
 
@@ -41,7 +43,7 @@ export class HomeComponent implements OnInit {
 
     constructor(private homeService: HomeService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,private domSanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -102,6 +104,9 @@ export class HomeComponent implements OnInit {
         this.homeService.loadRootFiles().subscribe(
             data => {
                 this.files = data as FileCustom[];
+                for(let file of this.files){
+                    file.resizedImage = 'data:image/jpg;base64,' + file.resizedImage;
+                }
                 console.log(this.files)
                 if (!data.success && data.message) {
                     console.log(data.message)
@@ -145,10 +150,11 @@ export class HomeComponent implements OnInit {
         for (var _i = 0; _i < fi.files.length; _i++) {
 
             let formData: FormData = new FormData();
-            formData.append("file", fi.files[_i]);
+            formData.append('FileContent', fi.files[_i]);
             formData.append('CreationDate', fi.files[_i].lastModifiedDate);
             formData.append('ParentFolderId', null);
             formData.append('Tags', this.uploadFiles[_i].hashtag);
+            console.log('name file',  fi.files[_i].name);
 
             this.homeService.uploadFile(formData)
                 .subscribe(
@@ -157,15 +163,15 @@ export class HomeComponent implements OnInit {
                         console.log(data.message)
                     }
                     else {
-                        console.log('upload file',  fi.files[_i].name, 'successfull', data);
+                        console.log('upload file success');
                     }
                     this.closeUploadFileModal.nativeElement.click();
-                    this.loadRootFolders();
+                    this.loadRootFiles();
                 },
                 error => {
-                    this.loadRootFolders();
-                    console.log('Cant upload file', fi.files[_i].name, error);
-                    //this.closeUploadFileModal.nativeElement.click();
+                    this.loadRootFiles();
+                    console.log('Cant upload file', error);
+                    this.closeUploadFileModal.nativeElement.click();
                 });
         }
     }

@@ -62,7 +62,7 @@
       <div class="row">
         <div class="col-xs-3" *ngFor="let file of files">
           <div class="thumbnail" class="folder-grid" [contextMenu]="static">
-
+              <img *ngIf="file.resizedImage" [src]="file.resizedImage" />
             <div class="folder-grid-item">
               <img src="assets\icons\picture.svg" class="img-folder"> {{file.name}}
             </div>

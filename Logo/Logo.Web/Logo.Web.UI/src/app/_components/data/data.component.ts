@@ -27,6 +27,7 @@ export class DataComponent implements OnInit {
     @ViewChild('closeAddTagFileModal') closeAddTagFileModal: ElementRef;
     @ViewChild('closeDeleteFileModal') closeDeleteFileModal: ElementRef;
 
+    @ViewChild("inputfiles") inputfiles;    
     @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
     model: any = {};
     currentUser: UserInfoWithToken;
@@ -150,6 +151,38 @@ export class DataComponent implements OnInit {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
             });
+    }
+
+    uploadFile() {
+        let fi = this.inputfiles.nativeElement;
+        console.log('uploadFile()');
+        for (var _i = 0; _i < fi.files.length; _i++) {
+
+            let formData: FormData = new FormData();
+            formData.append('FileContent', fi.files[_i]);
+            formData.append('CreationDate', fi.files[_i].lastModifiedDate);
+            formData.append('ParentFolderId', this.folderId);
+            formData.append('Tags', this.uploadFiles[_i].hashtag);
+            console.log('name file',  fi.files[_i].name);
+
+            this.homeService.uploadFile(formData)
+                .subscribe(
+                data => {
+                    if (!data.success && data.message) {
+                        console.log(data.message)
+                    }
+                    else {
+                        console.log('upload file success');
+                    }
+                    this.closeUploadFileModal.nativeElement.click();
+                    this.loadFiles();
+                },
+                error => {
+                    this.loadFiles();
+                    console.log('Cant upload file', error);
+                    this.closeUploadFileModal.nativeElement.click();
+                });
+        }
     }
 
     //folders

@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   toggleGridEvent = new EventEmitter<boolean>();
   grid = true;
   @Input() folderId: string;
-  breadcrumbs: FolderNameWithParentFolderId[];
+  breadcrumbs: FolderNameWithParentFolderId[] = [];
 
   constructor(private homeService: HomeService,
   ) {
@@ -48,12 +48,12 @@ export class MenuComponent implements OnInit {
           console.log(data.message)
         }
         else {
-          console.log('Loading files successfull');
+          console.log('Loading bc successfull');
         }
       },
       error => {
         //show info about error
-        console.log('Loading files unsuccessfull');
+        console.log('Loading bc unsuccessfull');
       });
   }
 

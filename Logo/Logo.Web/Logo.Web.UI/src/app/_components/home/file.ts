@@ -7,5 +7,5 @@ export class FileCustom {
     uploadDate: Date;
     hasPublicAccess: boolean;
     tagList: string[];
-    imageContent: string;
+    resizedImage: string;
 }
