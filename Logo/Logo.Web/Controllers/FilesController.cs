@@ -15,6 +15,9 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
+using System.Drawing;
+
+
 namespace Logo.Web.Controllers
 {
 
@@ -161,10 +164,10 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("upload-request")]
-        public async Task Upload(IFormFile file)
+        public async Task Upload(LoadedFileUI file)
         {
             if (file == null) throw new Exception("File is null");
-            if (file.Length == 0) throw new Exception("File is empty");
+            if (file.FileContent.Length == 0) throw new Exception("File is empty");
 
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                 .Where(item => item.Type == "UserId")
@@ -176,20 +179,25 @@ namespace Logo.Web.Controllers
                 OwnerId = ownerId,
                 ObjectCredentials = new ObjectCredentials
                 {
-                    Name = file.FileName,
-                    ParentObjectId = null,
+                    Name = file.FileContent.FileName,
+                    ParentObjectId =  null,
                     CreationDate = DateTime.Now,
-                    Size = file.Length
+                    Size = file.FileContent.Length,                    
                 }
             });
 
-            using (Stream stream = file.OpenReadStream())
+            using (Stream stream = file.FileContent.OpenReadStream())
             {
                 await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
                 {
                     Stream = stream,
                     FileNameInBlob = fileId
                 });
+
+                byte [] resizedImage = _filesService.ResizeImage(stream);
+
+                _foldersService.SetThumbnail(fileId, resizedImage);
+
             }
         }
     }        

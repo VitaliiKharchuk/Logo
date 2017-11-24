@@ -12,11 +12,11 @@ using System.Linq;
 
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.RetryPolicies;
-
-
 using Logo.Contracts.Services;
 using Logo.Contracts;
+using ImageSharp;
+using ImageSharp.Formats;
+using ImageSharp.Processing;
 
 namespace Logo.Implementation
 {
@@ -90,5 +90,29 @@ namespace Logo.Implementation
             await container.CreateIfNotExistsAsync();
             return container;
         }
+    
+        public byte []  ResizeImage(Stream input)
+        {
+            const int width = 306;
+            const int height = 208;
+            Configuration.Default.AddImageFormat(new JpegFormat());
+
+            byte[] resizedImage = null;
+
+            using (var output =  new MemoryStream())
+            {
+                var image = new Image(input)
+                    .Resize(new ResizeOptions
+                    {
+                        Size = new Size(width, height),
+                        Mode = ResizeMode.Max
+                    });
+                image.Save(output);
+
+                resizedImage = output.ToArray();
+            }
+            return resizedImage;
+        }
+       
     }
 }

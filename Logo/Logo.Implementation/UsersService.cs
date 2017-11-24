@@ -14,11 +14,11 @@ namespace Logo.Implementation
 {
     public class UsersService : IUsersService 
     {
-        private readonly LogoDbContext _dbContext;
+        private readonly LogodbContext _dbContext;
         private readonly IFoldersService _folderService;
         private ILogger<ApiExceptionFilter> _logger;
 
-        public UsersService(LogoDbContext dbContext,  IFoldersService foldersService, ILogger<ApiExceptionFilter> logger)
+        public UsersService(LogodbContext dbContext,  IFoldersService foldersService, ILogger<ApiExceptionFilter> logger)
         {
             _dbContext = dbContext;
             _folderService = foldersService;

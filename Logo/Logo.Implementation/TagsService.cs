@@ -9,11 +9,11 @@ namespace Logo.Implementation
 {
     public class TagsService : ITagsService
     {
-        LogoDbContext _dbContext;
+        LogodbContext _dbContext;
         private readonly int _maxTagLength = 100;
         private readonly int _maxTagsPerFile = 200;
 
-        public TagsService(LogoDbContext dbContext)
+        public TagsService(LogodbContext dbContext)
         {
             _dbContext = dbContext;
         }

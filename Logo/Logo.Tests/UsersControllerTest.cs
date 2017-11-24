@@ -13,7 +13,7 @@ namespace Logo.Tests
         public void GetTokenTest()
         {
             var connectionString = "";
-            using (var logoDb = new LogoDbContext(connectionString) )
+            using (var logoDb = new LogodbContext(connectionString) )
             {
                 //var usersService = new UsersService(logoDb, new FoldersService(logoDb) );
                 var cryptographyService = new MathService();
