@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Folder } from './folder';
-import { FolderNameWithParentFolderId, FileNameWithFolderIdWithDate } from './folderNameWithParentFolderId';
+import { TagsInfo } from './tagsInfo';
+import { FolderNameWithParentFolderId } from './folderNameWithParentFolderId';
+import { FileNameWithFolderIdWithDate } from './fileNameWithFolderIdWithDate';
 import { UpdatedObject } from './updatedObject';
 import { Observable } from "rxjs/Rx"
 
@@ -19,12 +21,7 @@ export class HomeService {
     return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map(this.extractData);
   }
 
-  uploadFile(folderName: string, parentFolderId: string, date: any, input: FormData){
-    let fileNameWithFolderIdWithDate: FileNameWithFolderIdWithDate = {
-      fileName: folderName,
-      parentFolderId: parentFolderId,
-      creationDate: date.toString()
-    };
+  uploadFile(input: FormData){
     return this.http.post('/api/files/upload-request', input, this.jwt()).map(this.extractData);
   }
 
@@ -39,12 +36,12 @@ export class HomeService {
   }
 
   addTags(folderId: string, tags: string) {
-    let tagsWithFolderId: FolderNameWithParentFolderId = {
-      name: tags,
-      parentObjectId: folderId,
+    let tagsInfo: TagsInfo = {
+      text: tags,
+      objectId: folderId,
     };
 
-    return this.http.post('/api/folders/add-tags-folder', tagsWithFolderId, this.jwt()).map(this.extractData);
+    return this.http.post('/api/folders/add-folder-tag', tagsInfo, this.jwt()).map(this.extractData);
   }
 
   deleteFolder(selectedId: string) {
@@ -66,12 +63,12 @@ export class HomeService {
   }
 
   addTagsFile(fileId: string, tags: string) {
-    let tagsWithFolderId: FolderNameWithParentFolderId = {
-      name: tags,
-      parentObjectId: fileId,
+    let tagsInfo: TagsInfo = {
+      text: tags,
+      objectId: fileId,
     };
 
-    return this.http.post('/api/folders/add-tags-file', tagsWithFolderId, this.jwt()).map(this.extractData);
+    return this.http.post('/api/folders/add-file-tag', tagsInfo, this.jwt()).map(this.extractData);
   }
 
 

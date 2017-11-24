@@ -32,18 +32,16 @@ export class HomeComponent implements OnInit {
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
     files: FileCustom[] = [];
-    uploadFiles: Array<File>;
+    uploadFiles: Array<any>;
     selectedObjectId: string;
     selectedFolderName: string;
     tags: string;
     grid: true;
     folderrenamem: any = {};
-    public filesForm: FormGroup;
 
     constructor(private homeService: HomeService,
         private router: Router,
-        private route: ActivatedRoute,
-        private _fb: FormBuilder) {
+        private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -59,7 +57,8 @@ export class HomeComponent implements OnInit {
 
     onChange(fileInput: any[]) {
         this.uploadFiles = fileInput;
-}
+        console.log(this.uploadFiles)
+    }
 
     checkIfImage(name: string) {
         var fileExtension = "";
@@ -86,13 +85,16 @@ export class HomeComponent implements OnInit {
                 }
                 else {
                     console.log('Loading root folders successfull');
+                    
                 }
                 this.folders = data as Folder[];
+                console.log(this.folders)
             },
             error => {
                 //show info about error
                 console.log('Loading root folders unsuccessfull');
             });
+           
 
     }
 
@@ -100,11 +102,13 @@ export class HomeComponent implements OnInit {
         this.homeService.loadRootFiles().subscribe(
             data => {
                 this.files = data as FileCustom[];
+                console.log(this.files)
                 if (!data.success && data.message) {
                     console.log(data.message)
                 }
                 else {
                     console.log('Loading root files successfull');
+                    
                 }
             },
             error => {
@@ -112,6 +116,7 @@ export class HomeComponent implements OnInit {
                 console.log('Loading root files unsuccessfull');
             });
 
+            
     }
 
     //menu
@@ -136,33 +141,35 @@ export class HomeComponent implements OnInit {
     }
 
     uploadFile() {
-        console.log('upload', this.uploadFiles);
         let fi = this.inputfiles.nativeElement;
-        let fileToUpload = fi.files[0];
-        console.log('fileToUpload', fileToUpload);
+        for (var _i = 0; _i < fi.files.length; _i++) {
 
-        let formData:FormData = new FormData();
-        formData.append("file", fileToUpload);
+            let formData: FormData = new FormData();
+            formData.append("file", fi.files[_i]);
+            formData.append('CreationDate', fi.files[_i].lastModifiedDate);
+            formData.append('ParentFolderId', null);
+            formData.append('Tags', this.uploadFiles[_i].hashtag);
 
-        this.homeService.uploadFile('1','2','3', formData)
-        .subscribe(
-        data => {
-            if (!data.success && data.message) {
-                console.log(data.message)
-            }
-            else {
-                console.log('upload filwe successfull', data);
-            }
-            this.closeUploadFileModal.nativeElement.click();
-            this.loadRootFolders();
-        },
-        error => {
-            this.loadRootFolders();
-            console.log('Cant upload file', error);
-            //this.closeUploadFileModal.nativeElement.click();
-        });
+            this.homeService.uploadFile(formData)
+                .subscribe(
+                data => {
+                    if (!data.success && data.message) {
+                        console.log(data.message)
+                    }
+                    else {
+                        console.log('upload file',  fi.files[_i].name, 'successfull', data);
+                    }
+                    this.closeUploadFileModal.nativeElement.click();
+                    this.loadRootFolders();
+                },
+                error => {
+                    this.loadRootFolders();
+                    console.log('Cant upload file', fi.files[_i].name, error);
+                    //this.closeUploadFileModal.nativeElement.click();
+                });
+        }
     }
-    
+
     //folders
     renamefolder() {
         let folderId = this.selectedObjectId;
@@ -188,7 +195,7 @@ export class HomeComponent implements OnInit {
     deleteFolder() {
         let folderId = this.selectedObjectId;
         this.homeService.deleteFolder(folderId)
-            .subscribe(       
+            .subscribe(
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
@@ -230,7 +237,7 @@ export class HomeComponent implements OnInit {
     renameFile() {
         let fileId = this.selectedObjectId;
         console.log(this.model.renameFile, fileId);
-        this.homeService.renameFolder(this.model.renameFile, fileId)
+        this.homeService.renameFile(this.model.renameFile, fileId)
             .subscribe(
             data => {
                 if (!data.success && data.message) {
