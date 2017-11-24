@@ -1,21 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Logo.Contracts;
+using Logo.Contracts.Services;
+using Logo.Implementation;
+using Logo.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
-using Microsoft.AspNetCore.Mvc;
-
-using Microsoft.AspNetCore.Authorization;
-using Logo.Contracts.Services;
-using Logo.Web.Models;
-using Logo.Contracts;
 using System.Linq;
-
-
-using Logo.Implementation;
-using System.Net.Http;
-using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-
-using System.Drawing;
 
 
 namespace Logo.Web.Controllers
@@ -164,43 +157,55 @@ namespace Logo.Web.Controllers
 
         [HttpPost]
         [Route("upload-request")]
-        public async Task Upload(LoadedFileUI file)
+        public IActionResult Upload(LoadedFileUI file)
         {
-            if (file == null) throw new Exception("File is null");
-            if (file.FileContent.Length == 0) throw new Exception("File is empty");
 
-            Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                .Where(item => item.Type == "UserId")
-                                .Select(item => item.Value)
-                                .FirstOrDefault());
-
-            Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
+            try
             {
-                OwnerId = ownerId,
-                ObjectCredentials = new ObjectCredentials
-                {
-                    Name = file.FileContent.FileName,
-                    ParentObjectId =  file.ParentFolderId,
-                    CreationDate = file.CreationDate,
-                    Size = file.FileContent.Length, 
-                    Tags = file.Tags
-                }
-            });
+                if (file == null) throw new Exception("File is null");
+                if (file.FileContent.Length == 0) throw new Exception("File is empty");
 
-            using (Stream stream = file.FileContent.OpenReadStream())
-            {
-                stream.Position = 0;
-                await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                    .Where(item => item.Type == "UserId")
+                                    .Select(item => item.Value)
+                                    .FirstOrDefault());
+
+                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
                 {
-                    Stream = stream,
-                    FileNameInBlob = fileId
+                    OwnerId = ownerId,
+                    ObjectCredentials = new ObjectCredentials
+                    {
+                        Name = file.FileContent.FileName,
+                        ParentObjectId = file.ParentFolderId,
+                        CreationDate = file.CreationDate,
+                        Size = file.FileContent.Length,
+                        Tags = file.Tags
+                    }
                 });
 
-                byte [] resizedImage = _filesService.ResizeImage(stream);
+                using (Stream stream = file.FileContent.OpenReadStream())
+                {
+                    stream.Position = 0;
+                    _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
+                    {
+                        Stream = stream,
+                        FileNameInBlob = fileId
+                    });
 
-                _foldersService.SetThumbnail(fileId, resizedImage);
+                    byte[] resizedImage = _filesService.ResizeImage(stream);
+
+                    _foldersService.SetThumbnail(fileId, resizedImage);
+
+                }
+            }
+
+            catch(Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
 
             }
+
+            return Ok();
         }
     }        
 }

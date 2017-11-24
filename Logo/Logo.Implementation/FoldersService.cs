@@ -161,8 +161,16 @@ namespace Logo.Implementation
                         UploadDate = DateTime.Now,
                         Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,     
                         Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
-                        HasPublicAccess = false
+                        HasPublicAccess = false                                         
+                        
                     });
+
+                _dbContext.SaveChanges();
+
+                _tagsService.CreateTagToFile(new TagsCredentials
+                { ObjectId = fileId,
+                    Text = fileCredentialsWithOwner.ObjectCredentials.Tags
+                });
 
 
                 //byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
