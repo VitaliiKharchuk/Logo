@@ -17,6 +17,8 @@ import { HomeService } from './_components/home/home.service';
 import { DataComponent } from './_components/data/data.component';
 import { DataService } from './_components/data/data.service';
 import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.comp
         ReactiveFormsModule,
         HttpModule,
         routing,
-        ContextMenuModule
+        ContextMenuModule,
+        BrowserAnimationsModule, 
+        SimpleNotificationsModule.forRoot()
     ],
     providers: [
         AuthentificationGuard,
@@ -37,7 +41,8 @@ import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.comp
         AuthentificationService,
         UserService,
         HomeService,
-        DataService
+        DataService,
+        NotificationsService
  
         // providers used to create fake backend
         //fakeBackendProvider,
