@@ -180,14 +180,16 @@ namespace Logo.Web.Controllers
                 ObjectCredentials = new ObjectCredentials
                 {
                     Name = file.FileContent.FileName,
-                    ParentObjectId =  null,
-                    CreationDate = DateTime.Now,
-                    Size = file.FileContent.Length,                    
+                    ParentObjectId =  file.ParentFolderId,
+                    CreationDate = file.CreationDate,
+                    Size = file.FileContent.Length, 
+                    Tags = file.Tags
                 }
             });
 
             using (Stream stream = file.FileContent.OpenReadStream())
             {
+                stream.Position = 0;
                 await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
                 {
                     Stream = stream,

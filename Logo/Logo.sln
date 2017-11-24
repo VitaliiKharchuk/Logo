@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Contracts", "Logo.Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logo.Implementation", "Logo.Implementation\Logo.Implementation.csproj", "{4489B84B-AB76-411A-890E-ECCB11ED2BB2}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Logo.Database", "Logo.Database\Logo.Database.sqlproj", "{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{4489B84B-AB76-411A-890E-ECCB11ED2BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4489B84B-AB76-411A-890E-ECCB11ED2BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4489B84B-AB76-411A-890E-ECCB11ED2BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79191A9-84CD-4486-B19C-DFB3CC76E1E1}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

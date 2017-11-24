@@ -139,11 +139,11 @@ namespace Logo.Implementation
 
             string fileExtention = Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name);
             if (
-                      fileExtention == "." + FileExtentions.avi.ToString("g")    //   gavnocode!    rewrite need
-                   || fileExtention == "." + FileExtentions.jpg.ToString("g")
-                   || fileExtention == "." + FileExtentions.mkv.ToString("g")
-                   || fileExtention == "." + FileExtentions.mov.ToString("g")
-                   || fileExtention == "." + FileExtentions.png.ToString("g")
+                      fileExtention.Equals("." + FileExtentions.avi.ToString(),StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
+                   || fileExtention.Equals("." + FileExtentions.jpg.ToString(),StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals("." + FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals("." + FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals("." + FileExtentions.png.ToString(),StringComparison.InvariantCultureIgnoreCase)
                 )
 
             {
@@ -485,18 +485,19 @@ namespace Logo.Implementation
 
         public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName, Guid ownerId)
         {
-           IEnumerable<Contracts.FileInfo> files  = _dbContext.Files.Where(t => t.Name.Contains(fileName)  && t.OwnerId == ownerId)
-                .Select(y => new Contracts.FileInfo()
-                {
-                   FileId = y.FileId,
-                   ParentFolderId = y.ParentFolderId,
-                   OwnerId = y.OwnerId,
-                   Name = y.Name,
-                   CreationDate = y.CreationDate,
-                   UploadDate = y.UploadDate,
-                   Size = y.Size,
-                   Type = y.Type,
-                   HasPublicAccess = y.HasPublicAccess,
+            IEnumerable<Contracts.FileInfo> files = _dbContext.Files.Where(t => t.Name.Contains(fileName) && t.OwnerId == ownerId)
+                 .Select(y => new Contracts.FileInfo()
+                 {
+                     FileId = y.FileId,
+                     ParentFolderId = y.ParentFolderId,
+                     OwnerId = y.OwnerId,
+                     Name = y.Name,
+                     CreationDate = y.CreationDate,
+                     UploadDate = y.UploadDate,
+                     Size = y.Size,
+                     Type = y.Type,
+                     HasPublicAccess = y.HasPublicAccess,
+                     ResizedImage = Convert.ToBase64String(y.ImageStorage)
                }).ToList(); 
 
             foreach (var file in  files)
@@ -521,6 +522,7 @@ namespace Logo.Implementation
                      Size = y.File.Size,
                      Type = y.File.Type,
                      HasPublicAccess = y.File.HasPublicAccess,
+                     ResizedImage = Convert.ToBase64String(y.File.ImageStorage)
                  }).ToList();
 
             foreach (var file in files)
@@ -531,17 +533,14 @@ namespace Logo.Implementation
             return files;
         }
 
-
         public void SetThumbnail(Guid fileId, byte[] resizedImage)
         {
             _dbContext.Files.Where(t => t.FileId == fileId)
                 .FirstOrDefault()
                 .ImageStorage = resizedImage;
 
-
             _dbContext.SaveChanges();
         }
-
 
     }
 }

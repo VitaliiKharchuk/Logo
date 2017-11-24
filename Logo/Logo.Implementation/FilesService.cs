@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using System.Collections.Concurrent;
-using System.Threading;
-
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
-
-using System.Linq;
-
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Logo.Contracts.Services;
@@ -96,7 +87,8 @@ namespace Logo.Implementation
             const int width = 306;
             const int height = 208;
             Configuration.Default.AddImageFormat(new JpegFormat());
-
+            Configuration.Default.AddImageFormat(new PngFormat());
+                      
             byte[] resizedImage = null;
 
             using (var output =  new MemoryStream())
@@ -105,7 +97,7 @@ namespace Logo.Implementation
                     .Resize(new ResizeOptions
                     {
                         Size = new Size(width, height),
-                        Mode = ResizeMode.Max
+                        Mode = ResizeMode.Crop
                     });
                 image.Save(output);
 
