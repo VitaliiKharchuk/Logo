@@ -221,7 +221,7 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });    // 
+                return Json(new { success = false, message = ex.Message });    
             }
 
 
@@ -251,8 +251,20 @@ namespace Logo.Web.Controllers
                                   .Select(item => item.Value)
                                   .FirstOrDefault());
 
+            try
+            {
 
-            return _foldersService.GetRootFiles(ownerId);
+                return _foldersService.GetRootFiles(ownerId);
+
+            }
+
+            catch(Exception ex)
+            {
+
+                return   null;
+            }
+
+
         }
 
 

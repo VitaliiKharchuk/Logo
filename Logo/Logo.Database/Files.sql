@@ -9,5 +9,5 @@
 	[Size] int,
 	[Type] int NOT NULL,
 	[HasPublicAccess] bit DEFAULT 0 NOT NULL, 
-    [ImageStorage] VARBINARY(2000) NULL
+    [ImageStorage] VARBINARY(MAX) NULL
 )

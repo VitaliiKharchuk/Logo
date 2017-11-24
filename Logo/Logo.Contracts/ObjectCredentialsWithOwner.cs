@@ -9,5 +9,6 @@ namespace Logo.Contracts
         public ObjectCredentials ObjectCredentials { get; set; }
 
         public Guid OwnerId { get; set; }
+
     }
 }
