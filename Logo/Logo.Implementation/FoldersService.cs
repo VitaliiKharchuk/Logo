@@ -384,7 +384,7 @@ namespace Logo.Implementation
                 Size = y.Size,
                 Type = y.Type,
                 HasPublicAccess = y.HasPublicAccess,
-                ResizedImage = y.ImageStorage
+                ResizedImage = Convert.ToBase64String(y.ImageStorage)
                
             }).ToList();
 
@@ -440,7 +440,7 @@ namespace Logo.Implementation
                     Size = y.Size,
                     Type = y.Type,
                     HasPublicAccess = y.HasPublicAccess,
-                    ResizedImage = y.ImageStorage
+                    ResizedImage = Convert.ToBase64String(y.ImageStorage)
                 }).ToList();
 
             foreach (var file in files)

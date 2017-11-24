@@ -12,17 +12,8 @@ using System.Linq;
 
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.RetryPolicies;
-
-
 using Logo.Contracts.Services;
 using Logo.Contracts;
-
-using ImageSharp;
-using ImageSharp.Colors.Spaces;
-
-
-using System.IO;
 using ImageSharp;
 using ImageSharp.Formats;
 using ImageSharp.Processing;
