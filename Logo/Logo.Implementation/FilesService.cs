@@ -28,6 +28,7 @@ namespace Logo.Implementation
 
         public async Task SimpleUploadStreamAsync( LoadedFileBack loadedFileBack )
         {
+            //loadedFileBack.Stream.Position = 0;
             var container = await GetContainerReference();
             var blockBlob = container.GetBlockBlobReference( loadedFileBack.FileNameInBlob.ToString());
 
@@ -84,8 +85,10 @@ namespace Logo.Implementation
     
         public byte []  ResizeImage(Stream input)
         {
+            //input.Position = 0;
             const int width = 306;
             const int height = 208;
+
             Configuration.Default.AddImageFormat(new JpegFormat());
             Configuration.Default.AddImageFormat(new PngFormat());
                       
@@ -97,7 +100,8 @@ namespace Logo.Implementation
                     .Resize(new ResizeOptions
                     {
                         Size = new Size(width, height),
-                        Mode = ResizeMode.Crop
+                        Mode = ResizeMode.Min,
+                       
                     });
                 image.Save(output);
 

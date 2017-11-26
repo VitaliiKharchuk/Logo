@@ -31,7 +31,7 @@ namespace Logo.Implementation.DatabaseModels
 
         public LogodbContext(DbContextOptions<LogodbContext> options)
             : base(options)
-        {
+        {     
         }
 
 

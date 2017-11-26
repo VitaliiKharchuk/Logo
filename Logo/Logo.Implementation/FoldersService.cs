@@ -5,7 +5,6 @@ using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Logo.Implementation
 {
@@ -47,17 +46,17 @@ namespace Logo.Implementation
                 throw new InvalidOperationException("Folder not found.");
             }
 
-            FolderInfo folderInfo = 
+            FolderInfo folderInfo =
                  new FolderInfo
                  {
-                    FolderId = folder.FolderId,
-                    OwnerId = folder.OwnerId,
-                    ParentFolderId = folder.ParentFolderId,
-                    Name = folder.Name,
-                    CreationDate = folder.CreationDate,
-                    UploadDate = folder.UploadDate,
-                    Level = folder.Level,
-                    HasPublicAccess = folder.HasPublicAccess,               
+                     FolderId = folder.FolderId,
+                     OwnerId = folder.OwnerId,
+                     ParentFolderId = folder.ParentFolderId,
+                     Name = folder.Name,
+                     CreationDate = folder.CreationDate,
+                     UploadDate = folder.UploadDate,
+                     Level = folder.Level,
+                     HasPublicAccess = folder.HasPublicAccess,
                  };
 
             folderInfo.TagList = _tagsService.GetFolderTags(folderId);
@@ -88,7 +87,7 @@ namespace Logo.Implementation
                 HasPublicAccess = file.HasPublicAccess
             };
 
-            fileInfo.TagList = _tagsService.GetFileTags( fileInfo.FileId);
+            fileInfo.TagList = _tagsService.GetFileTags(fileInfo.FileId);
 
             return fileInfo;
         }
@@ -111,7 +110,7 @@ namespace Logo.Implementation
                 if (rootFolder.Level == maxRootLevel)
                     throw new InvalidOperationException("Attachment  level  is  maximum");
             }
-            
+
             _dbContext.Add
                 (new Folder
                 {
@@ -125,7 +124,7 @@ namespace Logo.Implementation
                     HasPublicAccess = false
                 });
 
-            
+
             _dbContext.SaveChanges();
         }
 
@@ -139,17 +138,16 @@ namespace Logo.Implementation
 
             string fileExtention = Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name);
             if (
-                      fileExtention.Equals("." + FileExtentions.avi.ToString(),StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
-                   || fileExtention.Equals("." + FileExtentions.jpg.ToString(),StringComparison.InvariantCultureIgnoreCase)
+                      fileExtention.Equals("." + FileExtentions.avi.ToString(), StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
+                   || fileExtention.Equals("." + FileExtentions.jpg.ToString(), StringComparison.InvariantCultureIgnoreCase)
                    || fileExtention.Equals("." + FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase)
                    || fileExtention.Equals("." + FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals("." + FileExtentions.png.ToString(),StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals("." + FileExtentions.png.ToString(), StringComparison.InvariantCultureIgnoreCase)
                 )
 
             {
 
                 Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
-
                 _dbContext.Add
                     (new DatabaseModels.File
                     {
@@ -159,24 +157,23 @@ namespace Logo.Implementation
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
                         CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
                         UploadDate = DateTime.Now,
-                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,     
+                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
                         Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
-                        HasPublicAccess = false                                         
-                        
+                        HasPublicAccess = false,
+
+                        ImageStorage = null
                     });
 
                 _dbContext.SaveChanges();
 
                 _tagsService.CreateTagToFile(new TagsCredentials
-                { ObjectId = fileId,
+                {
+                    ObjectId = fileId,
                     Text = fileCredentialsWithOwner.ObjectCredentials.Tags
                 });
 
 
-                //byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
-                //MemoryStream fs = new MemoryStream(array);
 
-                
                 _dbContext.SaveChanges();
 
                 return fileId;
@@ -238,13 +235,14 @@ namespace Logo.Implementation
                 OwnerId = file.OwnerId
             };
 
-
             if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
             {
                 throw new InvalidOperationException("Folder with  or file with   this  name  already  exists.");
             }
 
-            _dbContext.Files.Where(f => f.FileId == updatedFile.ObjectId).FirstOrDefault().Name = updatedFile.updatedName;
+            _dbContext.Files
+                .Where(f => f.FileId == updatedFile.ObjectId)
+                .FirstOrDefault().Name = updatedFile.updatedName;
 
             _dbContext.SaveChanges();
         }
@@ -255,7 +253,7 @@ namespace Logo.Implementation
         public void DeleteFolder(Guid folderId)  //  need    recursive  deleting   
         {
             var folder = GetFolder(folderId);
-            
+
             List<FolderInfo> folders = GetFoldersInFolder(folderId).ToList();
             List<Contracts.FileInfo> files = GetFilesInFolder(folderId).ToList();
 
@@ -282,13 +280,13 @@ namespace Logo.Implementation
         }
 
 
-      
-        public void DeleteFile(Guid fileId)  
+
+        public void DeleteFile(Guid fileId)
         {
             _tagsService.DeleteTagsFromFile(fileId);
             _dbContext.SaveChanges();
 
-            var  file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
+            var file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
             _dbContext.Files.Remove(file);
 
             _dbContext.SaveChanges();
@@ -299,7 +297,7 @@ namespace Logo.Implementation
             return _dbContext.Folders
                    .Where(x => x.ParentFolderId.Equals(folderCredentialsWithOwner.ObjectCredentials.ParentObjectId)
                    && x.OwnerId.Equals(folderCredentialsWithOwner.OwnerId))
-                   .Any(s => s.Name.Equals(folderCredentialsWithOwner.ObjectCredentials.Name));
+                   .Any(x => x.Name.Equals(folderCredentialsWithOwner.ObjectCredentials.Name));
         }
 
         public bool IsParentContainseFile(ObjectCredentialsWithOwner objectCredentialsWithOwner)
@@ -307,7 +305,7 @@ namespace Logo.Implementation
             return _dbContext.Files
                    .Where(x => x.ParentFolderId.Equals(objectCredentialsWithOwner.ObjectCredentials.ParentObjectId)
                    && x.OwnerId.Equals(objectCredentialsWithOwner.OwnerId))
-                   .Any(s => s.Name.Equals(objectCredentialsWithOwner.ObjectCredentials.Name));
+                   .Any(x => x.Name.Equals(objectCredentialsWithOwner.ObjectCredentials.Name));
         }
 
         public IEnumerable<FolderInfo> GetAllFolders()   //only  for  testing
@@ -331,7 +329,7 @@ namespace Logo.Implementation
 
         public IEnumerable<Contracts.FileInfo> GetAllFiles()   //only  for  testing
         {
-            
+
             return _dbContext.Set<DatabaseModels.File>().Select(
                y => new Contracts.FileInfo()
                {
@@ -344,7 +342,7 @@ namespace Logo.Implementation
                    Size = y.Size,
                    Type = y.Type,
                    HasPublicAccess = y.HasPublicAccess,
-                  // TagList = _tagsService.GetFolderTags(y.FileId)
+                   // TagList = _tagsService.GetFolderTags(y.FileId)
                });
         }
 
@@ -352,7 +350,7 @@ namespace Logo.Implementation
 
         public IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId)
         {
-            IEnumerable <FolderInfo> folders = 
+            IEnumerable<FolderInfo> folders =
                 _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderId))
                 .Select(y => new FolderInfo()
                 {
@@ -363,11 +361,10 @@ namespace Logo.Implementation
                     CreationDate = y.CreationDate,
                     UploadDate = y.UploadDate,
                     Level = y.Level,
-                    HasPublicAccess = y.HasPublicAccess,   
-                    
+                    HasPublicAccess = y.HasPublicAccess
                 }).ToList();
 
-            foreach (var folder in  folders)
+            foreach (var folder in folders)
             {
                 folder.TagList = _tagsService.GetFolderTags(folder.FolderId);
             }
@@ -380,28 +377,35 @@ namespace Logo.Implementation
         {
 
             IEnumerable<Contracts.FileInfo> files =
-             _dbContext.Files.Where(x => x.ParentFolderId.Equals(folderId))
-                .Select(y => new Contracts.FileInfo()
-            {
-                FileId = y.FileId,
-                ParentFolderId = y.ParentFolderId,
-                OwnerId = y.OwnerId,
-                Name = y.Name,
-                CreationDate = y.CreationDate,
-                UploadDate = y.UploadDate,
-                Size = y.Size,
-                Type = y.Type,
-                HasPublicAccess = y.HasPublicAccess,
-                ResizedImage = Convert.ToBase64String(y.ImageStorage)
-               
-            }).ToList();
+                  
+                 _dbContext.Files.Where(x => x.ParentFolderId.Equals(folderId))
+                    .Select(y => new Contracts.FileInfo()
+                    {
+                        FileId = y.FileId,
+                        ParentFolderId = y.ParentFolderId,
+                        OwnerId = y.OwnerId,
+                        Name = y.Name,
+                        CreationDate = y.CreationDate,
+                        UploadDate = y.UploadDate,
+                        Size = y.Size,
+                        Type = y.Type,
+                        HasPublicAccess = y.HasPublicAccess,
+
+                        ResizedImage = y.ImageStorage == null ? "not  correct  image" :  Convert.ToBase64String(y.ImageStorage)
+
+                    }).ToList();
+
 
             foreach (var file in files)
             {
                 file.TagList = _tagsService.GetFileTags(file.FileId);
             }
 
-            return files; 
+
+
+
+
+            return files;
         }
 
 
@@ -410,7 +414,7 @@ namespace Logo.Implementation
 
             IEnumerable<FolderInfo> folders =
 
-            _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId)
+            _dbContext.Folders.Where(x => x.ParentFolderId == null && x.OwnerId == ownerId)
                 .Select(y => new FolderInfo()
                 {
                     FolderId = y.FolderId,
@@ -431,8 +435,8 @@ namespace Logo.Implementation
             return folders;
         }
 
-       public  IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
-       {
+        public IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
+        {
 
             IEnumerable<Contracts.FileInfo> files =
 
@@ -448,7 +452,7 @@ namespace Logo.Implementation
                     Size = y.Size,
                     Type = y.Type,
                     HasPublicAccess = y.HasPublicAccess,
-                    ResizedImage = Convert.ToBase64String(y.ImageStorage)
+                    ResizedImage =   y.ImageStorage == null ?   "not  correct  image" : Convert.ToBase64String(y.ImageStorage)
                 }).ToList();
 
             foreach (var file in files)
@@ -460,40 +464,34 @@ namespace Logo.Implementation
         }
 
 
-       public IEnumerable<ObjectCredentials> GetPathToRoot(Guid  FolderId)
-       {
+        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId)
+        {
             List<ObjectCredentials> parentList = new List<ObjectCredentials>();
 
             FolderInfo folderInfo = GetFolder(FolderId);
 
-            parentList.Add(new ObjectCredentials
+
+
+            while (folderInfo.ParentFolderId != null)
             {
-                Name = folderInfo.Name,
-                ParentObjectId = folderInfo.ParentFolderId
-            });
-
-
-            while(folderInfo.ParentFolderId !=  null)
-            {
-
-                FolderInfo parentFolder = GetFolder((Guid) folderInfo.ParentFolderId);
                 parentList.Add(new ObjectCredentials
                 {
-                    Name = parentFolder.Name,
-                    ParentObjectId = parentFolder.FolderId
+                    Name = folderInfo.Name,
+                    ParentObjectId = folderInfo.FolderId
                 });
 
-                folderInfo = parentFolder; 
-
+                folderInfo = GetFolder((Guid)folderInfo.ParentFolderId);
 
             }
 
-            return parentList;       
-       }
+            return parentList;
+        }
 
         public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName, Guid ownerId)
         {
-            IEnumerable<Contracts.FileInfo> files = _dbContext.Files.Where(t => t.Name.Contains(fileName) && t.OwnerId == ownerId)
+            IEnumerable<Contracts.FileInfo> files = _dbContext
+                .Files
+                .Where(t => t.Name.Contains(fileName) && t.OwnerId == ownerId)
                  .Select(y => new Contracts.FileInfo()
                  {
                      FileId = y.FileId,
@@ -505,10 +503,10 @@ namespace Logo.Implementation
                      Size = y.Size,
                      Type = y.Type,
                      HasPublicAccess = y.HasPublicAccess,
-                     ResizedImage = Convert.ToBase64String(y.ImageStorage)
-               }).ToList(); 
+                     ResizedImage = y.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.ImageStorage)
+                 }).ToList();
 
-            foreach (var file in  files)
+            foreach (var file in files)
             {
                 file.TagList = _tagsService.GetFileTags(file.FileId);
             }
@@ -530,7 +528,7 @@ namespace Logo.Implementation
                      Size = y.File.Size,
                      Type = y.File.Type,
                      HasPublicAccess = y.File.HasPublicAccess,
-                     ResizedImage = Convert.ToBase64String(y.File.ImageStorage)
+                     ResizedImage = y.File.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.File.ImageStorage)
                  }).ToList();
 
             foreach (var file in files)
@@ -548,6 +546,11 @@ namespace Logo.Implementation
                 .ImageStorage = resizedImage;
 
             _dbContext.SaveChanges();
+        }
+
+        public  Guid  GenerateGuid()
+        {
+            return Guid.NewGuid();
         }
 
     }

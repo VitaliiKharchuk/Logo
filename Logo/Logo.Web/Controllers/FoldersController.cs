@@ -82,16 +82,17 @@ namespace Logo.Web.Controllers
         [Route("get-files/{id?}")]
         public IEnumerable<FileInfo> GetFilesContent(Guid id)
         {
-            if (id == default(Guid))
-            {
-                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                      .Where(item => item.Type == "UserId")
-                                      .Select(item => item.Value)
-                                      .FirstOrDefault());
+                if (id == default(Guid))
+                {
+                    Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                          .Where(item => item.Type == "UserId")
+                                          .Select(item => item.Value)
+                                          .FirstOrDefault());
 
 
-                return _foldersService.GetRootFiles(ownerId);
-            }
+                    return _foldersService.GetRootFiles(ownerId);
+                }
+            
 
             return _foldersService.GetFilesInFolder(id);
         }
@@ -251,11 +252,11 @@ namespace Logo.Web.Controllers
                                   .Select(item => item.Value)
                                   .FirstOrDefault());
 
-            try
-            {
-
+           
                 return _foldersService.GetRootFiles(ownerId);
 
+
+                /*
             }
 
             catch(Exception ex)
@@ -263,7 +264,7 @@ namespace Logo.Web.Controllers
 
                 return   null;
             }
-
+            */
 
         }
 
