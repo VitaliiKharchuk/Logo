@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response, ResponseContentType } from '@angular/http';
 import { Folder } from './folder';
 import { TagsInfo } from './tagsInfo';
 import { FolderNameWithParentFolderId } from './folderNameWithParentFolderId';
@@ -12,6 +12,15 @@ export class HomeService {
 
   constructor(private http: Http) { }
 
+  search(textToSearh: string, typeFileSearch: boolean) {
+    if (typeFileSearch) {
+      return this.http.get('/api/folders/search-name/' + textToSearh, this.jwt()).map(this.extractData);
+    }
+    else {
+      return this.http.get('/api/folders/search-tag/' + textToSearh, this.jwt()).map(this.extractData);
+    }
+  }
+
   //menu
   createfolder(folderName: string, parentFolderId: string) {
     let folderNameWithParentFolderId: FolderNameWithParentFolderId = {
@@ -21,7 +30,7 @@ export class HomeService {
     return this.http.post('/api/folders/add-folder', folderNameWithParentFolderId, this.jwt()).map(this.extractData);
   }
 
-  uploadFile(input: FormData){
+  uploadFile(input: FormData) {
     return this.http.post('/api/files/upload-request', input, this.jwt()).map(this.extractData);
   }
 
@@ -71,6 +80,9 @@ export class HomeService {
     return this.http.post('/api/folders/add-file-tag', tagsInfo, this.jwt()).map(this.extractData);
   }
 
+  downloadFile(fileId: string){
+    return this.http.get('/api/files/download-file' + fileId, this.jwtWithResponceContentType()).map(this.extractData);    
+  }
 
   //initial requests
   loadRootFolders() {
@@ -90,11 +102,11 @@ export class HomeService {
   }
 
   loadBreadcrumbs(id: string) {
-    return this.http.get('api/folders/get-path-to-root/' + id, this.jwt()).map(this.extractData);    
+    return this.http.get('api/folders/get-path-to-root/' + id, this.jwt()).map(this.extractData);
   }
 
-  private extractData(res: Response) {        
-    return res.text() ? res.json() : {}; ;
+  private extractData(res: Response) {
+    return res.text() ? res.json() : {};;
   }
 
   private jwt() {
@@ -104,6 +116,19 @@ export class HomeService {
       let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
       headers.append('Accept', 'application/json');
       return new RequestOptions({ headers: headers });
+    }
+  }
+
+  private jwtWithResponceContentType() {
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.token) {
+      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');      
+      return new RequestOptions({ 
+        responseType: ResponseContentType.Blob,
+        headers: headers });
     }
   }
 }

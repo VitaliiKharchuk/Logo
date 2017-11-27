@@ -8,4 +8,5 @@ export class FileCustom {
     hasPublicAccess: boolean;
     tagList: string[];
     resizedImage: string;
+    size: any;
 }

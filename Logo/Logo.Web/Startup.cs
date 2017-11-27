@@ -44,7 +44,8 @@ namespace Logo.Web
                     options.TokenValidationParameters.ValidAudience = "http://logo-service.azurewebsites.net/";
                     options.TokenValidationParameters.ValidIssuer = "Logo";
                     options.TokenValidationParameters.ValidateIssuerSigningKey = true;
-
+                    options.TokenValidationParameters.RequireExpirationTime = false;
+                    options.TokenValidationParameters.ValidateLifetime = false;
                     options.TokenValidationParameters.ValidateIssuer = true;
                     options.TokenValidationParameters.ValidateAudience = true;
 
