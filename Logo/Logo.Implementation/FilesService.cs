@@ -85,7 +85,6 @@ namespace Logo.Implementation
     
         public byte []  ResizeImage(Stream input)
         {
-            //input.Position = 0;
             const int width = 306;
             const int height = 208;
 

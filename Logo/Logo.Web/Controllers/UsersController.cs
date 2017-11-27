@@ -110,7 +110,7 @@ namespace Logo.Web.Controllers
 
                 else
                 {
-                    throw new InvalidOperationException("Not  correct  credentials");
+                    throw new InvalidOperationException("Не верный  логин или пароль");
                 }
             }
 
