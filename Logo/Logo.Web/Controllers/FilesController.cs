@@ -36,6 +36,8 @@ namespace Logo.Web.Controllers
         public IActionResult DownloadedFile(Guid fileId)
         {
             byte[] arr = null;
+            Contracts.FileInfo fileInfo = null;
+
             try
             {
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
@@ -43,7 +45,7 @@ namespace Logo.Web.Controllers
                                       .Select(item => item.Value)
                                       .FirstOrDefault());
 
-                Contracts.FileInfo fileInfo = _foldersService.GetFile(fileId);
+                fileInfo = _foldersService.GetFile(fileId);
 
                 arr = _filesService.SimpleDownloadAsync(fileId.ToString()).GetAwaiter().GetResult();
 
@@ -56,14 +58,81 @@ namespace Logo.Web.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
 
-            
+            string contentType = String.Format("application/{0}", _foldersService.GetFileExstention(fileInfo.Name));
+            HttpContext.Response.ContentType = contentType;
+            FileContentResult result = new FileContentResult(arr, contentType)
+            {
+                FileDownloadName = fileInfo.Name
+            };
+
+            /*
             ObjectResult objectResult = new ObjectResult(arr)
             {
-                StatusCode = (int)HttpStatusCode.OK
+                StatusCode = (int)HttpStatusCode.OK, 
             };
 
             return objectResult;
+            */
+
+            return result;
+
+        }        
+        [HttpPost]
+        [Route("upload-request")]
+        public  async Task <IActionResult> Upload(LoadedFileUI file)
+        {                
+            try
+            {
+                if (file == null) throw new Exception("Не  выбран  файл");
+                if (file.FileContent.Length == 0) throw new Exception("Файл  пустой");
+
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                    .Where(item => item.Type == "UserId")
+                                    .Select(item => item.Value)
+                                    .FirstOrDefault());
+
+                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
+                {
+                    OwnerId = ownerId,
+                    ObjectCredentials = new ObjectCredentials
+                    {
+                        Name = file.FileContent.FileName,
+                        ParentObjectId = file.ParentFolderId,
+                        CreationDate = DateTime.Now,
+                        Size = file.FileContent.Length,
+                        Tags = file.Tags
+                    }
+   
+                });
+
+                using (Stream stream = new MemoryStream())
+                {
+                    await file.FileContent.OpenReadStream().CopyToAsync(stream);
+
+                    stream.Position = 0;
+                    await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
+                    {
+                        Stream = stream,
+                        FileNameInBlob = fileId
+                    });
+
+                    stream.Position = 0;
+                    byte[] resizedImage = _filesService.ResizeImage(stream);
+
+                    _foldersService.SetThumbnail(fileId, resizedImage);
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = true, fileName = file.FileContent.FileName });
         }
+
+
 
         /*
         
@@ -122,59 +191,5 @@ namespace Logo.Web.Controllers
         }
         */
 
-            [HttpPost]
-            [Route("upload-request")]
-            public  async Task <IActionResult> Upload(LoadedFileUI file)
-            {
-                
-                try
-                {
-                    if (file == null) throw new Exception("Не  выбран  файл");
-                    if (file.FileContent.Length == 0) throw new Exception("Файл  пустой");
-
-                    Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                        .Where(item => item.Type == "UserId")
-                                        .Select(item => item.Value)
-                                        .FirstOrDefault());
-
-                    Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
-                    {
-                        OwnerId = ownerId,
-                        ObjectCredentials = new ObjectCredentials
-                        {
-                            Name = file.FileContent.FileName,
-                            ParentObjectId = file.ParentFolderId,
-                            CreationDate = DateTime.Now,
-                            Size = file.FileContent.Length,
-                            Tags = file.Tags
-                        }
-                    });
-
-                    using (Stream stream = new MemoryStream())
-                    {
-                        await file.FileContent.OpenReadStream().CopyToAsync(stream);
-
-                        stream.Position = 0;
-                        await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
-                        {
-                            Stream = stream,
-                            FileNameInBlob = fileId
-                        });
-
-                        stream.Position = 0;
-                        byte[] resizedImage = _filesService.ResizeImage(stream);
-
-                        _foldersService.SetThumbnail(fileId, resizedImage);
-                    }
-                }
-
-
-                catch (Exception ex)
-                {
-                    return Json(new { success = false, message = ex.Message });
-                }
-           
-                 return Ok();
-            }
-        }
     }
+}
