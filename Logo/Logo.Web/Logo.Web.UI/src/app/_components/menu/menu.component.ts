@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, Input, EventEmitter, } from '@angular/core';
 import { FolderNameWithParentFolderId } from '../home/folderNameWithParentFolderId';
 import { HomeService } from '../home/home.service';
+import { SearchModel } from './searchModel';
+import { SortType } from './sortType';
 import { UserInfoWithToken, UserInfo } from '../login/user';
 
 @Component({
@@ -11,11 +13,16 @@ import { UserInfoWithToken, UserInfo } from '../login/user';
 export class MenuComponent implements OnInit {
 
   currentUser: UserInfo;
-  @Output()
-  toggleGridEvent = new EventEmitter<boolean>();
+  @Output() toggleGridEvent = new EventEmitter<boolean>();
+  @Output() refreshEvent = new EventEmitter<any>();
+  @Output() toggleSearchEvent = new EventEmitter<SearchModel>();
+  @Output() sortEvent = new EventEmitter<SortType>();
   grid = true;
   @Input() folderId: string;
   breadcrumbs: FolderNameWithParentFolderId[] = [];
+  fileSearch: boolean = true;
+  SortType: typeof SortType = SortType;
+  sortValue: SortType;
 
   constructor(private homeService: HomeService,
   ) {
@@ -68,5 +75,32 @@ export class MenuComponent implements OnInit {
     this.grid = false;
     this.toggleGridEvent.emit(false);
     localStorage.setItem('grid', JSON.stringify(this.grid))
+  }
+
+  toggleFileSearch(): void {
+    this.fileSearch = true;
+  }
+
+  toggleTagSearch(): void {
+    this.fileSearch = false;
+  }
+
+  search(searchInput: string): void {
+    let searchModel: SearchModel = {
+      text: searchInput,
+      fileTypeSearch: this.fileSearch
+    }
+
+    this.toggleSearchEvent.emit(searchModel);
+  }
+
+  refresh(): void {
+    this.refreshEvent.emit();
+  }
+
+  setType(value: string) {
+    this.sortValue = SortType[value];
+    console.log(this.sortValue)
+    this.sortEvent.emit(SortType[value]);
   }
 }

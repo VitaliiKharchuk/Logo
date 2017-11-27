@@ -1,102 +1,127 @@
 <nav class="navbar-fixed-top navcustom">
   <span class="for-scroll">
-  <div>
-    <span class="navbar-brand">LOGO</span>
-  </div>
-  <div class="navbar-left">
-    <form class="navbar-form" role="search">
-      <div class="input-group search-group">
-        <div class="input-group-btn">
-          <button type="button" class="btn search-buttons">  
-              <img src="assets\icons\search.svg" width="20" height="20">
-          </button>
-        </div>
-        <input type="text" class="form-control search-holder" placeholder="Поиск файлов">
-        <div class="input-group-btn">
-          <button type="button" class="btn search-buttons dropdown-toggle" data-toggle="dropdown">
-              <span><img src="assets\icons\next.svg" width="15" height="15" class="rotateimg90"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <a class="droplist-el" href="#">
-                  <span class="droplist-el">Поиск по файлам</span>
-              </a>
-            </li>
-            <li>
-              <a class="droplist-el" href="#">
-                <span class="droplist-el">Поиск по тегам</span>
-                </a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </form>
-  </div>
-  <ul class="nav navbar-nav navbar-right">
-
-    <li *ngIf="currentUser" class="text-name right-block">{{currentUser.name}}</li>
-    <li>
-      <div>
-        <div class="img-color-circle right-block"><img src="assets\img\user.svg" class="img-circle"></div>
-      </div>
-    </li>
-    <li>
-      <div class="logout right-block">
-
-        <a [routerLink]="['/login']" class="link">
-          <span><img src="assets\icons\next.svg" width="30" height="30"></span>
-        </a>
-
-      </div>
-    </li>
-
-  </ul>
-  <div class="bottom-navbar">
     <div>
-      <div class="navbar-left">
-        <div class="text-myfiles">
-            <a [routerLink]="['']" class="breadcrumps-link">Мои файлы</a>
-          <span *ngFor="let item of breadcrumbs">
-              <img src="assets\icons\next.svg" class="img-breadcrumbs">
-              <a [routerLink]="['', item.parentObjectId]" class="breadcrumps-link">{{item.name}}</a>
-          </span>
+      <span class="navbar-brand">LOGO</span>
+    </div>
+    <div class="navbar-left">
+      <form class="navbar-form" role="search">
+        <div class="input-group search-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn search-buttons" (click)="search(serchInput.value)">
+              <img src="assets\icons\search.svg" width="20" height="20">
+            </button>
+          </div>
+          <input type="text" class="form-control search-holder" placeholder="Поиск файлов" #serchInput>
+          <div class="input-group-btn">
+            <button type="button" class="btn search-buttons dropdown-toggle" data-toggle="dropdown">
+              <span>
+                <img src="assets\icons\next.svg" width="15" height="15" class="rotateimg90">
+              </span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a class="droplist-el" (click)="toggleFileSearch()" [ngClass]="{'droplist-el-selected': fileSearch}">
+                  <span>Поиск по файлам</span>
+                </a>
+              </li>
+              <li>
+                <a class="droplist-el border" (click)="toggleTagSearch()" [ngClass]="{'droplist-el-selected': !fileSearch}">
+                  <span>Поиск по тегам</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
         </div>
-      </div>
+      </form>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><button class="access-params">Настройки доступа</button></li>
-      <li class="text-right">Сортировка
-        <button type="button" class="btn sort-button dropdown-toggle" data-toggle="dropdown">
-          <span><img src="assets\icons\next.svg" width="15" height="15" class="rotateimg90"></span>
-      </button>
-        <div class="dropdown-menu">
-          <li>
-            <a class="droplist-el" href="#">
-                <span class="droplist-el">По дате создания</span>
-                </a>
-          </li>
-          <li>
-            <a class="droplist-el" href="#">
-              <span class="droplist-el">По дате добавления</span>
-              </a>
-          </li>
-          <li>
-              <a class="droplist-el" href="#">
-              <span class="droplist-el">По размеру</span>
-              </a>
-            </li>
+
+      <li *ngIf="currentUser" class="text-name right-block">{{currentUser.name}}</li>
+      <li>
+        <div>
+          <div class="img-color-circle right-block">
+            <img src="assets\img\user.svg" class="img-circle">
+          </div>
         </div>
       </li>
       <li>
-        <div class="divicons">
-          <span class="icons" (click)="toggleList()"><img *ngIf="!grid" src="assets\icons\list.svg" width="30" height="30"><img *ngIf="grid" src="assets\icons\list-light.svg" width="30" height="30"></span>
-          <span class="icons" (click)="toggleGrid()"><img *ngIf="grid" src="assets\icons\tile.svg" width="30" height="30"><img *ngIf="!grid" src="assets\icons\tile-light.svg" width="30" height="30"></span>
+        <div class="logout right-block">
+
+          <a [routerLink]="['/login']" class="link">
+            <span>
+              <img src="assets\icons\next.svg" width="30" height="30">
+            </span>
+          </a>
+
         </div>
       </li>
+
     </ul>
-  </div>
-</span>
+    <div class="bottom-navbar">
+      <div>
+        <div class="navbar-left">
+          <div class="text-myfiles">
+            <a [routerLink]="['']" class="breadcrumps-link" (click)="refresh()">Мои файлы</a>
+            <span *ngFor="let item of breadcrumbs">
+              <img src="assets\icons\next.svg" class="img-breadcrumbs">
+              <a [routerLink]="['', item.parentObjectId]" class="breadcrumps-link">{{item.name}}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="access-params">Настройки доступа</button>
+        </li>
+        <li>
+          <div class="vertLine-l">
+          </div>
+        </li>
+        <li class="text-right">Сортировка
+          <button type="button" class="btn sort-button dropdown-toggle" data-toggle="dropdown">
+            <span>
+              <img src="assets\icons\next.svg" width="15" height="15" class="rotateimg90">
+            </span>
+          </button>
+          <div class="dropdown-menu">
+            <li>
+              <a class="droplist-el" [ngClass]="{'droplist-el-selected': sort === creationDate}" (click)="setType(SortType[SortType.creationDate])">
+                <span>По дате создания</span>
+              </a>
+            </li>
+            <li>
+              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': sort === uploadDate}" (click)="setType(SortType[SortType.uploadDate])">
+                <span>По дате добавления</span>
+              </a>
+            </li>
+            <li>
+              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': sort === size}" (click)="setType(SortType[SortType.size])">
+                <span>По размеру</span>
+              </a>
+            </li>
+          </div>
+        </li>
+        <li>
+          <div class="vertLine-r">
+          </div>
+        </li>
+        <li>
+          <div class="divicons">
+            <span class="icons" (click)="toggleList()">
+              <img *ngIf="!grid" src="assets\icons\list.svg" width="30" height="30">
+              <img *ngIf="grid" src="assets\icons\list-light.svg" width="30" height="30">
+            </span>
+            <span class="icons" (click)="toggleGrid()">
+              <img *ngIf="grid" src="assets\icons\tile.svg" width="30" height="30">
+              <img *ngIf="!grid" src="assets\icons\tile-light.svg" width="30" height="30">
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </span>
 </nav>
 <!-- <div id="header">
     Haha, I am a header. Nah.. Nah na na na

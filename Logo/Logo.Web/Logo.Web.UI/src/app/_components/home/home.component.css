@@ -112,7 +112,7 @@
 }
 
 .button-group-right{
-    padding-left: 40px;
+
     padding-top: 67px;
 }
 
@@ -276,6 +276,7 @@
     letter-spacing: 1px;
     font-size: 1.2em;
     overflow: hidden;
+    text-overflow: ellipsis !important; 
     max-width: 230px;
 }
 
@@ -287,6 +288,9 @@
     box-sizing: border-box; /* Ширина блока с полями */
     box-shadow: 0px 3px 4px 0px #b9b9b9;
     overflow: hidden;
+    text-overflow: ellipsis !important; 
+    word-wrap: break-word;
+    white-space: nowrap;
 }
 
 .folder-list{
@@ -298,6 +302,9 @@
     box-shadow: 0px 3px 4px 0px #b9b9b9;
     padding: 0px;
     overflow: hidden;
+    text-overflow: ellipsis !important; 
+    word-wrap: break-word;
+    white-space: nowrap;
 }
 
 .folder-grid-item{
@@ -307,6 +314,10 @@
     letter-spacing: 1px;
     font-size: 1.2em;
     overflow: hidden;
+    text-overflow: ellipsis !important; 
+    word-wrap: break-word;
+    height: 63px;
+    white-space: nowrap;
 }
 
 .just-for-padding{
@@ -365,4 +376,96 @@
     letter-spacing: 1px;
     font-size: 1em;
     text-align: left !important;
+}
+
+.col-xs-3 {
+    width: 20% !important;
+}
+
+.carousel{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #e8e9ec; 
+    z-index: 1090;
+    outline: 0;
+    vertical-align: middle;
+    
+}
+
+.cancel-area{
+    margin-top: 0;
+    margin-bottom: auto;
+    border: 2px solid black;
+    width: 100%;    
+    height: 20%;
+    float: right
+}
+
+.cancel-button{
+    margin: 40px;
+    height: 40px;
+    width: 40px; 
+}
+
+.fill { 
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center
+}
+
+.whiteblock {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    width: 400px;
+    height: 500px;
+    -moz-box-sizing: border-box; /* Для Firefox */  
+    box-sizing: border-box; /* Ширина блока с полями */
+    box-shadow: 0px 3px 4px 0px #b9b9b9;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.navigation-left-area{
+    top: 0;
+    border: 2px solid black;
+    width: 20%;
+    height: 100%;
+    float: left
+}
+
+.navigation-right-area{
+    border: 2px solid black;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 0;
+    height: 80%;
+    float: right;
+}
+
+.left-button{
+    height: 40px;
+    width: 40px;
+}
+
+.rotateimg180 {
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.right-button{
+    height: 40px;
+    width: 40px;
+}
+
+.right-side{
+    border: 2px solid black;    
+    width: 20%;    
+    float: right; 
+    height: 100%;    
 }

@@ -16,14 +16,13 @@ import { AuthentificationService } from './_components/login/authentification.se
 import { HomeService } from './_components/home/home.service';
 import { DataComponent } from './_components/data/data.component';
 import { DataService } from './_components/data/data.service';
-import { BreadcrumbsComponent } from './_components/breadcrumbs/breadcrumbs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
 
 @NgModule({
     declarations: [
-        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent, BreadcrumbsComponent
+        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent
     ],
     imports: [
         BrowserModule,

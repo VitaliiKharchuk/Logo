@@ -159,7 +159,7 @@ namespace Logo.Web.Controllers
                     {
                         Name = file.FileContent.FileName,
                         ParentObjectId = file.ParentFolderId,
-                        CreationDate = file.CreationDate,
+                        CreationDate = DateTime.Now,
                         Size = file.FileContent.Length,
                         Tags = file.Tags
                     }

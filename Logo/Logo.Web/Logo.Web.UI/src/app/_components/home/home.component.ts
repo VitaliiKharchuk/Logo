@@ -6,9 +6,11 @@ import { FileCustom } from './file';
 import { UserInfoWithToken } from '../login/user';
 import { HomeService } from './home.service';
 import { Observable } from 'rxjs/Observable';
+import { SortType } from '../menu/sortType';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NotificationsService } from 'angular2-notifications';
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -46,8 +48,12 @@ export class HomeComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true,
         clickIconToClose: true,
-        lastOnBottom: true
+        lastOnBottom: true,
+        maxLength: 500
     }
+    SortType: typeof SortType = SortType;
+    order: any;
+    showImage: boolean = false;
 
     constructor(private homeService: HomeService,
         private router: Router,
@@ -72,18 +78,18 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
-                    this.pushErrorNotification('Загрузка папок прошла неуспешно' + data.message)
+                    this.pushErrorNotification('Загрузка папок прошла неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Loading root folders successfull');
-                    this.pushSuccessNotification('Загрузка папок прошла успешно')
+                    this.pushSuccessNotification('Загрузка папок прошла успешно.')
                 }
                 this.folders = data as Folder[];
             },
             error => {
                 //show info about error
                 this.pushErrorNotification('Загрузка папок прошла неуспешно')
-                console.log('Loading root folders unsuccessfull');
+                console.log('Loading root folders unsuccessfull.');
             });
 
 
@@ -94,8 +100,8 @@ export class HomeComponent implements OnInit {
             data => {
                 this.files = data as FileCustom[];
                 for (let file of this.files) {
-                    if (this.checkIfJpg(file.name) == true) { 
-                        file.resizedImage = 'data:image/jpg;base64,' + file.resizedImage; 
+                    if (this.checkIfJpg(file.name) == true) {
+                        file.resizedImage = 'data:image/jpg;base64,' + file.resizedImage;
                     }
                     else {
                         file.resizedImage = 'data:image/png;base64,' + file.resizedImage;
@@ -103,15 +109,17 @@ export class HomeComponent implements OnInit {
                 }
                 if (!data.success && data.message) {
                     console.log(data.message)
+                    this.pushErrorNotification('Загрузка файлов прошла неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Loading root files successfull');
-
+                    this.pushSuccessNotification('Загрузка файлов прошла успешно.')
                 }
             },
             error => {
                 //show info about error
                 console.log('Loading root files unsuccessfull');
+                this.pushErrorNotification('Загрузка файлов прошла неуспешно.')
             });
 
 
@@ -124,20 +132,19 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
-                    this.pushErrorNotification('Создание папки прошло неуспешно' + data.message)
+                    this.pushErrorNotification('Создание папки прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Creating folder successfull', data);
-                    this.pushSuccessNotification('Создание папки прошло успешно')
+                    this.pushSuccessNotification('Создание папки прошло успешно.')
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
-                this.loadRootFolders();
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
-                this.pushErrorNotification('Создание папки прошло неуспешно')
+                this.pushErrorNotification('Создание папки прошло неуспешно.')
             });
     }
 
@@ -145,33 +152,35 @@ export class HomeComponent implements OnInit {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
-            let formData: FormData = new FormData();
-            formData.append('FileContent', fi.files[_i]);
-            formData.append('CreationDate', fi.files[_i].lastModifiedDate);
-            formData.append('ParentFolderId', null);
-            formData.append('Tags', this.uploadFiles[_i].hashtag);
-            console.log('name file', fi.files[_i].name);
+            if (this.checkIfValid(fi.files[_i])) {
+                let formData: FormData = new FormData();
+                formData.append('FileContent', fi.files[_i]);
+                formData.append('CreationDate', fi.files[_i].lastModifiedDate);
+                formData.append('ParentFolderId', null);
+                formData.append('Tags', this.uploadFiles[_i].hashtag);
+                let creationDate = new Date(fi.files[_i].lastModifiedDate);
 
-            this.homeService.uploadFile(formData)
-                .subscribe(
-                data => {
-                    if (!data.success && data.message) {
-                        console.log(data.message)
-                        this.pushErrorNotification('Загрузка файла прошло неуспешно' + data.message)
-                    }
-                    else {
-                        console.log('upload file success');
-                        this.pushSuccessNotification('Загрузка файла прошло успешно')
-                    }
-                    this.closeUploadFileModal.nativeElement.click();
-                    this.loadRootFiles();
-                },
-                error => {
-                    this.loadRootFiles();
-                    console.log('Cant upload file', error);
-                    this.closeUploadFileModal.nativeElement.click();
-                    this.pushErrorNotification('Загрузка файла прошло неуспешно')
-                });
+                this.homeService.uploadFile(formData)
+                    .subscribe(
+                    data => {
+                        if (!data.success && data.message) {
+                            console.log(data.message)
+                            this.pushErrorNotification('Загрузка файла ' + data.name +' прошла неуспешно. ' + data.message)
+                            console.log('name file',fi.files[0], _i);                            
+                        }
+                        else {
+                            console.log('upload file success');
+                            this.pushSuccessNotification('Загрузка файла' + data.name +' прошла успешно.')
+                        }
+                        this.closeUploadFileModal.nativeElement.click();
+                        this.loadRootFiles();
+                    },
+                    error => {
+                        console.log('Cant upload file', error);
+                        this.closeUploadFileModal.nativeElement.click();
+                        this.pushErrorNotification('Загрузка файла прошла неуспешно.')
+                    });
+            }
         }
     }
 
@@ -183,20 +192,19 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
-                    this.pushErrorNotification('Переименование папки прошло неуспешно' + data.message)
+                    this.pushErrorNotification('Переименование папки прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Renaming folder successfull for ', folderId);
-                    this.pushSuccessNotification('Переименование папки прошло успешно')
+                    this.pushSuccessNotification('Переименование папки прошло успешно.')
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadRootFolders();
             },
             error => {
-                this.loadRootFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
-                this.pushErrorNotification('Переименование папки прошло неуспешно')
+                this.pushErrorNotification('Переименование папки прошло неуспешно.')
             });
     }
 
@@ -207,9 +215,11 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
+                    this.pushErrorNotification('Удаление папки прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Delete folder successfull');
+                    this.pushSuccessNotification('Удаление папки прошло успешно.')
                 }
                 this.closeDeleteFolderModal.nativeElement.click();
                 this.loadRootFolders();
@@ -217,7 +227,7 @@ export class HomeComponent implements OnInit {
             error => {
                 this.closeDeleteFolderModal.nativeElement.click();
                 console.log('Cant delete folder');
-                this.loadRootFolders();
+                this.pushErrorNotification('Удаление папки прошло неуспешно.')
             });
     }
 
@@ -228,9 +238,11 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
+                    this.pushErrorNotification('Добавление тегов прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Add tags successfull');
+                    this.pushSuccessNotification('Добавление тегов прошло успешно.')
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadRootFolders();
@@ -238,6 +250,7 @@ export class HomeComponent implements OnInit {
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
+                this.pushErrorNotification('Добавление тегов прошло неуспешно.')
             });
     }
 
@@ -250,20 +263,19 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
-                    this.pushErrorNotification('Переименование файла прошло неуспешно' + data.message)
+                    this.pushErrorNotification('Переименование файла прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Renaming file successfull for ', fileId);
-                    this.pushSuccessNotification('Переименование файла прошло успешно')
+                    this.pushSuccessNotification('Переименование файла прошло успешно.')
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadRootFiles()
             },
             error => {
-                this.loadRootFiles()
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
-                this.pushErrorNotification('Переименование файла прошло неуспешно')
+                this.pushErrorNotification('Переименование файла прошло неуспешно.')
             });
     }
 
@@ -274,9 +286,11 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
+                    this.pushErrorNotification('Удаление файла прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Delete file successfull');
+                    this.pushSuccessNotification('Удаление файла прошло успешно.')
                 }
                 this.closeDeleteFileModal.nativeElement.click();
                 this.loadRootFiles()
@@ -284,7 +298,7 @@ export class HomeComponent implements OnInit {
             error => {
                 this.closeDeleteFileModal.nativeElement.click();
                 console.log('Cant delete file');
-                this.loadRootFiles()
+                this.pushErrorNotification('Удаление файла прошло неуспешно.')
             });
     }
 
@@ -295,9 +309,11 @@ export class HomeComponent implements OnInit {
             data => {
                 if (!data.success && data.message) {
                     console.log(data.message)
+                    this.pushErrorNotification('Добавление тегов прошло неуспешно. ' + data.message)
                 }
                 else {
                     console.log('Add tags successfull');
+                    this.pushSuccessNotification('Добавление тегов прошло успешно.')
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadRootFiles()
@@ -305,6 +321,7 @@ export class HomeComponent implements OnInit {
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
+                this.pushErrorNotification('Добавление тегов прошло неуспешно.')
             });
     }
 
@@ -346,13 +363,50 @@ export class HomeComponent implements OnInit {
     }
 
     callDownload(fileId: string) {
-
+        this.homeService.downloadFile(fileId)
+            .subscribe(
+            data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                    this.pushErrorNotification('Скачивание файла прошло неуспешно. ' + data.message)
+                }
+                else {
+                    console.log('Download successfull');
+                    this.pushErrorNotification('Скачивание файла прошло успешно. ')
+                    var blob = new Blob([data.blob()], {type: 'application/pdf'});
+                    var filename = 'file.jpg';
+                    saveAs(blob, filename);
+                }
+            },
+            error => {
+                console.log('Cant download');
+                this.pushErrorNotification('Скачивание файла прошло неуспешно.')
+            });
     }
 
     openDeleteFileModal(fileId: string) {
         document.getElementById("openDeleteFileModalButton").click();
         console.log('modal for deleting open ', fileId);
         this.selectedObjectId = fileId;
+    }
+
+    search(searchModel) {
+        this.homeService.search(searchModel.text, searchModel.fileTypeSearch)
+            .subscribe(
+            data => {
+                if (!data.success && data.message) {
+                    console.log(data.message)
+                }
+                else {
+                    console.log('seacrh successfull');
+                }
+                this.files = data as FileCustom[];
+                this.folders = [];
+            },
+            error => {
+                this.closeAddTagFileModal.nativeElement.click();
+                console.log('Cant search');
+            });
     }
 
     toggleGrid(res) {
@@ -362,9 +416,9 @@ export class HomeComponent implements OnInit {
     moveToSelectedFolder(folderId, folderName) {
         this.router.navigate(['', folderId]);
     }
+
     onChange(fileInput: any[]) {
         this.uploadFiles = fileInput;
-        console.log(this.uploadFiles)
     }
 
     checkIfImage(name: string) {
@@ -381,6 +435,21 @@ export class HomeComponent implements OnInit {
         else {
             return false;
         }
+    }
+
+    checkIfValid(file: any) {
+        var fileExtension = "";
+        if (file.name.lastIndexOf(".") > 0) {
+            fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
+        }
+        if ((fileExtension.toLowerCase() == "jpg" || "png" || "mov" || "avi" || "mkv") &&
+            (file.size < 50000000) &&
+            file.name.length < 50) {
+            return true;
+        }
+
+        return false;
+
     }
 
     checkIfJpg(name: string) {
@@ -400,10 +469,33 @@ export class HomeComponent implements OnInit {
     }
 
     pushSuccessNotification(message: string, options?: any) {
-        this.notificationsService.success('Ура!', message, options);
+        this.notificationsService.success('Ура! ', message, options);
     }
 
     pushErrorNotification(message: string, options?: any) {
-        this.notificationsService.error('Упс! У нас что-то сломалось', message, options);
+        this.notificationsService.error('Упс! У нас что-то сломалось.', message, options);
+    }
+
+    sort(sortType: any) {
+        let swapped: boolean = true;
+        let z = 0;
+
+        while (swapped) {
+            swapped = false;
+
+            for (var _i = 0; _i < this.files.length - 1 - z; _i++) {
+                if (this.files[_i][SortType[sortType]] > this.files[_i + 1][SortType[sortType]]) {
+                    let buf: any = this.files[_i];
+                    this.files[_i] = this.files[_i + 1];
+                    this.files[_i + 1] = buf;
+                    swapped = true;
+                }
+            }
+            z++;
+        }
+    }
+
+    openImage(fileId: string){
+        this.showImage = true;
     }
 }
