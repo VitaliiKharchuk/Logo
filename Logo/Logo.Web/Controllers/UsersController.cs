@@ -90,8 +90,7 @@ namespace Logo.Web.Controllers
         [Route("add-user")]
         public IActionResult AddUser([FromBody]UserCredentialsWithName userCredentialsWithName)
         {
-            // string encryptedPassword = _cryptographyService.RSAEncryptData(password);
-            
+            // string encryptedPassword = _cryptographyService.RSAEncryptData(password);            
             //if (_usersService.ValidateUserCredentials(userData))
 
             UserFullInformation userFullInformation = new UserFullInformation
@@ -111,7 +110,7 @@ namespace Logo.Web.Controllers
 
                 else
                 {
-                    throw new InvalidOperationException("Not  correct  credentials");
+                    throw new InvalidOperationException("Не верный  логин или пароль");
                 }
             }
 
@@ -120,9 +119,7 @@ namespace Logo.Web.Controllers
                 return Json(new { success = false, message = ex.Message });    
             }
 
-            return Ok();
-           
-}
+            return Ok();       
         }
-
     }
+}

@@ -33,7 +33,7 @@ namespace Logo.Implementation
             
             if (userFromDatabase == null)
             {
-                throw new InvalidOperationException("User not found."); 
+                throw new InvalidOperationException("Юзер не найден"); 
             }
             
             return new UserInfo
@@ -50,7 +50,7 @@ namespace Logo.Implementation
 
             if (userFromDatabase == null)
             {
-                throw new InvalidOperationException("User not found.");
+                throw new InvalidOperationException("Юзер не найден");
             }
 
             return new UserInfo
@@ -67,7 +67,7 @@ namespace Logo.Implementation
 
             if (userFromDatabase == null)
             {
-                throw new InvalidOperationException("Incorrect  password  or  email.");
+                throw new InvalidOperationException("Неверный логин или пароль");
             }
 
             return new UserInfo

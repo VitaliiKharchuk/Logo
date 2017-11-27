@@ -18,6 +18,8 @@ namespace Logo.Contracts.Services
         void RenameFile(UpdatedObject updatedFolder);
         void DeleteFile(Guid folderId);
 
+        string GetFileExstention(string fileName);
+
 
         IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId);
 

@@ -5,7 +5,6 @@ using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Logo.Implementation
 {
@@ -44,20 +43,20 @@ namespace Logo.Implementation
 
             if (folder == null)
             {
-                throw new InvalidOperationException("Folder not found.");
+                throw new InvalidOperationException("Папка не найдена");
             }
 
-            FolderInfo folderInfo = 
+            FolderInfo folderInfo =
                  new FolderInfo
                  {
-                    FolderId = folder.FolderId,
-                    OwnerId = folder.OwnerId,
-                    ParentFolderId = folder.ParentFolderId,
-                    Name = folder.Name,
-                    CreationDate = folder.CreationDate,
-                    UploadDate = folder.UploadDate,
-                    Level = folder.Level,
-                    HasPublicAccess = folder.HasPublicAccess,               
+                     FolderId = folder.FolderId,
+                     OwnerId = folder.OwnerId,
+                     ParentFolderId = folder.ParentFolderId,
+                     Name = folder.Name,
+                     CreationDate = folder.CreationDate,
+                     UploadDate = folder.UploadDate,
+                     Level = folder.Level,
+                     HasPublicAccess = folder.HasPublicAccess,
                  };
 
             folderInfo.TagList = _tagsService.GetFolderTags(folderId);
@@ -72,7 +71,7 @@ namespace Logo.Implementation
 
             if (file == null)
             {
-                throw new InvalidOperationException("File not found.");
+                throw new InvalidOperationException("Файл не найден");
             }
 
             Contracts.FileInfo fileInfo = new Contracts.FileInfo
@@ -88,7 +87,7 @@ namespace Logo.Implementation
                 HasPublicAccess = file.HasPublicAccess
             };
 
-            fileInfo.TagList = _tagsService.GetFileTags( fileInfo.FileId);
+            fileInfo.TagList = _tagsService.GetFileTags(fileInfo.FileId);
 
             return fileInfo;
         }
@@ -97,11 +96,10 @@ namespace Logo.Implementation
         public void CreateFolder(ObjectCredentialsWithOwner folderCredentialsWithOwner)
         {
             if (folderCredentialsWithOwner.ObjectCredentials.Name.Length > maxNameLong)
-                throw new InvalidOperationException("Long  name of  folder");
-
+                throw new InvalidOperationException(String.Format("Длина имени превышает {0}", maxNameLong));
 
             if (IsParentContainseFolder(folderCredentialsWithOwner) || IsParentContainseFile(folderCredentialsWithOwner))
-                throw new InvalidOperationException("Folder or  file  with   this  name  already  exists.");
+                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
 
             FolderInfo rootFolder = null;
             if (folderCredentialsWithOwner.ObjectCredentials.ParentObjectId != null)
@@ -109,9 +107,9 @@ namespace Logo.Implementation
                 rootFolder = GetFolder((Guid)folderCredentialsWithOwner.ObjectCredentials.ParentObjectId);   //   get   parant  of  curent folder
 
                 if (rootFolder.Level == maxRootLevel)
-                    throw new InvalidOperationException("Attachment  level  is  maximum");
+                    throw new InvalidOperationException(String.Format("Уровень вложености папки максимальный не можут превышать {0} уровней", maxRootLevel));
             }
-            
+
             _dbContext.Add
                 (new Folder
                 {
@@ -125,31 +123,33 @@ namespace Logo.Implementation
                     HasPublicAccess = false
                 });
 
-            
+
             _dbContext.SaveChanges();
+        }
+
+
+        public  string GetFileExstention(string fileName)
+        {
+            return fileName.Substring(fileName.LastIndexOf('.') + 1);
         }
 
         public Guid CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
         {
-            if (fileCredentialsWithOwner.ObjectCredentials.Name.Length > maxNameLong)
-                throw new InvalidOperationException("Long  name of file");
-
             if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
-                throw new InvalidOperationException("Folder or  file  with   this  name  already  exists.");
+                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
 
-            string fileExtention = Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name);
-            if (
-                      fileExtention.Equals("." + FileExtentions.avi.ToString(),StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
-                   || fileExtention.Equals("." + FileExtentions.jpg.ToString(),StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals("." + FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals("." + FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals("." + FileExtentions.png.ToString(),StringComparison.InvariantCultureIgnoreCase)
-                )
-
+            string fileName = fileCredentialsWithOwner.ObjectCredentials.Name;
+            string fileExtention = GetFileExstention(fileCredentialsWithOwner.ObjectCredentials.Name);
+            
+            if (fileExtention.Equals(FileExtentions.avi.ToString(), StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
+                   || fileExtention.Equals(FileExtentions.jpg.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals(FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals(FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                   || fileExtention.Equals(FileExtentions.png.ToString(), StringComparison.InvariantCultureIgnoreCase)
+              )
             {
 
                 Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
-
                 _dbContext.Add
                     (new DatabaseModels.File
                     {
@@ -159,38 +159,37 @@ namespace Logo.Implementation
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
                         CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
                         UploadDate = DateTime.Now,
-                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,     
+                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
                         Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
-                        HasPublicAccess = false                                         
-                        
+                        HasPublicAccess = false,
+
+                        ImageStorage = null
                     });
 
                 _dbContext.SaveChanges();
 
                 _tagsService.CreateTagToFile(new TagsCredentials
-                { ObjectId = fileId,
+                {
+                    ObjectId = fileId,
                     Text = fileCredentialsWithOwner.ObjectCredentials.Tags
                 });
 
 
-                //byte[] array = System.IO.File.ReadAllBytes(fileCredentialsWithOwner.ObjectCredentials.Name);
-                //MemoryStream fs = new MemoryStream(array);
 
-                
                 _dbContext.SaveChanges();
 
                 return fileId;
             }
 
             else
-                throw new InvalidOperationException("Extention of file is unsuitable");
+                throw new InvalidOperationException("Расширение  файла  недопустимо");
         }
 
         public void RenameFolder(UpdatedObject updatedFolder)
         {
 
             if (updatedFolder.updatedName.Length > maxNameLong)
-                throw new InvalidOperationException("Long  name");
+                throw new InvalidOperationException(String.Format("Длина имени превышает {0}", maxNameLong));
 
 
             FolderInfo folder = GetFolder(updatedFolder.ObjectId);
@@ -211,7 +210,8 @@ namespace Logo.Implementation
 
             if (IsParentContainseFolder(folderCredentialsWithOwner) || IsParentContainseFile(folderCredentialsWithOwner))
             {
-                throw new InvalidOperationException("Folder with  or file with   this  name  already  exists.");
+                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
+
             }
 
             _dbContext.Folders.Where(f => f.FolderId == updatedFolder.ObjectId).FirstOrDefault().Name = updatedFolder.updatedName;
@@ -222,9 +222,7 @@ namespace Logo.Implementation
 
         public void RenameFile(UpdatedObject updatedFile)
         {
-            if (updatedFile.updatedName.Length > maxNameLong)
-                throw new InvalidOperationException("Long  name of fie");
-
+           
             Contracts.FileInfo file = GetFile(updatedFile.ObjectId);
 
             ObjectCredentialsWithOwner fileCredentialsWithOwner = new ObjectCredentialsWithOwner
@@ -238,24 +236,22 @@ namespace Logo.Implementation
                 OwnerId = file.OwnerId
             };
 
-
             if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
             {
-                throw new InvalidOperationException("Folder with  or file with   this  name  already  exists.");
+                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
             }
 
-            _dbContext.Files.Where(f => f.FileId == updatedFile.ObjectId).FirstOrDefault().Name = updatedFile.updatedName;
+            _dbContext.Files
+                .Where(f => f.FileId == updatedFile.ObjectId)
+                .FirstOrDefault().Name = updatedFile.updatedName;
 
             _dbContext.SaveChanges();
         }
 
-
-
-
         public void DeleteFolder(Guid folderId)  //  need    recursive  deleting   
         {
             var folder = GetFolder(folderId);
-            
+
             List<FolderInfo> folders = GetFoldersInFolder(folderId).ToList();
             List<Contracts.FileInfo> files = GetFilesInFolder(folderId).ToList();
 
@@ -282,13 +278,13 @@ namespace Logo.Implementation
         }
 
 
-      
-        public void DeleteFile(Guid fileId)  
+
+        public void DeleteFile(Guid fileId)
         {
             _tagsService.DeleteTagsFromFile(fileId);
             _dbContext.SaveChanges();
 
-            var  file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
+            var file = _dbContext.Files.FirstOrDefault(x => x.FileId == fileId);
             _dbContext.Files.Remove(file);
 
             _dbContext.SaveChanges();
@@ -299,7 +295,7 @@ namespace Logo.Implementation
             return _dbContext.Folders
                    .Where(x => x.ParentFolderId.Equals(folderCredentialsWithOwner.ObjectCredentials.ParentObjectId)
                    && x.OwnerId.Equals(folderCredentialsWithOwner.OwnerId))
-                   .Any(s => s.Name.Equals(folderCredentialsWithOwner.ObjectCredentials.Name));
+                   .Any(x => x.Name.Equals(folderCredentialsWithOwner.ObjectCredentials.Name));
         }
 
         public bool IsParentContainseFile(ObjectCredentialsWithOwner objectCredentialsWithOwner)
@@ -307,7 +303,7 @@ namespace Logo.Implementation
             return _dbContext.Files
                    .Where(x => x.ParentFolderId.Equals(objectCredentialsWithOwner.ObjectCredentials.ParentObjectId)
                    && x.OwnerId.Equals(objectCredentialsWithOwner.OwnerId))
-                   .Any(s => s.Name.Equals(objectCredentialsWithOwner.ObjectCredentials.Name));
+                   .Any(x => x.Name.Equals(objectCredentialsWithOwner.ObjectCredentials.Name));
         }
 
         public IEnumerable<FolderInfo> GetAllFolders()   //only  for  testing
@@ -331,7 +327,7 @@ namespace Logo.Implementation
 
         public IEnumerable<Contracts.FileInfo> GetAllFiles()   //only  for  testing
         {
-            
+
             return _dbContext.Set<DatabaseModels.File>().Select(
                y => new Contracts.FileInfo()
                {
@@ -344,7 +340,7 @@ namespace Logo.Implementation
                    Size = y.Size,
                    Type = y.Type,
                    HasPublicAccess = y.HasPublicAccess,
-                  // TagList = _tagsService.GetFolderTags(y.FileId)
+                   // TagList = _tagsService.GetFolderTags(y.FileId)
                });
         }
 
@@ -352,7 +348,7 @@ namespace Logo.Implementation
 
         public IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId)
         {
-            IEnumerable <FolderInfo> folders = 
+            IEnumerable<FolderInfo> folders =
                 _dbContext.Folders.Where(x => x.ParentFolderId.Equals(folderId))
                 .Select(y => new FolderInfo()
                 {
@@ -363,11 +359,10 @@ namespace Logo.Implementation
                     CreationDate = y.CreationDate,
                     UploadDate = y.UploadDate,
                     Level = y.Level,
-                    HasPublicAccess = y.HasPublicAccess,   
-                    
+                    HasPublicAccess = y.HasPublicAccess
                 }).ToList();
 
-            foreach (var folder in  folders)
+            foreach (var folder in folders)
             {
                 folder.TagList = _tagsService.GetFolderTags(folder.FolderId);
             }
@@ -380,28 +375,35 @@ namespace Logo.Implementation
         {
 
             IEnumerable<Contracts.FileInfo> files =
-             _dbContext.Files.Where(x => x.ParentFolderId.Equals(folderId))
-                .Select(y => new Contracts.FileInfo()
-            {
-                FileId = y.FileId,
-                ParentFolderId = y.ParentFolderId,
-                OwnerId = y.OwnerId,
-                Name = y.Name,
-                CreationDate = y.CreationDate,
-                UploadDate = y.UploadDate,
-                Size = y.Size,
-                Type = y.Type,
-                HasPublicAccess = y.HasPublicAccess,
-                ResizedImage = Convert.ToBase64String(y.ImageStorage)
-               
-            }).ToList();
+
+                 _dbContext.Files.Where(x => x.ParentFolderId.Equals(folderId))
+                    .Select(y => new Contracts.FileInfo()
+                    {
+                        FileId = y.FileId,
+                        ParentFolderId = y.ParentFolderId,
+                        OwnerId = y.OwnerId,
+                        Name = y.Name,
+                        CreationDate = y.CreationDate,
+                        UploadDate = y.UploadDate,
+                        Size = y.Size,
+                        Type = y.Type,
+                        HasPublicAccess = y.HasPublicAccess,
+
+                        ResizedImage = y.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.ImageStorage)
+
+                    }).ToList();
+
 
             foreach (var file in files)
             {
                 file.TagList = _tagsService.GetFileTags(file.FileId);
             }
 
-            return files; 
+
+
+
+
+            return files;
         }
 
 
@@ -410,7 +412,7 @@ namespace Logo.Implementation
 
             IEnumerable<FolderInfo> folders =
 
-            _dbContext.Folders.Where(x => x.ParentFolderId ==  null && x.OwnerId == ownerId)
+            _dbContext.Folders.Where(x => x.ParentFolderId == null && x.OwnerId == ownerId)
                 .Select(y => new FolderInfo()
                 {
                     FolderId = y.FolderId,
@@ -431,8 +433,8 @@ namespace Logo.Implementation
             return folders;
         }
 
-       public  IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
-       {
+        public IEnumerable<Contracts.FileInfo> GetRootFiles(Guid ownerId)
+        {
 
             IEnumerable<Contracts.FileInfo> files =
 
@@ -448,7 +450,7 @@ namespace Logo.Implementation
                     Size = y.Size,
                     Type = y.Type,
                     HasPublicAccess = y.HasPublicAccess,
-                    ResizedImage = Convert.ToBase64String(y.ImageStorage)
+                    ResizedImage = y.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.ImageStorage)
                 }).ToList();
 
             foreach (var file in files)
@@ -460,40 +462,38 @@ namespace Logo.Implementation
         }
 
 
-       public IEnumerable<ObjectCredentials> GetPathToRoot(Guid  FolderId)
-       {
+        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId)
+        {
+
+            FolderInfo folder = GetFolder(FolderId);
+
             List<ObjectCredentials> parentList = new List<ObjectCredentials>();
 
-            FolderInfo folderInfo = GetFolder(FolderId);
-
-            parentList.Add(new ObjectCredentials
+            parentList.Add(new ObjectCredentials  //add current  folder
             {
-                Name = folderInfo.Name,
-                ParentObjectId = folderInfo.ParentFolderId
+                Name = folder.Name,
+                ParentObjectId = folder.FolderId
             });
 
-
-            while(folderInfo.ParentFolderId !=  null)
+            while (folder.ParentFolderId != null)
             {
+                folder = GetFolder((Guid)folder.ParentFolderId);
 
-                FolderInfo parentFolder = GetFolder((Guid) folderInfo.ParentFolderId);
                 parentList.Add(new ObjectCredentials
                 {
-                    Name = parentFolder.Name,
-                    ParentObjectId = parentFolder.FolderId
+                    Name = folder.Name,
+                    ParentObjectId = folder.ParentFolderId
                 });
 
-                folderInfo = parentFolder; 
-
-
             }
-
-            return parentList;       
-       }
+            return parentList;
+        }
 
         public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName, Guid ownerId)
         {
-            IEnumerable<Contracts.FileInfo> files = _dbContext.Files.Where(t => t.Name.Contains(fileName) && t.OwnerId == ownerId)
+            IEnumerable<Contracts.FileInfo> files = _dbContext
+                .Files
+                .Where(t => t.Name.Contains(fileName) && t.OwnerId == ownerId)
                  .Select(y => new Contracts.FileInfo()
                  {
                      FileId = y.FileId,
@@ -505,10 +505,10 @@ namespace Logo.Implementation
                      Size = y.Size,
                      Type = y.Type,
                      HasPublicAccess = y.HasPublicAccess,
-                     ResizedImage = Convert.ToBase64String(y.ImageStorage)
-               }).ToList(); 
+                     ResizedImage = y.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.ImageStorage)
+                 }).ToList();
 
-            foreach (var file in  files)
+            foreach (var file in files)
             {
                 file.TagList = _tagsService.GetFileTags(file.FileId);
             }
@@ -530,7 +530,7 @@ namespace Logo.Implementation
                      Size = y.File.Size,
                      Type = y.File.Type,
                      HasPublicAccess = y.File.HasPublicAccess,
-                     ResizedImage = Convert.ToBase64String(y.File.ImageStorage)
+                     ResizedImage = y.File.ImageStorage == null ? "not  correct  image" : Convert.ToBase64String(y.File.ImageStorage)
                  }).ToList();
 
             foreach (var file in files)
@@ -548,6 +548,11 @@ namespace Logo.Implementation
                 .ImageStorage = resizedImage;
 
             _dbContext.SaveChanges();
+        }
+
+        public Guid GenerateGuid()
+        {
+            return Guid.NewGuid();
         }
 
     }
