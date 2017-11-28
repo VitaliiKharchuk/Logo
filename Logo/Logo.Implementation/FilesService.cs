@@ -8,6 +8,8 @@ using Logo.Contracts;
 using ImageSharp;
 using ImageSharp.Formats;
 using ImageSharp.Processing;
+using System;
+using System.IO.Compression;
 
 namespace Logo.Implementation
 {
@@ -35,6 +37,43 @@ namespace Logo.Implementation
             await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
 
+
+
+        /*
+       public  async Task <byte [] > GetArchive(List<string>  files)
+        {
+
+
+            foreach (var file in  files)
+            {
+                Guid fileId = new Guid(file);
+            }
+
+
+        }
+
+
+
+        public static void CreateZipFile(string fileName, IEnumerable<string> files)
+        {
+            // Create and open a new ZIP file
+            var zip = ZipFile.Open(fileName, ZipArchiveMode.Create);
+            foreach (var file in files)
+            {
+                // Add the entry for each file
+                zip.CreateEntryFromFile(file, Path.GetFileName(file), CompressionLevel.Optimal);
+            }
+            // Dispose of the object when we are done
+            //zip.Dispose();
+
+           
+
+            var stream = new MemoryStream();
+        }
+
+
+
+    */
 
         public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
         {
@@ -72,6 +111,8 @@ namespace Logo.Implementation
             await Task.WhenAll(tasks);
         }
 
+    
+
         private  async Task<CloudBlobContainer> GetContainerReference()
         {
             var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
@@ -99,7 +140,7 @@ namespace Logo.Implementation
                     .Resize(new ResizeOptions
                     {
                         Size = new Size(width, height),
-                        Mode = ResizeMode.Min,
+                        Mode = ResizeMode.Crop,
                        
                     });
                 image.Save(output);

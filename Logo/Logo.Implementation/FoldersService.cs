@@ -461,32 +461,23 @@ namespace Logo.Implementation
             return files;
         }
 
-
-        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId)
+        public IEnumerable<FolderInfo> GetPathToRoot(Guid FolderId)
         {
+            if (FolderId == null) return null;
 
             FolderInfo folder = GetFolder(FolderId);
-
-            List<ObjectCredentials> parentList = new List<ObjectCredentials>();
-
-            parentList.Add(new ObjectCredentials  //add current  folder
+            List<FolderInfo> breadCrumpList = new List<FolderInfo>
             {
-                Name = folder.Name,
-                ParentObjectId = folder.FolderId
-            });
+                folder
+            };
 
             while (folder.ParentFolderId != null)
             {
                 folder = GetFolder((Guid)folder.ParentFolderId);
-
-                parentList.Add(new ObjectCredentials
-                {
-                    Name = folder.Name,
-                    ParentObjectId = folder.ParentFolderId
-                });
-
+                breadCrumpList.Add(folder);
             }
-            return parentList;
+
+            return breadCrumpList;
         }
 
         public IEnumerable<Contracts.FileInfo> SearchFilesOnName(string fileName, Guid ownerId)
@@ -550,11 +541,33 @@ namespace Logo.Implementation
             _dbContext.SaveChanges();
         }
 
-        public Guid GenerateGuid()
-        {
-            return Guid.NewGuid();
-        }
+        
+        public List<Guid>  GetAllFilesFromDirectory(Guid folderId,   List<Guid> filesList )
+        {           
+            List<Guid> filesInFolder = _dbContext
+                .Files
+                .Where(t => t.ParentFolderId == folderId)
+                .Select(t => t.FileId)
+                .ToList();
 
+            List<Guid> foldersInFolder = _dbContext
+                .Folders
+                .Where(t => t.ParentFolderId == folderId)
+                .Select(t => t.FolderId)
+                .ToList();
+
+            foreach (var file in filesInFolder)
+            {
+                filesList.Add(file);
+            }
+
+            foreach (var   folder in  foldersInFolder)
+            {
+                GetAllFilesFromDirectory(folder, filesList);
+            }
+
+            return filesList;
+        }
     }
 }
 

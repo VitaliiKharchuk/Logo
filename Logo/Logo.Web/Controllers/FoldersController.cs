@@ -312,7 +312,7 @@ namespace Logo.Web.Controllers
 
         [HttpGet]
         [Route("get-path-to-root/{folderId?}")]
-        public IEnumerable<ObjectCredentials> GetPathToRoot(Guid folderId)
+        public IEnumerable<FolderInfo> GetPathToRoot(Guid folderId)
         {
             return _foldersService.GetPathToRoot(folderId);
         }
