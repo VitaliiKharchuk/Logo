@@ -95,7 +95,7 @@ namespace Logo.Web.Controllers
 
             UserFullInformation userFullInformation = new UserFullInformation
             {
-                UserId = Guid.NewGuid(),
+                //UserId = Guid.NewGuid(),
                 Email = userCredentialsWithName.Email,
                 Password = userCredentialsWithName.Password,
                 Name = userCredentialsWithName.Name

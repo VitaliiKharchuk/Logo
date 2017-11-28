@@ -21,7 +21,7 @@ namespace Logo.Contracts.Services
         string GetFileExstention(string fileName);
 
 
-        IEnumerable<ObjectCredentials> GetPathToRoot(Guid FolderId);
+        IEnumerable<FolderInfo> GetPathToRoot(Guid FolderId);
 
         IEnumerable<FolderInfo> GetFoldersInFolder(Guid folderId);
         IEnumerable<FileInfo> GetFilesInFolder(Guid folderId);

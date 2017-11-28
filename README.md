@@ -1,8 +1,13 @@
 # Logo
-LOGO Project using WEB.API .net core 2.0 + Angular 4
+LOGO Project using ASP.NET Core 2.0 WEB.API + Angular 4 http://logo-app.azurewebsites.net
 
 To install run this:
-
-npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12
+``` npm
+npm install ngx-contextmenu@2.0.0-beta.7
 
 npm install --save angular2-notifications@0.7.8
+
+npm install file-saver --save
+
+npm install @types/file-saver --save-dev
+```
