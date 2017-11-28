@@ -50,7 +50,7 @@ namespace Logo.Web.Controllers
                 arr = _filesService.SimpleDownloadAsync(fileId.ToString()).GetAwaiter().GetResult();
 
                 Request.HttpContext.Response.Headers.Add("Content-Extention",String.Format( "image/{0}", _foldersService.GetFileExstention(fileInfo.Name)));
-                Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.Name);
+                //Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.Name);
             }
 
             catch (Exception ex)

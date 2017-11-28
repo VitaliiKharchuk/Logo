@@ -80,8 +80,12 @@ export class HomeService {
     return this.http.post('/api/folders/add-file-tag', tagsInfo, this.jwt()).map(this.extractData);
   }
 
-  downloadFile(fileId: string){
-    return this.http.get('/api/files/download-file' + fileId, this.jwtWithResponceContentType()).map(this.extractData);    
+  downloadFile(fileId: string) {
+    return this.http.get('/api/files/download-file/' + fileId, this.jwtWithResponceContentType()).map(res => {
+      return new Blob([res.blob()], {
+        type: res.headers.get("Content-Extention")
+      })
+    });
   }
 
   //initial requests
@@ -125,10 +129,11 @@ export class HomeService {
     if (currentUser && currentUser.token) {
       let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
       headers.append('Accept', 'application/json');
-      headers.append('Content-Type', 'application/x-www-form-urlencoded');      
-      return new RequestOptions({ 
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      return new RequestOptions({
         responseType: ResponseContentType.Blob,
-        headers: headers });
+        headers: headers
+      });
     }
   }
 }

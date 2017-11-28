@@ -62,10 +62,12 @@
       <div class="title-f">Файлы</div>
       <div class="row">
         <div class="col-xs-3" *ngFor="let file of files">
-          <div class="thumbnail" class="folder-grid" [contextMenu]="static" (click)="openImage(file.fileId)">
-            <img *ngIf="file.resizedImage" [src]="file.resizedImage" />
-            <div class="folder-grid-item">
-              <img src="assets\icons\picture.svg" class="img-folder"> {{file.name}}
+          <div class="thumbnail" class="folder-grid" [contextMenu]="static">
+            <div (click)="openImage(file.fileId)">
+              <img *ngIf="file.resizedImage" [src]="sanitize(file.resizedImage)" />
+              <div class="folder-grid-item">
+                <img src="assets\icons\picture.svg" class="img-folder"> {{file.name}}
+              </div>
             </div>
             <button id="openRenameFileModalButton" hidden="true" data-toggle="modal" data-target="#renameFileModal">Переименовать</button>
             <button id="openAddTagFileModalButton" hidden="true" data-toggle="modal" data-target="#addTagFileModal">Добавить тег</button>
@@ -77,7 +79,7 @@
               <ng-template contextMenuItem (execute)="openAddTagFileModal(file.fileId)">
                 Добавить тег
               </ng-template>
-              <ng-template contextMenuItem (execute)="callDownloadZIP(file.fileId)">
+              <ng-template contextMenuItem (execute)="callDownload(file.fileId)">
                 Скачать файл
               </ng-template>
               <ng-template contextMenuItem (execute)="openDeleteFileModal(file.fileId)">
@@ -160,7 +162,7 @@
           <ng-template contextMenuItem (execute)="openAddTagFileModal(file.fileId)">
             Добавить тег
           </ng-template>
-          <ng-template contextMenuItem (execute)="callDownloadZIP(file.fileId)">
+          <ng-template contextMenuItem (execute)="callDownload(file.fileId)">
             Скачать файл
           </ng-template>
           <ng-template contextMenuItem (execute)="openDeleteFileModal(file.fileId)">
@@ -458,26 +460,29 @@
 <simple-notifications [options]="options"></simple-notifications>
 <div *ngIf="showImage" class="carousel" role="dialog">
   <div class="right-side">
-    <div (click)="this.showImage = false;" class="cancel-area">
-      <img src="assets\icons\cancel.svg" class="cancel-button">
+    <div (click)="this.showImage = false; this.srccarouselc='assets\\icons\\cancel.svg'" class="cancel-area" (mouseenter)="mouse('srccarouselc', 'assets\\icons\\cancel-hover.svg')"
+      (mouseleave)="mouse('srccarouselc', 'assets\\icons\\cancel.svg')">
+      <img [src]="this.srccarouselc" class="cancel-button">
     </div>
-    <div class="navigation-right-area">
-      <img src="assets\icons\next.svg" class="right-button">
+    <div class="navigation-right-area" (mouseenter)="mouse('srccarouselr', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarouselr', 'assets\\icons\\next.svg')">
+      <img [src]="this.srccarouselr" class="right-button">
     </div>
   </div>
-  <div class="navigation-left-area">
-    <img src="assets\icons\next.svg" class="left-button rotateimg180">
+  <div class="navigation-left-area" (mouseenter)="mouse('srccarousell', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarousell', 'assets\\icons\\next.svg')">
+    <img [src]="this.srccarousell" class="left-button rotateimg180">
   </div>
 
-  <div >
+  <div class="middle">
     <div class="whiteblock">
-        <span class="max-tag-text pull-left">Название файла
-            <br>1 МБ</span>
-          <button class="button-color">Скачать</button>
-          <img src="assets\icons\next.svg">
-          <span >
-              #tags
-            </span>
+      <span class="modal-title pull-left">Название файла
+        <br>1 МБ</span>
+      <button class="button-color pull-right">Скачать</button>
+      <div class="image-container">
+        <img [src]="this.sanitize(URL)">
+      </div>
+      <div class="carousel-tags">
+        #tags
+      </div>
     </div>
   </div>
 </div>
