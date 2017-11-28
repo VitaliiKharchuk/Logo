@@ -50,7 +50,7 @@ namespace Logo.Web.Controllers
                 arr = _filesService.SimpleDownloadAsync(fileId.ToString()).GetAwaiter().GetResult();
 
                 Request.HttpContext.Response.Headers.Add("Content-Extention",String.Format( "image/{0}", _foldersService.GetFileExstention(fileInfo.Name)));
-                Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.Name);
+               Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.FileId.ToString());
             }
 
             catch (Exception ex)
@@ -60,11 +60,8 @@ namespace Logo.Web.Controllers
 
             string contentType = String.Format("application/{0}", _foldersService.GetFileExstention(fileInfo.Name));
             HttpContext.Response.ContentType = contentType;
-            FileContentResult result = new FileContentResult(arr, contentType)
-            {
-                FileDownloadName = fileInfo.Name
-            };
-
+            FileContentResult result = new FileContentResult(arr, contentType);
+            
             /*
             ObjectResult objectResult = new ObjectResult(arr)
             {
@@ -97,7 +94,7 @@ namespace Logo.Web.Controllers
                     ObjectCredentials = new ObjectCredentials
                     {
                         Name = file.FileContent.FileName,
-                        ParentObjectId = file.ParentFolderId,
+                        ParentObjectId =  file.ParentFolderId,
                         CreationDate = DateTime.Now,
                         Size = file.FileContent.Length,
                         Tags = file.Tags

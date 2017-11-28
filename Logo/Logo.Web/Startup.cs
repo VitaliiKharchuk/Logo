@@ -72,7 +72,7 @@ namespace Logo.Web
             //services.AddDbContext<LogoDbContext>(options => options.UseSqlServer(connectionStringLocal));
 
 
-            //services.AddDbContext<LogoDbContext>(options => options.UseInMemoryDatabase("TestBase"));
+            //services.AddDbContext<LogodbContext>(options => options.UseInMemoryDatabase("TestBase"));
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoldersService, FoldersService>();

@@ -91,23 +91,16 @@ namespace Logo.Implementation
 
             _dbContext.Add(user);
 
-            /*
-           _folderService.CreateFolder( new FolderCredentialsWithOwner
-           {
-               ownerId = user.UserId,
-               folderCredentials = new FolderCredentials
-               {
-                   ParentFolderId = null,
-                   Name = "Root"
-               }
-           });   //  create  root  folder  for  user
-           */
+           
             _dbContext.SaveChanges();
         }
 
         public bool ValidateUserCredentials(UserCredentialsWithName userData)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == userData.Email);  // unique  email   for  registration
+            var user = _dbContext
+                .Users
+                .Where(x => x.Email == userData.Email)
+                .FirstOrDefault();  // unique  email   for  registration
 
             return (user == null &&
                 IsValidEmail(userData.Email) && userData.Email.Length <= 254 &&
