@@ -9,7 +9,9 @@
             <div class="textchoose">
                 <p class="login">Зарегистрируйтесь</p>
                 <div>
-                    <p class="register">или <a [routerLink]="['/login']" class="link">Войдите в свой аккаунт</a></p>
+                    <p class="register">или
+                        <a [routerLink]="['/login']" class="link">Войдите в свой аккаунт</a>
+                    </p>
                 </div>
             </div>
             <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
@@ -17,7 +19,8 @@
                     <label for="name"></label>
                     <input type="text" class="form-control" name="name" placeholder="Имя пользователя" [(ngModel)]="model.name" #name="ngModel"
                         required maxlength="50" />
-                    <div *ngIf="name.errors && (name.dirty && name.touched)" class="alerts"><br>
+                    <div *ngIf="name.errors && (name.dirty && name.touched)" class="alerts">
+                        <br>
                         <div [hidden]="!name.errors.required">
                             Имя пользователя необходимо.
                         </div>
@@ -31,7 +34,8 @@
                     <label for="email"></label>
                     <input type="email" class="form-control" name="email" placeholder="E-mail" [(ngModel)]="model.email" #email="ngModel" required
                         email />
-                    <div *ngIf="email.errors && (email.dirty && email.touched)" class="alerts"><br>
+                    <div *ngIf="email.errors && (email.dirty && email.touched)" class="alerts">
+                        <br>
                         <div [hidden]="!email.errors.required">
                             Email необходим.
                         </div>
@@ -44,8 +48,9 @@
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                     <label for="password"></label>
                     <input type="password" class="form-control" name="password" placeholder="Пароль" [(ngModel)]="model.password" #password="ngModel"
-                        required minlength="6" maxlength="50"/>
-                    <div *ngIf="password.errors && (password.dirty && password.touched)" class="alerts"><br>
+                        required minlength="6" maxlength="50" />
+                    <div *ngIf="password.errors && (password.dirty && password.touched)" class="alerts">
+                        <br>
                         <div [hidden]="!password.errors.required">
                             Пароль необходим.
                         </div>
@@ -65,3 +70,5 @@
 
         </div>
     </div>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

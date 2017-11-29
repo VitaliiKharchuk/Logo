@@ -80,8 +80,8 @@ namespace Logo.Web.Controllers
         {                
             try
             {
-                if (file == null) throw new Exception("Не  выбран  файл");
-                if (file.FileContent.Length == 0) throw new Exception("Файл  пустой");
+                if (file == null) throw new Exception("Не выбран файл");
+                if (file.FileContent.Length == 0) throw new Exception("Файл пустой");
 
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                     .Where(item => item.Type == "UserId")
@@ -97,7 +97,7 @@ namespace Logo.Web.Controllers
                         ParentObjectId =  file.ParentFolderId,
                         CreationDate = DateTime.Now,
                         Size = file.FileContent.Length,
-                        Tags = file.Tags
+                        Tags = file.Tags?? ""
                     }
    
                 });
@@ -123,7 +123,7 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message, fileName = file.FileContent.FileName });
             }
 
             return Json(new { success = true, fileName = file.FileContent.FileName });

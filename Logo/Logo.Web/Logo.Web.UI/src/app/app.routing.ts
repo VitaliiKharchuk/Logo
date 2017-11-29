@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthentificationGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: ':folderId', component: DataComponent },
+    { path: ':folderId', component: DataComponent, canActivate: [AuthentificationGuard]  },
    
     //   { path: ':fileId',  component: FilePreviewComponent }
 

@@ -464,24 +464,32 @@
       (mouseleave)="mouse('srccarouselc', 'assets\\icons\\cancel.svg')">
       <img [src]="this.srccarouselc" class="cancel-button">
     </div>
-    <div class="navigation-right-area" (mouseenter)="mouse('srccarouselr', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarouselr', 'assets\\icons\\next.svg')">
+    <div *ngIf="this.files[(this.getIfromId(this.fileToShow.fileId)*1 + 1)]" class="navigation-right-area" (click)="openImage(this.files[(this.getIfromId(this.fileToShow.fileId)*1 + 1)].fileId)"
+      (mouseenter)="mouse('srccarouselr', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarouselr', 'assets\\icons\\next.svg')">
       <img [src]="this.srccarouselr" class="right-button">
     </div>
   </div>
-  <div class="navigation-left-area" (mouseenter)="mouse('srccarousell', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarousell', 'assets\\icons\\next.svg')">
-    <img [src]="this.srccarousell" class="left-button rotateimg180">
+  <div>
+    
+      <div *ngIf="this.files[(this.getIfromId(this.fileToShow.fileId) - 1)]; else placeForLeft" (click)="openImage(this.files[(this.getIfromId(this.fileToShow.fileId) - 1)].fileId)"
+        (mouseenter)="mouse('srccarousell', 'assets\\icons\\next-hover.svg')" (mouseleave)="mouse('srccarousell', 'assets\\icons\\next.svg')" class="navigation-left-area">
+        <img [src]="this.srccarousell" class="left-button rotateimg180">
+      </div>
+      <ng-template #placeForLeft><div class="navigation-left-area"></div></ng-template>
   </div>
 
   <div class="middle">
     <div class="whiteblock">
-      <span class="modal-title pull-left">Название файла
-        <br>1 МБ</span>
-      <button class="button-color pull-right">Скачать</button>
+      <span class="modal-title pull-left">{{this.fileToShow.name}}
+        <br>{{this.fileToShow.size | bytes}}</span>
+      <button class="button-color pull-right" (click)="callDownload(this.fileToShow.fileId)">Скачать</button>
       <div class="image-container">
-        <img [src]="this.sanitize(URL)">
+        <img [src]="this.sanitize(URL)" [class.rotating-animation]="this.URL == 'assets\\icons\\reload.svg'">
       </div>
       <div class="carousel-tags">
-        #tags
+        <span *ngFor="let tag of this.fileToShow.tagList">
+          #{{tag}}
+        </span>
       </div>
     </div>
   </div>

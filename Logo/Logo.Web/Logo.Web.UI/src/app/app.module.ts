@@ -11,18 +11,18 @@ import { AlertComponent } from './_directives/alert/alert.component';
 import { HomeComponent } from './_components/home/home.component';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
-import { AlertService, UserService } from './_services/index';
+import { AlertService } from './_services/index';
 import { AuthentificationService } from './_components/login/authentification.service';
 import { HomeService } from './_components/home/home.service';
 import { DataComponent } from './_components/data/data.component';
-import { DataService } from './_components/data/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
+import { BytesPipe } from './_pipes/bytes.pipe';
 
 
 @NgModule({
     declarations: [
-        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent
+        AppComponent, MenuComponent, AlertComponent, HomeComponent, LoginComponent, RegisterComponent, DataComponent, BytesPipe
     ],
     imports: [
         BrowserModule,
@@ -38,9 +38,7 @@ import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifi
         AuthentificationGuard,
         AlertService,
         AuthentificationService,
-        UserService,
         HomeService,
-        DataService,
         NotificationsService
  
         // providers used to create fake backend
