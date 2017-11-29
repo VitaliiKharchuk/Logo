@@ -55,6 +55,7 @@ export class MenuComponent implements OnInit {
           console.log(data.message)
         }
         else {
+          console.log(this.breadcrumbs)
           console.log('Loading bc successfull');
         }
       },
@@ -100,7 +101,6 @@ export class MenuComponent implements OnInit {
 
   setType(value: string) {
     this.sortValue = SortType[value];
-    console.log(this.sortValue)
     this.sortEvent.emit(SortType[value]);
   }
 }

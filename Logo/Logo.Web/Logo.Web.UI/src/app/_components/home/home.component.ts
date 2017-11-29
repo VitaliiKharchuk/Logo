@@ -10,7 +10,8 @@ import { SortType } from '../menu/sortType';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NotificationsService } from 'angular2-notifications';
-import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
     files: FileCustom[] = [];
+    fileToShow: FileCustom;    
     uploadFiles: Array<any>;
     selectedObjectId: string;
     selectedFolderName: string;
@@ -54,11 +56,17 @@ export class HomeComponent implements OnInit {
     SortType: typeof SortType = SortType;
     order: any;
     showImage: boolean = false;
+    srccarousell: string = "assets\\icons\\next.svg";
+    srccarouselr: string = "assets\\icons\\next.svg";
+    srccarouselc: string = "assets\\icons\\cancel.svg";
+    URL: string = "assets\\icons\\reload.svg";
+
 
     constructor(private homeService: HomeService,
         private router: Router,
         private route: ActivatedRoute,
-        private notificationsService: NotificationsService) {
+        private notificationsService: NotificationsService,
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -98,15 +106,7 @@ export class HomeComponent implements OnInit {
     private loadRootFiles() {
         this.homeService.loadRootFiles().subscribe(
             data => {
-                this.files = data as FileCustom[];
-                for (let file of this.files) {
-                    if (this.checkIfJpg(file.name) == true) {
-                        file.resizedImage = 'data:image/jpg;base64,' + file.resizedImage;
-                    }
-                    else {
-                        file.resizedImage = 'data:image/png;base64,' + file.resizedImage;
-                    }
-                }
+
                 if (!data.success && data.message) {
                     console.log(data.message)
                     this.pushErrorNotification('Загрузка файлов прошла неуспешно. ' + data.message)
@@ -114,6 +114,15 @@ export class HomeComponent implements OnInit {
                 else {
                     console.log('Loading root files successfull');
                     this.pushSuccessNotification('Загрузка файлов прошла успешно.')
+                    this.files = data as FileCustom[];
+                    for (let file of this.files) {
+                        if (this.checkIfJpg(file.name) == true) {
+                            file.resizedImage = 'data:image/jpg;base64,' + file.resizedImage;
+                        }
+                        else {
+                            file.resizedImage = 'data:image/png;base64,' + file.resizedImage;
+                        }
+                    }
                 }
             },
             error => {
@@ -157,7 +166,7 @@ export class HomeComponent implements OnInit {
                 formData.append('FileContent', fi.files[_i]);
                 formData.append('CreationDate', fi.files[_i].lastModifiedDate);
                 formData.append('ParentFolderId', null);
-                formData.append('Tags', this.uploadFiles[_i].hashtag);
+                formData.append('Tags', this.uploadFiles[_i].hashtag ? this.uploadFiles[_i].hashtag : "");
                 let creationDate = new Date(fi.files[_i].lastModifiedDate);
 
                 this.homeService.uploadFile(formData)
@@ -165,12 +174,12 @@ export class HomeComponent implements OnInit {
                     data => {
                         if (!data.success && data.message) {
                             console.log(data.message)
-                            this.pushErrorNotification('Загрузка файла ' + data.name +' прошла неуспешно. ' + data.message)
-                            console.log('name file',fi.files[0], _i);                            
+                            this.pushErrorNotification('Загрузка файла ' + data.fileName + ' прошла неуспешно. ' + data.message)
+                            console.log('name file', fi.files[0], _i);
                         }
                         else {
                             console.log('upload file success');
-                            this.pushSuccessNotification('Загрузка файла' + data.name +' прошла успешно.')
+                            this.pushSuccessNotification('Загрузка файла ' + data.fileName + ' прошла успешно.')
                         }
                         this.closeUploadFileModal.nativeElement.click();
                         this.loadRootFiles();
@@ -363,20 +372,14 @@ export class HomeComponent implements OnInit {
     }
 
     callDownload(fileId: string) {
+        this.selectedObjectId = fileId;
         this.homeService.downloadFile(fileId)
             .subscribe(
             data => {
-                if (!data.success && data.message) {
-                    console.log(data.message)
-                    this.pushErrorNotification('Скачивание файла прошло неуспешно. ' + data.message)
-                }
-                else {
-                    console.log('Download successfull');
-                    this.pushErrorNotification('Скачивание файла прошло успешно. ')
-                    var blob = new Blob([data.blob()], {type: 'application/pdf'});
-                    var filename = 'file.jpg';
-                    saveAs(blob, filename);
-                }
+                console.log('Download successfull');
+                var fileExtension = data.type.substring(data.type.lastIndexOf("/") + 1, data.type.length);
+                var filename = 'file.' + fileExtension;
+                saveAs(data, this.files[this.getIfromId(fileId)].name);
             },
             error => {
                 console.log('Cant download');
@@ -495,7 +498,50 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    openImage(fileId: string){
+    openImage(fileId: string) {
         this.showImage = true;
+        this.fileToShow = this.files[this.getIfromId(fileId)];
+        
+        this.mouse('srccarouselr', 'assets\\icons\\next.svg');
+        this.mouse('srccarousell', 'assets\\icons\\next.svg')
+        this.URL = "assets\\icons\\reload.svg";
+        this.homeService.downloadFile(fileId)
+            .subscribe(
+            data => {
+                this.createImageFromBlob(data)
+            });
+    }
+
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.URL = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
+    }
+    sanitize(url: string) {
+        return this.sanitizer.bypassSecurityTrustUrl(url);
+    }
+
+    mouse(srccarousel: string, src: string) {
+        this[srccarousel] = src
+    }
+
+    getIfromId(id: string): any {
+        for (var i in this.files) {
+            if (this.files[i].fileId === id) {
+                return i;
+            }
+        }
+
+        for (var i in this.folders) {
+            if (this.folders[i].folderId === id) {
+                return i;
+            }
+        }
     }
 }

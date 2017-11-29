@@ -1,5 +1,5 @@
 export class FileCustom {
-    FileId: string;
+    fileId: string;
     parentFolderId: string;
     ownerId: string;
     name: string;
@@ -8,5 +8,5 @@ export class FileCustom {
     hasPublicAccess: boolean;
     tagList: string[];
     resizedImage: string;
-    size: any;
+    size: number;
 }

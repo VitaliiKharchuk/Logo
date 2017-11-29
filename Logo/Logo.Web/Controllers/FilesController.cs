@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -79,8 +80,8 @@ namespace Logo.Web.Controllers
         {                
             try
             {
-                if (file == null) throw new Exception("Не  выбран  файл");
-                if (file.FileContent.Length == 0) throw new Exception("Файл  пустой");
+                if (file == null) throw new Exception("Не выбран файл");
+                if (file.FileContent.Length == 0) throw new Exception("Файл пустой");
 
                 Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                     .Where(item => item.Type == "UserId")
@@ -96,7 +97,7 @@ namespace Logo.Web.Controllers
                         ParentObjectId =  file.ParentFolderId,
                         CreationDate = DateTime.Now,
                         Size = file.FileContent.Length,
-                        Tags = file.Tags ?? "", 
+                        Tags = file.Tags?? ""
                     }
    
                 });
@@ -126,84 +127,51 @@ namespace Logo.Web.Controllers
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message , fileName = file.FileContent.FileName });
+                return Json(new { success = false, message = ex.Message, fileName = file.FileContent.FileName });
             }
 
             return Json(new { success = true, fileName = file.FileContent.FileName });
         }
 
 
-        [HttpPost]
-        [Route("archive-request")]
-        public  IActionResult ArchiveFiles()
+        [HttpGet]
+        [Route("archive-request/{folderId?}")]
+        public async  Task <IActionResult> ArchiveFiles(Guid ? folderId)
         {
             //List<Guid> files = new List<Guid>();
             //files = _foldersService.GetAllFilesFromDirectory(folderId, files);
 
-               _filesService.CreateZipFile();
-
-            return  Ok();
-        }
-
-
-
-
-        /*
-        
-
-        [HttpPost]
-        [Route("upload-request")]
-        public IActionResult Upload(LoadedFileUI file)
-        {
-
-            try
+            IEnumerable<string> files = new string[]   //hardcoded  file names in  blob
             {
-                if (file == null) throw new Exception("File is null");
-                if (file.FileContent.Length == 0) throw new Exception("File is empty");
+                "32dbe41d-6169-4427-8ac9-e9260c4c9ab8",
+                "2e57da5c-1d07-4466-8e37-96bd533f3732"
+            };
 
-                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                    .Where(item => item.Type == "UserId")
-                                    .Select(item => item.Value)
-                                    .FirstOrDefault());
+            IEnumerable <byte[]> origFiles =  await  _filesService.DownloadFiles(files);
 
-                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
+            using (var compressedFileStream = new MemoryStream()) //Create an archive and store the stream in memory.
+            using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
+            {
+                int i = 0;    //names  of  file in  archive
+
+                foreach (var origFile in origFiles)
                 {
-                    OwnerId = ownerId,
-                    ObjectCredentials = new ObjectCredentials
+                    //Create a zip entry for each attachment
+                    var zipEntry = zipArchive.CreateEntry(i.ToString());
+
+                    //Get the stream of the attachment
+                    using (var originalFileStream = new MemoryStream(origFile))
+                    using (var zipEntryStream = zipEntry.Open())
                     {
-                        Name = file.FileContent.FileName,
-                        ParentObjectId = file.ParentFolderId,
-                        CreationDate = DateTime.Now,
-                        Size = file.FileContent.Length,
-                        Tags = file.Tags
+                        //Copy the attachment stream to the zip entry stream
+                        await originalFileStream.CopyToAsync(zipEntryStream);
                     }
-                });
-
-                using (Stream stream = file.FileContent.OpenReadStream())
-                {
-                    stream.Position = 0;
-                    _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
-                    {
-                        Stream = stream,
-                        FileNameInBlob = fileId
-                    });
-
-                    byte[] resizedImage = _filesService.ResizeImage(stream);
-
-                    _foldersService.SetThumbnail(fileId, resizedImage);
-
+                    i++;
                 }
-            }
 
-            catch(Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-
-            }
-
-            return Ok();
+                byte[] archivedFile = compressedFileStream.ToArray();
+                return new FileContentResult(archivedFile, "application/zip");
+            }            
         }
-        */
-
     }
 }

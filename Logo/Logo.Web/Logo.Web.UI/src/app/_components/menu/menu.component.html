@@ -65,7 +65,7 @@
             <a [routerLink]="['']" class="breadcrumps-link" (click)="refresh()">Мои файлы</a>
             <span *ngFor="let item of breadcrumbs">
               <img src="assets\icons\next.svg" class="img-breadcrumbs">
-              <a [routerLink]="['', item.parentObjectId]" class="breadcrumps-link">{{item.name}}</a>
+              <a [routerLink]="['', item.folderId]" class="breadcrumps-link">{{item.name}}</a>
             </span>
           </div>
         </div>
@@ -87,17 +87,17 @@
           </button>
           <div class="dropdown-menu">
             <li>
-              <a class="droplist-el" [ngClass]="{'droplist-el-selected': sort === creationDate}" (click)="setType(SortType[SortType.creationDate])">
+              <a class="droplist-el" [ngClass]="{'droplist-el-selected':  this.sortValue == SortType[SortType[SortType.creationDate]]}" (click)="setType(SortType[SortType.creationDate])">
                 <span>По дате создания</span>
               </a>
             </li>
             <li>
-              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': sort === uploadDate}" (click)="setType(SortType[SortType.uploadDate])">
+              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': this.sortValue == SortType[SortType[SortType.uploadDate]]}" (click)="setType(SortType[SortType.uploadDate])">
                 <span>По дате добавления</span>
               </a>
             </li>
             <li>
-              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': sort === size}" (click)="setType(SortType[SortType.size])">
+              <a class="droplist-el border" [ngClass]="{'droplist-el-selected': this.sortValue == SortType[SortType[SortType.size]]}" (click)="setType(SortType[SortType.size])">
                 <span>По размеру</span>
               </a>
             </li>

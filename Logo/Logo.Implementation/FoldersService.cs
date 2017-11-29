@@ -199,7 +199,7 @@ namespace Logo.Implementation
             }
 
             else
-                throw new InvalidOperationException("Расширение  файла  недопустимо");
+                throw new InvalidOperationException("Расширение файла недопустимо");
         }
 
         public void RenameFolder(UpdatedObject updatedFolder)

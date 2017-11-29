@@ -62,94 +62,21 @@ namespace Logo.Implementation
             await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
 
+        
 
-
-        /*
-        public  async Task <byte [] > GetArchive(List<string>  files)
-         {
-
-             var ms = new MemoryStream();
-
-
-             foreach (var file in  files)
-             {
-                 ZipArchive zipArchive = new ZipArchive(ms, ZipArchiveMode.Create, true);
-
-
-
-             }
-
-
-         }
-         */
-
-
-        /*
-
-            FileStream fZip = File.Create(compressedOutputFile);
-            ZipOutputStream zipOStream = new ZipOutputStream(fZip);
-    foreach (FileInfo fi in allfiles)
-    {
-        ZipEntry entry = new ZipEntry((fi.Name));
-            zipOStream.PutNextEntry(entry);
-        FileStream fs = File.OpenRead(fi.FullName);
-        try
+        public async Task CreateZipFile()
         {
-            byte[] transferBuffer[1024];
-            do
+            IEnumerable<string> files = new string[]
             {
-                bytesRead = fs.Read(transferBuffer, 0, transferBuffer.Length);
-                zipOStream.Write(transferBuffer, 0, bytesRead);
-            }
-            while (bytesRead > 0);
-        }
-        finally
-        {
-            fs.Close();
-        }
-    }
-    zipOStream.Finish();
-    zipOStream.Close();
-*/
-           
-        public void CreateZipFile()
-        {
-            IEnumerable<string> files = new  List<string>
-            {
-                "1866009c-d93a-4e6e-8dab-396a52e12970",
-                "f38c309a-cef8-4909-9a7a-9736cded1051"
+                "0ade35df-6e45-47bb-8989-1de9e08e5e1d",
+                "13d9322a-6e32-429e-b76d-1f6ef02482fe"
             };
 
+            IEnumerable <byte[]> list =  await DownloadFiles(files);
 
-             // List<byte[]> list = DownloadFiles(files);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (ZipArchive archive = new ZipArchive(ms, ZipArchiveMode.Create))
-                {
-                    // Add the entry for each file
-                    foreach (var file in files)
-                    {
-                        Stream loadedFile =  SimpleDownloadStreamAsync(file).GetAwaiter().GetResult();
-
-                        ZipArchiveEntry fileEntry = archive.CreateEntry(file);
-                        
-                        using (var entryStream = fileEntry.Open())                        
-                        using (var streamWriter = new StreamWriter(entryStream))
-                        {
-                            streamWriter.Write(fileEntry);
-                        }                       
-                    }
-
-                    using (var fileStream = new FileStream(@"J:\test.zip", FileMode.Create))
-                    {
-                        ms.Seek(0, SeekOrigin.Begin);
-                        ms.CopyTo(fileStream);
-                       
-                    }           
-                }
-            }
+            
+           
         }
-
 
         public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
         {

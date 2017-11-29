@@ -8,7 +8,9 @@
             <div class="textchoose">
                 <p class="login">Войдите в аккаунт</p>
 
-                <p class="register">или <a [routerLink]="['/register']" class="link">Cоздайте аккаунт</a></p>
+                <p class="register">или
+                    <a [routerLink]="['/register']" class="link">Cоздайте аккаунт</a>
+                </p>
             </div>
             <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
@@ -16,7 +18,8 @@
                     <input type="email" class="form-control" name="email" placeholder="E-mail" [(ngModel)]="model.email" #email="ngModel" required
                         email />
 
-                    <div *ngIf="email.errors && (email.dirty && email.touched)" class="alerts"><br>
+                    <div *ngIf="email.errors && (email.dirty && email.touched)" class="alerts">
+                        <br>
                         <div [hidden]="!email.errors.required">
                             Email необходим.
                         </div>
@@ -33,7 +36,8 @@
                     <input type="password" class="form-control" name="password" placeholder="Пароль" [(ngModel)]="model.password" #password="ngModel"
                         required minlength="6" maxlength="50" />
 
-                    <div *ngIf="password.errors && (password.dirty && password.touched)" class="alerts"><br>
+                    <div *ngIf="password.errors && (password.dirty && password.touched)" class="alerts">
+                        <br>
                         <div [hidden]="!password.errors.required">
                             Пароль необходим.
                         </div>
@@ -53,3 +57,4 @@
         </div>
     </div>
 </div>
+<simple-notifications [options]="options"></simple-notifications>
