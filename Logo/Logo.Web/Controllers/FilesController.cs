@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -49,8 +50,12 @@ namespace Logo.Web.Controllers
 
                 arr = _filesService.SimpleDownloadAsync(fileId.ToString()).GetAwaiter().GetResult();
 
-                Request.HttpContext.Response.Headers.Add("Content-Extention",String.Format( "image/{0}", _foldersService.GetFileExstention(fileInfo.Name)));
-               Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.FileId.ToString());
+                string fileExtention = _foldersService.GetFileExstention(fileInfo.Name);
+                int fileType = _foldersService.GetFileType(fileExtention);
+                string nameFileContent = (fileType == 0 || fileType == 1) ? "image" : "video";
+
+               Request.HttpContext.Response.Headers.Add("Content-Extention",String.Format( "{0}/{1}", nameFileContent , fileExtention));
+               //Request.HttpContext.Response.Headers.Add("File-Name", fileInfo.FileId.ToString());
             }
 
             catch (Exception ex)
@@ -60,20 +65,14 @@ namespace Logo.Web.Controllers
 
             string contentType = String.Format("application/{0}", _foldersService.GetFileExstention(fileInfo.Name));
             HttpContext.Response.ContentType = contentType;
-            FileContentResult result = new FileContentResult(arr, contentType);
-            
-            /*
-            ObjectResult objectResult = new ObjectResult(arr)
+            FileContentResult result = new FileContentResult(arr, contentType)
             {
-                StatusCode = (int)HttpStatusCode.OK, 
+                //FileDownloadName = fileInfo.Name
             };
-
-            return objectResult;
-            */
-
+            
             return result;
-
         }        
+
         [HttpPost]
         [Route("upload-request")]
         public  async Task <IActionResult> Upload(LoadedFileUI file)
@@ -97,7 +96,7 @@ namespace Logo.Web.Controllers
                         ParentObjectId =  file.ParentFolderId,
                         CreationDate = DateTime.Now,
                         Size = file.FileContent.Length,
-                        Tags = file.Tags
+                        Tags = file.Tags ?? "", 
                     }
    
                 });
@@ -114,20 +113,38 @@ namespace Logo.Web.Controllers
                     });
 
                     stream.Position = 0;
-                    byte[] resizedImage = _filesService.ResizeImage(stream);
 
-                    _foldersService.SetThumbnail(fileId, resizedImage);
+                    if (_foldersService.GetFileExstention(file.FileContent.FileName) == "jpg" || _foldersService.GetFileExstention(file.FileContent.FileName) == "png")
+                    {
+                        byte[] resizedImage = _filesService.ResizeImage(stream);
+
+                        _foldersService.SetThumbnail(fileId, resizedImage);
+                    }
                 }
             }
 
 
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message , fileName = file.FileContent.FileName });
             }
 
             return Json(new { success = true, fileName = file.FileContent.FileName });
         }
+
+
+        [HttpPost]
+        [Route("archive-request")]
+        public  IActionResult ArchiveFiles()
+        {
+            //List<Guid> files = new List<Guid>();
+            //files = _foldersService.GetAllFilesFromDirectory(folderId, files);
+
+               _filesService.CreateZipFile();
+
+            return  Ok();
+        }
+
 
 
 

@@ -34,6 +34,10 @@ namespace Logo.Contracts.Services
         IEnumerable<FileInfo> GetAllFiles();  //only  for   testing
 
         void SetThumbnail(Guid fileId, byte[] resizedImage);
+
+        int GetFileType(string fileExtention);
+
+        //List<Guid> GetAllFilesFromDirectory(Guid folderId, List<Guid> filesList);
     }
 
 }

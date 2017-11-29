@@ -8,7 +8,6 @@ using System.IO;
 
 namespace Logo.Implementation
 {
-
     public enum FileExtentions
     {
         jpg,
@@ -133,6 +132,25 @@ namespace Logo.Implementation
             return fileName.Substring(fileName.LastIndexOf('.') + 1);
         }
 
+
+        public  int GetFileType(string fileExtention)
+        {
+            int type = -1;
+
+            if (fileExtention.Equals(FileExtentions.jpg.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                type = 0;
+            else  if (fileExtention.Equals(FileExtentions.png.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                type = 1;
+            else if (fileExtention.Equals(FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                type = 2;
+            else if (fileExtention.Equals(FileExtentions.avi.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                type = 3;
+            else if (fileExtention.Equals(FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                type = 4;
+
+            return type;
+        }
+
         public Guid CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
         {
             if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
@@ -140,27 +158,27 @@ namespace Logo.Implementation
 
             string fileName = fileCredentialsWithOwner.ObjectCredentials.Name;
             string fileExtention = GetFileExstention(fileCredentialsWithOwner.ObjectCredentials.Name);
-            
-            if (fileExtention.Equals(FileExtentions.avi.ToString(), StringComparison.InvariantCultureIgnoreCase)    //   gavnocode!    rewrite need
-                   || fileExtention.Equals(FileExtentions.jpg.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals(FileExtentions.mkv.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals(FileExtentions.mov.ToString(), StringComparison.InvariantCultureIgnoreCase)
-                   || fileExtention.Equals(FileExtentions.png.ToString(), StringComparison.InvariantCultureIgnoreCase)
-              )
-            {
 
+            int fileType = GetFileType(fileExtention);
+
+            if (fileType != -1)
+            {
+               
                 Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
-                _dbContext.Add
+                DateTime dateTime = Convert.ToDateTime(fileCredentialsWithOwner.ObjectCredentials.CreationDate);
+
+
+                _dbContext.Files.Add
                     (new DatabaseModels.File
                     {
                         FileId = fileId,
                         OwnerId = fileCredentialsWithOwner.OwnerId,
                         ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
-                        CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
+                        CreationDate = Convert.ToDateTime(fileCredentialsWithOwner.ObjectCredentials.CreationDate),
                         UploadDate = DateTime.Now,
                         Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
-                        Type = -1, //Enum.TryParse(FileExtentions.avi, Path.GetExtension(fileCredentialsWithOwner.ObjectCredentials.Name, )  ,      //need  implementation
+                        Type = fileType,
                         HasPublicAccess = false,
 
                         ImageStorage = null
@@ -173,7 +191,6 @@ namespace Logo.Implementation
                     ObjectId = fileId,
                     Text = fileCredentialsWithOwner.ObjectCredentials.Tags
                 });
-
 
 
                 _dbContext.SaveChanges();

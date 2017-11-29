@@ -14,7 +14,7 @@ namespace Logo.Contracts.Services
          Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames);
          Task UploadFiles(IEnumerable<LoadedFileBack> loadedFilesBack);
 
+         void CreateZipFile();
          byte[] ResizeImage(Stream input);
-
     }
 }

@@ -15,7 +15,15 @@ namespace Logo.Implementation
 {
     public class FilesService : IFilesService
     {
-        
+
+        //private readonly IFoldersService _foldersService;
+
+        public FilesService()
+        {
+           // _foldersService = foldersService;
+        }
+
+
         public async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
             var container = await GetContainerReference();
@@ -28,11 +36,28 @@ namespace Logo.Implementation
             return ms.ToArray();
         }
 
-        public async Task SimpleUploadStreamAsync( LoadedFileBack loadedFileBack )
+
+
+        public async Task<Stream> SimpleDownloadStreamAsync(string fileName)
+        {
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
+
+            var ms = new MemoryStream();
+
+            await blockBlob.DownloadToStreamAsync(ms);
+
+            return ms;
+        }
+
+
+
+
+        public async Task SimpleUploadStreamAsync(LoadedFileBack loadedFileBack)
         {
             //loadedFileBack.Stream.Position = 0;
             var container = await GetContainerReference();
-            var blockBlob = container.GetBlockBlobReference( loadedFileBack.FileNameInBlob.ToString());
+            var blockBlob = container.GetBlockBlobReference(loadedFileBack.FileNameInBlob.ToString());
 
             await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
@@ -40,40 +65,91 @@ namespace Logo.Implementation
 
 
         /*
-       public  async Task <byte [] > GetArchive(List<string>  files)
+        public  async Task <byte [] > GetArchive(List<string>  files)
+         {
+
+             var ms = new MemoryStream();
+
+
+             foreach (var file in  files)
+             {
+                 ZipArchive zipArchive = new ZipArchive(ms, ZipArchiveMode.Create, true);
+
+
+
+             }
+
+
+         }
+         */
+
+
+        /*
+
+            FileStream fZip = File.Create(compressedOutputFile);
+            ZipOutputStream zipOStream = new ZipOutputStream(fZip);
+    foreach (FileInfo fi in allfiles)
+    {
+        ZipEntry entry = new ZipEntry((fi.Name));
+            zipOStream.PutNextEntry(entry);
+        FileStream fs = File.OpenRead(fi.FullName);
+        try
         {
-
-
-            foreach (var file in  files)
+            byte[] transferBuffer[1024];
+            do
             {
-                Guid fileId = new Guid(file);
+                bytesRead = fs.Read(transferBuffer, 0, transferBuffer.Length);
+                zipOStream.Write(transferBuffer, 0, bytesRead);
             }
-
-
+            while (bytesRead > 0);
         }
-
-
-
-        public static void CreateZipFile(string fileName, IEnumerable<string> files)
+        finally
         {
-            // Create and open a new ZIP file
-            var zip = ZipFile.Open(fileName, ZipArchiveMode.Create);
-            foreach (var file in files)
-            {
-                // Add the entry for each file
-                zip.CreateEntryFromFile(file, Path.GetFileName(file), CompressionLevel.Optimal);
-            }
-            // Dispose of the object when we are done
-            //zip.Dispose();
-
+            fs.Close();
+        }
+    }
+    zipOStream.Finish();
+    zipOStream.Close();
+*/
            
+        public void CreateZipFile()
+        {
+            IEnumerable<string> files = new  List<string>
+            {
+                "1866009c-d93a-4e6e-8dab-396a52e12970",
+                "f38c309a-cef8-4909-9a7a-9736cded1051"
+            };
 
-            var stream = new MemoryStream();
+
+             // List<byte[]> list = DownloadFiles(files);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (ZipArchive archive = new ZipArchive(ms, ZipArchiveMode.Create))
+                {
+                    // Add the entry for each file
+                    foreach (var file in files)
+                    {
+                        Stream loadedFile =  SimpleDownloadStreamAsync(file).GetAwaiter().GetResult();
+
+                        ZipArchiveEntry fileEntry = archive.CreateEntry(file);
+                        
+                        using (var entryStream = fileEntry.Open())                        
+                        using (var streamWriter = new StreamWriter(entryStream))
+                        {
+                            streamWriter.Write(fileEntry);
+                        }                       
+                    }
+
+                    using (var fileStream = new FileStream(@"J:\test.zip", FileMode.Create))
+                    {
+                        ms.Seek(0, SeekOrigin.Begin);
+                        ms.CopyTo(fileStream);
+                       
+                    }           
+                }
+            }
         }
 
-
-
-    */
 
         public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
         {
@@ -111,9 +187,9 @@ namespace Logo.Implementation
             await Task.WhenAll(tasks);
         }
 
-    
 
-        private  async Task<CloudBlobContainer> GetContainerReference()
+
+        private async Task<CloudBlobContainer> GetContainerReference()
         {
             var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
             var storageAccount = CloudStorageAccount.Parse(connectionString);
@@ -123,25 +199,25 @@ namespace Logo.Implementation
             await container.CreateIfNotExistsAsync();
             return container;
         }
-    
-        public byte []  ResizeImage(Stream input)
+
+        public byte[] ResizeImage(Stream input)
         {
             const int width = 306;
             const int height = 208;
 
             Configuration.Default.AddImageFormat(new JpegFormat());
             Configuration.Default.AddImageFormat(new PngFormat());
-                      
+
             byte[] resizedImage = null;
 
-            using (var output =  new MemoryStream())
+            using (var output = new MemoryStream())
             {
                 var image = new Image(input)
                     .Resize(new ResizeOptions
                     {
                         Size = new Size(width, height),
                         Mode = ResizeMode.Crop,
-                       
+
                     });
                 image.Save(output);
 
@@ -149,6 +225,6 @@ namespace Logo.Implementation
             }
             return resizedImage;
         }
-       
+
     }
 }
