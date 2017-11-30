@@ -165,7 +165,6 @@ namespace Logo.Implementation
             {
                
                 Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
-                DateTime dateTime = Convert.ToDateTime(fileCredentialsWithOwner.ObjectCredentials.CreationDate);
 
 
                 _dbContext.Files.Add
@@ -175,7 +174,7 @@ namespace Logo.Implementation
                         OwnerId = fileCredentialsWithOwner.OwnerId,
                         ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
                         Name = fileCredentialsWithOwner.ObjectCredentials.Name,
-                        CreationDate = Convert.ToDateTime(fileCredentialsWithOwner.ObjectCredentials.CreationDate),
+                        CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
                         UploadDate = DateTime.Now,
                         Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
                         Type = fileType,

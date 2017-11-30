@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -38,6 +39,21 @@ namespace Logo.Web.Controllers
         [Route("upload-request")]
         public async Task<IActionResult> Upload(LoadedFileUI file)
         {
+
+            DateTime result = default(DateTime);
+            string format = "ddd MMM dd yyyy h:mm tt zzz";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            try
+            {
+                result = DateTime.ParseExact(file.CreationDate, format, provider);
+            }
+            catch (FormatException )
+            {
+                return Json(new { success = false, message = "Incorrect  format" });
+
+            }
+
             try
             {
                 if (file == null) throw new Exception("Не выбран файл");
@@ -48,6 +64,9 @@ namespace Logo.Web.Controllers
                                     .Select(item => item.Value)
                                     .FirstOrDefault());
 
+                DateTime date1 = DateTime.Parse(file.CreationDate);
+
+
                 Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
                 {
                     OwnerId = ownerId,
@@ -55,7 +74,7 @@ namespace Logo.Web.Controllers
                     {
                         Name = file.FileContent.FileName,
                         ParentObjectId = file.ParentFolderId,
-                        CreationDate = DateTime.Now,
+                        CreationDate = date1,
                         Size = file.FileContent.Length,
                         Tags = file.Tags ?? ""
                     }
