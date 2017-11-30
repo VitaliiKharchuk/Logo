@@ -92,6 +92,7 @@ namespace Logo.Implementation
                     return ms.ToArray();
                 }));
             }
+
             return await Task.WhenAll(tasks);
         }
 

@@ -13,6 +13,7 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NotificationsService } from 'angular2-notifications';
 import { saveAs } from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-data',
@@ -148,7 +149,7 @@ export class DataComponent implements OnInit {
     }
 
     //menu
-    createfolder() {
+    createfolder(form: NgForm) {
         this.homeService.createfolder(this.model.foldername, this.folderId)
             .subscribe(
             data => {
@@ -162,15 +163,17 @@ export class DataComponent implements OnInit {
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
                 this.pushErrorNotification('Создание папки прошло неуспешно.')
+                form.form.reset();
             });
     }
 
-    uploadFile() {
+    uploadFile(form: NgForm) {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
@@ -179,7 +182,7 @@ export class DataComponent implements OnInit {
                 let formData: FormData = new FormData();
                 formData.append('FileContent', fi.files[_i]);
                 formData.append('CreationDate', fi.files[_i].lastModifiedDate);
-                formData.append('ParentFolderId', null);
+                formData.append('ParentFolderId', this.folderId);
                 formData.append('Tags', this.uploadFiles[_i].hashtag ? this.uploadFiles[_i].hashtag : "");
                 let creationDate = new Date(fi.files[_i].lastModifiedDate);
 
@@ -210,7 +213,7 @@ export class DataComponent implements OnInit {
     }
 
     //folders
-    renamefolder() {
+    renamefolder(form: NgForm) {
         let folderId = this.selectedObjectId;
         console.log(this.folderrenamem.name, folderId);
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
@@ -226,12 +229,14 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 this.loadFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
                 this.pushErrorNotification('Переименование папки прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -257,7 +262,7 @@ export class DataComponent implements OnInit {
             });
     }
 
-    addTags() {
+    addTags(form: NgForm) {
         let folderId = this.selectedObjectId;
         this.homeService.addTags(folderId, this.model.tags)
             .subscribe(
@@ -271,19 +276,21 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
     //files
-    renameFile() {
+    renameFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         console.log(this.model.renameFile, fileId);
-        this.homeService.renameFolder(this.model.renameFile, fileId)
+        this.homeService.renameFile(this.model.renameFile, fileId)
             .subscribe(
             data => {
                 if (!data.success && data.message) {
@@ -295,11 +302,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadFiles();
+                form.form.reset();
             },
             error => {
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
                 this.pushErrorNotification('Переименование файла прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -325,7 +334,7 @@ export class DataComponent implements OnInit {
             });
     }
 
-    addTagsFile() {
+    addTagsFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         this.homeService.addTagsFile(fileId, this.model.tags)
             .subscribe(
@@ -339,11 +348,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadFiles();
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -362,7 +373,19 @@ export class DataComponent implements OnInit {
     }
 
     callDownloadZIP(folderId: string) {
-
+        this.selectedObjectId = folderId;
+        this.homeService.downloadZIP(folderId)
+            .subscribe(
+            data => {
+                console.log('Download zip successfull');
+                var fileExtension = data.type.substring(data.type.lastIndexOf("/") + 1, data.type.length);
+                var filename = 'file.' + fileExtension;
+                saveAs(data, this.folders[this.getIfromId(folderId)].name + '.' + fileExtension);
+            },
+            error => {
+                console.log('Cant download');
+                this.pushErrorNotification('Скачивание zip прошло неуспешно.')
+            });
     }
 
     openDeleteFolderModal(folderId: string) {

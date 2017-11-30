@@ -12,7 +12,7 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NotificationsService } from 'angular2-notifications';
 import { saveAs } from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-home',
@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
     }
 
     //menu
-    createfolder() {
+    createfolder(form: NgForm) {
         this.homeService.createfolder(this.model.foldername, null)
             .subscribe(
             data => {
@@ -148,15 +148,18 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadRootFolders();
+                form.form.reset();
             },
             error => {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
                 this.pushErrorNotification('Создание папки прошло неуспешно.')
+                form.form.reset();
             });
+            
     }
 
-    uploadFile() {
+    uploadFile(form: NgForm) {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
@@ -196,7 +199,7 @@ export class HomeComponent implements OnInit {
     }
 
     //folders
-    renamefolder() {
+    renamefolder(form: NgForm) {
         let folderId = this.selectedObjectId;
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
             .subscribe(
@@ -211,11 +214,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadRootFolders();
+                form.form.reset();
             },
             error => {
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
                 this.pushErrorNotification('Переименование папки прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -242,7 +247,7 @@ export class HomeComponent implements OnInit {
             });
     }
 
-    addTags() {
+    addTags(form: NgForm) {
         let folderId = this.selectedObjectId;
         this.homeService.addTags(folderId, this.model.tags)
             .subscribe(
@@ -257,16 +262,18 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadRootFolders();
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
     //files
-    renameFile() {
+    renameFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         console.log(this.model.renameFile, fileId);
         this.homeService.renameFile(this.model.renameFile, fileId)
@@ -282,11 +289,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadRootFiles()
+                form.form.reset();
             },
             error => {
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
                 this.pushErrorNotification('Переименование файла прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -313,7 +322,7 @@ export class HomeComponent implements OnInit {
             });
     }
 
-    addTagsFile() {
+    addTagsFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         this.homeService.addTagsFile(fileId, this.model.tags)
             .subscribe(
@@ -328,11 +337,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadRootFiles()
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -351,7 +362,19 @@ export class HomeComponent implements OnInit {
     }
 
     callDownloadZIP(folderId: string) {
-
+        this.selectedObjectId = folderId;
+        this.homeService.downloadZIP(folderId)
+            .subscribe(
+            data => {
+                console.log('Download zip successfull');
+                var fileExtension = data.type.substring(data.type.lastIndexOf("/") + 1, data.type.length);
+                var filename = 'file.' + fileExtension;
+                saveAs(data, this.folders[this.getIfromId(folderId)].name + '.' + fileExtension);
+            },
+            error => {
+                console.log('Cant download');
+                this.pushErrorNotification('Скачивание zip прошло неуспешно.')
+            });
     }
 
     openDeleteFolderModal(folderId: string) {

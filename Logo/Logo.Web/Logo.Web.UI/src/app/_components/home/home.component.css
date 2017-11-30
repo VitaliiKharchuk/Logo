@@ -609,11 +609,3 @@ button {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.footer{
-    color:  #7a7a7a !important;
-    font-family: Raleway-SemiBold;
-    letter-spacing: 1px;
-    font-size: 1em;
-    width: 100vh;
-    padding-left: 110px;
-}

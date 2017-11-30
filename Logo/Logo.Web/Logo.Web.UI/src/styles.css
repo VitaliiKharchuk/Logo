@@ -15,22 +15,11 @@ body.modal-open[style="padding-right: 19px;"]
   padding-right: 0px !important;
 }
 
-
 html{
   overflow-x: auto !important;
   min-width: 1420px !important;
   padding-right: 0px !important;
   height: 100%;
-}
-
-footer {
-  color:  #7a7a7a !important;
-  font-family: Raleway-SemiBold;
-  letter-spacing: 1px;
-  font-size: 1em;
-  width: 100vh;
-  padding-left: 110px;
-
 }
 
 @font-face {

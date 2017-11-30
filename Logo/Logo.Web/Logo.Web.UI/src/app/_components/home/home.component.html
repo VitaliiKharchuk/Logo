@@ -172,31 +172,32 @@
 
 
     <button class="folder-grid col-sm-12 " *ngFor="let file of files">
-      <div [contextMenu]="static" (click)="openImage(file.fileId)">
-        <div class="col-sm-9 just-for-padding">
+      <div [contextMenu]="static">
+        <div (click)="openImage(file.fileId)">
+          <div class="col-sm-9 just-for-padding">
             <div class="folder-grid-item">
-                <div class="for-inline">
-                  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" class="img-folder">
-                    <path class="st0" d="M503.2,53H8.8C4,53,0,56.9,0,61.8v388.4c0,4.9,4,8.8,8.8,8.8h494.3c4.9,0,8.8-3.9,8.8-8.8V61.8
+              <div class="for-inline">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" class="img-folder">
+                  <path class="st0" d="M503.2,53H8.8C4,53,0,56.9,0,61.8v388.4c0,4.9,4,8.8,8.8,8.8h494.3c4.9,0,8.8-3.9,8.8-8.8V61.8
                        C512,56.9,508,53,503.2,53z M141.2,150.1c27.1,0,49.2,22.1,49.2,49.2c0,27.1-22.1,49.2-49.2,49.2s-49.2-22.1-49.2-49.2
                        C92.1,172.1,114.1,150.1,141.2,150.1z M465.5,314.9c-3.3,3.6-8.9,3.8-12.5,0.5l-99.4-91.1l-81,88.8l42.4,42.4c3.5,3.5,3.5,9,0,12.5
                        c-3.5,3.5-9,3.5-12.5,0l-90.9-90.9l-144,126.8c-1.7,1.5-3.8,2.2-5.8,2.2c-2.4,0-4.9-1-6.6-3c-3.2-3.7-2.9-9.2,0.8-12.5l150.2-132.3
                        c3.5-3.1,8.8-2.9,12.1,0.4l41.9,41.9l86.5-94.7c1.6-1.7,3.8-2.8,6.1-2.9c2.3-0.1,4.6,0.7,6.4,2.3L465,302.5
                        C468.6,305.8,468.8,311.3,465.5,314.9z" />
-                  </svg>
-                </div>
-                <div class="for-inline">{{file.name}}</div>
+                </svg>
               </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="folder-grid-item">
-            <span *ngFor="let tagFile of file.tagList">
-              #{{tagFile}}
-            </span>
+              <div class="for-inline">{{file.name}}</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="folder-grid-item">
+              <span *ngFor="let tagFile of file.tagList">
+                #{{tagFile}}
+              </span>
+            </div>
           </div>
         </div>
-
         <button id="openRenameFileModalButton" hidden="true" data-toggle="modal" data-target="#renameFileModal">Переименовать</button>
         <button id="openAddTagFileModalButton" hidden="true" data-toggle="modal" data-target="#addTagFileModal">Добавить тег</button>
         <button id="openDeleteFileModalButton" hidden="true" data-toggle="modal" data-target="#deleteFileModal">Удалить файл</button>
@@ -229,7 +230,6 @@
   </div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal fade" id="createFolderModal" role="dialog">
   <div class="modal-dialog">
@@ -240,7 +240,7 @@
         <h4 class="modal-title">Создание папки</h4>
       </div>
       <div class="modal-body">
-        <form name="form" (ngSubmit)="formCreate.form.valid && createfolder()" #formCreate="ngForm" novalidate>
+        <form name="form" (ngSubmit)="formCreate.form.valid && createfolder(formCreate)" #formCreate="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': formCreate.submitted && !foldername.valid }">
             <label for="foldername"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="foldername" placeholder="Имя папки" [(ngModel)]="model.foldername"
@@ -338,7 +338,7 @@
         <h4 class="modal-title">Переименовать папку</h4>
       </div>
       <div class="modal-body">
-        <form name="formrenamev" (ngSubmit)="formrename.valid && renamefolder()" #formrename="ngForm" novalidate>
+        <form name="formrenamev" (ngSubmit)="formrename.valid && renamefolder(formrename)" #formrename="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': formrename.submitted && !folderrename.valid }">
             <label for="folderrename"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="folderrename" placeholder="Имя папки" [(ngModel)]="folderrenamem.name"
@@ -378,7 +378,7 @@
       </div>
       <div class="modal-body">
 
-        <form name="formAddTags" (ngSubmit)="formAT.valid && addTags()" #formAT="ngForm" novalidate>
+        <form name="formAddTags" (ngSubmit)="formAT.valid && addTags(formAT)" #formAT="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': formAT.submitted && !tags.valid }">
             <label for="tags"></label>
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
@@ -427,10 +427,10 @@
         <h4 class="modal-title">Переименовать файл</h4>
       </div>
       <div class="modal-body">
-        <form name="formrenamev" (ngSubmit)="formrenameFile.valid && renameFile()" #formrenameFile="ngForm" novalidate>
+        <form name="formrenamev" (ngSubmit)="formrenameFile.valid && renameFile(formrenameFile)" #formrenameFile="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': formrenameFile.submitted && !formrenameFile.valid }">
             <label for="folderrename"></label>
-            <input type="text" class="form-control form-control-on-add-folder" name="formrenameFile" placeholder="Имя папки" [(ngModel)]="model.renameFile"
+            <input type="text" class="form-control form-control-on-add-folder" name="formrenameFile" placeholder="Имя файла" [(ngModel)]="model.renameFile"
               #folderrename="ngModel" required maxlength="50" />
             <div *ngIf="formrenameFile.submitted && formrenameFile.errors && (formrenameFile.dirty || formrenameFile.touched)" class="alerts">
               <br>
@@ -467,7 +467,7 @@
       </div>
       <div class="modal-body">
 
-        <form name="form" (ngSubmit)="f.form.valid && addTagsFile()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="f.form.valid && addTagsFile(f)" #f="ngForm" novalidate>
           <div class="form-group">
             <label for="tags"></label>
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"

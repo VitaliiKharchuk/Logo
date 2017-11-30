@@ -88,6 +88,14 @@ export class HomeService {
     });
   }
 
+  downloadZIP(folderId: string) {
+    return this.http.get('/api/files/archive-request/' + folderId, this.jwtWithResponceContentType()).map(res => {
+      return new Blob([res.blob()], {
+        type: res.headers.get("Content-Extention")
+      })
+    });
+  }
+
   //initial requests
   loadRootFolders() {
     return this.http.get('api/folders/get-root-folders/', this.jwt()).map(this.extractData);
