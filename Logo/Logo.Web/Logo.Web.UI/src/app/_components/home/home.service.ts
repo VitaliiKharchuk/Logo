@@ -14,10 +14,10 @@ export class HomeService {
 
   search(textToSearh: string, typeFileSearch: boolean) {
     if (typeFileSearch) {
-      return this.http.get('/api/folders/search-name/' + textToSearh, this.jwt()).map(this.extractData);
+      return this.http.post('/api/folders/search-name', textToSearh, this.jwt()).map(this.extractData);
     }
     else {
-      return this.http.get('/api/folders/search-tag/' + textToSearh, this.jwt()).map(this.extractData);
+      return this.http.post('/api/folders/search-tag', textToSearh, this.jwt()).map(this.extractData);
     }
   }
 

@@ -15,6 +15,11 @@ body.modal-open[style="padding-right: 19px;"]
   padding-right: 0px !important;
 }
 
+body.modal-open
+{
+  padding-right: 0px !important;
+}
+
 html{
   overflow-x: auto !important;
   min-width: 1420px !important;

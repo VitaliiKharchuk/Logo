@@ -121,7 +121,9 @@ export class HomeComponent implements OnInit {
                         else {
                             file.resizedImage = 'data:image/png;base64,' + file.resizedImage;
                         }
+                        
                     }
+                    
                 }
             },
             error => {
@@ -148,15 +150,15 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadRootFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
                 this.pushErrorNotification('Создание папки прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
-            
+
     }
 
     uploadFile(form: NgForm) {
@@ -167,10 +169,9 @@ export class HomeComponent implements OnInit {
             if (this.checkIfValid(fi.files[_i]) == "") {
                 let formData: FormData = new FormData();
                 formData.append('FileContent', fi.files[_i]);
-                formData.append('CreationDate', fi.files[_i].lastModifiedDate);
+                formData.append('CreationDate', fi.files[_i].lastModifiedDate.toUTCString());
                 formData.append('ParentFolderId', null);
                 formData.append('Tags', this.uploadFiles[_i].hashtag ? this.uploadFiles[_i].hashtag : "");
-                let creationDate = new Date(fi.files[_i].lastModifiedDate);
 
                 this.homeService.uploadFile(formData)
                     .subscribe(
@@ -179,7 +180,7 @@ export class HomeComponent implements OnInit {
                         if (!data.success && data.message) {
                             console.log(data.message)
                             this.pushErrorNotification('Загрузка файла ' + data.fileName + ' прошла неуспешно. ' + data.message)
-                            console.log('name file', fi.files[0], _i);
+
                         }
                         else {
                             console.log('upload file success');
@@ -189,7 +190,7 @@ export class HomeComponent implements OnInit {
                         this.loadRootFiles();
                     },
                     error => {
-                        this.loading = false;                        
+                        this.loading = false;
                         console.log('Cant upload file', error);
                         this.closeUploadFileModal.nativeElement.click();
                         this.pushErrorNotification('Загрузка файла прошла неуспешно.')
@@ -214,13 +215,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadRootFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
                 this.pushErrorNotification('Переименование папки прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -262,13 +263,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadRootFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -289,13 +290,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadRootFiles()
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
                 this.pushErrorNotification('Переименование файла прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -337,13 +338,13 @@ export class HomeComponent implements OnInit {
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadRootFiles()
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -454,11 +455,8 @@ export class HomeComponent implements OnInit {
         if (name.lastIndexOf(".") > 0) {
             fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
         }
-        if (fileExtension.toLowerCase() == "jpg") {
+        if (fileExtension.toLowerCase() == "jpg" || "png") {
             return true;
-        }
-        if (fileExtension.toLowerCase() == "png") {
-            return false;
         }
         else {
             return false;

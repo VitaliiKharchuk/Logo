@@ -241,18 +241,12 @@
       </div>
       <div class="modal-body">
         <form name="form" (ngSubmit)="formCreate.form.valid && createfolder(formCreate)" #formCreate="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': formCreate.submitted && !foldername.valid }">
+          <div class="form-group">
             <label for="foldername"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="foldername" placeholder="Имя папки" [(ngModel)]="model.foldername"
               #foldername="ngModel" required maxlength="50" />
-            <div *ngIf="formCreate.submitted && foldername.errors && (foldername.dirty || foldername.touched)" class="alerts">
-              <br>
-              <div [hidden]="!foldername.errors.required">
-                Имя папки необходимо.
-              </div>
-              <div [hidden]="!foldername.errors.maxlength">
-                Максимальная длинна папки 50 символов.
-              </div>
+            <div *ngIf="formCreate.submitted && !foldername.valid" class="alerts">
+              Имя папки необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -339,18 +333,12 @@
       </div>
       <div class="modal-body">
         <form name="formrenamev" (ngSubmit)="formrename.valid && renamefolder(formrename)" #formrename="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': formrename.submitted && !folderrename.valid }">
+          <div class="form-group">
             <label for="folderrename"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="folderrename" placeholder="Имя папки" [(ngModel)]="folderrenamem.name"
               #folderrename="ngModel" required maxlength="50" />
-            <div *ngIf="formrename.submitted && folderrename.errors && (folderrename.dirty || folderrename.touched)" class="alerts">
-              <br>
-              <div [hidden]="!folderrename.errors.required">
-                Имя папки необходимо.
-              </div>
-              <div [hidden]="!folderrename.errors.maxlength">
-                Максимальная длинна папки 50 символов.
-              </div>
+            <div *ngIf="formrename.submitted && !folderrename.valid" class="alerts">
+              Имя папки необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -379,12 +367,14 @@
       <div class="modal-body">
 
         <form name="formAddTags" (ngSubmit)="formAT.valid && addTags(formAT)" #formAT="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': formAT.submitted && !tags.valid }">
+          <div class="form-group">
             <label for="tags"></label>
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
               required></textarea>
 
-            <div *ngIf="formAT.submitted && !tags.valid" class="help-block">Теги необходимы</div>
+            <div *ngIf="formAT.submitted && !tags.valid" class="alerts">
+              Теги необходимы.
+            </div>
           </div>
           <div class="form-group right">
             <div [hidden]="true">
@@ -430,16 +420,10 @@
         <form name="formrenamev" (ngSubmit)="formrenameFile.valid && renameFile(formrenameFile)" #formrenameFile="ngForm" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': formrenameFile.submitted && !formrenameFile.valid }">
             <label for="folderrename"></label>
-            <input type="text" class="form-control form-control-on-add-folder" name="formrenameFile" placeholder="Имя файла" [(ngModel)]="model.renameFile"
-              #folderrename="ngModel" required maxlength="50" />
-            <div *ngIf="formrenameFile.submitted && formrenameFile.errors && (formrenameFile.dirty || formrenameFile.touched)" class="alerts">
-              <br>
-              <div [hidden]="!formrenameFile.errors.required">
-                Имя файла необходимо.
-              </div>
-              <div [hidden]="!formrenameFile.errors.maxlength">
-                Максимальная длинна имени 50 символов.
-              </div>
+            <input type="text" class="form-control form-control-on-add-folder" name="renameFile" placeholder="Имя файла" [(ngModel)]="model.renameFile"
+              #folderrename="ngModel" required maxlength="47" />
+            <div *ngIf="formrenameFile.submitted && !renameFile.valid" class="alerts">
+              Имя файла необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -473,7 +457,7 @@
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
               required></textarea>
 
-            <div *ngIf="f.submitted && !tags.valid" class="help-block">Теги необходимы</div>
+            <div *ngIf="f.submitted && !tags.valid" class="alerts">Теги необходимы</div>
           </div>
           <div class="form-group right">
             <div [hidden]="true">
@@ -504,7 +488,9 @@
     </div>
   </div>
 </div>
+
 <simple-notifications [options]="options"></simple-notifications>
+
 <div *ngIf="showImage" class="carousel" role="dialog">
   <div class="right-side">
     <div (click)="this.showImage = false; this.srccarouselc='assets\\icons\\cancel.svg'" class="cancel-area" (mouseenter)="mouse('srccarouselc', 'assets\\icons\\cancel-hover.svg')"

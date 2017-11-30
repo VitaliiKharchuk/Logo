@@ -40,49 +40,11 @@ export class AuthentificationService {
         };
 
         return this.http.post('/api/users/add-user', userCredentialsWithName)
-            .map((response: Response) => {
-                // // login successful if there's a jwt token in the response
-                // let userInfoWithToken = response.json();
-                // if (userInfoWithToken && userInfoWithToken.token) {
-                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                //     localStorage.setItem('currentUser', JSON.stringify(userInfoWithToken));
-                // }
-                //return userInfoWithToken;
-                return response.json()
-            });
+            .map(this.extractData);
     }
 
-    get(url: string, options?: RequestOptions): Observable<Response> {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser && !currentUser.token) {
-            // log error
-        }
-
-        let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-        if (!options) {
-            options = new RequestOptions();
-        }
-
-        options.headers = headers;
-
-        return this.http.get(url, options);
-    }
-
-
-    post(url: string, body?: any, options?: RequestOptions): Observable<Response> {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser && !currentUser.token) {
-            // log error
-        }
-
-        let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-        if (!options) {
-            options = new RequestOptions();
-        }
-
-        options.headers = headers;
-
-        return this.http.post(url, options);
-    }
-
+    private extractData(res: Response) {
+        return res.text() ? res.json() : {};;
+      }
+    
 }

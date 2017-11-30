@@ -609,3 +609,12 @@ button {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+.alerts {
+    padding: 0px;
+    margin:  0px;
+    color: #d3095f;
+    font-family: Raleway-Bold;
+    letter-spacing: 1px;
+    font-size: 1em;
+    text-align: left;
+}
