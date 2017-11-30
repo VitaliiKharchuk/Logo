@@ -32,7 +32,69 @@ namespace Logo.Web.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-         
+
+
+        [HttpPost]
+        [Route("upload-request")]
+        public async Task<IActionResult> Upload(LoadedFileUI file)
+        {
+            try
+            {
+                if (file == null) throw new Exception("Не выбран файл");
+                if (file.FileContent.Length == 0) throw new Exception("Файл пустой");
+
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                                    .Where(item => item.Type == "UserId")
+                                    .Select(item => item.Value)
+                                    .FirstOrDefault());
+
+                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
+                {
+                    OwnerId = ownerId,
+                    ObjectCredentials = new ObjectCredentials
+                    {
+                        Name = file.FileContent.FileName,
+                        ParentObjectId = file.ParentFolderId,
+                        CreationDate = DateTime.Now,
+                        Size = file.FileContent.Length,
+                        Tags = file.Tags ?? ""
+                    }
+
+                });
+
+                using (Stream stream = new MemoryStream())
+                {
+                    await file.FileContent.OpenReadStream().CopyToAsync(stream);
+
+                    stream.Position = 0;
+                    await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
+                    {
+                        Stream = stream,
+                        FileNameInBlob = fileId
+                    });
+
+                    stream.Position = 0;
+
+                    if (_foldersService.GetFileExstention(file.FileContent.FileName) == "jpg" || _foldersService.GetFileExstention(file.FileContent.FileName) == "png")
+                    {
+                        byte[] resizedImage = _filesService.ResizeImage(stream);
+
+                        _foldersService.SetThumbnail(fileId, resizedImage);
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message, fileName = file.FileContent.FileName });
+            }
+
+            return Json(new { success = true, fileName = file.FileContent.FileName });
+        }
+
+
+
         [HttpGet]
         [Route("download-file/{fileId?}")]
         public IActionResult DownloadedFile(Guid fileId)
@@ -74,78 +136,37 @@ namespace Logo.Web.Controllers
             return result;
         }        
 
-        [HttpPost]
-        [Route("upload-request")]
-        public  async Task <IActionResult> Upload(LoadedFileUI file)
-        {                
-            try
-            {
-                if (file == null) throw new Exception("Не выбран файл");
-                if (file.FileContent.Length == 0) throw new Exception("Файл пустой");
-
-                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
-                                    .Where(item => item.Type == "UserId")
-                                    .Select(item => item.Value)
-                                    .FirstOrDefault());
-
-                Guid fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
-                {
-                    OwnerId = ownerId,
-                    ObjectCredentials = new ObjectCredentials
-                    {
-                        Name = file.FileContent.FileName,
-                        ParentObjectId =  file.ParentFolderId,
-                        CreationDate = DateTime.Now,
-                        Size = file.FileContent.Length,
-                        Tags = file.Tags?? ""
-                    }
-   
-                });
-
-                using (Stream stream = new MemoryStream())
-                {
-                    await file.FileContent.OpenReadStream().CopyToAsync(stream);
-
-                    stream.Position = 0;
-                    await _filesService.SimpleUploadStreamAsync(new LoadedFileBack()
-                    {
-                        Stream = stream,
-                        FileNameInBlob = fileId
-                    });
-
-                    stream.Position = 0;
-
-                    if (_foldersService.GetFileExstention(file.FileContent.FileName) == "jpg" || _foldersService.GetFileExstention(file.FileContent.FileName) == "png")
-                    {
-                        byte[] resizedImage = _filesService.ResizeImage(stream);
-
-                        _foldersService.SetThumbnail(fileId, resizedImage);
-                    }
-                }
-            }
-
-
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message, fileName = file.FileContent.FileName });
-            }
-
-            return Json(new { success = true, fileName = file.FileContent.FileName });
-        }
-
 
         [HttpGet]
-        [Route("archive-request/{folderId?}")]
-        public async  Task <IActionResult> ArchiveFiles(Guid ? folderId)
+        [Route("archive-request/{Id?}")]
+        public async  Task <IActionResult> ArchiveFiles(string Id)
         {
-            //List<Guid> files = new List<Guid>();
-            //files = _foldersService.GetAllFilesFromDirectory(folderId, files);
+            
+            List<Contracts.FileInfo> files = null;
 
+            if (Id == default(Guid).ToString())
+            {
+                Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
+                        .Where(item => item.Type == "UserId")
+                        .Select(item => item.Value)
+                        .FirstOrDefault());
+
+                files = _foldersService.GetRootFiles(ownerId).ToList();
+            }
+
+            else
+            {  
+                files = _foldersService.GetFilesInFolder(new  Guid (Id)).ToList();
+            }
+            
+            /*
             IEnumerable<string> files = new string[]   //hardcoded  file names in  blob
             {
                 "32dbe41d-6169-4427-8ac9-e9260c4c9ab8",
                 "2e57da5c-1d07-4466-8e37-96bd533f3732"
             };
+            */
+            
 
             IEnumerable <byte[]> origFiles =  await  _filesService.DownloadFiles(files);
 
@@ -157,7 +178,7 @@ namespace Logo.Web.Controllers
                 foreach (var origFile in origFiles)
                 {
                     //Create a zip entry for each attachment
-                    var zipEntry = zipArchive.CreateEntry(i.ToString());
+                    var zipEntry = zipArchive.CreateEntry(files[i].Name);
 
                     //Get the stream of the attachment
                     using (var originalFileStream = new MemoryStream(origFile))
@@ -170,6 +191,23 @@ namespace Logo.Web.Controllers
                 }
 
                 byte[] archivedFile = compressedFileStream.ToArray();
+
+                /*
+                using (Stream file = System.IO.File.OpenWrite(@"J:\here2.zip"))
+                {
+                    file.Write(archivedFile, 0, archivedFile.Length);
+                }
+                
+                 */
+
+
+
+                Request.HttpContext.Response.Headers.Add("Content-Extention", String.Format("{0}/{1}", "archive", "zip"));
+
+                string contentType = "application/zip";
+                HttpContext.Response.ContentType = contentType;
+
+
                 return new FileContentResult(archivedFile, "application/zip");
             }            
         }

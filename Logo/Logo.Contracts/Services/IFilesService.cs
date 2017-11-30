@@ -11,10 +11,10 @@ namespace Logo.Contracts.Services
     {
          Task<byte[]> SimpleDownloadAsync(string fileName);
          Task SimpleUploadStreamAsync(LoadedFileBack loadedFileBack);
-         Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames);
+         Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<FileInfo> fileNames);
          Task UploadFiles(IEnumerable<LoadedFileBack> loadedFilesBack);
 
-        Task CreateZipFile();
+       // Task CreateZipFile();
          byte[] ResizeImage(Stream input);
     }
 }

@@ -63,7 +63,7 @@ namespace Logo.Implementation
         }
 
         
-
+        /*
         public async Task CreateZipFile()
         {
             IEnumerable<string> files = new string[]
@@ -72,19 +72,19 @@ namespace Logo.Implementation
                 "13d9322a-6e32-429e-b76d-1f6ef02482fe"
             };
 
-            IEnumerable <byte[]> list =  await DownloadFiles(files);
+            //IEnumerable <byte[]> list =  await DownloadFiles(files);
 
             
            
-        }
+        }*/
 
-        public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
+        public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<Contracts.FileInfo> files)
         {
             var container = await GetContainerReference();
             var tasks = new List<Task<byte[]>>();
-            foreach (var fileName in fileNames)
+            foreach (var file in files)
             {
-                var blockBlob = container.GetBlockBlobReference(fileName);
+                var blockBlob = container.GetBlockBlobReference(file.FileId.ToString());
                 tasks.Add(Task.Run(async () =>
                 {
                     var ms = new MemoryStream();
