@@ -15,7 +15,7 @@
                 </div>
             </div>
             <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                <div class="form-group">
                     <label for="name"></label>
                     <input type="text" class="form-control" name="name" placeholder="Имя пользователя" [(ngModel)]="model.name" #name="ngModel"
                         required maxlength="50" />
@@ -24,7 +24,7 @@
                         <div [hidden]="!name.errors.required">
                             Имя пользователя необходимо.
                         </div>
-                        <div [hidden]="!password.errors.maxlength">
+                        <div [hidden]="!name.errors.maxlength">
                             Максимальная длинна имени 50 символов.
                         </div>
                     </div>

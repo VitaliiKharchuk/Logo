@@ -77,7 +77,8 @@ export class DataComponent implements OnInit {
         this.sub = this.route.params
             .switchMap(params => {
                 this.folderId = params['folderId'];
-                console.log('ngOnInit datac', this.folderId)
+                console.log('ngOnInit datac', this.folderId);
+                this.loadFiles();
                 return this.homeService.loadFolders(this.folderId);
             })
             .subscribe(res => this.folders = res);
@@ -87,8 +88,6 @@ export class DataComponent implements OnInit {
         else {
             this.grid = JSON.parse(localStorage.getItem('grid'));
         }
-        this.loadFiles();
-
     }
 
 
@@ -124,11 +123,11 @@ export class DataComponent implements OnInit {
         this.homeService.loadFiles(this.folderId).subscribe(
             data => {
                 if (!data.success && data.message) {
-                    console.log(data.message)
+                    console.log(data.message, this.folderId)
                     this.pushErrorNotification('Загрузка файлов прошла неуспешно. ' + data.message)
                 }
                 else {
-                    console.log('Loading files successfull');
+                    console.log('Loading files successfull ', this.folderId);
                     this.files = data as FileCustom[];
                     for (let file of this.files) {
                         if (this.checkIfJpg(file.name) == true) {
@@ -137,12 +136,13 @@ export class DataComponent implements OnInit {
                         else {
                             file.resizedImage = 'data:image/png;base64,' + file.resizedImage;
                         }
+                        console.log(file.resizedImage)
                     }
                 }
             },
             error => {
                 //show info about error
-                console.log('Loading files unsuccessfull');
+                console.log('Loading files unsuccessfull ', this.folderId);
                 this.pushErrorNotification('Загрузка файлов прошла неуспешно.')
             });
 
@@ -163,13 +163,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
                 this.pushErrorNotification('Создание папки прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -181,7 +181,7 @@ export class DataComponent implements OnInit {
             if (this.checkIfValid(fi.files[_i]) == "") {
                 let formData: FormData = new FormData();
                 formData.append('FileContent', fi.files[_i]);
-                formData.append('CreationDate', fi.files[_i].lastModifiedDate);
+                formData.append('CreationDate', fi.files[_i].lastModifiedDate.toUTCString());
                 formData.append('ParentFolderId', this.folderId);
                 formData.append('Tags', this.uploadFiles[_i].hashtag ? this.uploadFiles[_i].hashtag : "");
                 let creationDate = new Date(fi.files[_i].lastModifiedDate);
@@ -229,14 +229,14 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.loadFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
                 this.pushErrorNotification('Переименование папки прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -276,13 +276,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadFolders();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -302,13 +302,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadFiles();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
                 this.pushErrorNotification('Переименование файла прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -348,13 +348,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadFiles();
-                form.form.reset();
+                form.resetForm();
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
-                form.form.reset();
+                form.resetForm();
             });
     }
 
@@ -465,11 +465,8 @@ export class DataComponent implements OnInit {
         if (name.lastIndexOf(".") > 0) {
             fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
         }
-        if (fileExtension.toLowerCase() == "jpg") {
+        if (fileExtension.toLowerCase() == "jpg" ||  "png") {
             return true;
-        }
-        if (fileExtension.toLowerCase() == "png") {
-            return false;
         }
         else {
             return false;

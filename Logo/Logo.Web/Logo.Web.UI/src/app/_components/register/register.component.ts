@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 
-import { AlertService } from '../../_services/index';
 import { AuthentificationService } from '../login/authentification.service';
 
 @Component({
@@ -30,7 +29,6 @@ export class RegisterComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authentificationService: AuthentificationService,
-    private alertService: AlertService,
     private notificationsService: NotificationsService,
   ) { }
 
@@ -58,14 +56,12 @@ export class RegisterComponent {
             },
             error => {
               console.log('Login unsuccesfull');
-              this.alertService.error(error);
               this.loading = false;
             });
         }
       },
       error => {
         console.log('AddingUser unsuccesfull');
-        this.alertService.error(error);
         this.loading = false;
         this.notificationsService.error('Упс!', 'Неполадки с сервером.', this.options);
       });

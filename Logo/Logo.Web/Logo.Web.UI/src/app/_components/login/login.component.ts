@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 
-import { AlertService } from '../../_services/index';
 import { AuthentificationService } from './authentification.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authentificationService: AuthentificationService,
-    private alertService: AlertService,
     private notificationsService: NotificationsService,
   ) { }
 
@@ -59,7 +57,6 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.log('Login unsuccesfull');
-        this.alertService.error(error);
         this.loading = false;
         this.notificationsService.error('Упс!', 'Неполадки с сервером.', this.options);
       });
