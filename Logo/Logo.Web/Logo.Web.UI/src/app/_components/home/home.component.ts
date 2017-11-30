@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     currentUser: UserInfoWithToken;
     folders: Folder[] = [];
     files: FileCustom[] = [];
-    fileToShow: FileCustom;    
+    fileToShow: FileCustom;
     uploadFiles: Array<any>;
     selectedObjectId: string;
     selectedFolderName: string;
@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
     srccarouselr: string = "assets\\icons\\next.svg";
     srccarouselc: string = "assets\\icons\\cancel.svg";
     URL: string = "assets\\icons\\reload.svg";
+    loading: boolean = false;
 
 
     constructor(private homeService: HomeService,
@@ -90,7 +91,6 @@ export class HomeComponent implements OnInit {
                 }
                 else {
                     console.log('Loading root folders successfull');
-                    this.pushSuccessNotification('Загрузка папок прошла успешно.')
                 }
                 this.folders = data as Folder[];
             },
@@ -113,7 +113,6 @@ export class HomeComponent implements OnInit {
                 }
                 else {
                     console.log('Loading root files successfull');
-                    this.pushSuccessNotification('Загрузка файлов прошла успешно.')
                     this.files = data as FileCustom[];
                     for (let file of this.files) {
                         if (this.checkIfJpg(file.name) == true) {
@@ -161,7 +160,8 @@ export class HomeComponent implements OnInit {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
-            if (this.checkIfValid(fi.files[_i])) {
+            this.loading = true;
+            if (this.checkIfValid(fi.files[_i]) == "") {
                 let formData: FormData = new FormData();
                 formData.append('FileContent', fi.files[_i]);
                 formData.append('CreationDate', fi.files[_i].lastModifiedDate);
@@ -172,6 +172,7 @@ export class HomeComponent implements OnInit {
                 this.homeService.uploadFile(formData)
                     .subscribe(
                     data => {
+                        this.loading = false;
                         if (!data.success && data.message) {
                             console.log(data.message)
                             this.pushErrorNotification('Загрузка файла ' + data.fileName + ' прошла неуспешно. ' + data.message)
@@ -185,6 +186,7 @@ export class HomeComponent implements OnInit {
                         this.loadRootFiles();
                     },
                     error => {
+                        this.loading = false;                        
                         console.log('Cant upload file', error);
                         this.closeUploadFileModal.nativeElement.click();
                         this.pushErrorNotification('Загрузка файла прошла неуспешно.')
@@ -440,19 +442,22 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    checkIfValid(file: any) {
+    checkIfValid(file: any): string {
         var fileExtension = "";
         if (file.name.lastIndexOf(".") > 0) {
             fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
         }
-        if ((fileExtension.toLowerCase() == "jpg" || "png" || "mov" || "avi" || "mkv") &&
-            (file.size < 50000000) &&
-            file.name.length < 50) {
-            return true;
+        if (!(fileExtension.toLowerCase() == "jpg" || "png" || "mov" || "avi" || "mkv")) {
+            return "Тип файла не поддерживается"
+        } else if
+            (!(file.size < 50000000)) {
+            return "Размер файла превышает 50MB"
+        } else if
+            (!(file.name.length < 50)) {
+            return "Имя файла больше 50 символов";
+        } else {
+            return "";
         }
-
-        return false;
-
     }
 
     checkIfJpg(name: string) {
@@ -472,11 +477,11 @@ export class HomeComponent implements OnInit {
     }
 
     pushSuccessNotification(message: string, options?: any) {
-        this.notificationsService.success('Ура! ', message, options);
+        this.notificationsService.success('Ура!', message, options);
     }
 
     pushErrorNotification(message: string, options?: any) {
-        this.notificationsService.error('Упс! У нас что-то сломалось.', message, options);
+        this.notificationsService.error('Упс!', message, options);
     }
 
     sort(sortType: any) {
@@ -501,7 +506,7 @@ export class HomeComponent implements OnInit {
     openImage(fileId: string) {
         this.showImage = true;
         this.fileToShow = this.files[this.getIfromId(fileId)];
-        
+
         this.mouse('srccarouselr', 'assets\\icons\\next.svg');
         this.mouse('srccarousell', 'assets\\icons\\next.svg')
         this.URL = "assets\\icons\\reload.svg";
