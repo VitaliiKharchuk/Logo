@@ -19,11 +19,13 @@ namespace Logo.Web.Controllers
     {
         private readonly IFoldersService _foldersService;
         private readonly ITagsService _tagsService;
+        private readonly IFilesService _filesService;
 
-        public FoldersController(IFoldersService foldersService, ITagsService tagsService)
+        public FoldersController(IFoldersService foldersService, ITagsService tagsService, IFilesService filesService)
         {
             _foldersService = foldersService;
             _tagsService = tagsService;
+            _filesService = filesService;
         }
 
         [HttpGet]   //only for   testing
@@ -213,11 +215,12 @@ namespace Logo.Web.Controllers
 
         [HttpGet]
         [Route("delete-file/{id?}")]
-        public IActionResult DeleteFile(Guid id)
+        public async  Task <IActionResult> DeleteFile(Guid id)
         {
             try
             {
                 _foldersService.DeleteFile(id);
+                 await _filesService.DeleteFileFromBlob(id.ToString());                
             }
 
             catch (Exception ex)
@@ -225,10 +228,8 @@ namespace Logo.Web.Controllers
                 return Json(new { success = false, message = ex.Message });    
             }
 
-
             return Ok();
         }
-
 
         [HttpGet]
         [Route("get-root-folders")]
@@ -251,23 +252,9 @@ namespace Logo.Web.Controllers
                                   .Where(item => item.Type == "UserId")
                                   .Select(item => item.Value)
                                   .FirstOrDefault());
-
            
-                return _foldersService.GetRootFiles(ownerId);
-
-
-                /*
-            }
-
-            catch(Exception ex)
-            {
-
-                return   null;
-            }
-            */
-
+           return _foldersService.GetRootFiles(ownerId);         
         }
-
 
         [HttpPost]
         [Route("add-folder-tag")]

@@ -13,6 +13,7 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NotificationsService } from 'angular2-notifications';
 import { saveAs } from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-data',
@@ -61,7 +62,7 @@ export class DataComponent implements OnInit {
     srccarouselc: string = "assets\\icons\\cancel.svg";
     URL: string = "assets\\icons\\reload.svg";
     folderId: string;
-
+    loading: boolean = false;    
 
     private sub: Subscription;
 
@@ -109,8 +110,6 @@ export class DataComponent implements OnInit {
                 }
                 else {
                     console.log('Loading folders successfull');
-                    this.pushSuccessNotification('Загрузка папок прошла успешно.')
-
                 }
                 this.folders = data as Folder[];
             },
@@ -130,7 +129,6 @@ export class DataComponent implements OnInit {
                 }
                 else {
                     console.log('Loading files successfull');
-                    this.pushSuccessNotification('Загрузка файлов прошла успешно.')
                     this.files = data as FileCustom[];
                     for (let file of this.files) {
                         if (this.checkIfJpg(file.name) == true) {
@@ -151,7 +149,7 @@ export class DataComponent implements OnInit {
     }
 
     //menu
-    createfolder() {
+    createfolder(form: NgForm) {
         this.homeService.createfolder(this.model.foldername, this.folderId)
             .subscribe(
             data => {
@@ -165,42 +163,47 @@ export class DataComponent implements OnInit {
                 }
                 this.closeCreateFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 console.log('Cant create folder', error);
                 this.closeCreateFolderModal.nativeElement.click();
                 this.pushErrorNotification('Создание папки прошло неуспешно.')
+                form.form.reset();
             });
     }
 
-    uploadFile() {
+    uploadFile(form: NgForm) {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
-            if (this.checkIfValid(fi.files[_i])) {
+            this.loading = true;
+            if (this.checkIfValid(fi.files[_i]) == "") {
                 let formData: FormData = new FormData();
                 formData.append('FileContent', fi.files[_i]);
                 formData.append('CreationDate', fi.files[_i].lastModifiedDate);
                 formData.append('ParentFolderId', this.folderId);
-                formData.append('Tags', this.uploadFiles[_i].hashtag);
+                formData.append('Tags', this.uploadFiles[_i].hashtag ? this.uploadFiles[_i].hashtag : "");
                 let creationDate = new Date(fi.files[_i].lastModifiedDate);
 
                 this.homeService.uploadFile(formData)
                     .subscribe(
                     data => {
+                        this.loading = false;
                         if (!data.success && data.message) {
                             console.log(data.message)
-                            this.pushErrorNotification('Загрузка файла ' + data.filename + ' прошла неуспешно. ' + data.message)
+                            this.pushErrorNotification('Загрузка файла ' + data.fileName + ' прошла неуспешно. ' + data.message)
                             console.log('name file', fi.files[0], _i);
                         }
                         else {
                             console.log('upload file success');
-                            this.pushSuccessNotification('Загрузка файла ' + data.filename + ' прошла успешно.')
+                            this.pushSuccessNotification('Загрузка файла ' + data.fileName + ' прошла успешно.')
                         }
                         this.closeUploadFileModal.nativeElement.click();
                         this.loadFiles();
                     },
                     error => {
+                        this.loading = false;                        
                         console.log('Cant upload file', error);
                         this.closeUploadFileModal.nativeElement.click();
                         this.pushErrorNotification('Загрузка файла прошла неуспешно.')
@@ -210,7 +213,7 @@ export class DataComponent implements OnInit {
     }
 
     //folders
-    renamefolder() {
+    renamefolder(form: NgForm) {
         let folderId = this.selectedObjectId;
         console.log(this.folderrenamem.name, folderId);
         this.homeService.renameFolder(this.folderrenamem.name, folderId)
@@ -226,12 +229,14 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 this.loadFolders();
                 this.closeRenameFolderModal.nativeElement.click();
                 console.log('Cant rename folderfor ', folderId);
                 this.pushErrorNotification('Переименование папки прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -257,7 +262,7 @@ export class DataComponent implements OnInit {
             });
     }
 
-    addTags() {
+    addTags(form: NgForm) {
         let folderId = this.selectedObjectId;
         this.homeService.addTags(folderId, this.model.tags)
             .subscribe(
@@ -271,19 +276,21 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFolderModal.nativeElement.click();
                 this.loadFolders();
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFolderModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
     //files
-    renameFile() {
+    renameFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         console.log(this.model.renameFile, fileId);
-        this.homeService.renameFolder(this.model.renameFile, fileId)
+        this.homeService.renameFile(this.model.renameFile, fileId)
             .subscribe(
             data => {
                 if (!data.success && data.message) {
@@ -295,11 +302,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeRenameFileModal.nativeElement.click();
                 this.loadFiles();
+                form.form.reset();
             },
             error => {
                 this.closeRenameFileModal.nativeElement.click();
                 console.log('Cant rename file for ', fileId);
                 this.pushErrorNotification('Переименование файла прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -325,7 +334,7 @@ export class DataComponent implements OnInit {
             });
     }
 
-    addTagsFile() {
+    addTagsFile(form: NgForm) {
         let fileId = this.selectedObjectId;
         this.homeService.addTagsFile(fileId, this.model.tags)
             .subscribe(
@@ -339,11 +348,13 @@ export class DataComponent implements OnInit {
                 }
                 this.closeAddTagFileModal.nativeElement.click();
                 this.loadFiles();
+                form.form.reset();
             },
             error => {
                 this.closeAddTagFileModal.nativeElement.click();
                 console.log('Cant add tags');
                 this.pushErrorNotification('Добавление тегов прошло неуспешно.')
+                form.form.reset();
             });
     }
 
@@ -362,7 +373,19 @@ export class DataComponent implements OnInit {
     }
 
     callDownloadZIP(folderId: string) {
-
+        this.selectedObjectId = folderId;
+        this.homeService.downloadZIP(folderId)
+            .subscribe(
+            data => {
+                console.log('Download zip successfull');
+                var fileExtension = data.type.substring(data.type.lastIndexOf("/") + 1, data.type.length);
+                var filename = 'file.' + fileExtension;
+                saveAs(data, this.folders[this.getIfromId(folderId)].name + '.' + fileExtension);
+            },
+            error => {
+                console.log('Cant download');
+                this.pushErrorNotification('Скачивание zip прошло неуспешно.')
+            });
     }
 
     openDeleteFolderModal(folderId: string) {
@@ -453,19 +476,22 @@ export class DataComponent implements OnInit {
         }
     }
 
-    checkIfValid(file: any) {
+    checkIfValid(file: any): string {
         var fileExtension = "";
         if (file.name.lastIndexOf(".") > 0) {
             fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
         }
-        if ((fileExtension.toLowerCase() == "jpg" || "png" || "mov" || "avi" || "mkv") &&
-            (file.size < 50000000) &&
-            file.name.length < 50) {
-            return true;
+        if (!(fileExtension.toLowerCase() == "jpg" || "png" || "mov" || "avi" || "mkv")) {
+            return "Тип файла не поддерживается"
+        } else if
+            (!(file.size < 50000000)) {
+            return "Размер файла превышает 50MB"
+        } else if
+            (!(file.name.length < 50)) {
+            return "Имя файла больше 50 символов";
+        } else {
+            return "";
         }
-
-        return false;
-
     }
 
     checkIfJpg(name: string) {
@@ -485,11 +511,11 @@ export class DataComponent implements OnInit {
     }
 
     pushSuccessNotification(message: string, options?: any) {
-        this.notificationsService.success('Ура! ', message, options);
+        this.notificationsService.success('Ура!', message, options);
     }
 
     pushErrorNotification(message: string, options?: any) {
-        this.notificationsService.error('Упс! У нас что-то сломалось.', message, options);
+        this.notificationsService.error('Упс!', message, options);
     }
 
     sort(sortType: any) {

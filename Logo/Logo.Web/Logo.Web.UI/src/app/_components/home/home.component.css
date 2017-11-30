@@ -117,7 +117,7 @@
 }
 
 .form-control-on-upload-file {
-    
+    width: 100%;
     border: none !important;
     color: #333333 !important;
     font-family: Raleway-SemiBold;
@@ -131,6 +131,10 @@
 
 .form-control-on-upload-file:focus {
     outline:0;
+}
+
+.form-control-on-upload-file::placeholder {
+    color: #333333 !important;
 }
 
 .form-control-on-add-folder {
@@ -195,7 +199,7 @@
     font-size: 1em;        /* example */
     height: 2em;           /* example */
     line-height: 2em;
-    margin-bottom: 5px;       /* the same as height */
+    margin: 5px;       /* the same as height */
 }
 
 .file_upload > button{
@@ -280,9 +284,27 @@
     max-width: 230px;
 }
 
+.custom-table{
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.errors-in-upload{
+    color:  #d3095f !important;
+    font-family: Raleway-Bold;
+    font-size: 0.6em;
+    overflow: hidden;
+    text-overflow: ellipsis !important; 
+}
+
 .folder-grid{
     background-color: #FFFFFF;
-    margin-top: 10px; /* Отступ сверху */
+    margin-top: 12px; /* Отступ сверху */
     border-radius: 5px;
     -moz-box-sizing: border-box; /* Для Firefox */  
     box-sizing: border-box; /* Ширина блока с полями */
@@ -291,6 +313,23 @@
     text-overflow: ellipsis !important; 
     word-wrap: break-word;
     white-space: nowrap;
+    width: 100%;
+    color:  #7a7a7a;
+    text-align: left;
+    border: none;
+}
+
+.folder-grid:focus{
+    background-color: #34D3BB;
+    color: white;
+    outline: 0;
+}
+.folder-grid .st0{
+    fill: #898989;
+} 
+
+.folder-grid:focus .st0{
+    fill: white;
 }
 
 .folder-list{
@@ -309,7 +348,6 @@
 
 .folder-grid-item{
     padding: 20px;
-    color:  #7a7a7a !important;
     font-family: Raleway-SemiBold;
     letter-spacing: 1px;
     font-size: 1.2em;
@@ -319,17 +357,24 @@
     height: 63px;
     white-space: nowrap;
 }
+.for-inline{
+    display: inline-block;
+    vertical-align: text-top;
+}
 
 .just-for-padding{
     padding-left: 0px;
 }
 
 .img-folder{
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     margin-right: 10px;
 }
-
+button {
+    -webkit-appearance: button;
+    cursor: default;
+}
 .img-tag{
     width: 30px;
     height: 30px;
@@ -339,7 +384,8 @@
 }
 
 .container-for-ff{
-    padding-left: 100px;
+    padding-left: 110px;
+    padding-bottom: 20px;
 }
 
 .form-group{
@@ -551,6 +597,15 @@
     animation:spin 4s linear infinite;
 }
 
+.rotating-animation-in-upload{
+    width: 30px;
+    height: 30px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+

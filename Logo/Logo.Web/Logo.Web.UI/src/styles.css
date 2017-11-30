@@ -1,13 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 html, body {
-    min-height: 100vh;
+    min-height: 100vh ;
     margin: 0;
     background-color: #f0f1f7 !important;
+}
+
+body.modal-open[style="padding-right: 17px;"] 
+{
+  padding-right: 0px !important;
+}
+
+body.modal-open[style="padding-right: 19px;"] 
+{
+  padding-right: 0px !important;
 }
 
 html{
   overflow-x: auto !important;
   min-width: 1420px !important;
+  padding-right: 0px !important;
+  height: 100%;
 }
 
 @font-face {

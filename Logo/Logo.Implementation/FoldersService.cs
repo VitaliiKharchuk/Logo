@@ -5,6 +5,7 @@ using Logo.Contracts.Services;
 using Logo.Implementation.DatabaseModels;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 
 namespace Logo.Implementation
 {
@@ -153,64 +154,54 @@ namespace Logo.Implementation
 
         public Guid CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
         {
-            if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
-                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
-
             string fileName = fileCredentialsWithOwner.ObjectCredentials.Name;
-            string fileExtention = GetFileExstention(fileCredentialsWithOwner.ObjectCredentials.Name);
-
+            string fileExtention = GetFileExstention(fileName);
             int fileType = GetFileType(fileExtention);
 
-            if (fileType != -1)
+            if (fileType == -1)
             {
-               
-                Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
-
-
-                _dbContext.Files.Add
-                    (new DatabaseModels.File
-                    {
-                        FileId = fileId,
-                        OwnerId = fileCredentialsWithOwner.OwnerId,
-                        ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
-                        Name = fileCredentialsWithOwner.ObjectCredentials.Name,
-                        CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
-                        UploadDate = DateTime.Now,
-                        Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
-                        Type = fileType,
-                        HasPublicAccess = false,
-
-                        ImageStorage = null
-                    });
-
-                _dbContext.SaveChanges();
-
-                _tagsService.CreateTagToFile(new TagsCredentials
-                {
-                    ObjectId = fileId,
-                    Text = fileCredentialsWithOwner.ObjectCredentials.Tags
-                });
-
-
-                _dbContext.SaveChanges();
-
-                return fileId;
+                throw new InvalidOperationException("Расширение файла недопустимо");
             }
 
-            else
-                throw new InvalidOperationException("Расширение файла недопустимо");
+            if (IsParentContainseFolder(fileCredentialsWithOwner) || IsParentContainseFile(fileCredentialsWithOwner))
+            {
+                throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
+            }
+            
+            Guid fileId = Guid.NewGuid();   //this value   is  name of file in   blockblob
+            _dbContext.Files.Add
+                (new DatabaseModels.File
+                {
+                    FileId = fileId,
+                    OwnerId = fileCredentialsWithOwner.OwnerId,
+                    ParentFolderId = fileCredentialsWithOwner.ObjectCredentials.ParentObjectId,
+                    Name = fileCredentialsWithOwner.ObjectCredentials.Name,
+                    CreationDate = fileCredentialsWithOwner.ObjectCredentials.CreationDate,
+                    UploadDate = DateTime.Now,
+                    Size = (int)fileCredentialsWithOwner.ObjectCredentials.Size,
+                    Type = fileType,
+                    HasPublicAccess = false,
+
+                    ImageStorage = null
+                });
+
+            _dbContext.SaveChanges();
+            _tagsService.CreateTagToFile(new TagsCredentials
+            {
+                ObjectId = fileId,
+                Text = fileCredentialsWithOwner.ObjectCredentials.Tags
+            });
+           // _dbContext.SaveChanges();
+
+            return fileId;                     
         }
 
         public void RenameFolder(UpdatedObject updatedFolder)
         {
-
             if (updatedFolder.updatedName.Length > maxNameLong)
                 throw new InvalidOperationException(String.Format("Длина имени превышает {0}", maxNameLong));
 
-
             FolderInfo folder = GetFolder(updatedFolder.ObjectId);
-
-
 
             ObjectCredentialsWithOwner folderCredentialsWithOwner = new ObjectCredentialsWithOwner
             {
@@ -583,6 +574,24 @@ namespace Logo.Implementation
             }
 
             return filesList;
+        }
+
+        public DateTime ParseDate(string date)
+        {
+            string format = "ddd MMM dd yyyy h:mm tt zzz";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            DateTime parsedDate = default(DateTime);
+              
+            try
+            {
+                parsedDate = DateTime.ParseExact(date, format, provider);
+            }
+            catch (FormatException)
+            {
+                parsedDate = DateTime.Now;
+            }
+
+            return parsedDate;
         }
     }
 }
