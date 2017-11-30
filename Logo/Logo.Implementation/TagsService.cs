@@ -71,8 +71,6 @@ namespace Logo.Implementation
         {
             string[] tags = ParseTagString(tagsCredentials.Text);
 
-
-
             foreach (var tagName in tags)
             {
                 if (tagName.Length > _maxTagLength)

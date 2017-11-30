@@ -15,7 +15,15 @@ namespace Logo.Implementation
 {
     public class FilesService : IFilesService
     {
-        
+
+        //private readonly IFoldersService _foldersService;
+
+        public FilesService()
+        {
+           // _foldersService = foldersService;
+        }
+
+
         public async Task<byte[]> SimpleDownloadAsync(string fileName)
         {
             var container = await GetContainerReference();
@@ -28,60 +36,55 @@ namespace Logo.Implementation
             return ms.ToArray();
         }
 
-        public async Task SimpleUploadStreamAsync( LoadedFileBack loadedFileBack )
+
+
+        public async Task<Stream> SimpleDownloadStreamAsync(string fileName)
+        {
+            var container = await GetContainerReference();
+            var blockBlob = container.GetBlockBlobReference(fileName);
+
+            var ms = new MemoryStream();
+
+            await blockBlob.DownloadToStreamAsync(ms);
+
+            return ms;
+        }
+
+
+
+
+        public async Task SimpleUploadStreamAsync(LoadedFileBack loadedFileBack)
         {
             //loadedFileBack.Stream.Position = 0;
             var container = await GetContainerReference();
-            var blockBlob = container.GetBlockBlobReference( loadedFileBack.FileNameInBlob.ToString());
+            var blockBlob = container.GetBlockBlobReference(loadedFileBack.FileNameInBlob.ToString());
 
             await blockBlob.UploadFromStreamAsync(loadedFileBack.Stream);
         }
 
-
-
+        
         /*
-       public  async Task <byte [] > GetArchive(List<string>  files)
+        public async Task CreateZipFile()
         {
-
-
-            foreach (var file in  files)
+            IEnumerable<string> files = new string[]
             {
-                Guid fileId = new Guid(file);
-            }
+                "0ade35df-6e45-47bb-8989-1de9e08e5e1d",
+                "13d9322a-6e32-429e-b76d-1f6ef02482fe"
+            };
 
+            //IEnumerable <byte[]> list =  await DownloadFiles(files);
 
-        }
-
-
-
-        public static void CreateZipFile(string fileName, IEnumerable<string> files)
-        {
-            // Create and open a new ZIP file
-            var zip = ZipFile.Open(fileName, ZipArchiveMode.Create);
-            foreach (var file in files)
-            {
-                // Add the entry for each file
-                zip.CreateEntryFromFile(file, Path.GetFileName(file), CompressionLevel.Optimal);
-            }
-            // Dispose of the object when we are done
-            //zip.Dispose();
-
+            
            
+        }*/
 
-            var stream = new MemoryStream();
-        }
-
-
-
-    */
-
-        public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<string> fileNames)
+        public async Task<IEnumerable<byte[]>> DownloadFiles(IEnumerable<Contracts.FileInfo> files)
         {
             var container = await GetContainerReference();
             var tasks = new List<Task<byte[]>>();
-            foreach (var fileName in fileNames)
+            foreach (var file in files)
             {
-                var blockBlob = container.GetBlockBlobReference(fileName);
+                var blockBlob = container.GetBlockBlobReference(file.FileId.ToString());
                 tasks.Add(Task.Run(async () =>
                 {
                     var ms = new MemoryStream();
@@ -111,9 +114,9 @@ namespace Logo.Implementation
             await Task.WhenAll(tasks);
         }
 
-    
 
-        private  async Task<CloudBlobContainer> GetContainerReference()
+
+        private async Task<CloudBlobContainer> GetContainerReference()
         {
             var connectionString = "DefaultEndpointsProtocol=https;AccountName=logologo;AccountKey=/sGnF2wQzZ2aqbAMjscAZixiAf1cY4DNcunOrOl5z4VrSPBErTxBv1j8q0DpF+VRCzAPTAbhI1zVVRSm3Zu5tA==;EndpointSuffix=core.windows.net";
             var storageAccount = CloudStorageAccount.Parse(connectionString);
@@ -123,25 +126,25 @@ namespace Logo.Implementation
             await container.CreateIfNotExistsAsync();
             return container;
         }
-    
-        public byte []  ResizeImage(Stream input)
+
+        public byte[] ResizeImage(Stream input)
         {
             const int width = 306;
             const int height = 208;
 
             Configuration.Default.AddImageFormat(new JpegFormat());
             Configuration.Default.AddImageFormat(new PngFormat());
-                      
+
             byte[] resizedImage = null;
 
-            using (var output =  new MemoryStream())
+            using (var output = new MemoryStream())
             {
                 var image = new Image(input)
                     .Resize(new ResizeOptions
                     {
                         Size = new Size(width, height),
                         Mode = ResizeMode.Crop,
-                       
+
                     });
                 image.Save(output);
 
@@ -149,6 +152,6 @@ namespace Logo.Implementation
             }
             return resizedImage;
         }
-       
+
     }
 }
