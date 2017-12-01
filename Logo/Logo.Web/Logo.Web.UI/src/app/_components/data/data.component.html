@@ -1,4 +1,4 @@
-<app-menu [folderId]="folderId" (toggleGridEvent)="toggleGrid($event)" (toggleSearchEvent)="search($event)" (refreshEvent)="this.ngOnInit($event)"
+<app-menu [folderId]="folderId" (toggleGridEvent)="toggleGrid($event)" (toggleSearchEvent)="search($event)" (refreshEvent)="this.ngOnInit()"
   (sortEvent)="sort($event)"></app-menu>
 <div class="placefornav">
 
@@ -229,8 +229,8 @@
             <label for="foldername"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="foldername" placeholder="Имя папки" [(ngModel)]="model.foldername"
               #foldername="ngModel" required maxlength="50" />
-            <div *ngIf="formCreate.submitted && !foldername.valid" class="alerts">
-                Имя папки необходимо.
+            <div *ngIf="formCreate.submitted && !formCreate.valid" class="alerts">
+              Имя папки необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -321,8 +321,8 @@
             <label for="folderrename"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="folderrename" placeholder="Имя папки" [(ngModel)]="folderrenamem.name"
               #folderrename="ngModel" required maxlength="50" />
-            <div *ngIf="formrename.submitted && !folderrename.valid" class="alerts">
-                Имя папки необходимо.
+            <div *ngIf="formrename.submitted && !formrename.valid" class="alerts">
+              Имя папки необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -356,7 +356,7 @@
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
               required></textarea>
 
-            <div *ngIf="formAT.submitted && !tags.valid" class="alerts">
+            <div *ngIf="formAT.submitted && !formAT.valid" class="alerts">
               Теги необходимы.
             </div>
           </div>
@@ -402,12 +402,12 @@
       </div>
       <div class="modal-body">
         <form name="formrenamev" (ngSubmit)="formrenameFile.valid && renameFile(formrenameFile)" #formrenameFile="ngForm" novalidate>
-          <div class="form-group" [ngClass]="{ 'has-error': formrenameFile.submitted && !formrenameFile.valid }">
+          <div class="form-group">
             <label for="folderrename"></label>
             <input type="text" class="form-control form-control-on-add-folder" name="renameFile" placeholder="Имя файла" [(ngModel)]="model.renameFile"
               #folderrename="ngModel" required maxlength="47" />
-            <div *ngIf="formrenameFile.submitted && !renameFile.valid" class="alerts">
-                Имя файла необходимо.
+            <div *ngIf="formrenameFile.submitted && !formrenameFile.valid" class="alerts">
+              Имя файла необходимо.
             </div>
             <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">Имя пользователя необходимо</div> -->
           </div>
@@ -441,7 +441,7 @@
             <textarea cols="40" rows="5" class="form-control huge-input" [(ngModel)]="model.tags" name="tags" id="tags" #tags="ngModel"
               required></textarea>
 
-            <div *ngIf="f.submitted && !tags.valid" class="alerts">Теги необходимы</div>
+            <div *ngIf="f.submitted && !f.valid" class="alerts">Теги необходимы</div>
           </div>
           <div class="form-group right">
             <div [hidden]="true">

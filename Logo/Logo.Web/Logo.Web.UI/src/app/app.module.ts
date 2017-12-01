@@ -29,7 +29,7 @@ import { BytesPipe } from './_pipes/bytes.pipe';
         HttpModule,
         routing,
         ContextMenuModule,
-        BrowserAnimationsModule, 
+        BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot()
     ],
     providers: [

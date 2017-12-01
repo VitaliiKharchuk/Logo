@@ -62,7 +62,7 @@ export class DataComponent implements OnInit {
     srccarouselc: string = "assets\\icons\\cancel.svg";
     URL: string = "assets\\icons\\reload.svg";
     folderId: string;
-    loading: boolean = false;    
+    loading: boolean = false;
 
     private sub: Subscription;
 
@@ -173,7 +173,7 @@ export class DataComponent implements OnInit {
             });
     }
 
-    uploadFile(form: NgForm) {
+    uploadFile() {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 
@@ -203,7 +203,7 @@ export class DataComponent implements OnInit {
                         this.loadFiles();
                     },
                     error => {
-                        this.loading = false;                        
+                        this.loading = false;
                         console.log('Cant upload file', error);
                         this.closeUploadFileModal.nativeElement.click();
                         this.pushErrorNotification('Загрузка файла прошла неуспешно.')
@@ -465,7 +465,7 @@ export class DataComponent implements OnInit {
         if (name.lastIndexOf(".") > 0) {
             fileExtension = name.substring(name.lastIndexOf(".") + 1, name.length);
         }
-        if (fileExtension.toLowerCase() == "jpg" ||  "png") {
+        if (fileExtension.toLowerCase() == "jpg" || "png") {
             return true;
         }
         else {
@@ -537,7 +537,7 @@ export class DataComponent implements OnInit {
     openImage(fileId: string) {
         this.showImage = true;
         this.fileToShow = this.files[this.getIfromId(fileId)];
-        
+
         this.mouse('srccarouselr', 'assets\\icons\\next.svg');
         this.mouse('srccarousell', 'assets\\icons\\next.svg')
         this.URL = "assets\\icons\\reload.svg";
