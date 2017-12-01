@@ -61,7 +61,6 @@ namespace Logo.Implementation
 
             folderInfo.TagList = _tagsService.GetFolderTags(folderId);
 
-
             return folderInfo;
         }
 
@@ -91,7 +90,6 @@ namespace Logo.Implementation
 
             return fileInfo;
         }
-
 
         public void CreateFolder(ObjectCredentialsWithOwner folderCredentialsWithOwner)
         {
@@ -123,16 +121,13 @@ namespace Logo.Implementation
                     HasPublicAccess = false
                 });
 
-
             _dbContext.SaveChanges();
         }
-
 
         public  string GetFileExstention(string fileName)
         {
             return fileName.Substring(fileName.LastIndexOf('.') + 1);
         }
-
 
         public  int GetFileType(string fileExtention)
         {
@@ -150,6 +145,16 @@ namespace Logo.Implementation
                 type = 4;
 
             return type;
+        }
+
+        public  string  GetFileTypeString(int  type)
+        {
+            if (type == 0) return "jpg";
+            else if (type == 1) return "png";
+            else if (type == 2) return "mov";
+            else if (type == 3) return "avi";
+            else if (type == 4) return "mkv";
+            return "";
         }
 
         public Guid CreateFile(ObjectCredentialsWithOwner fileCredentialsWithOwner)
@@ -191,7 +196,6 @@ namespace Logo.Implementation
                 ObjectId = fileId,
                 Text = fileCredentialsWithOwner.ObjectCredentials.Tags
             });
-           // _dbContext.SaveChanges();
 
             return fileId;                     
         }
@@ -214,32 +218,31 @@ namespace Logo.Implementation
                 OwnerId = folder.OwnerId
             };
 
-
             if (IsParentContainseFolder(folderCredentialsWithOwner) || IsParentContainseFile(folderCredentialsWithOwner))
             {
                 throw new InvalidOperationException("Файл или папка с этим именем уже существуют");
-
             }
 
-            _dbContext.Folders.Where(f => f.FolderId == updatedFolder.ObjectId).FirstOrDefault().Name = updatedFolder.updatedName;
-
+            _dbContext
+                .Folders
+                .Where(f => f.FolderId == updatedFolder.ObjectId)
+                .FirstOrDefault()
+                .Name = updatedFolder.updatedName;
             _dbContext.SaveChanges();
         }
 
-
         public void RenameFile(UpdatedObject updatedFile)
-        {
-           
+        {  
             Contracts.FileInfo file = GetFile(updatedFile.ObjectId);
+            string extention = GetFileTypeString(file.Type);
 
             ObjectCredentialsWithOwner fileCredentialsWithOwner = new ObjectCredentialsWithOwner
             {
                 ObjectCredentials = new ObjectCredentials
                 {
                     ParentObjectId = file.ParentFolderId,
-                    Name = updatedFile.updatedName,
+                    Name = updatedFile.updatedName + "." + extention
                 },
-
                 OwnerId = file.OwnerId
             };
 
@@ -250,7 +253,7 @@ namespace Logo.Implementation
 
             _dbContext.Files
                 .Where(f => f.FileId == updatedFile.ObjectId)
-                .FirstOrDefault().Name = updatedFile.updatedName;
+                .FirstOrDefault().Name = fileCredentialsWithOwner.ObjectCredentials.Name;
 
             _dbContext.SaveChanges();
         }
@@ -549,46 +552,18 @@ namespace Logo.Implementation
         }
 
         
-        public List<Guid>  GetAllFilesFromDirectory(Guid folderId,   List<Guid> filesList )
-        {           
-            List<Guid> filesInFolder = _dbContext
-                .Files
-                .Where(t => t.ParentFolderId == folderId)
-                .Select(t => t.FileId)
-                .ToList();
-
-            List<Guid> foldersInFolder = _dbContext
-                .Folders
-                .Where(t => t.ParentFolderId == folderId)
-                .Select(t => t.FolderId)
-                .ToList();
-
-            foreach (var file in filesInFolder)
-            {
-                filesList.Add(file);
-            }
-
-            foreach (var   folder in  foldersInFolder)
-            {
-                GetAllFilesFromDirectory(folder, filesList);
-            }
-
-            return filesList;
-        }
 
         public DateTime ParseDate(string date)
         {
-            string format = "ddd MMM dd yyyy h:mm tt zzz";
-            CultureInfo provider = CultureInfo.InvariantCulture;
-            DateTime parsedDate = default(DateTime);
-              
+            DateTime parsedDate;              
             try
-            {
-                parsedDate = DateTime.ParseExact(date, format, provider);
+            {                
+                DateTime.TryParse(date, out parsedDate);
             }
             catch (FormatException)
             {
                 parsedDate = DateTime.Now;
+                return parsedDate;
             }
 
             return parsedDate;

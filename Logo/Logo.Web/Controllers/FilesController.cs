@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -34,9 +33,9 @@ namespace Logo.Web.Controllers
         [Route("upload-request")]
         public async Task<IActionResult> Upload(LoadedFileUI file)
         {
-            DateTime date = _foldersService.ParseDate(file.CreationDate); ;            
+            DateTime date = _foldersService.ParseDate(file.CreationDate);
             Guid fileId = default(Guid);
-            try
+           try
             {
                 if (file == null) throw new Exception("Не выбран файл");
                 if (file.FileContent.Length == 0) throw new Exception("Файл пустой");
@@ -45,7 +44,7 @@ namespace Logo.Web.Controllers
                                     .Where(item => item.Type == "UserId")
                                     .Select(item => item.Value)
                                     .FirstOrDefault());
-              
+
                 fileId = _foldersService.CreateFile(new ObjectCredentialsWithOwner
                 {
                     OwnerId = ownerId,
@@ -58,7 +57,7 @@ namespace Logo.Web.Controllers
                         Tags = file.Tags ?? ""
                     }
                 });
-               
+                
                 using (Stream stream = new MemoryStream())
                 {
                     await file.FileContent.OpenReadStream().CopyToAsync(stream);
@@ -71,7 +70,7 @@ namespace Logo.Web.Controllers
                     });
 
                     stream.Position = 0;
-                    if (_foldersService.GetFileExstention(file.FileContent.FileName).Equals("jpg", StringComparison.InvariantCultureIgnoreCase) || 
+                    if (_foldersService.GetFileExstention(file.FileContent.FileName).Equals("jpg", StringComparison.InvariantCultureIgnoreCase) ||
                         _foldersService.GetFileExstention(file.FileContent.FileName).Equals("png", StringComparison.InvariantCultureIgnoreCase))
                     {
                         byte[] resizedImage = _filesService.ResizeImage(stream);
@@ -84,6 +83,7 @@ namespace Logo.Web.Controllers
                 _foldersService.DeleteFile(fileId);
                 return Json(new { success = false, message = ex.Message, fileName = file.FileContent.FileName });
             }
+            
 
             return Json(new { success = true, fileName = file.FileContent.FileName });
         }
@@ -119,14 +119,14 @@ namespace Logo.Web.Controllers
             string contentType = String.Format("application/{0}", _foldersService.GetFileExstention(fileInfo.Name));
             HttpContext.Response.ContentType = contentType;
             FileContentResult result = new FileContentResult(arr, contentType);
-            
+
             return result;
-        }        
+        }
 
         [HttpGet]
         [Route("archive-request/{Id?}")]
-        public async  Task <IActionResult> ArchiveFiles(string Id)
-        {           
+        public async Task<IActionResult> ArchiveFiles(string Id)
+        {
             List<Contracts.FileInfo> files = null;
 
             if (Id == default(Guid).ToString())
@@ -139,16 +139,16 @@ namespace Logo.Web.Controllers
                 files = _foldersService.GetRootFiles(ownerId).ToList();
             }
             else
-            {  
-                files = _foldersService.GetFilesInFolder(new  Guid (Id)).ToList();
+            {
+                files = _foldersService.GetFilesInFolder(new Guid(Id)).ToList();
             }
-         
-            IEnumerable <byte[]> origFiles =  await  _filesService.DownloadFiles(files);
+
+            IEnumerable<byte[]> origFiles = await _filesService.DownloadFiles(files);
 
             using (var compressedFileStream = new MemoryStream()) //Create an archive and store the stream in memory.
             using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
             {
-                int i = 0;    
+                int i = 0;
 
                 foreach (var origFile in origFiles)
                 {
@@ -162,13 +162,13 @@ namespace Logo.Web.Controllers
                     i++;
                 }
 
-                byte[] archivedFile = compressedFileStream.ToArray();                
+                byte[] archivedFile = compressedFileStream.ToArray();
                 Request.HttpContext.Response.Headers.Add("Content-Extention", String.Format("{0}/{1}", "archive", "zip"));
                 string contentType = "application/zip";
                 HttpContext.Response.ContentType = contentType;
 
                 return new FileContentResult(archivedFile, "application/zip");
-            }            
+            }
         }
     }
 }
