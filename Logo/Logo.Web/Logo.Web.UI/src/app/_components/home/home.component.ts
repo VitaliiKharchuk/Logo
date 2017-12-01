@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
 
     }
 
-    uploadFile(form: NgForm) {
+    uploadFile() {
         let fi = this.inputfiles.nativeElement;
         for (var _i = 0; _i < fi.files.length; _i++) {
 

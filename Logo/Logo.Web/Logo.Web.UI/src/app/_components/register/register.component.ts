@@ -34,7 +34,7 @@ export class RegisterComponent {
 
 
   register() {
-    
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.loading = true;
     this.authentificationService.addUser(this.model.name, this.model.email, this.model.password)
@@ -44,7 +44,7 @@ export class RegisterComponent {
         //this.alertService.success('Registration successful', true);
         if (!data.success && data.message) {
           this.notificationsService.error('Упс!', data.message, this.options);
-          this.loading = false;          
+          this.loading = false;
         }
         else {
           console.log('AddingUser succesfull');

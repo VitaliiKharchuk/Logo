@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       data => {
         if (!data.success && data.message) {
           this.notificationsService.error('Упс!', data.message, this.options);
-          this.loading = false;          
+          this.loading = false;
         }
         else {
           console.log('Login succesfull');

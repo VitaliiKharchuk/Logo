@@ -51,14 +51,12 @@ namespace Logo.Web
 
                 });
 
-            services.AddMvc();
-
-            ////options =>
-            ////{
-            ////    options.Filters.Add(new RequireHttpsAttribute());
-            ////    //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
-
-            ////});
+            services.AddMvc(
+                options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                    //  options.Filters.Add(new ApiExceptionFilter(new  loggerFactory.AddSerilog()));
+                });
 
 
 
@@ -115,10 +113,10 @@ namespace Logo.Web
 
             app.UseAuthentication();
 
-            //var options = new RewriteOptions()
-            //   .AddRedirectToHttps();
+            var options = new RewriteOptions()
+               .AddRedirectToHttps();
 
-            //app.UseRewriter(options);
+            app.UseRewriter(options);
         }
     }
 }
