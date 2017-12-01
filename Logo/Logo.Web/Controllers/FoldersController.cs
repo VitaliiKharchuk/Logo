@@ -7,6 +7,7 @@ using Logo.Contracts.Services;
 using Logo.Implementation;
 using Logo.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Logo.Web.Models;
 
 namespace Logo.Web.Controllers
 {
@@ -301,8 +302,8 @@ namespace Logo.Web.Controllers
         }
 
         [HttpPost]
-        [Route("search-name/{fileName?}")]
-        public IEnumerable<FileInfo> SearchFilesOnName([FromBody] string fileName)
+        [Route("search-name")]
+        public IEnumerable<FileInfo> SearchFilesOnName([FromBody] ObjectSearch objectSearch)
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
                                   .Where(item => item.Type == "UserId")
@@ -310,7 +311,7 @@ namespace Logo.Web.Controllers
                                   .FirstOrDefault());
             try
             {
-                return _foldersService.SearchFilesOnName(fileName, ownerId);
+                return _foldersService.SearchFilesOnName(objectSearch.Name, ownerId);
             }
             catch (Exception )
             {
@@ -319,7 +320,7 @@ namespace Logo.Web.Controllers
         }
 
         [HttpPost]
-        [Route("search-tag/{tagName?}")]
+        [Route("search-tag")]
         public IEnumerable<FileInfo> SearchFilesOnTag([FromBody]string tagName)
         {
             Guid ownerId = new Guid(HttpContext.User.Claims.ToList()
