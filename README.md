@@ -1,6 +1,5 @@
 # Logo
-LOGO Project using ASP.NET Core 2.0 WEB.API + Angular 4 http://logo-app.azurewebsites.net
-
+LOGO Project 
 To install run this:
 ``` npm
 npm install ngx-contextmenu@2.0.0-beta.7
